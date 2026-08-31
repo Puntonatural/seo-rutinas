@@ -29,6 +29,11 @@ selectivamente, ver nota al final de esta parte).
   identidades en un mismo articulo ni entre articulos.
 - Español, dirigido al cliente final en primera/segunda persona
   ("Descubre...", "tu rutina...").
+- Ortografia correcta del español, tildes incluidas, siempre -- un
+  articulo completo redactado sin acentos (ej. "informacion" en vez de
+  "información") paso desapercibido una vez porque nada en este
+  documento lo pedia explicitamente (ver Paso 5, punto 20, para el
+  incidente y la verificacion obligatoria).
 - Frases mayormente cortas: evitar que una frase supere ~20-25 palabras.
   Preferir frases directas; dividir ideas complejas en dos frases en vez
   de una sola con muchas comas.
@@ -303,9 +308,12 @@ ninguno excluye a los otros:
      introducir un error distinto (cifra inventada, texto sin sentido) en
      vez de arreglar el original.
 
-Ninguno de estos tres elementos es obligatorio para pasar el QA (a
-diferencia de las imagenes de contexto/producto de A6, que si lo son), pero
-se recomienda fuertemente incluir al menos uno en cada pilar -- mejora la
+Ninguno de estos tres elementos es tecnicamente obligatorio para pasar
+el QA (a diferencia de las imagenes de contexto/producto de A6, que si
+lo son), pero el default es incluir LOS TRES en cualquier articulo
+(pilar o cluster) cuyo tema tenga datos comparables -- no solo "al
+menos uno". Omitir alguno requiere una razon explicita documentada en
+el Paso 8 (ver Paso 5, punto 17), no una decision silenciosa. Mejora la
 experiencia de lectura y da mas motivos para que Google featuree el
 contenido (rich snippets de tabla, etc.).
 
@@ -715,12 +723,24 @@ y honesta -- no asumas que las cumpliste, revisa el texto real.
 ESTA LISTA SE RECORRE ITEM POR ITEM, SIN SALTAR NINGUNO, ESCRIBIENDO LA
 RESPUESTA DE CADA UNO -- nunca "de memoria" ni asumiendo que ya se hizo
 porque un articulo anterior del mismo cluster lo tenia. Esto no es
-teorico: el articulo "resveratrol-antienvejecimiento-ciencia" se publico
-sin ningun elemento de A2.3 (tabla/guia rapida/infografia) a pesar de que
-la regla ya estaba documentada, porque el punto 17 se paso por alto sin
-verificarlo explicitamente -- el usuario tuvo que señalarlo despues de
-publicado. Tratar esta lista como un tramite mental es exactamente lo que
-permite que un punto ya documentado se quede sin aplicar.
+teorico, y ya paso dos veces en el mismo cluster (resveratrol):
+
+- El articulo "resveratrol-antienvejecimiento-ciencia" se publico sin
+  ningun elemento de A2.3 (tabla/guia rapida/infografia) a pesar de que
+  la regla ya estaba documentada, porque el punto 17 se paso por alto
+  sin verificarlo explicitamente.
+- El articulo "resveratrol-batido-o-masticables-cual-elegir" se publico
+  (a) sin infografia -- se incluyeron solo 2 de los 3 elementos de
+  A2.3 sin decirle al usuario cuales se habian omitido ni por que -- y
+  (b) con el body practicamente completo sin tildes (mas de 1700
+  palabras, solo 3 con acentos), porque nada en este documento exigia
+  explicitamente una revision ortografica como paso propio. En ambos
+  casos el usuario tuvo que señalarlo despues de publicado, no antes.
+
+Tratar esta lista como un tramite mental es exactamente lo que permite
+que un punto ya documentado se quede sin aplicar. Los puntos 19 y 20
+de abajo existen especificamente por este segundo incidente -- no son
+opcionales ni "si hay tiempo".
 
 1. Conteo de palabras (la parte donde debes ser mas riguroso, ver nota
    abajo): cuenta las palabras del bodyHtml sin las etiquetas HTML.
@@ -766,15 +786,17 @@ permite que un punto ya documentado se quede sin aplicar.
     punto se salto en la practica varias veces por no estar en esta
     checklist explicitamente -- ahora esta aqui, no se vuelve a omitir.
 17. (Recomendado, no bloqueante -- pero se responde explicitamente, nunca
-    se omite la pregunta) ¿El tema de este articulo tiene datos
-    comparables (dosis, estudios, formatos, marcas, cifras de varias
-    fuentes)? Si la respuesta es si, responde ademas: ¿incluye al menos
-    un elemento de sintesis de A2.3 (tabla comparativa, guia rapida, o
-    infografia)? Aplica tanto a "pilar" como a "cluster" -- A2.3 nunca
-    dijo que fuera solo para pilares, dice "cualquier cluster con datos
-    comparables" tambien. Si hay datos comparables y no se incluyo
-    ninguno de los tres formatos, agrega al menos uno antes de continuar
-    al Paso 6 -- no lo dejes para "despues".
+    se omite la pregunta, y la respuesta se repite textual en el Paso 8)
+    ¿El tema de este articulo tiene datos comparables (dosis, estudios,
+    formatos, marcas, cifras de varias fuentes)? Si la respuesta es si,
+    el default es incluir los TRES elementos de A2.3 (tabla comparativa,
+    guia rapida, E infografia) -- no basta con uno o dos. Si terminas
+    incluyendo menos de tres, tenes que decidirlo de forma consciente y
+    explicar la razon concreta (ej. "el tema no tiene suficientes datos
+    numericos para una infografia"), nunca por omision silenciosa o
+    porque "ya se incluyeron dos y pareció suficiente". Aplica tanto a
+    "pilar" como a "cluster" -- A2.3 nunca dijo que fuera solo para
+    pilares, dice "cualquier cluster con datos comparables" tambien.
 18. Nombres de archivo de las imagenes generadas con Canva en este
     articulo (contexto e infografia): ¿se subieron con un nombre
     descriptivo relacionado al tema (parametro "filename" de la mutacion
@@ -788,6 +810,20 @@ permite que un punto ya documentado se quede sin aplicar.
     de una sola imagen envuelta en <a> sin mas contexto. Si el articulo
     es nuevo, aplica A2.4 desde el primer borrador -- no lo dejes como
     "mejora futura".
+20. Revision ortografica de tildes (paso propio, no se combina con
+    ningun otro punto de esta lista): lee el bodyHtml completo una vez
+    pensando UNICAMENTE en acentos -- ¿"informacion" o "información"?
+    ¿"esta" (adjetivo, sin tilde) o "está" (verbo, con tilde)? ¿"como"
+    (comparativo) o "cómo" (pregunta)? Si tienes terminal disponible,
+    una señal rapida de alarma: cuenta cuantas palabras del texto
+    contienen alguna vocal con tilde o "ñ" -- en un articulo real en
+    español ese numero deberia ser una fraccion notable del total de
+    palabras (decenas o cientos, no un puñado). Si el conteo sale
+    sospechosamente bajo (ej. menos de 20-30 en un articulo de 1500+
+    palabras), el texto probablemente se redacto sin tildes y hay que
+    reescribirlo con las tildes correctas antes de publicar -- no es un
+    detalle cosmetico, es un error ortografico visible para cualquier
+    lector y afecta la credibilidad (A1, atributo "Confiable").
 
 NOTA SOBRE EL CONTEO DE PALABRAS/H2: contar con precision un texto largo
 "a ojo" es donde mas facil te puedes equivocar. Si tienes acceso a una
@@ -935,6 +971,13 @@ Guarda el archivo y haz commit + push al repo (mensaje tipo
 Dile al usuario: que articulo procesaste, si paso el QA (y si no, por
 que), y el link del articulo en el admin de Shopify si se publico. Si
 quedo un faqJsonLd pendiente de pegar, recuerdaselo.
+
+Incluye siempre, de forma explicita (no lo omitas aunque parezca
+obvio): cuales de los tres elementos de A2.3 (tabla/guia rapida/
+infografia) quedaron en el articulo y cuales no -- si falta alguno, la
+razon concreta (respuesta del punto 17 del Paso 5). El usuario no
+deberia tener que abrir el articulo publicado para descubrir que un
+elemento recomendado no se incluyo.
 
 ================================================================
 PENDIENTE DE CONFIRMAR (no implementado por conflicto -- ver "Guia
