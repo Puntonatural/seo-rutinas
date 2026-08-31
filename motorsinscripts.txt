@@ -309,6 +309,46 @@ se recomienda fuertemente incluir al menos uno en cada pilar -- mejora la
 experiencia de lectura y da mas motivos para que Google featuree el
 contenido (rich snippets de tabla, etc.).
 
+--- A2.4. Tarjeta de producto (reemplaza la imagen simple envuelta en enlace) ---
+
+Cada vez que el articulo menciona un producto propio con imagen + enlace
+(la seccion tipica "Como aprovecharlo" / "Como incorporarlo a tu rutina"),
+usa esta tarjeta HTML en vez del patron antiguo de una sola imagen envuelta
+en un <a> (`<p><a href="..."><img ...></a></p>`). La tarjeta da mas
+contexto: marco, foto real del producto, un beneficio corto ligado al
+propio articulo, y un boton de llamada a la accion.
+
+Estructura (todo con estilos INLINE, nunca un bloque <style> separado --
+misma razon tecnica que en A2.1: Shopify puede eliminar un <style> del
+body al re-guardar desde el editor visual):
+
+<a href="/products/<handle-real>" style="display:flex;align-items:center;gap:20px;border:1px solid #C8DDD0;border-radius:12px;padding:16px;margin:28px 0;background:#F4F7F2;text-decoration:none;">
+  <img src="<url-real-del-producto>" alt="<alt-descriptivo>" style="width:96px;height:96px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+  <div>
+    <p style="margin:0 0 4px 0;font-weight:700;color:#1E3D2F;font-size:16px;"><nombre del producto></p>
+    <p style="margin:0 0 12px 0;font-size:13px;color:#3F5148;line-height:1.5;"><beneficio ya mencionado en el cuerpo del articulo></p>
+    <span style="display:inline-flex;align-items:center;background:#1E3D2F;color:#F4F7F2;font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:100px;">Ver producto &rarr;</span>
+  </div>
+</a>
+
+Reglas:
+
+1. Sin datos inventados. El texto de "beneficio" nunca es un claim nuevo --
+   es una frase que parafrasea algo que el propio articulo ya dijo y cito
+   sobre ese producto o su forma de uso (mismo principio que en tabla/guia
+   rapida de A2.3). Si el articulo no menciona nada especifico sobre el
+   producto mas alla del enlace, usa la razon practica de presentacion
+   (en polvo / masticable / sin preparacion, etc.) en vez de inventar un
+   beneficio.
+2. Un boton por producto mencionado -- no agrupar dos productos en una
+   sola tarjeta.
+3. Colores de la paleta de marca (ver docs/guia-imagenes-canva.md seccion
+   4): fondo #F4F7F2, borde #C8DDD0, texto/boton #1E3D2F.
+4. Usa la URL de imagen y el handle de producto REALES (nunca inventados),
+   igual que cualquier otro enlace interno/producto del articulo (A5, A6).
+5. Verifica el resultado contra el articulo publicado (no solo el borrador
+   local) despues de aplicar el cambio -- misma disciplina de A2.3/Paso 6.5.
+
 --- A3. Longitud minima ---
 
 Rol "pilar": minimo 2300 palabras (solo texto, sin contar HTML).
@@ -696,8 +736,9 @@ permite que un punto ya documentado se quede sin aplicar.
 8. 4 imagenes con texto alternativo no vacio: 2 de contexto del Paso 3.5
    (Canva) + 2 de producto reales (o marcadores [IMAGEN: ...] solo si de
    verdad no habia URL real de producto disponible -- esto nunca aplica
-   a las de contexto). Cada imagen de producto debe estar envuelta en
-   <a href="/products/..."> al producto real -- si falta ese enlace,
+   a las de contexto). Cada imagen de producto debe estar dentro de la
+   tarjeta de producto de A2.4 (o, como minimo, envuelta en
+   <a href="/products/..."> al producto real) -- si falta ese enlace,
    este punto de QA falla igual que si faltara la imagen. Verifica
    ademas que el campo "image" del articulo (Paso 6) quedo seteado con
    la misma URL que la primera imagen de contexto -- si sale null al
@@ -741,6 +782,11 @@ permite que un punto ya documentado se quede sin aplicar.
     "0001-547701793116121815.png")? Un nombre de archivo descriptivo es
     parte del SEO de imagenes (Google Imagenes, accesibilidad) -- no
     dejarlo con el nombre aleatorio del export.
+19. Cada producto mencionado con imagen usa la tarjeta de producto de
+    A2.4 (marco + beneficio + boton "Ver producto"), no el patron antiguo
+    de una sola imagen envuelta en <a> sin mas contexto. Si el articulo
+    es nuevo, aplica A2.4 desde el primer borrador -- no lo dejes como
+    "mejora futura".
 
 NOTA SOBRE EL CONTEO DE PALABRAS/H2: contar con precision un texto largo
 "a ojo" es donde mas facil te puedes equivocar. Si tienes acceso a una
