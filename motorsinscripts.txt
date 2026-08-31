@@ -80,11 +80,24 @@ selectivamente, ver nota al final de esta parte).
   palabras, ~1 cada 200). Cada H2 debe cubrir un sub-tema concreto --
   dividir el contenido en secciones especificas y escaneables, nunca en
   pocos bloques largos.
-- Indice con anclas (tabla de contenido): obligatorio en articulos
-  "pilar" (opcional en "cluster", solo si tiene 5+ H2). Va justo despues
-  del parrafo de introduccion: una lista de enlaces internos de la
-  pagina, uno por cada H2 principal, y cada H2 correspondiente lleva su
-  identificador de ancla (slugs cortos, minusculas, con guiones).
+- Indice con anclas (tabla de contenido): OBLIGATORIO en articulos
+  "pilar", y OBLIGATORIO tambien en "cluster" si tiene 5+ H2 (no
+  "opcional" -- en la practica, con el minimo de longitud de A3, casi
+  todo cluster llega a 5+ H2, asi que este indice aplica casi siempre).
+  Va justo despues del parrafo de introduccion, ANTES de la primera
+  imagen o H2, con este formato exacto:
+  <p>Antes de entrar en detalle, aqui tienes un resumen de lo que vas a
+  encontrar:</p>
+  <ul>
+  <li><a href="#ancla-1">Titulo del H2 1</a></li>
+  <li><a href="#ancla-2">Titulo del H2 2</a></li>
+  ...
+  </ul>
+  Un <li> por cada H2 principal del articulo (incluida la seccion de
+  Preguntas frecuentes si existe -- normalmente NO incluyas "Fuentes"
+  como item del indice), y cada H2 correspondiente lleva su
+  identificador de ancla (id="ancla-1" etc., slugs cortos, minusculas,
+  con guiones) que debe coincidir exactamente con el href del indice.
 - Estructura sugerida -- articulo pilar:
   1. H2: Que es [tema] (definicion clara, keyword en el primer parrafo)
   2. H2: Beneficios / evidencia (con H3 por beneficio, citas reales)
@@ -498,6 +511,13 @@ y honesta -- no asumas que las cumpliste, revisa el texto real:
     final del bodyHtml, despues de la seccion "Fuentes".
 15. El primer parrafo no empieza con ninguna de las frases prohibidas
     de A1.
+16. Si el articulo tiene 5+ H2 (pilar siempre, cluster casi siempre):
+    el indice con anclas de A2 esta presente justo despues de la intro,
+    ANTES de la primera imagen/H2, con un <li><a href="#..."> por cada
+    H2 principal (incluida la seccion de Preguntas frecuentes) y cada
+    href coincide exactamente con el id del H2 al que apunta. Este
+    punto se salto en la practica varias veces por no estar en esta
+    checklist explicitamente -- ahora esta aqui, no se vuelve a omitir.
 
 NOTA SOBRE EL CONTEO DE PALABRAS/H2: contar con precision un texto largo
 "a ojo" es donde mas facil te puedes equivocar. Si tienes acceso a una
@@ -574,6 +594,32 @@ Si el articulo tenia faqJsonLd, guardalo aparte (o inclúyelo en tu
 reporte final) y avisale al usuario que debe pegarlo manualmente en el
 tema de Shopify -- nunca lo pegues dentro de bodyHtml, Shopify lo
 elimina al re-guardar el articulo desde el editor visual.
+
+--- Paso 6.5 — Verificacion post-publicacion (OBLIGATORIO) ---
+
+El Paso 5 (QA) revisa tu BORRADOR antes de publicar. Este paso revisa
+el ARTICULO REAL ya en Shopify despues de publicar -- son cosas
+distintas, y varios errores (imagen destacada faltante, indice
+faltante) solo salieron a la luz cuando alguien reviso el articulo
+publicado, no el borrador. No des el articulo por terminado sin hacer
+esto:
+
+1. Haz una query del articulo recien creado/actualizado (por handle o
+   id) trayendo como minimo: body, image { url }, author { name },
+   tags.
+2. Contra ese resultado real (no contra tu borrador en memoria),
+   confirma:
+   - image.url no es null (Paso 6, campo "image").
+   - author.name es exactamente "Julian E. Zamora" (A1.1).
+   - El body contiene el indice con anclas justo despues de la intro,
+     si el articulo tiene 5+ H2 (A2, QA punto 16).
+   - El body contiene la seccion "Fuentes" y el disclaimer INVIMA al
+     final (A7, A9.1).
+   - Los <img> de producto estan envueltos en <a href="/products/...">
+     (A6).
+3. Si algo falla, corrigelo con articleUpdate y vuelve a verificar --
+   no lo dejes para "despues" ni asumas que quedo bien porque tu
+   borrador lo tenia.
 
 --- Paso 7 — Actualizar el calendario ---
 
