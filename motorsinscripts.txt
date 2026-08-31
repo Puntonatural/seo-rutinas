@@ -841,19 +841,30 @@ usuario decida.
 
 Si todo pasa: continua al Paso 6.
 
-Antes de publicar, revisa la velocidad reciente de publicacion (consulta
+LIMITE DURO DESDE 2026-08-31: maximo 1 articulo publicado (isPublished:
+true) por dia calendario, sin excepcion salvo autorizacion explicita
+de Julian para un caso puntual. Antes de publicar, consulta cuantos
+articulos tienen `publishedAt` dentro de las ultimas 24 horas:
+
 `articles(query: "published_status:published AND published_at:>='<hace
-7 dias>'")`): si en la ultima semana ya se publicaron varios articulos
-(mas de 2-3), considera avisarle al usuario antes de sumar otro con
-isPublished:true en vez de asumir que siempre esta bien. El 2026-08-31
-se detectaron 41 articulos publicados en menos de 36 horas -una
-explosion de velocidad que puede leerse como spam/manipulacion por
-Google- y hubo que pasar 36 de vuelta a isPublished:false (ver el
-comentario "PAUSA DE VISIBILIDAD" al inicio de content-calendar.yaml).
-Publicar UN articulo nuevo del flujo normal (Paso 6) sigue siendo
-correcto -el problema fue la acumulacion sin control, no un articulo
-puntual- pero si notas que el ritmo reciente ya es alto, dilo en el
-Paso 8 en vez de sumar mas sin mencionarlo.
+24 horas, formato YYYY-MM-DD>'")`
+
+- Si ya hay 1 o mas articulos publicados hoy: DETENTE, no publiques
+  otro. Dile al usuario en el Paso 8 que el articulo quedo listo
+  (borrador validado por QA) pero que no se publica porque ya se
+  alcanzo el limite diario, y sugiere la fecha en que corresponde
+  publicarlo.
+- Si no hay ninguno publicado hoy: continua con la publicacion normal.
+
+Este limite existe porque el 2026-08-31 se detectaron 41 articulos
+publicados en menos de 36 horas -una explosion de velocidad que puede
+leerse como spam/manipulacion por Google- y hubo que pasar 36 de
+vuelta a isPublished:false (ver el comentario "PAUSA DE VISIBILIDAD"
+al inicio de content-calendar.yaml y la seccion "Cadencia de
+publicacion" de CLAUDE.md). El problema nunca fue publicar un articulo
+individual -era la acumulacion sin ningun limite verificable-, por eso
+la regla ahora es un numero concreto (1/dia) y no una sugerencia de
+"avisar si el ritmo parece alto".
 
 --- Paso 6 — Publicar (SIEMPRE oculto) ---
 

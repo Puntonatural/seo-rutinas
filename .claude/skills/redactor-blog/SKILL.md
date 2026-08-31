@@ -45,14 +45,16 @@ reciente de las reglas.
    A2.3 quedaron y por que si falta alguno, y el inventario de articulos en estado "idea" por
    cluster (actualizando tambien el bloque de comentario al inicio de `content-calendar.yaml`).
 
-## Antes de publicar (isPublished:true), revisa la velocidad reciente
+## Limite duro: maximo 1 articulo publicado por dia calendario
 
-`motorsinscripts.txt` (Paso 6) pide consultar cuantos articulos se publicaron en la ultima semana
-antes de sumar uno mas. El 2026-08-31 se detectaron 41 articulos publicados en menos de 36 horas
--un patron de velocidad que puede leerse como spam/manipulacion por Google- y hubo que ocultar 36
-de vuelta. Publicar UN articulo del flujo normal sigue siendo correcto; lo que hay que evitar es
-acumular sin que nadie lo note. Si el ritmo reciente ya es alto, dilo en el Paso 8 en vez de sumar
-otro en silencio.
+`motorsinscripts.txt` (Paso 6) exige consultar cuantos articulos tienen `publishedAt` en las
+ultimas 24 horas antes de publicar. Si ya hay uno o mas: NO publiques otro, deja el borrador listo
+(ya paso el QA) y dile al usuario en el Paso 8 que se publica el proximo dia disponible. Este limite
+es fijo desde 2026-08-31 (ver "Cadencia de publicacion" en `CLAUDE.md`, horario objetivo 7:00 a.m.
+hora Colombia) -- el 2026-08-31 se detectaron 41 articulos publicados en menos de 36 horas, un
+patron de velocidad que puede leerse como spam/manipulacion por Google, y hubo que ocultar 36 de
+vuelta. No es una sugerencia de "avisar si el ritmo parece alto": es un tope verificable, 1 por dia,
+sin excepcion salvo que Julian la autorice explicitamente para un caso puntual.
 
 ## Errores ya cometidos que esta skill existe para no repetir
 
