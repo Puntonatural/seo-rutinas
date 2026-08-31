@@ -997,6 +997,12 @@ archivo el mismo:
 - Esto va en TODA corrida del agente redactor, no solo cuando el
   usuario lo pida explicitamente -- es parte fija del Paso 8, igual
   que reportar si paso el QA.
+- Ademas de decirselo al usuario en el reporte, DEJA el mismo
+  inventario por escrito en el repo: actualiza el bloque de comentario
+  "INVENTARIO" al inicio de content-calendar.yaml (fecha + conteo por
+  cluster) en el mismo commit del Paso 7. Asi el saldo pendiente queda
+  legible para cualquiera que abra el archivo, no solo en el chat de
+  esta sesion.
 
 ================================================================
 PENDIENTE DE CONFIRMAR (no implementado por conflicto -- ver "Guia

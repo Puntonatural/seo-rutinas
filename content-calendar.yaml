@@ -1,6 +1,13 @@
 # Calendario SEO Vitaliah -- fuente unica de verdad para el agente redactor (motorsinscripts.txt)
 # y el motor mensual (seo-engine/). No editar manualmente el 'estado' salvo para corregir un error --
 # los agentes lo actualizan automaticamente (idea -> publicado_oculto / canibalizacion_detectada / qa_fallido).
+#
+# INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
+# redactor -- ver motorsinscripts.txt Paso 8. No es la fuente de verdad, solo un snapshot legible
+# sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
+#   Ultima actualizacion: 2026-08-31 -- 28 en "idea":
+#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
+#     maquila-b2b (4), resveratrol (1)
 
 articulos:
 - titulo: 'Hongos Adaptogenos en Colombia: Guia Completa 2026'
