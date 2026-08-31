@@ -9,6 +9,18 @@ repo** (no en `seo-engine/`, no en Google Sheets). Tanto este motor como el agen
 redactor (`motorsinscripts.txt`) leen y escriben ese mismo archivo. Nunca crees un
 YAML de calendario separado por mes ni escribas a una hoja de Sheets.
 
+## Carpeta `keyword-research/` (referencia estática, no fuente de datos)
+
+`seo-engine/keyword-research/Vitaliah_Keyword_Research.xlsx` es el keyword
+research original hecho por Kick Ranking (agencia SEO contratada), guardado
+en el repo únicamente como respaldo/referencia histórica. Ni `collect.js` ni
+`calendar.js` lo leen, y el agente tampoco debe consultarlo ni citarlo como
+fuente al generar nuevas ideas de contenido -- la única fuente de datos para
+detectar oportunidades de keywords sigue siendo GSC (`data/report.json`) más
+lo que se resuelve en vivo contra Shopify. Si en el futuro se decide usarlo
+como insumo real, eso requiere una decisión explícita y una actualización de
+este documento -- no asumirlo por su sola presencia en el repo.
+
 ## Qué hacer cada vez que despiertas
 
 ### 1. Recolectar datos frescos de GSC

@@ -798,3 +798,199 @@ articulos:
   handle_propuesto: vinagre-de-manzana-contraindicaciones-precauciones
   handle_final: null
   article_gid: null
+- titulo: 'Registro INVIMA para Productos Saludables: Que Revisar Antes de Lanzar'
+  cluster: maquila-b2b
+  rol: cluster
+  estado: idea
+  palabra_clave: registro invima productos saludables
+  keywords_secundarias:
+  - registro invima antes de lanzar un producto
+  enlaces_internos_obligatorios:
+  - Laboratorios de Maquila en Colombia (pilar, este calendario)
+  - Requisitos INVIMA para Maquilar Suplementos en Colombia (articulo existente)
+  - Como Verificar el Registro INVIMA de un Producto Natural (articulo existente)
+  handle_propuesto: registro-invima-productos-saludables-antes-de-lanzar
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 040", estado
+    "Pendiente"). Angulo distinto a "Requisitos INVIMA para Maquilar
+    Suplementos en Colombia" (ya publicado): este se enfoca en el tramite de
+    registro en si, no en los requisitos generales de maquila. Revisar
+    canibalizacion con cuidado en el Paso 2 antes de redactar.
+- titulo: Como Elegir una Empresa de Maquila de Productos Naturales en Colombia
+  cluster: maquila-b2b
+  rol: cluster
+  estado: idea
+  palabra_clave: empresa de maquila de productos naturales
+  keywords_secundarias:
+  - como elegir un laboratorio de maquila en Colombia
+  enlaces_internos_obligatorios:
+  - Laboratorios de Maquila en Colombia (pilar, este calendario)
+  - Laboratorios de Productos Naturales en Colombia Confiables (articulo hermano, este calendario)
+  - Servicios de maquila y otros Vitaliah Labs (articulo existente)
+  handle_propuesto: como-elegir-empresa-de-maquila-productos-naturales
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 041", estado
+    "Pendiente"). Angulo muy cercano al pilar "Laboratorios de Maquila en
+    Colombia: Que Evaluar" (ya publicado) y a "Laboratorios de Productos
+    Naturales en Colombia Confiables" (ya publicado) -- revisar
+    canibalizacion con cuidado en el Paso 2; puede que convenga ampliar uno
+    de esos articulos existentes en vez de crear uno nuevo.
+- titulo: Cuanto Cuesta Crear una Marca Propia de Suplementos o Alimentos Saludables
+  cluster: maquila-b2b
+  rol: cluster
+  estado: idea
+  palabra_clave: cuanto cuesta crear una marca propia de suplementos
+  keywords_secundarias:
+  - costo de crear una marca propia de alimentos saludables
+  enlaces_internos_obligatorios:
+  - Laboratorios de Maquila en Colombia (pilar, este calendario)
+  - Costos y MOQ de Maquila de Suplementos en Colombia (articulo existente)
+  - Marca Propia vs. Marca Blanca: Diferencias y Cual Elegir (articulo existente)
+  handle_propuesto: cuanto-cuesta-crear-marca-propia-suplementos
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 042", estado
+    "Pendiente"). Angulo relacionado con "Costos y MOQ de Maquila de
+    Suplementos en Colombia" (ya publicado, enfocado en produccion) pero
+    este cubre el costo total de crear la marca (branding, empaque, etc.),
+    no solo la maquila -- revisar solapamiento en el Paso 2 antes de
+    redactar.
+- titulo: Errores al Lanzar una Marca de Productos Saludables y Como Evitarlos
+  cluster: maquila-b2b
+  rol: cluster
+  estado: idea
+  palabra_clave: errores al lanzar marca de suplementos
+  keywords_secundarias:
+  - errores comunes al lanzar una marca de alimentos saludables
+  enlaces_internos_obligatorios:
+  - Laboratorios de Maquila en Colombia (pilar, este calendario)
+  - Como Crear una Marca Propia de Productos Saludables en Colombia (articulo existente)
+  - Requisitos INVIMA para Maquilar Suplementos en Colombia (articulo existente)
+  handle_propuesto: errores-al-lanzar-marca-productos-saludables
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 043", estado "Pendiente").
+- titulo: 'Para Que Sirve la Clorofila en el Cuerpo Humano: Beneficios y Evidencia'
+  cluster: clorofila
+  rol: pilar
+  estado: idea
+  palabra_clave: para que sirve la clorofila
+  keywords_secundarias:
+  - beneficios de la clorofila
+  - clorofila para que sirve
+  enlaces_internos_obligatorios:
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: para-que-sirve-la-clorofila-beneficios-evidencia
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 044", estado
+    "Pendiente"). Primer articulo del cluster clorofila -- no existia
+    previamente en este calendario ni en el blog publicado. Producto real
+    verificado en Shopify: VITALIAH CLOROFILA MENTA 240 ML (handle
+    vitaliah-clorofila-menta-240-ml).
+- titulo: 'Clorofila Liquida: Para Que Sirve y Que Esperar Realmente'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: para que sirve la clorofila liquida
+  keywords_secundarias:
+  - beneficios reales de la clorofila liquida
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: clorofila-liquida-para-que-sirve
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 045", estado "Pendiente").
+- titulo: 'Como Tomar Clorofila Liquida: Dosis, en Ayunas y Por Cuanto Tiempo'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: clorofila liquida como se toma
+  keywords_secundarias:
+  - dosis de clorofila liquida
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: como-tomar-clorofila-liquida-dosis
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 046", estado "Pendiente").
+- titulo: 'Clorofila para la Mujer: Para Que Sirve y en Que Etapas Tiene Sentido'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: clorofila para que sirve en la mujer
+  keywords_secundarias:
+  - clorofila y salud femenina
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: clorofila-para-la-mujer
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 047", estado "Pendiente").
+- titulo: 'Clorofila Liquida o en Capsulas: Cual Conviene Segun tu Caso'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: clorofila en capsulas
+  keywords_secundarias:
+  - clorofila liquida vs capsulas
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: clorofila-liquida-o-capsulas-cual-conviene
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 048", estado "Pendiente").
+- titulo: 'Contraindicaciones de la Clorofila: Quien No Deberia Tomarla'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: desventajas de tomar clorofila
+  keywords_secundarias:
+  - contraindicaciones de la clorofila liquida
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: contraindicaciones-de-la-clorofila
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 049", estado "Pendiente").
+- titulo: 'Clorofila y Perdida de Peso: Que Dice la Evidencia'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: la clorofila sirve para bajar de peso
+  keywords_secundarias:
+  - clorofila y perdida de peso
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: clorofila-para-bajar-de-peso-evidencia
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 050", estado "Pendiente").
+- titulo: 'Cual es la Mejor Clorofila Liquida en Colombia: Precio y Como Elegir'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: clorofila liquida precio
+  keywords_secundarias:
+  - mejor clorofila liquida en Colombia
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: mejor-clorofila-liquida-en-colombia-precio
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 051", estado "Pendiente").
