@@ -519,7 +519,7 @@ articulos:
 - titulo: 'Resveratrol: Beneficios, Evidencia y Como Tomarlo'
   cluster: resveratrol
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: resveratrol beneficios
   keywords_secundarias:
   - resveratrol para que sirve
@@ -528,8 +528,10 @@ articulos:
   - Masticables Minttrol (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: resveratrol-beneficios-evidencia-como-tomarlo
-  handle_final: null
-  article_gid: null
+  handle_final: resveratrol-beneficios-evidencia-como-tomarlo
+  article_gid: gid://shopify/Article/614697107772
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/resveratrol-beneficios-evidencia-como-tomarlo.faq.jsonld.html
 - titulo: 'Resveratrol y Antienvejecimiento: Que Dice la Ciencia'
   cluster: resveratrol
   rol: cluster
