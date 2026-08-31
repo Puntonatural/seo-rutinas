@@ -409,7 +409,7 @@ articulos:
 - titulo: 'Magnesio para Dormir y Reducir el Estres: Guia Completa'
   cluster: magnesio
   rol: pilar
-  estado: idea
+  estado: publicado
   palabra_clave: magnesio para dormir
   keywords_secundarias:
   - magnesio para el estres
@@ -419,12 +419,12 @@ articulos:
   - Bebida Herbal Mag Fussion (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: magnesio-para-dormir-reducir-estres-guia
-  handle_final: null
-  article_gid: null
+  handle_final: magnesio-para-dormir-reducir-estres-guia
+  article_gid: gid://shopify/Article/614690783548
 - titulo: 'Tipos de Magnesio: Cual Elegir Segun tu Objetivo'
   cluster: magnesio
   rol: cluster
-  estado: idea
+  estado: publicado
   palabra_clave: tipos de magnesio
   keywords_secundarias:
   - magnesio glicinato vs citrato
@@ -433,8 +433,8 @@ articulos:
   - Masticables Mag Fussion (producto)
   - Bebida Herbal Mag Fussion (producto)
   handle_propuesto: tipos-de-magnesio-cual-elegir
-  handle_final: null
-  article_gid: null
+  handle_final: tipos-de-magnesio-cual-elegir
+  article_gid: gid://shopify/Article/614690816316
 - titulo: Magnesio para Calambres y Recuperacion Muscular
   cluster: magnesio
   rol: cluster
