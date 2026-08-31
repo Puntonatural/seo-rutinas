@@ -20,3 +20,38 @@ es ahora la fuente canónica que el motor lee y escribe directamente vía git.
 Si se agregan artículos nuevos al calendario, agrégalos en
 `content-calendar.yaml` (no en la hoja de Sheets, que ha quedado como
 referencia histórica/de respaldo).
+
+## Rutina confirmada (2026-08-31)
+
+Julián validó el flujo completo tras el primer artículo (magnesio pilar) y
+el segundo (tipos de magnesio, cluster) como la rutina a seguir sin pedir
+confirmación adicional en cada corrida:
+
+1. Elegir el primer artículo en estado `idea` de `content-calendar.yaml`
+   (en orden).
+2. Chequeo de canibalización contra los artículos ya publicados del blog
+   "noticias" (via Shopify).
+3. Resolver enlaces internos obligatorios contra datos reales de Shopify
+   (productos/colecciones activos, articulos ya publicados) -- nunca
+   contra un producto en estado DRAFT; si el enlace obligatorio del
+   calendario apunta a un producto en DRAFT, sustituirlo por el
+   equivalente ACTIVE más cercano y dejarlo anotado en el campo `nota`
+   de esa entrada del calendario.
+4. Redactar cumpliendo `motorsinscripts.txt` (Parte A, incluida la
+   politica de imagenes de la seccion A6: imagen destacada + banner de
+   apertura generados con Canva, contexto no producto; 2+ imagenes
+   intermedias mas de contexto tambien via Canva; exactamente 1 foto de
+   producto por articulo, enlazada a su pagina; toda imagen de Canva se
+   sube primero a Shopify via `fileCreate` para obtener URL permanente
+   antes de usarla).
+5. QA riguroso (conteo real de palabras y H2 via shell, nunca a ojo).
+6. Publicar SIEMPRE oculto (`isPublished: false`) en Shopify.
+7. Actualizar la entrada del articulo en `content-calendar.yaml` (estado,
+   handle_final, article_gid, fecha_publicacion_oculta, notas de
+   imagenes/sustituciones) y comprometer los cambios a git.
+8. Reportar al usuario que se publicó, con la URL del admin de Shopify.
+
+Este es el proceso estándar: no se requiere pedir permiso paso a paso en
+cada corrida futura, salvo que aparezca un bloqueo real (dato faltante,
+canibalización detectada, QA fallido) contemplado en las Reglas de Oro
+del playbook.

@@ -453,7 +453,7 @@ articulos:
   - titulo: "Tipos de Magnesio: Cual Elegir Segun tu Objetivo"
     cluster: magnesio
     rol: cluster
-    estado: idea
+    estado: publicado_oculto
     keyword_objetivo: "tipos de magnesio"
     keywords_secundarias:
       - "magnesio glicinato vs citrato"
@@ -462,8 +462,11 @@ articulos:
       - "Masticables Mag Fussion (producto)"
       - "Bebida Herbal Mag Fussion (producto)"
     handle_propuesto: tipos-de-magnesio-cual-elegir
-    handle_final: null
-    article_gid: null
+    handle_final: tipos-de-magnesio-cual-elegir
+    article_gid: "gid://shopify/Article/614690816316"
+    fecha_publicacion_oculta: '2026-08-31'
+    nota: "Enlace a 'Masticables Mag Fussion' sustituido por 'Masticables Mag Harmony' (mismo motivo que en el articulo pilar: Mag Fussion masticables sigue en DRAFT en Shopify)."
+    imagenes: "1 banner de apertura (cristales minerales) + 2 intermedias de contexto (tolerancia digestiva, bienestar muscular), todas generadas con Canva y subidas a cdn.shopify.com via fileCreate + 1 foto real de Bebida Herbal Mag Fussion enlazada a /products/bebida-herbal-mag-fussion (variando el producto mostrado respecto al articulo pilar, que uso Mag Harmony)."
 
   - titulo: "Magnesio para Calambres y Recuperacion Muscular"
     cluster: magnesio
