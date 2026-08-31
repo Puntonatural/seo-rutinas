@@ -12,7 +12,10 @@ Corre el primer lunes de cada mes.
 - Lee las instrucciones completas en `seo-engine/CLAUDE.md`
 
 ### 2. Agente redactor — `motorsinscripts.txt`
-Corre cada vez que hay un artículo pendiente en el calendario.
+Corre cada vez que hay un artículo pendiente en el calendario. Invócalo con la skill
+`redactor-blog` (`.claude/skills/redactor-blog/`) para no tener que pegar el playbook
+completo cada vez -- la skill solo apunta a los archivos reales de abajo, nunca los copia,
+así que siempre corre sobre la versión más reciente.
 - Lee `content-calendar.yaml` (raíz del repo) para saber qué artículo publicar
 - Sigue el playbook de `motorsinscripts.txt` para redactar y publicar en Shopify
 - Actualiza el estado del artículo en el YAML (`publicado_oculto`, `canibalizacion_detectada`
