@@ -47,13 +47,28 @@ Esto **anexa** hasta ~6 artículos nuevos con `estado: idea` directamente a
 pilar publicado, más artículos cluster basados en oportunidades reales de GSC.
 No sobrescribe las entradas existentes ni genera un archivo separado.
 
-El script solo puede completar `enlaces_internos_obligatorios` con referencias
-que puede conocer honestamente (el pilar del propio cluster y el artículo hub
-"Productos naturales en Colombia") — no inventa nombres de producto porque no
-tiene acceso al catálogo de Shopify. Si al revisar una entrada nueva conoces
-productos reales relacionados, agrégalos a mano a esa lista antes de que el
-agente redactor la tome; si no, el redactor puede resolver menos de 3 enlaces
-y quedar en `qa_fallido`, lo cual es preferible a inventar un enlace.
+El script en sí (`node src/calendar.js`) no tiene conector a Shopify — solo
+Search Console vía OAuth. Por eso completa `enlaces_internos_obligatorios` de
+cada entrada nueva únicamente con lo que puede conocer sin adivinar (el pilar
+del propio cluster y el artículo hub "Productos naturales en Colombia").
+
+**Después de correr el script, tú (el agente, con el conector de Shopify)
+completas los enlaces a producto reales de cada entrada nueva:**
+- Para cada artículo que `calendar.js` acaba de agregar, busca en Shopify
+  (vía el conector) 1-2 productos reales relacionados con su `cluster` o
+  `palabra_clave` (por nombre, igual que hace el agente redactor en el Paso 3
+  de `motorsinscripts.txt`).
+- Si encuentras un resultado razonable, agrega su nombre a
+  `enlaces_internos_obligatorios` con el sufijo `(producto)`, ej. `"Batido
+  Crea 10 (producto)"` — el agente redactor ya sabe resolver eso a una URL real
+  en su propio Paso 3, no hace falta que tú resuelvas la URL aquí.
+- Si no encuentras nada razonable para una entrada, déjala como está (solo
+  pilar + hub) — nunca inventes un nombre de producto. El redactor puede
+  terminar esa entrada en `qa_fallido` por menos de 3 enlaces; es preferible
+  a un enlace inventado.
+- Esto es lo único que este motor usa de Shopify: buscar productos por nombre
+  para enriquecer el calendario de blog. No toca inventario, pedidos,
+  colecciones ni ninguna otra área de la tienda — eso no es su alcance.
 
 #### C) Si hay oportunidades nuevas muy claras (impresiones >200, sin artículo existente)
 Agrégalas tú mismo como entradas nuevas en `content-calendar.yaml`, con el mismo
