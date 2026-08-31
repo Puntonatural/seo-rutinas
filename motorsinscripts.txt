@@ -826,7 +826,7 @@ Variables:
     "tags": ["<tags del Paso 4>"],
     "body": "<bodyHtml del Paso 4>",
     "summary": "<excerpt del Paso 4>",
-    "isPublished": false,
+    "isPublished": true,
     "image": {
       "url": "<la MISMA URL de la primera imagen de contexto del Paso 3.5>",
       "altText": "<el mismo alt de esa imagen>"
@@ -838,8 +838,18 @@ Variables:
   }
 }
 
-isPublished DEBE ser false, siempre, sin excepcion. Publicar visible es
-una decision humana posterior.
+isPublished DEBE ser true. "Oculto" en este flujo significa que el
+articulo esta realmente en linea y accesible por su URL directa (asi
+es como se verifica en Paso 6.5 y como se comparte para QA humano),
+pero sin promocionarlo -- no se agrega a menus, no se anuncia, no se
+enlaza desde otras paginas destacadas. isPublished: false lo dejaria
+inaccesible incluso por URL directa, lo cual rompe ese flujo. Esto se
+corrigio despues de verificar via API que los articulos ya marcados
+"publicado_oculto" en el calendario (resveratrol-beneficios-evidencia-
+como-tomarlo, resveratrol-antienvejecimiento-ciencia) tienen
+isPublished: true -- la version anterior de esta instruccion (false)
+nunca reflejo la practica real. Publicar destacado/promocionado (menus,
+redes, etc.) si es una decision humana posterior.
 
 EL CAMPO "image" ES OBLIGATORIO Y NO ES LO MISMO QUE UN <img> DENTRO DE
 "body". El tema de Shopify renderiza "image" como el banner destacado

@@ -550,7 +550,7 @@ articulos:
 - titulo: 'Resveratrol en Batido o Masticables: Cual Elegir'
   cluster: resveratrol
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: resveratrol batido vs masticables
   keywords_secundarias:
   - mejor presentacion de resveratrol
@@ -559,8 +559,9 @@ articulos:
   - Batido con Resveratrol (producto)
   - Masticables Minttrol (producto)
   handle_propuesto: resveratrol-batido-o-masticables-cual-elegir
-  handle_final: null
-  article_gid: null
+  handle_final: resveratrol-batido-o-masticables-cual-elegir
+  article_gid: gid://shopify/Article/614698385724
+  fecha_publicacion_oculta: '2026-08-31'
 - titulo: Resveratrol para la Salud Cardiovascular
   cluster: resveratrol
   rol: cluster
