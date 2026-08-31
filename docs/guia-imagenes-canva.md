@@ -75,7 +75,30 @@ No hace falta descartar y volver a generar — es más rápido editar el mismo d
 
 1. Exportar el diseño final como PNG, calidad alta.
 2. Subir el archivo a Shopify (Contenido → Archivos, o el equivalente vía API/conector, ej. mutación `fileCreate` con `originalSource` apuntando a la URL de exportación de Canva) — esto le da una URL real y estable en el CDN de Shopify. Espera a que el archivo quede `fileStatus: READY` antes de usar su URL.
-3. Usar esa URL (nunca la URL temporal de exportación de Canva, que expira) tanto en el `<img>` de cabecera del body como en el campo `image` del artículo -- ver 3.5.
+3. **Nombre de archivo descriptivo (SEO de imágenes) -- siempre, no opcional.** `fileCreate` (`FileCreateInput`) acepta un parámetro `filename` explícito -- si no se pasa, Shopify usa el nombre aleatorio de la URL de exportación de Canva (tipo `0001-547701793116121815.png`), que no dice nada sobre el contenido y es malo para SEO de imágenes (Google Imágenes, accesibilidad) y para quien revise los archivos del tema más adelante. Pasa siempre un `filename` descriptivo en minúsculas y con guiones, relacionado al tema del artículo y al rol de la imagen, ej. `resveratrol-antienvejecimiento-piel-serum-contexto.png` o `magnesio-para-dormir-infografia-dosis.png`. Si el nombre ya existe en la tienda, agrega `duplicateResolutionMode: APPEND_UUID` para que Shopify le sume un sufijo único en vez de fallar o pisar el archivo existente.
+4. Usar esa URL (nunca la URL temporal de exportación de Canva, que expira) tanto en el `<img>` de cabecera del body como en el campo `image` del artículo -- ver 3.5.
+
+Ejemplo de mutación con nombre de archivo y alt correctos:
+
+```graphql
+mutation fileCreate($files: [FileCreateInput!]!) {
+  fileCreate(files: $files) {
+    files { id fileStatus alt ... on MediaImage { image { url altText } } }
+    userErrors { field message }
+  }
+}
+```
+```json
+{
+  "files": [{
+    "originalSource": "<URL de exportacion de Canva>",
+    "filename": "resveratrol-antienvejecimiento-piel-serum-contexto.png",
+    "contentType": "IMAGE",
+    "alt": "Gota de serum dorado cayendo sobre superficie con uvas rojas desenfocadas al fondo, imagen de contexto sobre resveratrol y antienvejecimiento de la piel",
+    "duplicateResolutionMode": "APPEND_UUID"
+  }]
+}
+```
 
 ### 3.5 — Dos errores que no se deben repetir
 
@@ -118,6 +141,7 @@ Por cada imagen de contexto generada (deben ser 2 por artículo):
 - [ ] Cero persona real o rostro identificable
 - [ ] Paleta de marca Vitaliah correcta
 - [ ] Exportada como PNG y subida a Shopify con URL estable
+- [ ] Subida con un `filename` descriptivo (ver 3.4), no el nombre aleatorio de exportación de Canva
 - [ ] Las 2 imágenes de contexto del artículo no usan el mismo estilo (una ilustración, una realista, o revisa que al menos varíen visualmente)
 
 ---

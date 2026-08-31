@@ -669,7 +669,17 @@ metaTitle, metaDescription, excerpt, tags (lista), bodyHtml, faqJsonLd
 --- Paso 5 — Autoevaluacion (QA) ---
 
 Antes de publicar, verifica cada regla de la Parte A de forma explicita
-y honesta -- no asumas que las cumpliste, revisa el texto real:
+y honesta -- no asumas que las cumpliste, revisa el texto real.
+
+ESTA LISTA SE RECORRE ITEM POR ITEM, SIN SALTAR NINGUNO, ESCRIBIENDO LA
+RESPUESTA DE CADA UNO -- nunca "de memoria" ni asumiendo que ya se hizo
+porque un articulo anterior del mismo cluster lo tenia. Esto no es
+teorico: el articulo "resveratrol-antienvejecimiento-ciencia" se publico
+sin ningun elemento de A2.3 (tabla/guia rapida/infografia) a pesar de que
+la regla ya estaba documentada, porque el punto 17 se paso por alto sin
+verificarlo explicitamente -- el usuario tuvo que señalarlo despues de
+publicado. Tratar esta lista como un tramite mental es exactamente lo que
+permite que un punto ya documentado se quede sin aplicar.
 
 1. Conteo de palabras (la parte donde debes ser mas riguroso, ver nota
    abajo): cuenta las palabras del bodyHtml sin las etiquetas HTML.
@@ -713,10 +723,24 @@ y honesta -- no asumas que las cumpliste, revisa el texto real:
     href coincide exactamente con el id del H2 al que apunta. Este
     punto se salto en la practica varias veces por no estar en esta
     checklist explicitamente -- ahora esta aqui, no se vuelve a omitir.
-17. (Recomendado, no bloqueante) Si el articulo es "pilar": ¿incluye al
-    menos un elemento de sintesis de A2.3 (tabla comparativa, guia rapida,
-    o infografia)? Si no incluye ninguno, no falla el QA, pero valora si el
-    tema se presta para uno antes de darlo por terminado.
+17. (Recomendado, no bloqueante -- pero se responde explicitamente, nunca
+    se omite la pregunta) ¿El tema de este articulo tiene datos
+    comparables (dosis, estudios, formatos, marcas, cifras de varias
+    fuentes)? Si la respuesta es si, responde ademas: ¿incluye al menos
+    un elemento de sintesis de A2.3 (tabla comparativa, guia rapida, o
+    infografia)? Aplica tanto a "pilar" como a "cluster" -- A2.3 nunca
+    dijo que fuera solo para pilares, dice "cualquier cluster con datos
+    comparables" tambien. Si hay datos comparables y no se incluyo
+    ninguno de los tres formatos, agrega al menos uno antes de continuar
+    al Paso 6 -- no lo dejes para "despues".
+18. Nombres de archivo de las imagenes generadas con Canva en este
+    articulo (contexto e infografia): ¿se subieron con un nombre
+    descriptivo relacionado al tema (parametro "filename" de la mutacion
+    fileCreate, ver docs/guia-imagenes-canva.md seccion 3.4), en vez del
+    nombre aleatorio que trae la URL de exportacion de Canva (tipo
+    "0001-547701793116121815.png")? Un nombre de archivo descriptivo es
+    parte del SEO de imagenes (Google Imagenes, accesibilidad) -- no
+    dejarlo con el nombre aleatorio del export.
 
 NOTA SOBRE EL CONTEO DE PALABRAS/H2: contar con precision un texto largo
 "a ojo" es donde mas facil te puedes equivocar. Si tienes acceso a una
