@@ -8,6 +8,24 @@
 #   Ultima actualizacion: 2026-08-31 -- 28 en "idea":
 #     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
 #     maquila-b2b (4), resveratrol (1)
+#
+# PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
+# lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
+# entre 2026-08-30 y 2026-08-31 (una explosion de publicaciones -- la mayoria de una carga masiva
+# el 2026-08-30 20:05 mas la produccion incremental normal del 2026-08-31), un patron de velocidad
+# que puede leerse como spam/manipulacion por Google. Para mitigarlo, se dejaron visibles solo 5
+# (isPublished:true) y se paso el resto (36) a isPublished:false TEMPORALMENTE via articleUpdate,
+# sin tocar el campo 'estado' de este YAML (que sigue reflejando que el contenido esta terminado,
+# no si esta visible en la tienda ahora mismo):
+#   Visibles: productos-naturales-en-colombia-guia (hub), resveratrol-beneficios-evidencia-como-
+#     tomarlo, hongos-adaptogenos-funcionales-colombia-guia, monk-fruit-fruto-del-monje-colombia-
+#     guia, magnesio-para-dormir-reducir-estres-guia -- se eligieron por ser el hub + un pilar por
+#     cluster, y se verificaron sus enlaces internos entre si para no dejar links rotos.
+#   Ocultos (36): el resto de los articulos publicados en esa ventana -- ver el commit de esta
+#   fecha para la lista completa de handles.
+# ACCION FUTURA: republicar (isPublished:true) el resto de forma gradual (unos pocos por semana,
+# no todos de golpe) en vez de revertir esta pausa de una sola vez -- revertir todo junto
+# reproduciria el mismo problema de velocidad que esto buscaba evitar.
 
 articulos:
 - titulo: 'Hongos Adaptogenos en Colombia: Guia Completa 2026'

@@ -841,6 +841,20 @@ usuario decida.
 
 Si todo pasa: continua al Paso 6.
 
+Antes de publicar, revisa la velocidad reciente de publicacion (consulta
+`articles(query: "published_status:published AND published_at:>='<hace
+7 dias>'")`): si en la ultima semana ya se publicaron varios articulos
+(mas de 2-3), considera avisarle al usuario antes de sumar otro con
+isPublished:true en vez de asumir que siempre esta bien. El 2026-08-31
+se detectaron 41 articulos publicados en menos de 36 horas -una
+explosion de velocidad que puede leerse como spam/manipulacion por
+Google- y hubo que pasar 36 de vuelta a isPublished:false (ver el
+comentario "PAUSA DE VISIBILIDAD" al inicio de content-calendar.yaml).
+Publicar UN articulo nuevo del flujo normal (Paso 6) sigue siendo
+correcto -el problema fue la acumulacion sin control, no un articulo
+puntual- pero si notas que el ritmo reciente ya es alto, dilo en el
+Paso 8 en vez de sumar mas sin mencionarlo.
+
 --- Paso 6 — Publicar (SIEMPRE oculto) ---
 
 Via el conector de Shopify, ejecuta la mutacion de creacion de articulo:
