@@ -21,9 +21,12 @@ selectivamente, ver nota al final de esta parte).
 
 --- A1. Identidad y tono ---
 
-- Redactor: Equipo Vitaliah -- organizacion, nunca una persona.
-  Consistente en el campo autor y en cualquier firma dentro del texto
-  (nunca varias identidades distintas).
+- Redactor / autor: SIEMPRE la persona real "Julian E. Zamora", nunca
+  "Equipo Vitaliah" ni ninguna otra identidad (actualizado segun la
+  Guia Maestra de Produccion de Blogs Vitaliah v2 -- ver A1.1 abajo
+  para el texto exacto). Consistente en el campo "author" de la
+  mutacion y en cualquier firma dentro del texto -- nunca mezclar
+  identidades en un mismo articulo ni entre articulos.
 - Español, dirigido al cliente final en primera/segunda persona
   ("Descubre...", "tu rutina...").
 - Frases mayormente cortas: evitar que una frase supere ~20-25 palabras.
@@ -31,13 +34,47 @@ selectivamente, ver nota al final de esta parte).
   de una sola con muchas comas.
 - Respetar el rol B2C/B2B del cluster -- nunca mezclar tono de venta a
   consumidor final con tono de negocio (maquila) en el mismo articulo.
+- Tono (5 atributos, los 5 se cumplen en todo articulo):
+  1. Cercano: explicar como un experto sin condescendencia -- nunca
+     lenguaje clinico frio ni jerga inaccesible.
+  2. Honesto: citar evidencia real y decir explicitamente cuando la
+     ciencia es limitada -- nunca prometer efectos sin respaldo.
+  3. Practico: cada seccion principal debe dejar una accion concreta o
+     una decision clara al lector -- nunca dejarlo sin saber que hacer.
+  4. Colombiano: referencias locales cuando aplique (precios en COP,
+     ciudades, normativa INVIMA) -- nunca traducir contenido extranjero
+     sin darle contexto local.
+  5. Confiable (E-E-A-T): autor identificado con credenciales reales,
+     fuentes reales, INVIMA visible cuando aplica -- nunca publicar sin
+     firma de autor ni fuentes.
+- Frases prohibidas como apertura del primer parrafo (ningun articulo
+  puede empezar asi, ni con una variacion cercana):
+  - "En el mundo actual cada vez mas personas buscan..."
+  - "La salud es lo mas importante en la vida..."
+  - "¿Sabias que existe un superalimento que...?"
+  - "Si estas aqui es porque quieres mejorar tu salud..."
+  En su lugar: el primer parrafo responde la intencion de busqueda de
+  forma directa (ver A4 sobre la keyword en la primera frase).
+
+--- A1.1 Datos exactos del autor (usar siempre textualmente) ---
+
+- Nombre: Julian E. Zamora
+- Titulo: Ingeniero Quimico y Microbiologo
+- Institucion: Universidad de los Andes, Bogota
+- Experiencia: 14+ años en suplementos naturales
+- Como aparece en el articulo (firma/bio corta si el formato la pide):
+  "Julian E. Zamora — Ing. Quimico y Microbiologo, U. de los Andes"
+- En el campo "author" de la mutacion de Shopify (ArticleCreateInput /
+  ArticleUpdateInput), usar: { "name": "Julian E. Zamora" }
 
 --- A2. Estructura HTML ---
 
 - H1: nunca dentro del cuerpo del articulo. El tema de Shopify ya
   renderiza el titulo del articulo como el H1 real de la pagina -- un H1
   en el cuerpo lo duplicaria. El nivel superior dentro del cuerpo es H2.
-- El titulo del articulo (= H1 real) debe ser <=60 caracteres.
+- El titulo del articulo (= H1 real) debe ser idealmente 50-65
+  caracteres, nunca mas de 65 (rango de la Guia Maestra; se mantiene la
+  keyword como parte natural del titulo, no forzada).
 - Minimo de secciones H2: 8 para articulos "pilar", 4 para "cluster"
   (basado en el articulo de referencia de Kick Ranking: 11 H2 en 2181
   palabras, ~1 cada 200). Cada H2 debe cubrir un sub-tema concreto --
@@ -119,8 +156,16 @@ contar como ausencia de la keyword.
 
 --- A5. Enlaces internos ---
 
-- Minimo 3 enlaces internos por articulo, resueltos a URLs reales (nunca
-  inventadas).
+- Minimo 3, maximo 5 enlaces internos por articulo, resueltos a URLs
+  reales (nunca inventadas). El minimo de 3 es mas estricto que el
+  minimo generico de 2 de la Guia Maestra -- se mantiene el mas
+  estricto de los dos.
+- Anchor text siempre descriptivo del contenido al que apunta -- nunca
+  "haz clic aqui" ni variantes genericas.
+- Cada articulo debe enlazar al articulo pilar de su cluster (si el
+  articulo mismo no es el pilar) -- normalmente ya viene en
+  enlaces_internos_obligatorios del Paso 1, pero si por alguna razon no
+  estuviera, agregalo igual.
 - Usar la URL EXACTAMENTE como se resolvio -- nunca modificarla,
   completarla ni corregirla, ni un caracter.
 - Si una URL no se pudo resolver, omitir ese enlace especifico -- nunca
@@ -180,26 +225,38 @@ contar como ausencia de la keyword.
   Cochrane de 2020 encontro que..." o "segun el NIH..."), sin envolverla
   en <a href="...">.
 - Al final del bodyHtml, despues de la ultima seccion (incluida la de
-  Preguntas frecuentes si existe), agrega una seccion "Fuentes" con un
-  <h2 id="fuentes">Fuentes</h2> seguido de una lista <ul> con un <li>
-  por fuente citada en el articulo. Cada <li> SI lleva el hipervinculo
-  real a la fuente, formato: <a href="<URL real>" target="_blank"
-  rel="noopener"><Nombre o descripcion corta de la fuente></a>. Un
-  <li> por fuente distinta citada, sin duplicar si la misma fuente se
-  menciono varias veces en el cuerpo.
+  Preguntas frecuentes si existe, y antes del disclaimer INVIMA de
+  A9.1), agrega una seccion "Fuentes" con un <h2 id="fuentes">Fuentes</h2>
+  seguido de una lista <ul> con un <li> por fuente citada en el
+  articulo. Minimo 3 fuentes reales por articulo (regla de la Guia
+  Maestra). Cada <li> SI lleva el hipervinculo real a la fuente, con
+  rel="noopener", en formato de referencia legible: "Apellido I. et
+  al., <em>Revista</em> (Año)." envuelto en el link cuando el estudio
+  tiene autores/revista identificables, o el titulo del estudio/fuente
+  cuando no los tiene (ej. un fact sheet institucional como el NIH).
+  Ejemplo: <li><a href="<URL real>" target="_blank" rel="noopener">Tarasoff L. et al., <em>Journal of the American College of Nutrition</em> (1993)</a></li>.
+  Un <li> por fuente distinta citada, sin duplicar si la misma fuente
+  se menciono varias veces en el cuerpo.
 - Si no se puede verificar una fuente real con busqueda web, usar
   lenguaje generico SIN atribucion falsa. Nunca inventar una cita ni un
   enlace, ni en el cuerpo ni en la seccion "Fuentes".
 
 --- A8. Metadatos y campos de salida ---
 
-- metaTitle: <=60 caracteres.
+- metaTitle: 50-65 caracteres, nunca mas de 65. Formato keyword +
+  diferenciador si cabe (ej. "Para que sirve la clorofila | Vitaliah
+  Colombia" -- no es obligatorio agregar "| Vitaliah" si no cabe bien).
 - metaDescription: 140-160 caracteres, debe incluir la keyword
-  principal.
+  principal, idealmente en los primeros 100 caracteres.
+- URL slug (handle): menos de 60 caracteres, solo minusculas y guiones
+  (nunca guion bajo), sin palabras vacias innecesarias.
 - excerpt: 1-2 frases, no vacio.
-- tags: minimo 2, alineadas al cluster.
+- tags: minimo 2, alineadas al cluster. Incluir tambien "colombia" como
+  tag si el articulo tiene relevancia geografica clara (regla de la
+  Guia Maestra: keywords secundarias + Colombia + Vitaliah).
 - bodyHtml: HTML valido para el editor de Shopify, sin ninguna etiqueta
-  H1.
+  H1. Debe terminar con la seccion "Fuentes" (A7) seguida del bloque de
+  disclaimer INVIMA (A9.1) -- en ese orden, siempre.
 - faqJsonLd: si hay seccion "Preguntas frecuentes", el bloque JSON-LD
   FAQPage completo, SEPARADO del cuerpo (nunca embebido en el bodyHtml
   -- Shopify elimina los scripts al re-guardar el articulo desde el
@@ -223,6 +280,31 @@ Formato de salida esperado:
 - Sin canibalizacion: el tema/keyword no debe solaparse fuertemente con
   un articulo ya existente del blog. Si hay solapamiento real, ampliar
   el articulo existente en vez de crear uno nuevo.
+
+--- A9.1 Disclaimer regulatorio y credenciales de marca (OBLIGATORIO) ---
+
+Al final del bodyHtml, despues de la seccion "Fuentes" (A7), agrega
+SIEMPRE este bloque, textual, sin parafrasear:
+
+<p><em>Este articulo tiene proposito informativo y educativo. El
+contenido no constituye asesoria medica ni nutricional personalizada.
+Los suplementos dietarios son alimentos complementarios y no sustituyen
+una alimentacion balanceada ni el tratamiento medico prescrito por un
+profesional de salud. Consulta a tu medico antes de iniciar cualquier
+suplementacion. Vitaliah INVIMA RSA-0010130-2020 · RSA-0021928-2022.</em></p>
+
+Datos de marca disponibles si el formato de la seccion Vitaliah/CTA los
+pide (no inventar otros, usar siempre estos exactos):
+- Registro INVIMA 1: RSA-0010130-2020
+- Registro INVIMA 2: RSA-0021928-2022
+- Años de experiencia: 14+ años en el mercado colombiano
+- Premios: Premio Empresarial U. de los Andes · Destapa Futuro Bavaria
+- Clean label (solo articulos B2C de producto): sin maltodextrina, sin
+  soya, endulzado con stevia
+- Tienda: stevia.com.co
+- Pagina maquila B2B (solo articulos del cluster maquila-b2b):
+  stevia.com.co/pages/maquila-de-productos (unica URL de CTA B2B
+  verificada, ver A2)
 
 --- A10. Sobre checklists de SEO genericos (contexto) ---
 
@@ -407,6 +489,15 @@ y honesta -- no asumas que las cumpliste, revisa el texto real:
     tipo FAQPage.
 11. Toda mencion de "estudio"/"investigacion" tiene al menos un enlace
     externo real en el articulo.
+12. Ningun enlace externo va inline en el cuerpo -- todas las fuentes
+    citadas estan solo en la seccion "Fuentes" del final (A7), con
+    minimo 3 fuentes distintas.
+13. El campo "author" de la mutacion es exactamente {"name": "Julian E.
+    Zamora"} -- nunca "Equipo Vitaliah" ni otra variante (A1.1).
+14. El bloque de disclaimer INVIMA de A9.1 esta presente, textual, al
+    final del bodyHtml, despues de la seccion "Fuentes".
+15. El primer parrafo no empieza con ninguna de las frases prohibidas
+    de A1.
 
 NOTA SOBRE EL CONTEO DE PALABRAS/H2: contar con precision un texto largo
 "a ojo" es donde mas facil te puedes equivocar. Si tienes acceso a una
@@ -441,7 +532,7 @@ Variables:
     "blogId": "<gid del blog 'noticias', obtenido en el Paso 2>",
     "title": "<titulo del Paso 1>",
     "handle": "<handle_propuesto del Paso 1>",
-    "author": { "name": "Equipo Vitaliah" },
+    "author": { "name": "Julian E. Zamora" },
     "tags": ["<tags del Paso 4>"],
     "body": "<bodyHtml del Paso 4>",
     "summary": "<excerpt del Paso 4>",
@@ -502,6 +593,42 @@ que), y el link del articulo en el admin de Shopify si se publico. Si
 quedo un faqJsonLd pendiente de pegar, recuerdaselo.
 
 ================================================================
+PENDIENTE DE CONFIRMAR (no implementado por conflicto -- ver "Guia
+Maestra de Produccion de Blogs Vitaliah v2" que Julian subio el
+2026-08-31)
+================================================================
+
+Esa guia trae dos cosas que NO se implementaron todavia porque entran
+en conflicto directo con lo que ya esta publicado en vivo en Shopify.
+No las apliques por tu cuenta -- confirmalas con Julian primero:
+
+1. SISTEMA VISUAL CON CAJAS DE COLOR (Seccion 4 de la guia): la guia
+   describe una plantilla con etiqueta superior tipo badge, caja de
+   introduccion con gradiente, circulos numerados, caja de dato
+   cientifico en naranja, caja de advertencia en rojo, bloque de cierre
+   oscuro con boton -- todo con estilos inline y una paleta de color
+   (#065F46 verde oscuro, etc.) DISTINTA a la de docs/guia-imagenes-
+   canva.md (#1E3D2F). Los articulos ya publicados en el blog (incluidos
+   los 3 de magnesio publicados hoy) son HTML semantico plano (p, h2,
+   h3, ul, table, img), SIN ese sistema de cajas. Adoptar esto
+   implicaria: (a) definir cual paleta es la oficial, (b) rediseñar la
+   plantilla de bodyHtml que usa este playbook, y (c) decidir si se
+   retrofitea a los articulos ya publicados o solo aplica hacia
+   adelante. No se asume nada de esto sin que Julian lo confirme.
+2. CLUSTERS FALTANTES EN content-calendar.yaml: la guia lista clusters
+   (Colageno Marino, Clorofila, Stevia, Te Chai) que YA tienen articulos
+   reales publicados en el blog "noticias" (confirmado revisando la
+   lista completa de articulos), pero content-calendar.yaml no los
+   trackea -- el calendario actual solo tiene magnesio, resveratrol,
+   creatina, proteina-vegana, vinagre-manzana, hongos-adaptogenos,
+   monk-fruit, productos-naturales-colombia, maquila-b2b, linaza-
+   masticables, yogurt-griego y natalia-paris-lifestyle. Antes de que el
+   motor mensual (seo-engine) o este playbook generen mas ideas para
+   esos clusters faltantes, alguien tiene que reconstruir esas entradas
+   en el calendario con los articulos ya publicados -- no se inventaron
+   entradas especulativas para no arriesgar datos incorrectos.
+
+================================================================
 REGLAS DE ORO (NO NEGOCIABLES)
 ================================================================
 
@@ -512,6 +639,11 @@ REGLAS DE ORO (NO NEGOCIABLES)
 - Nunca publiques un articulo sin haber generado o reutilizado su imagen
   de contexto/cabecera con Canva (Paso 3.5, regla A6) -- no es opcional,
   no la reemplaces silenciosamente por fotos de producto.
+- Nunca publiques un articulo con autor distinto a "Julian E. Zamora"
+  (A1.1) ni sin el disclaimer INVIMA textual al final (A9.1).
+- Nunca adoptes el sistema visual de cajas con gradiente de la Guia
+  Maestra (badges, cajas de color, boton de cierre) sin confirmarlo
+  primero con Julian -- ver "PENDIENTE DE CONFIRMAR" arriba.
 - Nunca inventes una cita de estudio sin una fuente real verificable con
   busqueda web.
 - Nunca canibalices un tema ya cubierto -- si tienes duda razonable de
