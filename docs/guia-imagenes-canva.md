@@ -120,6 +120,58 @@ Por cada imagen de contexto generada (deben ser 2 por artículo):
 - [ ] Exportada como PNG y subida a Shopify con URL estable
 - [ ] Las 2 imágenes de contexto del artículo no usan el mismo estilo (una ilustración, una realista, o revisa que al menos varíen visualmente)
 
+---
+
+## 6. Infografías de síntesis (distinto de las imágenes de contexto)
+
+Esto es un tipo de imagen DIFERENTE al de las secciones 1-5 de esta guía.
+Las imágenes de contexto de la sección 2 **prohíben todo texto** -- una
+infografía de síntesis es justo lo contrario: existe para mostrar texto y
+datos reales de forma visual, como complemento opcional de un artículo
+"pilar" (ver `motorsinscripts.txt`, regla A2.3). Por eso el proceso de
+generación y de revisión es distinto, y bastante más estricto en la parte
+de verificación.
+
+**Regla de oro de esta sección**: en las imágenes de contexto el riesgo es
+que Canva invente texto donde no debería haber ninguno; en una infografía
+el riesgo es que Canva invente, cambie o redondee un dato donde SÍ debería
+haber texto, pero exacto. Un vistazo al thumbnail no detecta un "150 mg"
+que Canva convirtió en "160 mg", o una cifra que desapareció. Verificar
+visualmente no es suficiente aquí.
+
+Proceso:
+
+1. **Redacta tú mismo, antes de generar nada, el texto exacto** que debe
+   aparecer en la infografía: título, cada sección, cada cifra o dato. Todo
+   ese texto debe ser un resumen fiel de algo que ya está escrito y citado
+   en el cuerpo del artículo -- nunca redactes para la infografía un dato
+   que no esté ya en el texto del artículo.
+2. Genera la infografía (`generate-design` con `design_type: "infographic"`)
+   pasando ese texto literal en el prompt, con una instrucción explícita de
+   no agregar ninguna cifra o afirmación que no esté en ese texto. Incluye
+   la paleta de marca (sección 4).
+3. Convierte la mejor candidata en diseño editable (`create-design-from-
+   candidate`).
+4. **Verificación obligatoria de texto** (esto reemplaza al checklist visual
+   de la sección 3.2, que aquí no basta): usa `read-design` con
+   `filter.fields` incluyendo `design_content` para leer el texto real que
+   quedó en el diseño. Compara cada cifra, rango o afirmación contra tu
+   lista aprobada del paso 1, uno por uno. Si algo no coincide exactamente
+   (un número distinto, un dato de más, una afirmación reformulada que
+   cambia el sentido), no la uses -- ajusta el prompt y regenera. Recién
+   ahí revisa también el thumbnail para el aspecto visual (paleta, orden,
+   legibilidad).
+5. Exporta como PNG (igual que sección 3.4) y súbela a Shopify con
+   `fileCreate` para obtener una URL estable del CDN.
+6. Insértala en el body en el punto del artículo donde mejor sintetice lo
+   ya explicado (típicamente al cierre de la sección de dosis/uso práctico,
+   antes de precauciones o antes de las preguntas frecuentes) -- no cerca
+   del inicio, donde va la imagen de contexto de cabecera de la sección 2.
+
+Esta infografía NO cuenta como una de las 2 imágenes de contexto
+obligatorias de la sección 1 -- es un elemento adicional y opcional, no un
+reemplazo.
+
 Del artículo completo:
 - [ ] 2 imágenes de contexto (Canva) + 2 imágenes de producto (Shopify) = 4 imágenes en total
 - [ ] Cada imagen de producto está envuelta en `<a href="/products/<handle>">` al producto real

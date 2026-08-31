@@ -241,6 +241,61 @@ selectivamente, ver nota al final de esta parte).
   indice sigue siendo obligatorio segun A2/QA punto 16 en todo articulo
   que use estos formatos.
 
+--- A2.3. Elementos de sintesis: tabla comparativa, guia rapida, infografia (recomendado en pilares) ---
+
+Ademas del texto corrido, todo articulo "pilar" (y cualquier "cluster" con
+datos comparables) deberia incluir al menos UN elemento que sintetice
+informacion real del articulo en un formato mas rapido de escanear que un
+parrafo -- el objetivo es que alguien que solo escanea el articulo (sin leer
+cada palabra) se lleve el dato concreto igual. Tres formatos disponibles,
+ninguno excluye a los otros:
+
+1. TABLA COMPARATIVA. Cuando el articulo cubre varias areas/opciones/
+   variantes con datos comparables (ej. "area de salud x dosis x hallazgo x
+   fuerza de evidencia", o "producto A vs producto B vs producto C"). Usa
+   <table> HTML real (no una imagen) con estilos INLINE en cada
+   tag (style="..." directo en <table>/<th>/<td>), nunca un bloque <style>
+   separado -- ver la advertencia tecnica de A2.1 sobre por que un <style>
+   dentro del body es arriesgado; con estilos inline ese riesgo no aplica.
+   Paleta de marca (ver docs/guia-imagenes-canva.md seccion 4) en el
+   encabezado de la tabla. Cada dato de la tabla debe ser un resumen fiel de
+   algo ya afirmado y citado en el cuerpo del articulo -- una tabla nunca
+   introduce un dato nuevo que no este ya respaldado en el texto/Fuentes. Si
+   la tabla incluye una columna cualitativa tipo "fuerza de la evidencia"
+   (Alta/Moderada/Limitada), agrega debajo una nota aclarando que es una
+   sintesis del propio articulo, no una escala clinica oficial -- para no
+   sugerir un aval regulatorio que no existe.
+
+2. GUIA RAPIDA (caja de resumen). Un <div> con estilos inline (fondo suave
+   de la paleta de marca, ej. background:#F4F7F2, borde sutil, padding) que
+   contiene una lista corta (3-6 items) de los datos mas accionables del
+   articulo: dosis, mejor momento para tomar, que buscar en la etiqueta,
+   cuando consultar al medico, etc. Va cerca de la seccion mas practica del
+   articulo (tipicamente "Como tomar/usar"). Mismo principio que la tabla:
+   solo sintetiza datos que ya estan desarrollados y citados en el cuerpo,
+   nunca agrega algo nuevo.
+
+3. INFOGRAFIA (Canva). A diferencia de las imagenes de contexto de A6 (que
+   PROHIBEN todo texto), una infografia de sintesis SI lleva texto -- por
+   eso el proceso es distinto y mas estricto en verificacion, ver
+   docs/guia-imagenes-canva.md seccion 6 para el proceso completo. Resumen
+   del principio clave: redacta tu mismo el texto exacto que debe aparecer
+   (title, cada dato, cada cifra) ANTES de generarla, dale ese texto literal
+   a Canva en el prompt, y despues de generarla usa `read-design` con
+   `design_content` para leer el texto real que Canva puso en el diseno --
+   compara cada cifra y afirmacion contra tu lista aprobada antes de
+   exportarla. Un vistazo al thumbnail no basta para detectar un numero mal
+   escrito o una afirmacion parafraseada de forma incorrecta. Si Canva
+   agrego, cambio o redondeo cualquier dato que no coincide exactamente con
+   lo que ya esta en el cuerpo del articulo, no la uses -- corrige el
+   prompt y regenera.
+
+Ninguno de estos tres elementos es obligatorio para pasar el QA (a
+diferencia de las imagenes de contexto/producto de A6, que si lo son), pero
+se recomienda fuertemente incluir al menos uno en cada pilar -- mejora la
+experiencia de lectura y da mas motivos para que Google featuree el
+contenido (rich snippets de tabla, etc.).
+
 --- A3. Longitud minima ---
 
 Rol "pilar": minimo 2300 palabras (solo texto, sin contar HTML).
@@ -631,6 +686,10 @@ y honesta -- no asumas que las cumpliste, revisa el texto real:
     href coincide exactamente con el id del H2 al que apunta. Este
     punto se salto en la practica varias veces por no estar en esta
     checklist explicitamente -- ahora esta aqui, no se vuelve a omitir.
+17. (Recomendado, no bloqueante) Si el articulo es "pilar": ¿incluye al
+    menos un elemento de sintesis de A2.3 (tabla comparativa, guia rapida,
+    o infografia)? Si no incluye ninguno, no falla el QA, pero valora si el
+    tema se presta para uno antes de darlo por terminado.
 
 NOTA SOBRE EL CONTEO DE PALABRAS/H2: contar con precision un texto largo
 "a ojo" es donde mas facil te puedes equivocar. Si tienes acceso a una
