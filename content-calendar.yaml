@@ -438,7 +438,7 @@ articulos:
 - titulo: Magnesio para Calambres y Recuperacion Muscular
   cluster: magnesio
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: magnesio para calambres
   keywords_secundarias:
   - magnesio recuperacion muscular
@@ -447,8 +447,17 @@ articulos:
   - Masticables Mag Fussion (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: magnesio-para-calambres-recuperacion-muscular
-  handle_final: null
-  article_gid: null
+  handle_final: magnesio-para-calambres-recuperacion-muscular
+  article_gid: gid://shopify/Article/614695633212
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/magnesio-para-calambres-recuperacion-muscular.faq.jsonld.html
+  nota: >-
+    Enlace obligatorio "Masticables Mag Fussion (producto)" no resuelto: el
+    producto existe en Shopify pero esta en estado DRAFT (no tiene pagina
+    publica). Se enlazo en su lugar el producto activo "Bebida Herbal Mag
+    Fussion" (misma linea, real y publicado) para cumplir el minimo de 3
+    enlaces internos sin inventar una URL. Revisar si conviene publicar el
+    producto Masticables Mag Fussion.
 - titulo: 'Masticables vs. Bebida de Magnesio: Cual Absorbe Mejor'
   cluster: magnesio
   rol: cluster
