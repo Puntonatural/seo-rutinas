@@ -27,6 +27,9 @@ Julián validó el flujo completo tras el primer artículo (magnesio pilar) y
 el segundo (tipos de magnesio, cluster) como la rutina a seguir sin pedir
 confirmación adicional en cada corrida:
 
+0. **Cada corrida diaria procesa 3 articulos** (repetir los pasos 1-8 tres
+   veces, o hasta agotar los articulos en estado `idea` si quedan menos de
+   3).
 1. Elegir el primer artículo en estado `idea` de `content-calendar.yaml`
    (en orden).
 2. Chequeo de canibalización contra los artículos ya publicados del blog
