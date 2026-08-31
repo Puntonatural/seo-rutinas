@@ -1,9 +1,10 @@
 /**
- * collect.js — recolecta datos de GSC + Sheet + keywords gratuitas
+ * collect.js — recolecta datos de GSC + content-calendar.yaml + keywords gratuitas
  * Output: data/report.json (usado por el agente Claude)
  */
 import fs from 'fs'
 import path from 'path'
+import yaml from 'js-yaml'
 import { fileURLToPath } from 'url'
 import { getAuthClient } from './auth.js'
 import { getArticlePerformance, getKeywordOpportunities, getTopQueries } from './gsc.js'
@@ -11,6 +12,8 @@ import { expandCluster } from './keywords.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const DATA_DIR = path.join(__dirname, '..', 'data')
+const REPO_ROOT = path.join(__dirname, '..', '..')
+const CALENDAR_PATH = path.join(REPO_ROOT, 'content-calendar.yaml')
 
 async function main() {
   console.log('🔍 Iniciando recolección de datos SEO...')
@@ -29,48 +32,42 @@ async function main() {
   console.log('  → Top queries últimos 30 días...')
   const topQueries = await getTopQueries(auth, 30)
 
-  // 2. Leer clusters desde snapshot local (sin Sheets API)
-  // El snapshot se actualiza manualmente o vía export de la hoja
-  const snapshotPath = path.join(DATA_DIR, 'calendar-snapshot.json')
-  const calendar = fs.existsSync(snapshotPath)
-    ? JSON.parse(fs.readFileSync(snapshotPath, 'utf8'))
-    : []
-
-  if (calendar.length === 0) {
-    console.log('  ⚠ Sin snapshot local — clusters/calendario omitidos')
-    console.log('    Exporta la hoja a JSON y guárdala en data/calendar-snapshot.json')
-  } else {
-    console.log(`  → ${calendar.length} artículos leídos del snapshot local`)
+  // 2. Leer el calendario real del repo (única fuente de verdad)
+  if (!fs.existsSync(CALENDAR_PATH)) {
+    console.error('No existe content-calendar.yaml en la raíz del repo — no se puede analizar clusters.')
+    process.exit(1)
   }
+  const calendarDoc = yaml.load(fs.readFileSync(CALENDAR_PATH, 'utf8')) || {}
+  const calendar = calendarDoc.articulos || []
+  console.log(`  → ${calendar.length} artículos leídos de content-calendar.yaml`)
 
   // 3. Analizar clusters — cuáles tienen pilar, cuáles no
   const clusters = {}
-  for (const row of calendar) {
-    const cluster = row['Cluster'] || row['cluster']
+  for (const a of calendar) {
+    const cluster = a.cluster
     if (!cluster) continue
     if (!clusters[cluster]) clusters[cluster] = { pilar: null, articulos: [] }
 
-    const rol = row['Rol'] || row['rol'] || ''
-    const estado = row['Estado'] || row['estado'] || ''
-
-    if (rol === 'pilar') {
+    if (a.rol === 'pilar') {
       clusters[cluster].pilar = {
-        titulo: row['Título'] || row['Titulo'] || '',
-        estado,
-        palabraClave: row['Palabra clave'] || '',
+        titulo: a.titulo || '',
+        estado: a.estado || '',
+        palabraClave: a.palabra_clave || '',
+        handle: a.handle_final || a.handle_propuesto || '',
       }
     } else {
       clusters[cluster].articulos.push({
-        titulo: row['Título'] || row['Titulo'] || '',
-        estado,
-        palabraClave: row['Palabra clave'] || '',
+        titulo: a.titulo || '',
+        estado: a.estado || '',
+        palabraClave: a.palabra_clave || '',
       })
     }
   }
 
-  // 4. Clusters sin pilar publicado → oportunidades prioritarias
+  // 4. Clusters sin pilar publicado (oculto o visible) → oportunidades prioritarias
+  const PILAR_LISTO = ['publicado', 'publicado_oculto']
   const clustersSinPilar = Object.entries(clusters)
-    .filter(([, v]) => !v.pilar || v.pilar.estado !== 'publicado')
+    .filter(([, v]) => !v.pilar || !PILAR_LISTO.includes(v.pilar.estado))
     .map(([name]) => name)
 
   // 5. Expandir keywords para clusters con menos de 3 artículos "idea"
@@ -94,10 +91,8 @@ async function main() {
     generatedAt: new Date().toISOString(),
     site: 'stevia.com.co',
     summary: {
-      totalArticulosPublicados: calendar.filter(
-        (r) => (r['Estado'] || r['estado']) === 'publicado'
-      ).length,
-      totalIdeas: calendar.filter((r) => (r['Estado'] || r['estado']) === 'idea').length,
+      totalArticulosPublicados: calendar.filter((a) => PILAR_LISTO.includes(a.estado)).length,
+      totalIdeas: calendar.filter((a) => a.estado === 'idea').length,
       totalClusters: Object.keys(clusters).length,
       clustersSinPilarPublicado: clustersSinPilar,
     },
@@ -115,7 +110,7 @@ async function main() {
   fs.writeFileSync(path.join(DATA_DIR, 'report.json'), JSON.stringify(report, null, 2))
   console.log(`\n✅ Reporte guardado en data/report.json`)
   console.log(`   Artículos publicados: ${report.summary.totalArticulosPublicados}`)
-  console.log(`   Ideas en hoja: ${report.summary.totalIdeas}`)
+  console.log(`   Ideas pendientes: ${report.summary.totalIdeas}`)
   console.log(`   Clusters sin pilar: ${clustersSinPilar.join(', ')}`)
 }
 

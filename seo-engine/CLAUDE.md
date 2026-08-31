@@ -1,15 +1,24 @@
 # SEO Engine Vitaliah — Instrucciones para el Agente Claude
 
-Eres el motor SEO de stevia.com.co. Esta es tu rutina diaria automatizada.
+Eres el motor SEO de stevia.com.co. Esta es tu rutina mensual/diaria automatizada.
+
+## Fuente única de verdad
+
+Todo el calendario de contenido vive en `content-calendar.yaml`, en la **raíz del
+repo** (no en `seo-engine/`, no en Google Sheets). Tanto este motor como el agente
+redactor (`motorsinscripts.txt`) leen y escriben ese mismo archivo. Nunca crees un
+YAML de calendario separado por mes ni escribas a una hoja de Sheets.
 
 ## Qué hacer cada vez que despiertas
 
 ### 1. Recolectar datos frescos de GSC
 ```bash
-cd "D:\Gerencia\Desktop\Vitaliah desarrollos digitales\vitaliah-seo-engine"
+cd seo-engine
 node src/collect.js
 ```
-Esto genera `data/report.json` con rendimiento de artículos y oportunidades de keywords.
+Esto lee `content-calendar.yaml` (clusters/artículos existentes) + Google Search
+Console, y genera `data/report.json` con rendimiento de artículos, oportunidades de
+keywords y qué clusters no tienen pilar publicado.
 
 ### 2. Leer el reporte
 Lee `data/report.json` completo. Contiene:
@@ -33,56 +42,64 @@ Escribe un resumen en `data/daily-report.md` con:
 ```bash
 node src/calendar.js
 ```
-Esto genera `calendars/YYYY-MM.yaml` con 3-5 artículos priorizados para el mes.
-**El archivo YAML queda en el repo** — el agente redactor lo consume desde ahí.
+Esto **anexa** hasta ~6 artículos nuevos con `estado: idea` directamente a
+`content-calendar.yaml` (raíz del repo) — un pilar para el primer cluster sin
+pilar publicado, más artículos cluster basados en oportunidades reales de GSC.
+No sobrescribe las entradas existentes ni genera un archivo separado.
+
+El script solo puede completar `enlaces_internos_obligatorios` con referencias
+que puede conocer honestamente (el pilar del propio cluster y el artículo hub
+"Productos naturales en Colombia") — no inventa nombres de producto porque no
+tiene acceso al catálogo de Shopify. Si al revisar una entrada nueva conoces
+productos reales relacionados, agrégalos a mano a esa lista antes de que el
+agente redactor la tome; si no, el redactor puede resolver menos de 3 enlaces
+y quedar en `qa_fallido`, lo cual es preferible a inventar un enlace.
 
 #### C) Si hay oportunidades nuevas muy claras (impresiones >200, sin artículo existente)
-Agrégalas al calendario del mes editando `calendars/YYYY-MM.yaml` directamente.
+Agrégalas tú mismo como entradas nuevas en `content-calendar.yaml`, con el mismo
+esquema que usa `calendar.js` (ver `content-calendar.yaml` para el formato exacto
+de cada campo).
 
 ### 4. Commit al repo
 ```bash
-git add calendars/ data/daily-report.md
-git commit -m "seo: daily analysis $(date +%Y-%m-%d)"
+git add content-calendar.yaml data/daily-report.md
+git commit -m "seo: analisis mensual $(date +%Y-%m-%d)"
 git push origin main
 ```
 
 ## Reglas de análisis
 
 - **No improvises volumen** — usa solo datos reales del `report.json`
-- **Prioridad máxima**: clusters sin pilar publicado → crear el pilar primero
+- **Prioridad máxima**: clusters sin pilar publicado (ni visible ni oculto) → crear el pilar primero
 - **Segunda prioridad**: queries con >100 impresiones y posición 11-20 → nuevo artículo o mejora
 - **Tercera prioridad**: artículos en top 10 con CTR <3% → mejorar título y meta description
 - El sitio es de Colombia, el copy va en español orientado al usuario colombiano
 - Vitaliah vende suplementos saludables — los artículos deben conectar con productos reales
+- Nunca inventes un enlace interno o producto que no exista — mejor dejarlo sin
+  resolver que inventarlo (misma regla que sigue el agente redactor)
 
-## Estructura del calendario YAML
+## Esquema de una entrada de content-calendar.yaml
 
 ```yaml
-mes: "Septiembre 2026"
-generado: "2026-09-01"
 articulos:
   - titulo: "Título SEO del artículo"
-    keyword_principal: "keyword exacta"
-    keywords_secundarias: ["kw1", "kw2", "kw3"]
     cluster: "nombre-del-cluster"
     rol: pilar|cluster
-    handle: "slug-url-propuesto"
-    semana_sugerida: 1
-    brief: "2-3 líneas de qué debe cubrir el artículo"
-    gsc_data:
-      impresiones: 450
-      posicion_actual: 14.2
-mejoras_pendientes:
-  - query: "keyword existente"
-    accion: mejorar_titulo_meta
-    url_actual: "/blogs/news/articulo"
+    estado: idea|publicado|publicado_oculto|canibalizacion_detectada|qa_fallido
+    palabra_clave: "keyword exacta"
+    keywords_secundarias: ["kw1", "kw2"]
+    enlaces_internos_obligatorios:
+      - "Nombre del producto o artículo (producto|coleccion|pilar, este calendario|articulo existente)"
+    handle_propuesto: "slug-url-propuesto"
+    handle_final: null      # lo llena el agente redactor al publicar
+    article_gid: null       # lo llena el agente redactor al publicar
 ```
 
 ## Frecuencia
 
 - **Diario (lunes-viernes)**: `node src/collect.js` + resumen en `data/daily-report.md`
-- **Primer lunes del mes**: además corre `node src/calendar.js` → nuevo YAML
-- **Cuando hay oportunidad urgente**: edita el YAML del mes en curso
+- **Primer lunes del mes**: además corre `node src/calendar.js` → nuevas ideas anexadas a content-calendar.yaml
+- **Cuando hay oportunidad urgente**: agrega la entrada directamente a content-calendar.yaml
 
 ## Setup inicial (solo una vez)
 

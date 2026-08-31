@@ -11,11 +11,6 @@ Corre el primer lunes de cada mes.
 - Agrega nuevas entradas con estado `idea` a `content-calendar.yaml` (raíz del repo)
 - Lee las instrucciones completas en `seo-engine/CLAUDE.md`
 
-**Pendiente de ajustar (ver seo-engine/CLAUDE.md):** `seo-engine/src/calendar.js`
-todavía escribe `calendars/YYYY-MM.yaml` con un esquema distinto (keyword_principal,
-sin estado, sin enlaces_internos_obligatorios) — falta adaptarlo para que
-anexe directamente a `content-calendar.yaml` con el esquema del agente redactor.
-
 ### 2. Agente redactor — `motorsinscripts.txt`
 Corre cada vez que hay un artículo pendiente en el calendario.
 - Lee `content-calendar.yaml` (raíz del repo) para saber qué artículo publicar
