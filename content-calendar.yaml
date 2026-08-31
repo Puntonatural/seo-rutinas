@@ -503,7 +503,7 @@ articulos:
 - titulo: 'Magnesio y Migrana: Que Dice la Evidencia'
   cluster: magnesio
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: magnesio para la migrana
   keywords_secundarias:
   - magnesio dolor de cabeza
@@ -512,8 +512,10 @@ articulos:
   - Masticables Mag Harmony (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: magnesio-y-migrana-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: magnesio-y-migrana-evidencia
+  article_gid: gid://shopify/Article/614696911164
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/magnesio-y-migrana-evidencia.faq.jsonld.html
 - titulo: 'Resveratrol: Beneficios, Evidencia y Como Tomarlo'
   cluster: resveratrol
   rol: pilar
