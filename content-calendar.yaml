@@ -487,7 +487,7 @@ articulos:
 - titulo: 'Magnesio y Ansiedad: Que Dice la Evidencia'
   cluster: magnesio
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: magnesio para la ansiedad
   keywords_secundarias:
   - magnesio sistema nervioso
@@ -496,8 +496,10 @@ articulos:
   - Bebida Herbal Mag Fussion (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: magnesio-y-ansiedad-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: magnesio-y-ansiedad-evidencia
+  article_gid: gid://shopify/Article/614696845628
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/magnesio-y-ansiedad-evidencia.faq.jsonld.html
 - titulo: 'Magnesio y Migrana: Que Dice la Evidencia'
   cluster: magnesio
   rol: cluster
