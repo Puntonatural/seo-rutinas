@@ -278,17 +278,30 @@ ninguno excluye a los otros:
 3. INFOGRAFIA (Canva). A diferencia de las imagenes de contexto de A6 (que
    PROHIBEN todo texto), una infografia de sintesis SI lleva texto -- por
    eso el proceso es distinto y mas estricto en verificacion, ver
-   docs/guia-imagenes-canva.md seccion 6 para el proceso completo. Resumen
-   del principio clave: redacta tu mismo el texto exacto que debe aparecer
-   (title, cada dato, cada cifra) ANTES de generarla, dale ese texto literal
-   a Canva en el prompt, y despues de generarla usa `read-design` con
-   `design_content` para leer el texto real que Canva puso en el diseno --
-   compara cada cifra y afirmacion contra tu lista aprobada antes de
-   exportarla. Un vistazo al thumbnail no basta para detectar un numero mal
-   escrito o una afirmacion parafraseada de forma incorrecta. Si Canva
-   agrego, cambio o redondeo cualquier dato que no coincide exactamente con
-   lo que ya esta en el cuerpo del articulo, no la uses -- corrige el
-   prompt y regenera.
+   docs/guia-imagenes-canva.md seccion 6 para el proceso completo. Puntos
+   clave:
+   - Enfoque de contenido: uso practico y beneficios (como tomarlo, que
+     beneficio obtiene el lector), NO un resumen tipo paper cientifico --
+     ver seccion 6.1 de la guia. Formato de 4 celdas recomendado: Como
+     tomarlo / Beneficios respaldados / Dosis / Ten en cuenta.
+   - Formato cuadrado: usa `design_type: "facebook_post"`, nunca
+     `"infographic"` -- ese design_type de Canva siempre devuelve un
+     poster vertical alargado sin importar lo que pidas en el prompt (ver
+     seccion 6.2 de la guia).
+   - Redacta tu mismo el texto exacto que debe aparecer (titulo, cada
+     celda con su propio titulo y cuerpo, cada cifra) ANTES de generarla,
+     dale ese texto literal a Canva en el prompt, y despues de generarla
+     usa `read-design` con `design_content` para leer el texto real que
+     Canva puso en el diseno -- compara cada cifra y afirmacion contra tu
+     lista aprobada antes de exportarla. Un vistazo al thumbnail no basta
+     para detectar un numero mal escrito, un titulo cruzado con el cuerpo
+     de otra celda, o una afirmacion parafraseada de forma incorrecta.
+   - Si el texto no coincide exactamente con lo aprobado, NO regeneres de
+     inmediato -- primero intenta corregirlo con `edit-design`
+     (`replace_text` sobre el `locator_id` exacto) segun la seccion 6.3 de
+     la guia; es mas confiable que una regeneracion nueva, que puede
+     introducir un error distinto (cifra inventada, texto sin sentido) en
+     vez de arreglar el original.
 
 Ninguno de estos tres elementos es obligatorio para pasar el QA (a
 diferencia de las imagenes de contexto/producto de A6, que si lo son), pero

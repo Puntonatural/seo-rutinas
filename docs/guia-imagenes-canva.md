@@ -134,39 +134,98 @@ de verificación.
 
 **Regla de oro de esta sección**: en las imágenes de contexto el riesgo es
 que Canva invente texto donde no debería haber ninguno; en una infografía
-el riesgo es que Canva invente, cambie o redondee un dato donde SÍ debería
-haber texto, pero exacto. Un vistazo al thumbnail no detecta un "150 mg"
-que Canva convirtió en "160 mg", o una cifra que desapareció. Verificar
+el riesgo es que Canva invente, cambie, redondee o cruce un dato donde SÍ
+debería haber texto, pero exacto. Un vistazo al thumbnail no detecta un
+"150 mg" que Canva convirtió en "160 mg", una cifra que desapareció, o el
+título de una celda pegado al cuerpo de la celda vecina. Verificar
 visualmente no es suficiente aquí.
+
+### 6.1 — Enfoque de contenido: uso práctico y beneficios, no un resumen académico
+
+La infografía debe estar orientada a lo que el lector va a HACER con la
+información: cómo tomar el producto/ingrediente y qué beneficio concreto
+obtiene -- no un resumen tipo "qué dice la ciencia" con tono de paper
+académico. Estructura recomendada de 4 celdas: **Cómo tomarlo** (formato,
+con qué, cuándo), **Beneficios respaldados** (lista corta, en lenguaje de
+consumidor), **Dosis** (la cifra central, bien grande), **Ten en cuenta**
+(la precaución mas relevante). Todo el contenido sigue viniendo del cuerpo
+del artículo -- este enfoque es sobre cómo enmarcarlo, no una licencia para
+agregar datos nuevos.
+
+### 6.2 — Formato: usa `facebook_post`, no `infographic`
+
+El `design_type: "infographic"` de Canva SIEMPRE genera un formato vertical
+alargado tipo póster (se probó explícitamente pidiendo "cuadrado 1:1" y
+"NO alargado" en el prompt, y aun así devolvió diseños de 800x2000px) --
+es una limitación de la plantilla de ese `design_type`, no del prompt.
+Para un formato cuadrado o casi cuadrado (~940x788px), usa
+`design_type: "facebook_post"` en su lugar, pidiendo explícitamente un
+layout en cuadrícula de 4 celdas (2x2) con un título delgado arriba y un
+pie delgado abajo. Sigue siendo una infografía en el sentido de esta
+sección -- el nombre del `design_type` en la API no tiene que coincidir
+con el uso real que le das.
 
 Proceso:
 
 1. **Redacta tú mismo, antes de generar nada, el texto exacto** que debe
-   aparecer en la infografía: título, cada sección, cada cifra o dato. Todo
-   ese texto debe ser un resumen fiel de algo que ya está escrito y citado
-   en el cuerpo del artículo -- nunca redactes para la infografía un dato
-   que no esté ya en el texto del artículo.
-2. Genera la infografía (`generate-design` con `design_type: "infographic"`)
-   pasando ese texto literal en el prompt, con una instrucción explícita de
-   no agregar ninguna cifra o afirmación que no esté en ese texto. Incluye
-   la paleta de marca (sección 4).
-3. Convierte la mejor candidata en diseño editable (`create-design-from-
-   candidate`).
+   aparecer en la infografía: título, cada celda con su propio título y su
+   propio cuerpo, cada cifra o dato -- ver 6.1 para el enfoque de
+   contenido. Todo ese texto debe ser un resumen fiel de algo que ya está
+   escrito y citado en el cuerpo del artículo -- nunca redactes para la
+   infografía un dato que no esté ya en el texto del artículo.
+2. Genera la infografía (`generate-design` con `design_type: "facebook_post"`,
+   ver 6.2) pasando ese texto literal en el prompt, especificando qué texto
+   va en cada una de las 4 celdas de la cuadrícula, con una instrucción
+   explícita de no agregar ninguna cifra o afirmación que no esté en ese
+   texto y de no mezclar el título de una celda con el cuerpo de otra.
+   Incluye la paleta de marca (sección 4). Genera varias candidatas (el
+   tool devuelve 3-4 por llamada) -- rara vez la primera es la mejor.
+3. Convierte 2-3 candidatas en diseño editable (`create-design-from-
+   candidate`) y lee el `design_content` de cada una (no solo el
+   thumbnail) para comparar objetivamente cuál tiene el texto más fiel al
+   aprobado en el paso 1, antes de elegir con cuál seguir. En la práctica
+   han aparecido en la misma tanda: candidatas con cifras incorrectas
+   (ej. "300 mg" en vez de "150-500 mg"), texto sin sentido inventado,
+   URLs de placeholder no reemplazadas (`www.reallygreatsite.com`), y
+   celdas con el título de una pegado al cuerpo de otra -- no asumas que
+   cualquier candidata sirve solo porque el layout se ve bien.
 4. **Verificación obligatoria de texto** (esto reemplaza al checklist visual
-   de la sección 3.2, que aquí no basta): usa `read-design` con
-   `filter.fields` incluyendo `design_content` para leer el texto real que
-   quedó en el diseño. Compara cada cifra, rango o afirmación contra tu
-   lista aprobada del paso 1, uno por uno. Si algo no coincide exactamente
-   (un número distinto, un dato de más, una afirmación reformulada que
-   cambia el sentido), no la uses -- ajusta el prompt y regenera. Recién
-   ahí revisa también el thumbnail para el aspecto visual (paleta, orden,
-   legibilidad).
+   de la sección 3.2, que aquí no basta): con `design_content` en mano,
+   compara cada cifra, rango o afirmación contra tu lista aprobada del
+   paso 1, celda por celda. Si algo no coincide exactamente (un número
+   distinto, un dato de más, un título cruzado con el cuerpo de otra
+   celda, una afirmación reformulada que cambia el sentido), NO deseches
+   la candidata completa todavía -- casi siempre se puede corregir sin
+   regenerar (ver 6.3). Recién cuando el texto esté verificado, revisa el
+   thumbnail para el aspecto visual (paleta, alineación, legibilidad).
 5. Exporta como PNG (igual que sección 3.4) y súbela a Shopify con
    `fileCreate` para obtener una URL estable del CDN.
 6. Insértala en el body en el punto del artículo donde mejor sintetice lo
    ya explicado (típicamente al cierre de la sección de dosis/uso práctico,
    antes de precauciones o antes de las preguntas frecuentes) -- no cerca
    del inicio, donde va la imagen de contexto de cabecera de la sección 2.
+
+### 6.3 — Corregir texto sin regenerar (más confiable que pedir de nuevo)
+
+Cuando una candidata tiene el layout correcto pero uno o dos textos mal
+puestos (el defecto más común: el título de la celda A quedó con el
+cuerpo de la celda B, o sobra/falta una palabra), corrígelo directamente
+en vez de regenerar desde cero -- regenerar es una lotería nueva que puede
+introducir errores distintos (cifras inventadas, texto sin sentido) en
+vez de arreglar el original:
+
+1. `read-design` con `open_transaction: true` para obtener los
+   `locator_id` de cada elemento de texto de la página.
+2. Identifica, comparando contra tu lista aprobada del paso 1, exactamente
+   qué `locator_id` tiene el texto equivocado.
+3. `edit-design` con una operación `replace_text` por cada elemento a
+   corregir (se pueden mandar varias en la misma llamada, siempre que
+   apunten a la misma página).
+4. Revisa el thumbnail que devuelve la llamada -- si quedó bien, la misma
+   llamada a `edit-design` con `finalize: "commit"` (sin `operations`)
+   guarda los cambios de forma permanente. Si algo no cuadra, sigue
+   corrigiendo antes de hacer commit, o usa `finalize: "cancel"` para
+   descartar y empezar de nuevo con otra candidata.
 
 Esta infografía NO cuenta como una de las 2 imágenes de contexto
 obligatorias de la sección 1 -- es un elemento adicional y opcional, no un
