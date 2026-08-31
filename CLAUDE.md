@@ -8,23 +8,26 @@ Repositorio unificado de SEO para stevia.com.co (Vitaliah SAS).
 Corre el primer lunes de cada mes.
 - Recolecta datos de Google Search Console
 - Analiza oportunidades de keywords (Google Autocomplete)
-- Genera el calendario del mes: `seo-engine/calendars/YYYY-MM.yaml`
+- Agrega nuevas entradas con estado `idea` a `content-calendar.yaml` (raíz del repo)
 - Lee las instrucciones completas en `seo-engine/CLAUDE.md`
+
+**Pendiente de ajustar (ver seo-engine/CLAUDE.md):** `seo-engine/src/calendar.js`
+todavía escribe `calendars/YYYY-MM.yaml` con un esquema distinto (keyword_principal,
+sin estado, sin enlaces_internos_obligatorios) — falta adaptarlo para que
+anexe directamente a `content-calendar.yaml` con el esquema del agente redactor.
 
 ### 2. Agente redactor — `motorsinscripts.txt`
 Corre cada vez que hay un artículo pendiente en el calendario.
-- Lee `seo-engine/calendars/YYYY-MM.yaml` para saber qué artículo publicar
+- Lee `content-calendar.yaml` (raíz del repo) para saber qué artículo publicar
 - Sigue el playbook de `motorsinscripts.txt` para redactar y publicar en Shopify
-- Actualiza el estado del artículo en el YAML a `publicado` y hace commit
+- Actualiza el estado del artículo en el YAML (`publicado_oculto`, `canibalizacion_detectada`
+  o `qa_fallido`) y hace commit
 
 ## Flujo mensual
 
 ```
-1er lunes → Motor mensual genera calendars/YYYY-MM.yaml
-Semana 1  → Agente redactor publica artículo 1 (semana_sugerida: 1)
-Semana 2  → Agente redactor publica artículo 2
-Semana 3  → Agente redactor publica artículo 3
-Semana 4  → Agente redactor publica artículo 4 (si hay)
+1er lunes → Motor mensual agrega artículos "idea" a content-calendar.yaml
+Semana 1-4 → Agente redactor toma la primera entrada "idea" y la publica (oculta)
 ```
 
 ## Setup de credenciales (local, nunca en Git)
