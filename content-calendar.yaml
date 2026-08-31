@@ -448,6 +448,7 @@ articulos:
     fecha_publicacion_oculta: '2026-08-31'
     faq_jsonld_pendiente_de_pegar: drafts/magnesio-para-dormir-reducir-estres-guia.faq.jsonld.html
     nota: "Enlace a 'Masticables Mag Fussion' sustituido por 'Masticables Mag Harmony' (masticables-mag-harmony-magnesio-120-und): el producto Mag Fussion masticables existe en Shopify solo como DRAFT (no publicado). Revisar si se debe publicar ese producto o actualizar este enlace de forma permanente."
+    imagenes: "1 banner de apertura + 2 intermedias de contexto generadas con Canva (subidas a cdn.shopify.com via fileCreate) + 1 foto real de Masticables Mag Harmony enlazada a /products/masticables-mag-harmony-magnesio-120-und. Imagen destacada del articulo tambien generada con Canva."
 
   - titulo: "Tipos de Magnesio: Cual Elegir Segun tu Objetivo"
     cluster: magnesio

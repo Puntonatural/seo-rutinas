@@ -130,19 +130,50 @@ contar como ausencia de la keyword.
 
 --- A6. Imagenes ---
 
-- Minimo 2 imagenes en el cuerpo (ademas de portada), cada una con texto
-  alternativo descriptivo no vacio.
-- Prioridad de fuente (en este orden):
-  1. Imagen de contexto especifica para el tema (ilustracion de marca,
-     no foto de producto generica) -- usar como imagen principal/de
-     cabecera si esta disponible.
-  2. Imagenes reales de la galeria del producto mencionado -- variar
-     cual se usa entre articulos del mismo cluster, no repetir siempre
-     la misma.
-  3. Si no hay ninguna URL real disponible, usar un marcador de texto
-     tipo [IMAGEN: descripcion + alt sugerido].
+- Imagen destacada del articulo (featured image / portada en Shopify):
+  SIEMPRE generarla con el conector de Canva -- una imagen de contexto
+  tematica (ambientacion, ilustracion editorial de bienestar/marca), nunca
+  una foto de producto ni una plantilla con texto/logos. Generarla con
+  generate-design (usar un design_type panoramico, ej. youtube_thumbnail,
+  16:9), crear el diseño elegido con create-design-from-candidate,
+  exportar con export-design (png), y luego SIEMPRE subirla primero a
+  Shopify con la mutacion fileCreate (usando el link temporal de Canva
+  como originalSource) para obtener una URL permanente en
+  cdn.shopify.com antes de usarla -- el link de exportacion de Canva es
+  temporal y expira, nunca lo dejes como URL final ni en el campo image
+  del articulo ni en el bodyHtml. Setear esta imagen como el campo
+  `image` del articulo via articleUpdate (esto hace que Shopify la
+  vuelva a alojar en su propio CDN automaticamente, a diferencia del
+  bodyHtml que no re-aloja URLs externas).
+- Banner de apertura dentro del cuerpo: repetir la misma imagen de
+  contexto (la destacada) como primera imagen embebida en el bodyHtml,
+  justo despues del indice/TOC.
+- Imagenes intermedias dentro del cuerpo (ademas del banner de apertura):
+  minimo 2 mas, repartidas entre las secciones H2 intermedias (no todas
+  juntas). Cada una con texto alternativo descriptivo no vacio.
+  - De todas las imagenes intermedias, SOLO UNA debe ser foto real de
+    producto (de la galeria del producto mencionado en el articulo) --
+    variar cual producto/foto se usa entre articulos del mismo cluster,
+    no repetir siempre la misma. Esa imagen de producto va envuelta en
+    un enlace `<a href="/products/<handle>">` que apunte directo a la
+    pagina del producto que muestra -- nunca una imagen de producto
+    suelta sin su enlace.
+  - El resto de las imagenes intermedias deben ser, igual que la
+    destacada, imagenes de contexto/tematicas generadas con Canva
+    (mismo proceso: generate-design -> create-design-from-candidate ->
+    export-design -> fileCreate para obtener URL permanente de
+    cdn.shopify.com), no fotos de producto ni capturas con texto/logos.
+    Variar la escena/tema de cada una segun la seccion donde va (ej. una
+    imagen sobre el mecanismo/evidencia, otra sobre el habito diario o
+    los alimentos relacionados), manteniendo la paleta de marca.
+- Total minimo de imagenes en el cuerpo: 4 (1 banner de apertura + 2
+  intermedias de contexto + 1 de producto enlazada). Nunca menos de 2.
+- Si por algun motivo Canva no esta disponible en la sesion, usar como
+  respaldo (en este orden): imagenes reales de la galeria del producto
+  mencionado, o si no hay ninguna URL real disponible, un marcador de
+  texto tipo [IMAGEN: descripcion + alt sugerido].
 - Nunca inventar ni adivinar una URL de imagen que no venga de una
-  fuente real y verificada.
+  fuente real y verificada (ni de Canva ni de Shopify).
 
 --- A7. Citas y evidencia ---
 
