@@ -979,6 +979,25 @@ razon concreta (respuesta del punto 17 del Paso 5). El usuario no
 deberia tener que abrir el articulo publicado para descubrir que un
 elemento recomendado no se incluyo.
 
+Cierra SIEMPRE el reporte con un inventario del saldo de articulos
+pendientes en content-calendar.yaml, para que el usuario sepa en todo
+momento cuantos blogs quedan programados sin tener que abrir el
+archivo el mismo:
+
+- Cuenta cuantas entradas del YAML tienen estado "idea" (pendientes de
+  redactar), agrupadas por "cluster".
+- Si tienes terminal disponible, la forma confiable es un script corto
+  (python+yaml o similar) que cargue content-calendar.yaml y cuente
+  por estado y por cluster -- no cuentes "a ojo" leyendo el archivo,
+  es facil perder una entrada en un YAML de decenas de items.
+- Formato del inventario en el reporte (ejemplo real):
+  "Quedan 28 articulos en estado 'idea': clorofila (8), creatina (5),
+  proteina-vegana (5), vinagre-manzana (5), maquila-b2b (4),
+  resveratrol (1)."
+- Esto va en TODA corrida del agente redactor, no solo cuando el
+  usuario lo pida explicitamente -- es parte fija del Paso 8, igual
+  que reportar si paso el QA.
+
 ================================================================
 PENDIENTE DE CONFIRMAR (no implementado por conflicto -- ver "Guia
 Maestra de Produccion de Blogs Vitaliah v2" que Julian subio el
