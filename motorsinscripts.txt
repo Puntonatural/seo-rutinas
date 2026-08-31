@@ -130,29 +130,40 @@ contar como ausencia de la keyword.
 
 --- A6. Imagenes ---
 
-- Minimo 2 imagenes en el cuerpo (ademas de portada), cada una con texto
-  alternativo descriptivo no vacio.
-- La imagen principal/de cabecera (justo despues del primer parrafo)
-  SIEMPRE debe ser una ilustracion de contexto -- nunca una foto de
-  producto ni un marcador de texto. Esto NO es opcional:
+- Cada articulo lleva 4 imagenes en total: 2 de contexto (Canva) + 2 de
+  producto (Shopify). Cada una con texto alternativo descriptivo no
+  vacio. Esto NO es opcional.
+- Imagenes de contexto (2): la primera va de cabecera, justo despues
+  del primer parrafo -- y es ADEMAS el "featured image" del articulo
+  (campo "image" de la mutacion, ver Paso 6, distinto del <img> del
+  body). La segunda va repartida en el cuerpo, cerca de la seccion con
+  la que mejor conecte tematicamente. Ninguna de las dos es nunca una
+  foto de producto ni un marcador de texto:
   1. Primero busca si el cluster de este articulo YA tiene una imagen de
-     contexto (revisa el body de otro articulo ya publicado del mismo
-     cluster via el conector de Shopify). Si existe, reutiliza esa misma
-     URL -- no generes una nueva para cada articulo.
-  2. Si el cluster no tiene ninguna imagen de contexto todavia, GENERA
-     una con el conector de Canva siguiendo EXACTAMENTE el proceso de
+     contexto que encaje con este tema especifico (revisa el body de
+     otro articulo ya publicado del mismo cluster via el conector de
+     Shopify). Si existe y encaja, reutiliza esa misma URL.
+  2. Si no existe o no encaja con este tema especifico, GENERA una
+     nueva con el conector de Canva siguiendo EXACTAMENTE el proceso de
      docs/guia-imagenes-canva.md (prompt, checklist de revision, paleta
      de marca, exportar y subir a Shopify para obtener una URL estable).
-     No publiques el articulo sin haber hecho esto -- no es un paso
-     opcional ni un "nice to have".
-- Las imagenes intermedias (1 o mas, repartidas en el cuerpo) son
-  siempre fotos REALES de la galeria del producto mencionado -- nunca
-  generadas. Variar cual se usa entre articulos del mismo cluster, no
-  repetir siempre la misma.
-- Si de verdad no hay ninguna URL real disponible para una imagen
-  intermedia, usar un marcador de texto tipo [IMAGEN: descripcion + alt
-  sugerido] -- pero esto nunca aplica a la imagen principal, que siempre
-  sale de Canva o de un articulo hermano del mismo cluster.
+  3. Las 2 imagenes de contexto de un mismo articulo NO deben usar el
+     mismo estilo -- alterna entre ilustracion watercolor/editorial y
+     fotografia realista de composicion (ver docs/guia-imagenes-canva.md
+     seccion 3.1). Nunca fotorrealista de PRODUCTO en una imagen de
+     contexto -- eso son las imagenes de producto, otro slot distinto.
+- Imagenes de producto (2): siempre fotos REALES de la galeria del
+  producto mencionado -- nunca generadas. Variar cual se usa entre
+  articulos del mismo cluster, no repetir siempre la misma. SIEMPRE
+  envueltas en un enlace <a href="/products/<handle-real>"> al producto
+  real -- una imagen de producto sin ese enlace es un error de QA,
+  aunque el texto del parrafo ya tenga un enlace de texto al mismo
+  producto en otro lugar.
+- Si de verdad no hay ninguna URL real de producto disponible para una
+  imagen de producto, usar un marcador de texto tipo [IMAGEN:
+  descripcion + alt sugerido] -- pero esto nunca aplica a las imagenes
+  de contexto, que siempre salen de Canva o de un articulo hermano del
+  mismo cluster.
 - Nunca inventar ni adivinar una URL de imagen que no venga de una
   fuente real y verificada (ni de Shopify ni del export final de Canva).
 
@@ -302,31 +313,41 @@ Para cada descripcion en enlaces_internos_obligatorios del Paso 1 (ej.
    URL "a mano" combinando palabras -- siempre debe venir de un
    resultado real de busqueda.
 
---- Paso 3.5 — Imagen de cabecera/contexto (OBLIGATORIO, ver regla A6) ---
+--- Paso 3.5 — Imagenes de contexto: 2 por articulo (OBLIGATORIO, ver regla A6) ---
 
 Este paso es obligatorio para TODO articulo, pilar o cluster -- nunca lo
-saltes ni lo trates como opcional:
+saltes ni lo trates como opcional. Necesitas 2 imagenes de contexto,
+una de cabecera y otra intermedia:
 
-1. Busca si el cluster de este articulo ya tiene una imagen de contexto:
-   revisa (via el conector de Shopify) el body HTML de otro articulo ya
-   publicado del mismo cluster -- la imagen de cabecera de ese articulo
-   (la que va justo despues del primer parrafo/indice) es la imagen del
-   cluster. Si la encuentras, copia esa misma URL para reutilizarla aqui
-   -- no generes una nueva.
-2. Si ningun articulo del cluster tiene todavia esa imagen: genera una
-   nueva siguiendo EXACTAMENTE docs/guia-imagenes-canva.md (que leer en
-   ese orden: seccion 1 para saber que pedir, seccion 3.1 para el prompt
-   con la paleta de marca de la seccion 4, seccion 3.2 para revisar el
-   resultado contra el checklist -- cero texto, cero cifras inventadas,
-   cero foto de producto, cero rostro real -- seccion 3.3 si hay que
-   limpiar texto no deseado, y seccion 3.4 para exportar como PNG y
-   subirla a Shopify (Contenido/Archivos o el equivalente via el
+1. Busca si el cluster de este articulo ya tiene una imagen de contexto
+   que encaje con ESTE tema especifico: revisa (via el conector de
+   Shopify) el body HTML de otro articulo ya publicado del mismo
+   cluster -- su imagen de cabecera (justo despues del primer
+   parrafo/indice). Si encaja tematicamente, copia esa misma URL para
+   reutilizarla como una de tus 2 imagenes. Si el tema de este articulo
+   es distinto al de las imagenes ya existentes del cluster (ej. este
+   articulo es sobre "recuperacion muscular" y la imagen del cluster es
+   sobre "sueno"), no la reutilices -- genera una nueva.
+2. Para cada imagen que necesites generar: sigue EXACTAMENTE
+   docs/guia-imagenes-canva.md (seccion 1 para saber que pedir, seccion
+   3.1 para el prompt -- alternando estilo ilustracion/realista entre
+   tus 2 imagenes -- con la paleta de marca de la seccion 4, seccion 3.2
+   para revisar el resultado contra el checklist -- cero texto, cero
+   cifras inventadas, cero foto de producto, cero rostro real -- seccion
+   3.3 si hay que limpiar texto no deseado, y seccion 3.4 para exportar
+   como PNG y subirla a Shopify (mutacion fileCreate con originalSource
+   apuntando a la URL de exportacion de Canva, o el equivalente via el
    conector) y obtener asi una URL estable del CDN de Shopify.
 3. Nunca publiques el articulo usando la URL temporal de exportacion de
    Canva (expira) ni sin haber revisado el resultado contra el checklist
    de la seccion 3.2 -- si el resultado tiene texto, cifras o una foto de
    producto, descartalo y vuelve a generar (seccion 3.3 si es solo un
    problema de texto sobrepuesto).
+4. Guarda la URL y el alt de la PRIMERA de las 2 imagenes (la de
+   cabecera) por separado -- la vas a necesitar de nuevo en el Paso 6
+   para el campo "image" del articulo (el featured/banner image del
+   tema de Shopify, que es distinto del <img> del body y se olvida
+   facil si no lo tienes anotado).
 
 --- Paso 4 — Redactar ---
 
@@ -358,11 +379,15 @@ y honesta -- no asumas que las cumpliste, revisa el texto real:
 6. Keyword: presente en la primera frase del primer parrafo, en al
    menos un H2/H3, y en el cuerpo en general.
 7. >=3 enlaces internos con URL real.
-8. >=2 imagenes con texto alternativo no vacio (o marcadores [IMAGEN:
-   ...] si no habia URL real disponible para una imagen INTERMEDIA). La
-   imagen principal/de cabecera debe venir del Paso 3.5 (reutilizada del
-   cluster o generada con Canva) -- si el articulo no tiene esa imagen,
-   este punto de QA falla, sin excepcion.
+8. 4 imagenes con texto alternativo no vacio: 2 de contexto del Paso 3.5
+   (Canva) + 2 de producto reales (o marcadores [IMAGEN: ...] solo si de
+   verdad no habia URL real de producto disponible -- esto nunca aplica
+   a las de contexto). Cada imagen de producto debe estar envuelta en
+   <a href="/products/..."> al producto real -- si falta ese enlace,
+   este punto de QA falla igual que si faltara la imagen. Verifica
+   ademas que el campo "image" del articulo (Paso 6) quedo seteado con
+   la misma URL que la primera imagen de contexto -- si sale null al
+   consultarlo, este punto tambien falla.
 9. Excerpt no vacio, >=2 tags.
 10. Si hay seccion "Preguntas frecuentes": debe existir el faqJsonLd con
     tipo FAQPage.
@@ -407,6 +432,10 @@ Variables:
     "body": "<bodyHtml del Paso 4>",
     "summary": "<excerpt del Paso 4>",
     "isPublished": false,
+    "image": {
+      "url": "<la MISMA URL de la primera imagen de contexto del Paso 3.5>",
+      "altText": "<el mismo alt de esa imagen>"
+    },
     "metafields": [
       { "namespace": "global", "key": "title_tag", "type": "single_line_text_field", "value": "<metaTitle>" },
       { "namespace": "global", "key": "description_tag", "type": "single_line_text_field", "value": "<metaDescription>" }
@@ -416,6 +445,25 @@ Variables:
 
 isPublished DEBE ser false, siempre, sin excepcion. Publicar visible es
 una decision humana posterior.
+
+EL CAMPO "image" ES OBLIGATORIO Y NO ES LO MISMO QUE UN <img> DENTRO DE
+"body". El tema de Shopify renderiza "image" como el banner destacado
+en la parte superior de la pagina del articulo (encima del titulo) --
+si lo omites, el banner queda vacio con un placeholder roto de tipo
+"Next, add a featured image to your blog post", aunque el cuerpo del
+articulo tenga imagenes perfectamente colocadas. Usa como "image" la
+MISMA URL (y el mismo alt) que la primera imagen de contexto que
+insertaste en el body en el Paso 3.5 -- no generes ni subas una imagen
+distinta solo para este campo. Antes de dar el Paso 6 por terminado,
+verifica con una query que el articulo devuelto tiene "image.url" no
+nulo -- si sale null, la mutacion no lo seteo correctamente y hay que
+repetir la llamada con el campo "image" incluido.
+
+Si estas actualizando un articulo ya publicado (por ejemplo porque en
+el Paso 4-5 corregiste el body despues de crearlo), usa articleUpdate
+en vez de articleCreate, pero el campo "image" aplica exactamente
+igual -- articleUpdate no lo hereda ni lo infiere solo, hay que
+pasarlo explicitamente en cada llamada si quieres que quede o cambie.
 
 Si el articulo tenia faqJsonLd, guardalo aparte (o inclúyelo en tu
 reporte final) y avisale al usuario que debe pegarlo manualmente en el

@@ -6,16 +6,16 @@ Cómo generar las imágenes de un artículo cuando no hay una foto de producto r
 
 ## 1. Qué imágenes necesita un artículo
 
-Cada artículo lleva **mínimo 2 imágenes** en el cuerpo (regla `docs/reglas-articulos.md` sección 6), con esta prioridad de fuente:
+Cada artículo lleva **4 imágenes en total**: 2 de contexto (Canva) + 2 de producto (Shopify), con esta prioridad de fuente:
 
-| Slot | Qué es | De dónde sale |
-|---|---|---|
-| **Imagen principal / de contexto** | La imagen de cabecera, justo después de la introducción. Representa el TEMA (el ingrediente, el concepto), no un producto específico. | Ilustración de marca generada en Canva (este documento) — **una por cluster**, reutilizable en todos los artículos de ese cluster. |
-| **Imágenes intermedias** | 1 o más, repartidas en el cuerpo, normalmente junto a la sección donde se menciona un producto concreto. | Fotos **reales** de la galería del producto en Shopify — nunca generadas, nunca de banco de imágenes genérico. |
+| Slot | Cuántas | Qué es | De dónde sale |
+|---|---|---|---|
+| **Imágenes de contexto** | 2 | Una va de cabecera, justo después de la introducción (y es además el "featured image" del artículo -- ver sección 5). La otra va repartida en el cuerpo, cerca de la sección con la que mejor conecte temáticamente. Representan el TEMA (el ingrediente, el concepto), nunca un producto específico. | Generadas en Canva (este documento). No las dos con el mismo estilo -- ver sección 3.1 sobre variar ilustración vs. realista. |
+| **Imágenes de producto** | 2 | Repartidas en el cuerpo, junto a la sección donde se menciona el producto real. | Fotos **reales** de la galería del producto en Shopify -- nunca generadas, nunca de banco de imagenes generico. **SIEMPRE envueltas en un enlace `<a href="/products/<handle>">` al producto real** -- una imagen de producto sin enlace es un error, no un detalle menor (ver seccion 3.5). |
 
-**Regla de oro**: la imagen principal es la ÚNICA que se genera con IA/Canva. Las imágenes intermedias siempre son fotos reales del catálogo — variar cuál se usa de un artículo a otro del mismo cluster para no repetir siempre la misma.
+**Regla de oro**: las imágenes de contexto son las ÚNICAS que se generan con IA/Canva. Las imágenes de producto siempre son fotos reales del catálogo, enlazadas al producto -- variar cuál se usa de un artículo a otro del mismo cluster para no repetir siempre la misma.
 
-No se genera una imagen nueva por artículo — se genera **una por cluster** y se reutiliza en todos sus artículos (pilar + subtemas). Generar una nueva para cada uno de los 54 artículos sería un desperdicio de esfuerzo y, como se ve abajo, cada generación necesita revisión manual.
+Una imagen de contexto SÍ puede reutilizarse entre artículos del mismo cluster si ya existe y encaja tematicamente (revisa el body de un articulo hermano antes de generar una nueva), pero no fuerces la reutilizacion si el tema de este articulo especifico pide algo distinto -- por ejemplo "calambres y recuperacion muscular" necesita su propia imagen aunque el cluster "magnesio" ya tenga una sobre el sueño.
 
 ---
 
@@ -35,13 +35,23 @@ Esto no es opcional — son los errores reales que salieron al generar las 7 im�
 
 ### 3.1 — Generar
 
-Pide una **ilustración**, no un póster ni una plantilla de evento — las plantillas con estructura fija (eventos, tarjetas de cita, infografías con cajas de estadística) son las que más fuerzan texto/datos inventados. El tipo de diseño más limpio en la práctica fue "fondo de pantalla" (`desktop_wallpaper`) pedido explícitamente como composición sin ningún bloque de texto.
+Pide una **ilustración o una composición fotorrealista**, no un póster ni una plantilla de evento — las plantillas con estructura fija (eventos, tarjetas de cita, infografías con cajas de estadística) son las que más fuerzan texto/datos inventados. El tipo de diseño más limpio en la práctica fue "fondo de pantalla" (`desktop_wallpaper`) pedido explícitamente como composición sin ningún bloque de texto.
 
-Plantilla de instrucción que funcionó bien (ejemplo real, cluster hongos adaptógenos):
+**No generes las 2 imágenes de contexto de un artículo con el mismo estilo.** Alterna entre:
+- **Ilustración watercolor/editorial** (botánica, iconos, minimalista) -- la plantilla de ejemplo abajo.
+- **Fotografía realista de composición** (ingredientes, texturas, escenas de bienestar/ejercicio con siluetas, luz natural) -- mismas prohibiciones (cero texto, cero cifras, cero producto/empaque, cero rostro identificable) y misma paleta de marca, pero pidiendo explícitamente "fotografía realista" o "composición fotográfica editorial" en vez de "ilustración watercolor".
+
+Usar solo ilustración para todo un articulo (o todo un cluster) se ve repetitivo -- variar el estilo entre las dos imágenes de contexto de un mismo artículo, y entre artículos de un mismo cluster.
+
+Plantilla de instrucción que funcionó bien para ilustración (ejemplo real, cluster hongos adaptógenos):
 
 > "Ilustración botánica editorial, formato horizontal, ABSOLUTAMENTE CERO TEXTO — ni títulos, ni frases, ni citas, ni firmas, ni fechas, ni porcentajes, ni ningún carácter tipográfico, en ningún idioma. Solo composición visual: [describe el sujeto: el hongo/fruto/producto/concepto] en estilo watercolor editorial, centrado, con fondo sólido color crema #F4F7F2. [Detalles del sujeto y colores]. Composición limpia, minimalista, mucho espacio negativo alrededor, sin ningún panel de color sólido superpuesto, sin ninguna caja de texto ni de cita."
 
-Para temas de estilo de vida/bienestar (no un ingrediente físico), pide una silueta genérica en vez de una persona real, y sé igual de explícito prohibiendo texto.
+Plantilla equivalente para estilo realista (mismo cluster, misma prohibición de texto/cifras/producto/rostro):
+
+> "Fotografía realista de composición editorial, formato horizontal, ABSOLUTAMENTE CERO TEXTO — ni títulos, ni frases, ni citas, ni firmas, ni fechas, ni porcentajes, ni ningún carácter tipográfico, en ningún idioma. Solo composición visual: [describe el sujeto] con luz natural suave, fondo desenfocado en tonos crema y verde, estilo editorial de bienestar. Sin producto ni empaque visible, sin persona real ni rostro identificable -- si se necesita una figura humana, solo manos, piernas o una silueta a contraluz. Paleta de marca Vitaliah (ver sección 4)."
+
+Para temas de estilo de vida/bienestar (no un ingrediente físico), pide una silueta genérica en vez de una persona real, y sé igual de explícito prohibiendo texto, en cualquiera de los dos estilos.
 
 ### 3.2 — Revisar el resultado
 
@@ -64,8 +74,20 @@ No hace falta descartar y volver a generar — es más rápido editar el mismo d
 ### 3.4 — Exportar y publicar
 
 1. Exportar el diseño final como PNG, calidad alta.
-2. Subir el archivo a Shopify (Contenido → Archivos, o el equivalente vía API/conector) — esto le da una URL real y estable en el CDN de Shopify.
-3. Usar esa URL como la imagen principal del artículo (nunca la URL temporal de exportación, que expira).
+2. Subir el archivo a Shopify (Contenido → Archivos, o el equivalente vía API/conector, ej. mutación `fileCreate` con `originalSource` apuntando a la URL de exportación de Canva) — esto le da una URL real y estable en el CDN de Shopify. Espera a que el archivo quede `fileStatus: READY` antes de usar su URL.
+3. Usar esa URL (nunca la URL temporal de exportación de Canva, que expira) tanto en el `<img>` de cabecera del body como en el campo `image` del artículo -- ver 3.5.
+
+### 3.5 — Dos errores que no se deben repetir
+
+**a) Imagen de producto sin enlace.** Cada imagen de producto en el body va envuelta en un enlace a su producto real, nunca suelta:
+
+```html
+<a href="/products/<handle-real-del-producto>"><img src="..." alt="..." width="600"></a>
+```
+
+Un `<img>` de producto sin el `<a>` alrededor es un error de QA, aunque la imagen en sí sea correcta y el texto ya tenga un enlace de texto al mismo producto en otro lugar del párrafo.
+
+**b) Olvidar el "featured image" del artículo.** El `<img>` de cabecera dentro del `body` es SOLO el contenido del artículo -- el tema de Shopify además necesita el campo `image` del artículo (`ArticleCreateInput.image` / `ArticleUpdateInput.image`, con `url` y `altText`) para renderizar el banner destacado que aparece ENCIMA del título, en la parte superior de la página. Si se omite, el banner queda con un placeholder roto ("Next, add a featured image to your blog post") aunque el body tenga todas sus imágenes bien puestas. Usa ahí la MISMA URL y alt que la primera imagen de contexto del body -- nunca generes una imagen distinta solo para ese campo. Después de publicar (o actualizar), verifica con una query que `image.url` no sea `null`.
 
 ---
 
@@ -83,16 +105,22 @@ Dorado:        #B8943F  (detalles/acento premium)
 Texto oscuro:  #1A2E1F
 ```
 
-Estilo general: editorial de bienestar, minimalista, ilustración tipo watercolor o iconografía plana — nunca fotorrealista de producto, nunca corporativo genérico de stock.
+Estilo general: editorial de bienestar, minimalista -- ilustración tipo watercolor/iconografía plana, o fotografía realista de composición (ingredientes, texturas, escenas de bienestar) alternando entre las dos imágenes de contexto de cada artículo (ver 3.1). Lo que nunca debe ser: una foto de producto/empaque (esas van en las imágenes de producto, no en las de contexto) ni un estilo corporativo genérico de stock.
 
 ---
 
-## 5. Resumen del checklist antes de dar una imagen por lista
+## 5. Resumen del checklist antes de dar un artículo por listo
 
+Por cada imagen de contexto generada (deben ser 2 por artículo):
 - [ ] Cero texto (revisado visualmente, no solo pedido en el prompt)
 - [ ] Cero cifras/estadísticas inventadas
 - [ ] Cero foto de producto/empaque
 - [ ] Cero persona real o rostro identificable
 - [ ] Paleta de marca Vitaliah correcta
 - [ ] Exportada como PNG y subida a Shopify con URL estable
-- [ ] Una sola imagen por cluster, reutilizada en todos sus artículos (no una por artículo)
+- [ ] Las 2 imágenes de contexto del artículo no usan el mismo estilo (una ilustración, una realista, o revisa que al menos varíen visualmente)
+
+Del artículo completo:
+- [ ] 2 imágenes de contexto (Canva) + 2 imágenes de producto (Shopify) = 4 imágenes en total
+- [ ] Cada imagen de producto está envuelta en `<a href="/products/<handle>">` al producto real
+- [ ] El campo `image` del artículo (featured/banner) está seteado con la misma URL que la primera imagen de contexto -- verificado con una query que devuelva `image.url` no nulo
