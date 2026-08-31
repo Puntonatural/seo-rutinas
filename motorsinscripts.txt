@@ -1,0 +1,245 @@
+MOTOR SEO VITALIAH — PLAYBOOK PARA AGENTE (SIN EJECUTAR CODIGO DE lib/)
+
+Este documento es la version "solo instrucciones" del motor: permite que un agente Claude (Rutina, sesion de Claude Code, o cualquier contexto con acceso a los archivos de este repo + un conector de Shopify) genere y publique un articulo completo razonando directamente sobre los datos, sin ejecutar "node cli.js ..." ni ningun archivo de lib/.
+
+Usalo cuando quieras que el agente redacte el articulo el mismo (bajo su propia sesion/suscripcion) en vez de delegar la redaccion a una llamada aparte a la API de Anthropic (que es lo que hace lib/writer.js).
+
+REQUISITO DE LAS REGLAS DE CONTENIDO: todo lo que redactes debe cumplir docs/reglas-articulos.md. Este playbook no repite esas reglas -- solo cubre el PROCESO (que leer, en que orden, que escribir de vuelta).
+
+================================================================
+ARCHIVOS DE DATOS QUE VAS A LEER (NUNCA EJECUTAR)
+================================================================
+
+- content-calendar.yaml
+  Lista de temas: cluster, rol (pilar/cluster), keyword objetivo, enlaces
+  internos obligatorios (como descripciones de texto), estado actual.
+
+- data/link-targets.yaml
+  Mapa de alias de texto -> URL real (productos, colecciones, articulos
+  ya existentes) + galerias de imagenes reales por producto + imagenes
+  de contexto por cluster.
+
+- docs/reglas-articulos.md
+  Todas las reglas de contenido/estructura/SEO que debe cumplir el
+  articulo.
+
+================================================================
+PASO 1 — ELEGIR EL TEMA
+================================================================
+
+Lee content-calendar.yaml. Busca el PRIMER articulo bajo "articulos:"
+cuyo campo "estado" sea exactamente "idea".
+
+- Si no hay ninguno: reporta "no hay temas pendientes" y detente. No
+  hagas nada mas.
+- Si lo hay: toma nota de tema, cluster, rol, keyword_objetivo,
+  keywords_secundarias, enlaces_internos_obligatorios, handle_propuesto.
+
+================================================================
+PASO 2 — CHEQUEO DE CANIBALIZACION
+================================================================
+
+Necesitas la lista de titulos de TODOS los articulos ya publicados del
+blog "noticias" de la tienda. Via el conector de Shopify:
+
+1. Encuentra el blog: busca el blog cuyo handle sea "noticias"
+   (blogs(first: 1, query: "handle:noticias") en GraphQL Admin, o el
+   equivalente en la herramienta del conector).
+2. Trae TODOS sus articulos, paginando (articles(first: 50,
+   after: $cursor)), pidiendo title, handle.
+
+Con esa lista, compara el tema + keyword_objetivo del Paso 1 contra cada
+titulo existente. Esto reemplaza el algoritmo Jaccard de
+lib/keyword-overlap.js -- en vez de la formula exacta, usa tu propio
+juicio semantico:
+
+- ¿Hay un articulo existente que cubra el MISMO angulo especifico (no
+  solo el mismo tema general)? Por ejemplo, "Melena de Leon: Beneficios"
+  y "Melena de Leon para la Memoria" NO se canibalizan entre si (angulos
+  distintos dentro del mismo tema), pero dos articulos ambos titulados
+  esencialmente "Beneficios de la Melena de Leon" si.
+- Si encuentras un solapamiento real: edita content-calendar.yaml,
+  cambia el estado de este articulo a "canibalizacion_detectada", guarda
+  el archivo, reporta contra cual articulo existente se solapa, y
+  DETENTE -- no redactes nada.
+- Si no hay solapamiento: continua al Paso 3.
+
+================================================================
+PASO 3 — RESOLVER ENLACES INTERNOS E IMAGENES
+================================================================
+
+Para cada descripcion en enlaces_internos_obligatorios del Paso 1 (ej.
+"Batido Lion Factor - Melena de Leon 500g (producto)"):
+
+1. Quitale el sufijo entre parentesis final -- te queda el nucleo del
+   texto (ej. "Batido Lion Factor - Melena de Leon 500g").
+2. Busca ese nucleo en dos lugares, en este orden:
+
+   a) Contra el "tema" de otros articulos del mismo
+      content-calendar.yaml (¿el nucleo comparte la mayoria de sus
+      palabras significativas con el tema de otro articulo? -- no
+      exijas coincidencia literal exacta, un articulo puede describirse
+      de forma distinta a como se titulo). Si coincide, la URL es
+      "/blogs/noticias/<handle_final o handle_propuesto de ese
+      articulo>".
+
+   b) Contra los "aliases" de data/link-targets.yaml (secciones
+      productos, colecciones, articulos_existentes). Si algun alias
+      aparece dentro del nucleo del texto (comparacion insensible a
+      mayusculas/tildes), la URL es el campo "url" de esa entrada. Si la
+      entrada tiene un campo "images", guarda esa lista -- son fotos
+      reales del producto que puedes usar.
+
+3. Si no encuentras coincidencia en ninguno de los dos lugares: esa URL
+   queda SIN RESOLVER. NO inventes ni adivines una URL -- vas a omitir
+   ese enlace especifico al redactar (regla de docs/reglas-articulos.md
+   seccion 5).
+
+Despues, para las imagenes de contexto: en data/link-targets.yaml,
+seccion imagenes_contexto, busca la entrada cuyo "cluster" coincida con
+el cluster del articulo del Paso 1. Si existe, es la imagen de
+cabecera/contexto a usar (regla seccion 6).
+
+Al final de este paso deberias tener, para cada enlace obligatorio:
+{descripcion, url (o null), imagenesProducto (o ninguna)}, mas la imagen
+de contexto del cluster si existe.
+
+================================================================
+PASO 4 — REDACTAR
+================================================================
+
+Con todo lo anterior (tema, keyword, rol, enlaces resueltos, imagenes
+disponibles), redacta el articulo completo siguiendo TODAS las reglas de
+docs/reglas-articulos.md. Usa busqueda web para fundamentar cualquier
+dato o estudio que cites, con el enlace real a la fuente.
+
+Produce internamente estos campos (los vas a necesitar en los pasos
+siguientes, no hace falta que sean un archivo JSON si no tienes por que
+escribirlos a disco):
+
+- metaTitle, metaDescription, excerpt, tags (array), bodyHtml,
+  faqJsonLd (o ninguno)
+
+================================================================
+PASO 5 — AUTOEVALUACION (QA)
+================================================================
+
+Antes de publicar, verifica cada regla de forma explicita y honesta -- no
+asumas que las cumpliste, revisa el texto real:
+
+1. Conteo de palabras (la parte donde debes ser mas riguroso, ver nota
+   abajo): cuenta las palabras del bodyHtml sin las etiquetas HTML.
+   Minimo 1800 si rol es "pilar", 900 si es "cluster".
+2. Conteo de <h2>: cuenta literalmente cuantas etiquetas <h2> hay en el
+   bodyHtml. Minimo 8 (pilar) / 4 (cluster).
+3. Cero <h1> en el bodyHtml.
+4. Titulo <=60 caracteres.
+5. Meta description: 140-160 caracteres, y contiene las palabras
+   significativas de la keyword.
+6. Keyword: presente en la primera frase del primer parrafo, en al menos
+   un H2/H3, y en el cuerpo en general.
+7. >=3 enlaces internos con URL real (cuenta los <a href="..."> que
+   apunten a "/..." o al dominio stevia.com.co, sin contar anclas
+   "#...").
+8. >=2 imagenes con alt no vacio (o marcadores [IMAGEN: ...] si no
+   habia URL real disponible).
+9. Excerpt no vacio, >=2 tags.
+10. Si hay seccion "Preguntas frecuentes": debe existir el faqJsonLd con
+    "@type": "FAQPage".
+11. Toda mencion de "estudio"/"investigacion" tiene al menos un enlace
+    externo real en el articulo.
+
+NOTA SOBRE EL CONTEO DE PALABRAS/H2: contar con precision un texto largo
+"a ojo" es donde mas facil te puedes equivocar. Si tienes acceso a una
+herramienta de shell/bash en este entorno, la forma mas confiable es
+escribir el bodyHtml a un archivo temporal y contar con utilidades
+estandar (ej. quitar etiquetas y usar un conteo de palabras, o contar
+las ocurrencias literales de "<h2"). Si NO tienes shell disponible,
+cuenta el cuerpo en bloques de ~100 palabras marcando cada bloque, en
+vez de estimar de un vistazo -- es lento pero mucho mas confiable que
+una estimacion.
+
+Si CUALQUIER regla falla: NO publiques. Edita content-calendar.yaml,
+cambia el estado de este articulo a "qa_fallido", guarda, y reporta
+exactamente que fallo. Corrige y vuelve a intentar el Paso 4-5 si tiene
+sentido, o detente y deja que el usuario decida.
+
+Si todo pasa: continua al Paso 6.
+
+================================================================
+PASO 6 — PUBLICAR (SIEMPRE OCULTO)
+================================================================
+
+Via el conector de Shopify, ejecuta la mutacion de creacion de articulo.
+Estructura exacta (equivalente a lib/publisher.js):
+
+mutation CreateArticle($article: ArticleCreateInput!) {
+  articleCreate(article: $article) {
+    article { id handle title isPublished }
+    userErrors { field message }
+  }
+}
+
+Variables:
+{
+  "article": {
+    "blogId": "<gid del blog 'noticias', obtenido en el Paso 2>",
+    "title": "<tema del Paso 1>",
+    "handle": "<handle_propuesto del Paso 1>",
+    "author": { "name": "Equipo Vitaliah" },
+    "tags": ["<tags del Paso 4>"],
+    "body": "<bodyHtml del Paso 4>",
+    "summary": "<excerpt del Paso 4>",
+    "isPublished": false,
+    "metafields": [
+      { "namespace": "global", "key": "title_tag", "type": "single_line_text_field", "value": "<metaTitle>" },
+      { "namespace": "global", "key": "description_tag", "type": "single_line_text_field", "value": "<metaDescription>" }
+    ]
+  }
+}
+
+isPublished DEBE ser false, siempre, sin excepcion. Publicar visible es
+una decision humana posterior.
+
+Si el articulo tenia faqJsonLd: guardalo como archivo separado en
+drafts/<handle_propuesto>.faq.jsonld.html (texto plano, el script
+JSON-LD completo) -- nunca lo pegues dentro de bodyHtml, Shopify lo
+elimina al re-guardar el articulo desde el editor visual.
+
+================================================================
+PASO 7 — ACTUALIZAR EL CALENDARIO
+================================================================
+
+Edita content-calendar.yaml, en la entrada de este articulo:
+
+- estado: publicado_oculto
+- handle_final: <el handle que devolvio la mutacion>
+- article_gid: <el id que devolvio la mutacion>
+- fecha_publicacion_oculta: '<fecha de hoy, YYYY-MM-DD>'
+- Si hubo faqJsonLd: faq_jsonld_pendiente_de_pegar:
+  drafts/<handle_propuesto>.faq.jsonld.html
+
+Guarda el archivo.
+
+================================================================
+PASO 8 — REPORTE FINAL
+================================================================
+
+Dile al usuario: que articulo procesaste, si paso el QA (y si no, por
+que), y el link del articulo en el admin de Shopify si se publico.
+
+================================================================
+REGLAS DE ORO (NO NEGOCIABLES)
+================================================================
+
+- Nunca publiques un articulo visible (isPublished: true) -- siempre
+  oculto.
+- Nunca inventes una URL de enlace interno o imagen que no hayas
+  resuelto en el Paso 3 contra datos reales.
+- Nunca inventes una cita de estudio sin una fuente real verificable con
+  busqueda web.
+- Nunca canibalices un tema ya cubierto -- si tienes duda razonable de
+  solapamiento, detente y pregunta en vez de asumir que esta bien.
+- Si en cualquier paso algo no cuadra (falta un archivo, un dato no
+  existe, una herramienta falla), DETENTE Y REPORTA EL PROBLEMA -- no lo
+  improvises ni lo rellenes a tu criterio.
