@@ -535,7 +535,7 @@ articulos:
 - titulo: 'Resveratrol y Antienvejecimiento: Que Dice la Ciencia'
   cluster: resveratrol
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: resveratrol antienvejecimiento
   keywords_secundarias:
   - resveratrol piel
@@ -544,8 +544,9 @@ articulos:
   - Batido con Resveratrol (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: resveratrol-antienvejecimiento-ciencia
-  handle_final: null
-  article_gid: null
+  handle_final: resveratrol-antienvejecimiento-ciencia
+  article_gid: gid://shopify/Article/614698189116
+  fecha_publicacion_oculta: '2026-08-31'
 - titulo: 'Resveratrol en Batido o Masticables: Cual Elegir'
   cluster: resveratrol
   rol: cluster

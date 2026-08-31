@@ -550,6 +550,20 @@ blog "noticias" de la tienda. Via el conector de Shopify:
 1. Encuentra el blog: busca el blog cuyo handle sea "noticias".
 2. Trae TODOS sus articulos, paginando, pidiendo titulo y handle.
 
+Atajo util para cuando el tema tiene una palabra clave distintiva (ej. un
+ingrediente especifico como "resveratrol", "clorofila", "magnesio"): la
+query de nivel raiz `articles(first: N, query: "title:*<palabra>*")`
+filtra directamente por titulo sin paginar todo el blog -- mucho mas
+rapido que traer los ~120 articulos completos cuando solo te interesa ver
+que ya existe sobre ese tema puntual. Uso correcto: como primer filtro
+rapido para acotar candidatos a comparar, no como sustituto del juicio
+semantico de abajo -- dos articulos pueden canibalizarse sin compartir la
+palabra exacta buscada (ej. "para que sirve el resveratrol" vs. "beneficios
+del resveratrol" si comparten la palabra; pero un articulo que hable del
+mismo angulo con una sinonimia distinta podria no aparecer en el filtro).
+Si el tema no tiene una palabra clave distintiva y corta, sigue usando el
+paginado completo del blog.
+
 Con esa lista, compara el titulo + palabra_clave del Paso 1 contra cada
 titulo existente, usando tu propio juicio semantico:
 
