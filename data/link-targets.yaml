@@ -1,0 +1,189 @@
+# data/link-targets.yaml
+# Mapa de nombres reconocibles -> URL real verificada en Shopify.
+# lib/brief.js lo usa para resolver los "enlaces_internos_obligatorios"
+# (que en content-calendar.yaml son solo texto descriptivo) a URLs reales
+# ANTES de pasarle el brief al redactor -- asi lib/writer.js nunca tiene
+# que adivinar un slug de producto/coleccion.
+#
+# Cada entrada: una o mas "aliases" (texto que puede aparecer en la
+# descripcion del calendario) -> la URL real.
+
+productos:
+  - aliases: ["Batido Lion Factor", "Lion Factor"]
+    url: "/products/batido-lion-factor-melena-de-leon-500g"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/26_41e88488-61f9-48b7-9cfe-c13996573541.png?v=1785627818"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/27_70956791-647d-4b01-9bda-84d23a6c929e.png?v=1785627825"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/28_d06fdca2-6af6-4e65-b4bb-454b65a3f988.png?v=1785627826"
+  - aliases: ["Masticables Lion Mane", "Lion Mane"]
+    url: "/products/masticables-lion-mane-melena-de-leon-120-und"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-11-05_2.jpg?v=1785631062"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-11-05_10.jpg?v=1785631067"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-11-05_17.jpg?v=1785631071"
+  - aliases: ["Batido Melena de Leon by Natalia Paris"]
+    url: "/products/batido-melena-de-leon-by-natalia-paris-500-g-1"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Melena_de_Leon_248ead56-ba3f-4753-baa1-ec154313000d.png?v=1785634416"
+  - aliases: ["3 Monk Sweet Vitaliah Gotero", "Monk Sweet Gotero", "Monk Sweet en gotero"]
+    url: "/products/3-monk-sweet-vitaliah-gotero-x-30-ml-mentas-endulzante-natural"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/vitaliah-stevia-alimentos-saludables-salud-y-deportes-default-title-3-monk-sweet-vitaliah-gotero-x-30-ml-mentas-endulzante-natural-34168144789820.png?v=1785624992"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/products/vitaliah-stevia-alimentos-saludables-salud-y-deportes-default-title-3-monk-sweet-vitaliah-gotero-x-30-ml-mentas-endulzante-natural-32119410065724.png?v=1785624697"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/vitaliah-stevia-alimentos-saludables-salud-y-deportes-default-title-3-monk-sweet-vitaliah-gotero-x-30-ml-mentas-endulzante-natural-34166701031740.png?v=1785624991"
+  - aliases: ["Monk Sweet Doyoack", "Monk Sweet en polvo", "Monk Sweet polvo"]
+    url: "/products/monk-sweet-doyoack-x350-g-endulzante-natural-en-polvo"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/products/vitaliah-stevia-alimentos-saludables-salud-y-deportes-default-title-monk-sweet-doyoack-x350-g-endulzante-natural-en-polvo-32641416266044.png?v=1785624767"
+  - aliases: ["Yogurt Griego Vitaliah en Polvo 500g", "Yogurt Griego 500g"]
+    url: "/products/yogur-griego-vitaliah-500g"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Yogurt_Griego_preparacion.png?v=1785634049"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Yogur_Griego_Vitaliah_500g.jpg?v=1785633884"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Yogurt_Griego_500g.png?v=1785634047"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/466.png?v=1785634038"
+  - aliases: ["Yogurt Griego en Polvo Vitaliah 250g", "Yogurt Griego 250g"]
+    url: "/products/yogurt-griego-vitaliah-250g"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Yogur_Griego_Vitaliah_250g.jpg?v=1785633889"
+  - aliases: ["Colageno con Yogurt Griego", "Yogurt Griego con Colageno"]
+    url: "/products/yogurt-griego-con-colageno-540g"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Yogur_Griego_Colageno_Vitaliah.jpg?v=1785633892"
+  - aliases: ["Fibra Linaza + Te Verde", "Fibra linaza con te verde"]
+    url: "/products/fibra-linaza-te-verde-doypack-425-g-1"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/96.png?v=1785631263"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/99_d50c183a-d3e7-4060-9000-ab6ec43b364b.png?v=1785631270"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/100_1b3ffa85-214a-4ca6-9c30-0274244dab9c.png?v=1785631271"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/101_6b0f4545-8a16-44ba-96f3-e5030c03fb46.png?v=1785631268"
+  - aliases: ["Fibra QB Linaza + Chia + Limon", "Fibra linaza con chia y limon"]
+    url: "/products/fibra-qb-linaza-chia-limon-doypack-425-g-1"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/77_59f33260-0da6-4108-b181-a653662f685e.png?v=1785631227"
+  - aliases: ["Fibra Linaza + Alcachofa", "Fibra linaza con alcachofa"]
+    url: "/products/fibra-linaza-alcachofa-doypack-425-g"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/114_c3d48d17-7ae7-4421-93da-26a31d95a021.png?v=1785631299"
+  - aliases: ["Fibra Linaza Pitaya + Noni"]
+    url: "/products/fibra-linaza-pitaya-noni-doypack-425-g"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/84_b8e53907-f852-46c3-91e8-da678321028b.png?v=1785631242"
+  - aliases: ["Fibra Linaza + Frutos Rojos"]
+    url: "/products/fibra-linaza-frutos-rojos-doypack-425-g"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/120_4284276b-1d29-4622-93ae-7afbc4f327db.png?v=1785631309"
+  - aliases: ["Batido Verde Quemador Green Effect"]
+    url: "/products/batido-verde-quemador-green-effect-by-natalia-paris-500-g-1"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Batido_Verde_a8275e4d-871d-4291-a00a-6e658704c54e.png?v=1785634396"
+  - aliases: ["Malteada de Proteina Whey Concentrada"]
+    url: "/products/malteada-de-proteina-whey-concentrada-by-natalia-paris-900-g-1"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Proteina_5377a74d-e93b-484e-ae8d-b8dfc3823140.png?v=1785634404"
+  - aliases: ["Batido Elixir Life con Colageno"]
+    url: "/products/batido-elixir-life-con-colageno-marino-y-bovino-by-natalia-paris-600-g-1"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Elix_Life_Colageno.png?v=1785634409"
+  - aliases: ["Masticables Mag Fussion", "Mag Fussion masticables"]
+    url: "/products/masticables-mag-fussion-magnesio-x120-und"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-11-18_2.jpg?v=1785631471"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/157_85c500dc-517d-4742-ab97-bcb840d27edd.png?v=1785631484"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/158_e81f0b36-9afb-4c33-9618-08847023b38e.png?v=1785631482"
+  - aliases: ["Bebida Herbal Mag Fussion", "Mag Fussion bebida"]
+    url: "/products/bebida-herbal-mag-fussion"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/35_3e49a231-3d89-4ae7-8300-813e8f332543.png?v=1785628147"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/36_8a781fa6-7c2e-43ca-846b-a6ab15f4a518.png?v=1785628148"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/37_865f9fff-b9da-40b4-887e-1894e4e6ae12.png?v=1785628150"
+  - aliases: ["Batido con Resveratrol"]
+    url: "/products/batido-con-resveratrol-x500-g"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Resveratrol_de_Vitaliah.png?v=1786464479"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Resveratrol_con_colageno.jpg?v=1786464450"
+  - aliases: ["Masticables Minttrol", "Minttrol Resveratrol"]
+    url: "/products/masticables-minttrol-resveratrol-120-und"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-11-05_4.jpg?v=1785631074"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/128_315133c6-b7f3-4f50-b8b3-344fcb7f8b6d.png?v=1785631152"
+  - aliases: ["Batido Crea 10", "Crea 10 Creatina"]
+    url: "/products/batido-crea10-creatina-x400g"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-09-189.jpg?v=1785629719"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/PRODUCTOS-PAGINAWEB_4.png?v=1785629709"
+  - aliases: ["Vitaliah Pro Proteina Vegana Aislada", "Proteina Vegana Aislada"]
+    url: "/products/vitaliah-pro-batido-proteina-vegana-aislada-700-g-2"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-09-12_7.jpg?v=1785629075"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-09-12_10.jpg?v=1785629080"
+  - aliases: ["Vitaliah Pro Proteina Vegana Artesanal", "Proteina Vegana Artesanal"]
+    url: "/products/vitaliah-pro-batido-proteina-vegana-artesanal-700-g-2"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-09-12_11.jpg?v=1785629097"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-09-12_8_1a2f635e-0839-4f76-85aa-5957d27fe11d.jpg?v=1785629106"
+  - aliases: ["Masticables MintsVing", "MintsVing Vinagre de Manzana"]
+    url: "/products/masticables-mintsving-vinagre-de-manzana-120-und"
+    images:
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/Render_Mockup_4000_4000_2025-11-05_5.jpg?v=1785631007"
+      - "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/125_66a5c870-8cb3-4e50-97af-4ddb4912b219.png?v=1785631143"
+
+imagenes_contexto:
+  # Ilustraciones de marca (generadas en Canva, sin foto de producto/empaque)
+  # para usar como imagen de CONTEXTO en el cuerpo del articulo -- distintas
+  # de las imagenes de producto de arriba. Cada entrada: el/los cluster(es)
+  # o tema(s) a los que aplica, y la URL real ya subida a Shopify Files.
+  - tema: "Melena de Leon (Hericium erinaceus)"
+    cluster: "hongos-adaptogenos"
+    descripcion: "Ilustracion botanica del hongo con hojas, paleta Vitaliah, sin texto ni cifras"
+    url: "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/0001-3753138740692783406.png?v=1788122150"
+  - tema: "Monk Fruit (Luo Han Guo)"
+    cluster: "monk-fruit"
+    descripcion: "Ilustracion botanica del fruto en su enredadera, sin texto"
+    url: "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/0001-641151397864726692.png?v=1788122573"
+  - tema: "Yogurt griego"
+    cluster: "yogurt-griego"
+    descripcion: "Ilustracion de bowl de yogurt griego con frutos rojos y guirnaldas, sin texto"
+    url: "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/0001-2366030055976732191.png?v=1788122647"
+  - tema: "Maquila de productos / servicios de laboratorio"
+    cluster: "maquila-b2b"
+    descripcion: "Collage de iconos: matraz de laboratorio, doypack sellado, sello de control de calidad"
+    url: "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/0001-420475013458605329.png?v=1788122717"
+  - tema: "Productos naturales / superalimentos de Colombia"
+    cluster: "productos-naturales-colombia"
+    descripcion: "Collage flatlay de ingredientes naturales colombianos (cacao, stevia, linaza, fruta tropical)"
+    url: "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/0001-4537890973956489948.png?v=1788122780"
+  - tema: "Linaza (fibra, masticables)"
+    cluster: "linaza-masticables"
+    descripcion: "Ilustracion botanica de la planta de linaza con flores azules y semillas, sin texto"
+    url: "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/0001-1002565268875083122.png?v=1788122846"
+  - tema: "Vida activa y bienestar (linea Natalia Paris)"
+    cluster: "natalia-paris-lifestyle"
+    descripcion: "Silueta generica (sin rostro, sin persona real) en yoga al amanecer, sin texto"
+    url: "https://cdn.shopify.com/s/files/1/0072/8026/3219/files/0001-536442704106459566.png?v=1788122921"
+
+colecciones:
+  - aliases: ["Coleccion Colageno", "coleccion de colagenos", "Colagenos"]
+    url: "/collections/colagenos"
+  - aliases: ["Endulzantes con stevia", "Coleccion Endulzantes", "endulzantes naturales"]
+    url: "/collections/endulzantes-naturales"
+  - aliases: ["Coleccion Linazas", "linazas y fibras naturales"]
+    url: "/collections/linazas"
+  - aliases: ["Masticables Funcionales", "Coleccion Masticables Funcionales"]
+    url: "/collections/masticables-funcionales"
+  - aliases: ["Coleccion Yogurt Griego", "Yogurt Griego (coleccion)"]
+    url: "/collections/yogurt-griego"
+  - aliases: ["Coleccion Natalia Paris", "Productos Natalia Paris"]
+    url: "/collections/natalia-paris"
+
+articulos_existentes:
+  - aliases: ["Servicios de maquila y otros Vitaliah Labs", "Vitaliah Labs"]
+    url: "/blogs/noticias/servicios-de-maquila-y-otros-vitaliah-labs"
+  - aliases: ["Stevia vs. azucar vs. otros edulcorantes", "tabla comparativa de stevia"]
+    url: "/blogs/noticias/stevia-rebaudiana-vs-azucar-y-edulcorantes"
+  - aliases: ["Stevia para diabeticos"]
+    url: "/blogs/noticias/stevia-para-diabeticos-indice-glucemico-cero"
+  - aliases: ["Te Chai (Masala Chai)", "te chai masala chai"]
+    url: "/blogs/noticias/te-chai-masala-chai-que-es-beneficios-y-como-prepararlo"
+  - aliases: ["Batidos de proteina vs. batidos de frutas", "batidos de proteina vs frutas"]
+    url: "/blogs/noticias/batidos-de-proteina-vs-batidos-de-frutas"
