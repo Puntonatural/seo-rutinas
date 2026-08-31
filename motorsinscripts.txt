@@ -132,17 +132,29 @@ contar como ausencia de la keyword.
 
 - Minimo 2 imagenes en el cuerpo (ademas de portada), cada una con texto
   alternativo descriptivo no vacio.
-- Prioridad de fuente (en este orden):
-  1. Imagen de contexto especifica para el tema (ilustracion de marca,
-     no foto de producto generica) -- usar como imagen principal/de
-     cabecera si esta disponible.
-  2. Imagenes reales de la galeria del producto mencionado -- variar
-     cual se usa entre articulos del mismo cluster, no repetir siempre
-     la misma.
-  3. Si no hay ninguna URL real disponible, usar un marcador de texto
-     tipo [IMAGEN: descripcion + alt sugerido].
+- La imagen principal/de cabecera (justo despues del primer parrafo)
+  SIEMPRE debe ser una ilustracion de contexto -- nunca una foto de
+  producto ni un marcador de texto. Esto NO es opcional:
+  1. Primero busca si el cluster de este articulo YA tiene una imagen de
+     contexto (revisa el body de otro articulo ya publicado del mismo
+     cluster via el conector de Shopify). Si existe, reutiliza esa misma
+     URL -- no generes una nueva para cada articulo.
+  2. Si el cluster no tiene ninguna imagen de contexto todavia, GENERA
+     una con el conector de Canva siguiendo EXACTAMENTE el proceso de
+     docs/guia-imagenes-canva.md (prompt, checklist de revision, paleta
+     de marca, exportar y subir a Shopify para obtener una URL estable).
+     No publiques el articulo sin haber hecho esto -- no es un paso
+     opcional ni un "nice to have".
+- Las imagenes intermedias (1 o mas, repartidas en el cuerpo) son
+  siempre fotos REALES de la galeria del producto mencionado -- nunca
+  generadas. Variar cual se usa entre articulos del mismo cluster, no
+  repetir siempre la misma.
+- Si de verdad no hay ninguna URL real disponible para una imagen
+  intermedia, usar un marcador de texto tipo [IMAGEN: descripcion + alt
+  sugerido] -- pero esto nunca aplica a la imagen principal, que siempre
+  sale de Canva o de un articulo hermano del mismo cluster.
 - Nunca inventar ni adivinar una URL de imagen que no venga de una
-  fuente real y verificada.
+  fuente real y verificada (ni de Shopify ni del export final de Canva).
 
 --- A7. Citas y evidencia ---
 
@@ -290,14 +302,31 @@ Para cada descripcion en enlaces_internos_obligatorios del Paso 1 (ej.
    URL "a mano" combinando palabras -- siempre debe venir de un
    resultado real de busqueda.
 
-Para la imagen de cabecera/contexto del articulo (opcional pero
-recomendable): busca en Shopify, dentro de los archivos/contenido de la
-tienda, si existe una imagen relacionada al tema o cluster (por ejemplo
-buscando por el nombre del cluster o ingrediente principal). Si
-encuentras una imagen de marca genuina (no una foto de empaque de
-producto), usala como cabecera. Si no encuentras nada apropiado, usa
-directamente imagenes de producto real (Paso 3.2) o un marcador
-[IMAGEN: ...].
+--- Paso 3.5 — Imagen de cabecera/contexto (OBLIGATORIO, ver regla A6) ---
+
+Este paso es obligatorio para TODO articulo, pilar o cluster -- nunca lo
+saltes ni lo trates como opcional:
+
+1. Busca si el cluster de este articulo ya tiene una imagen de contexto:
+   revisa (via el conector de Shopify) el body HTML de otro articulo ya
+   publicado del mismo cluster -- la imagen de cabecera de ese articulo
+   (la que va justo despues del primer parrafo/indice) es la imagen del
+   cluster. Si la encuentras, copia esa misma URL para reutilizarla aqui
+   -- no generes una nueva.
+2. Si ningun articulo del cluster tiene todavia esa imagen: genera una
+   nueva siguiendo EXACTAMENTE docs/guia-imagenes-canva.md (que leer en
+   ese orden: seccion 1 para saber que pedir, seccion 3.1 para el prompt
+   con la paleta de marca de la seccion 4, seccion 3.2 para revisar el
+   resultado contra el checklist -- cero texto, cero cifras inventadas,
+   cero foto de producto, cero rostro real -- seccion 3.3 si hay que
+   limpiar texto no deseado, y seccion 3.4 para exportar como PNG y
+   subirla a Shopify (Contenido/Archivos o el equivalente via el
+   conector) y obtener asi una URL estable del CDN de Shopify.
+3. Nunca publiques el articulo usando la URL temporal de exportacion de
+   Canva (expira) ni sin haber revisado el resultado contra el checklist
+   de la seccion 3.2 -- si el resultado tiene texto, cifras o una foto de
+   producto, descartalo y vuelve a generar (seccion 3.3 si es solo un
+   problema de texto sobrepuesto).
 
 --- Paso 4 — Redactar ---
 
@@ -330,7 +359,10 @@ y honesta -- no asumas que las cumpliste, revisa el texto real:
    menos un H2/H3, y en el cuerpo en general.
 7. >=3 enlaces internos con URL real.
 8. >=2 imagenes con texto alternativo no vacio (o marcadores [IMAGEN:
-   ...] si no habia URL real disponible).
+   ...] si no habia URL real disponible para una imagen INTERMEDIA). La
+   imagen principal/de cabecera debe venir del Paso 3.5 (reutilizada del
+   cluster o generada con Canva) -- si el articulo no tiene esa imagen,
+   este punto de QA falla, sin excepcion.
 9. Excerpt no vacio, >=2 tags.
 10. Si hay seccion "Preguntas frecuentes": debe existir el faqJsonLd con
     tipo FAQPage.
@@ -415,6 +447,9 @@ REGLAS DE ORO (NO NEGOCIABLES)
   oculto.
 - Nunca inventes una URL de enlace interno o imagen que no hayas
   resuelto en el Paso 3 contra datos reales.
+- Nunca publiques un articulo sin haber generado o reutilizado su imagen
+  de contexto/cabecera con Canva (Paso 3.5, regla A6) -- no es opcional,
+  no la reemplaces silenciosamente por fotos de producto.
 - Nunca inventes una cita de estudio sin una fuente real verificable con
   busqueda web.
 - Nunca canibalices un tema ya cubierto -- si tienes duda razonable de
