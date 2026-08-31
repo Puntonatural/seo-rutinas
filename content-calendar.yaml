@@ -14,6 +14,8 @@ articulos:
     handle_propuesto: hongos-adaptogenos-funcionales-colombia-guia
     handle_final: hongos-adaptogenos-funcionales-colombia-guia
     article_gid: "gid://shopify/Article/614688358716"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (comparativa-melena-reishi-cordyceps, control-calidad-laboratorio) + 1 foto real de Lion Factor enlazada. De paso se corrigio un bug de HTML preexistente: 6 tags <cite index=...> sin cierre </cite> en ningun punto del documento, verificados y eliminados por regex antes de republicar."
+    nota: "Se elimino un segundo enlace a producto Lion Mane (duplicado) y se convirtio en imagen de contexto para cumplir la regla de 1 sola foto de producto por articulo."
 
   - titulo: "Melena de Leon: Beneficios Respaldados por la Ciencia"
     cluster: hongos-adaptogenos
@@ -29,6 +31,7 @@ articulos:
     handle_propuesto: melena-de-leon-beneficios-ciencia
     handle_final: melena-de-leon-beneficios-ciencia
     article_gid: "gid://shopify/Article/614688424252"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (evidencia-cientifica, rutina-diaria-batido) + 1 foto real de Batido Melena de Leon by Natalia Paris enlazada (se retiro la foto de Masticables Lion Mane que estaba duplicada, convertida en imagen de contexto)."
 
   - titulo: "Melena de Leon para la Memoria y la Concentracion"
     cluster: hongos-adaptogenos
@@ -45,6 +48,7 @@ articulos:
     handle_propuesto: melena-de-leon-memoria-concentracion
     handle_final: melena-de-leon-memoria-concentracion
     article_gid: "gid://shopify/Article/614688457020"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (funcion-cerebral, memoria-rutina-diaria) + 1 foto real de Batido Lion Factor enlazada."
 
   - titulo: "Melena de Leon en Polvo o Masticables: Cual Elegir"
     cluster: hongos-adaptogenos
@@ -60,6 +64,7 @@ articulos:
     handle_propuesto: melena-de-leon-capsulas-polvo-masticables
     handle_final: melena-de-leon-capsulas-polvo-masticables
     article_gid: "gid://shopify/Article/614688489788"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (polvo-o-masticables, masticables-sin-agua) + 1 foto real de Batido Lion Factor enlazada (se retiro la foto de Masticables Lion Mane, convertida en imagen de contexto)."
 
   - titulo: "Betaglucanos: Que Son y Por Que Importan en un Suplemento"
     cluster: hongos-adaptogenos
@@ -75,6 +80,7 @@ articulos:
     handle_propuesto: betaglucanos-melena-de-leon-que-son
     handle_final: betaglucanos-melena-de-leon-que-son
     article_gid: "gid://shopify/Article/614688522556"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (sistema-inmune, betaglucanos-vs-hericenonas-erinacinas) + 1 foto real de Batido Lion Factor enlazada."
 
   - titulo: "Hongos Adaptogenos y Estres: Como Actuan en el Cuerpo"
     cluster: hongos-adaptogenos
@@ -90,6 +96,7 @@ articulos:
     handle_propuesto: hongos-adaptogenos-estres-como-actuan
     handle_final: hongos-adaptogenos-estres-como-actuan
     article_gid: "gid://shopify/Article/614688588092"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (eje-hpa-estres, cortisol-sistema-inmune) + 1 foto real de Batido Lion Factor enlazada."
 
   - titulo: "Monk Fruit en Colombia: Que Es, Beneficios y Como Usarlo"
     cluster: monk-fruit
@@ -106,6 +113,8 @@ articulos:
     handle_propuesto: monk-fruit-fruto-del-monje-colombia-guia
     handle_final: monk-fruit-fruto-del-monje-colombia-guia
     article_gid: "gid://shopify/Article/614688391484"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (mogrosidos-evidencia-cientifica, polvo-reposteria) + 1 foto real de 3 Monk Sweet Vitaliah Gotero enlazada."
+    nota: "La foto de producto de Monk Sweet Doyoack (polvo) se convirtio en imagen de contexto (sin enlace de producto) para dejar solo 1 foto de producto enlazada, segun la regla de imagenes."
 
   - titulo: "Monk Fruit vs. Stevia: Diferencias y Cual Conviene"
     cluster: monk-fruit
@@ -168,6 +177,7 @@ articulos:
     handle_propuesto: productos-naturales-en-colombia-guia
     handle_final: productos-naturales-en-colombia-guia
     article_gid: "gid://shopify/Article/614688719164"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (calidad-etiqueta, tienda-online). Articulo hub sin producto especifico que enlazar, por lo que las 3 imagenes de contexto cubren el minimo de la regla."
 
   - titulo: "Como Verificar el Registro INVIMA de un Producto Natural"
     cluster: productos-naturales-colombia
@@ -215,6 +225,7 @@ articulos:
     handle_propuesto: laboratorios-de-maquila-en-colombia-que-evaluar
     handle_final: laboratorios-de-maquila-en-colombia-que-evaluar
     article_gid: "gid://shopify/Article/614688817468"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (checklist-certificaciones, alianza-empresarial). Articulo B2B sin producto de consumidor final que enlazar."
 
   - titulo: "Laboratorios de Productos Naturales en Colombia Confiables"
     cluster: maquila-b2b
@@ -368,6 +379,7 @@ articulos:
     handle_propuesto: masticables-funcionales-que-son-como-elegir
     handle_final: masticables-funcionales-que-son-como-elegir
     article_gid: "gid://shopify/Article/614689276220"
+    imagenes: "Backfill completo: banner + 2 imagenes de contexto Canva (ilustracion general, portabilidad) + 1 foto real de Lion Mane enlazada."
 
   - titulo: "Yogurt Griego en Polvo: Beneficios y Como Prepararlo"
     cluster: yogurt-griego
@@ -384,6 +396,7 @@ articulos:
     handle_propuesto: yogurt-griego-en-polvo-beneficios-guia
     handle_final: yogurt-griego-en-polvo-beneficios-guia
     article_gid: "gid://shopify/Article/614689308988"
+    imagenes: "Backfill completo: banner + 1 imagen de contexto Canva (desayuno-saludable) + 1 foto de proceso ya existente (no enlazada a producto) + 1 foto real de Yogurt Griego 250g enlazada."
 
   - titulo: "Yogurt Griego vs. Tradicional: Diferencias Nutricionales"
     cluster: yogurt-griego
@@ -429,6 +442,7 @@ articulos:
     handle_propuesto: linea-natalia-paris-vitaliah-productos
     handle_final: linea-natalia-paris-vitaliah-productos
     article_gid: "gid://shopify/Article/614689407292"
+    imagenes: "Backfill completo: banner (silueta yoga) + 2 imagenes de contexto Canva (evidencia-cientifica, rutina-diaria-bienestar) + 1 foto real de Batido Melena de Leon by Natalia Paris enlazada."
 
   - titulo: "Magnesio para Dormir y Reducir el Estres: Guia Completa"
     cluster: magnesio
