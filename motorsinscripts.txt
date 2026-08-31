@@ -174,6 +174,23 @@ contar como ausencia de la keyword.
   texto tipo [IMAGEN: descripcion + alt sugerido].
 - Nunca inventar ni adivinar una URL de imagen que no venga de una
   fuente real y verificada (ni de Canva ni de Shopify).
+- Nombre de archivo SEO: al subir cualquier imagen de Canva a Shopify via
+  fileCreate, SIEMPRE pasar el parametro `filename` con un nombre
+  descriptivo en minusculas, con guiones, que incluya la keyword o el
+  tema del articulo (ej. "hongos-adaptogenos-estres-ilustracion-vitaliah.png"),
+  nunca dejar el nombre generico que trae la exportacion de Canva
+  (tipo "0001-<numero>.png"). Si por error un archivo ya quedo con
+  nombre generico y todavia NO esta insertado en el body de ningun
+  articulo, renombrarlo con fileUpdate antes de usarlo. Si ya esta
+  insertado y publicado, evaluar si vale la pena renombrar y actualizar
+  la referencia en el body (el nombre de archivo cambia la URL).
+- Variar la imagen destacada/banner entre articulos del mismo cluster:
+  nunca reutilizar exactamente la misma imagen de contexto como imagen
+  destacada (`image` del articulo) en mas de un articulo -- aunque
+  varios articulos de un cluster compartan la misma ilustracion dentro
+  del cuerpo, cada uno debe tener su propia variante distinta como
+  imagen destacada para que el listado de artículos en Shopify admin no
+  se vea repetido.
 
 --- A7. Citas y evidencia ---
 
