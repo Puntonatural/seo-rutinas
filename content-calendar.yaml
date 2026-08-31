@@ -463,7 +463,7 @@ articulos:
 - titulo: 'Masticables vs. Bebida de Magnesio: Cual Absorbe Mejor'
   cluster: magnesio
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: magnesio masticables vs bebida
   keywords_secundarias:
   - mejor forma de tomar magnesio
@@ -472,8 +472,18 @@ articulos:
   - Masticables Mag Fussion (producto)
   - Bebida Herbal Mag Fussion (producto)
   handle_propuesto: masticables-vs-bebida-magnesio-absorcion
-  handle_final: null
-  article_gid: null
+  handle_final: masticables-vs-bebida-magnesio-absorcion
+  article_gid: gid://shopify/Article/614695665980
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/masticables-vs-bebida-magnesio-absorcion.faq.jsonld.html
+  nota: >-
+    "Masticables Mag Fussion (producto)" no existe con ese nombre activo en
+    Shopify -- el producto real y publicado de masticables de esta linea es
+    "Masticables Mag Harmony" (handle masticables-mag-harmony-magnesio-120-und),
+    ya usado por los articulos hermanos del cluster (pilar y tipos-de-magnesio).
+    Se enlazo ese en su lugar. Sugerido: actualizar el nombre en las entradas
+    "idea" restantes del cluster magnesio que todavia dicen "Mag Fussion" para
+    el masticable.
 - titulo: 'Magnesio y Ansiedad: Que Dice la Evidencia'
   cluster: magnesio
   rol: cluster
@@ -497,7 +507,7 @@ articulos:
   - magnesio dolor de cabeza
   enlaces_internos_obligatorios:
   - Magnesio para Dormir y Reducir el Estres (pilar, este calendario)
-  - Masticables Mag Fussion (producto)
+  - Masticables Mag Harmony (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: magnesio-y-migrana-evidencia
   handle_final: null
