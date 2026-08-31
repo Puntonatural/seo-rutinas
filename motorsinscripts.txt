@@ -434,10 +434,11 @@ contar como ausencia de la keyword.
 - Imagenes de producto (2): siempre fotos REALES de la galeria del
   producto mencionado -- nunca generadas. Variar cual se usa entre
   articulos del mismo cluster, no repetir siempre la misma. SIEMPRE
-  envueltas en un enlace <a href="/products/<handle-real>"> al producto
-  real -- una imagen de producto sin ese enlace es un error de QA,
-  aunque el texto del parrafo ya tenga un enlace de texto al mismo
-  producto en otro lugar.
+  dentro de la tarjeta de producto de A2.4 (marco + beneficio + boton
+  "Ver producto"), que ya incluye el enlace <a href="/products/<handle-
+  real>"> al producto real -- una imagen de producto sin ese enlace es
+  un error de QA, aunque el texto del parrafo ya tenga un enlace de
+  texto al mismo producto en otro lugar.
 - Si de verdad no hay ninguna URL real de producto disponible para una
   imagen de producto, usar un marcador de texto tipo [IMAGEN:
   descripcion + alt sugerido] -- pero esto nunca aplica a las imagenes
@@ -889,9 +890,24 @@ esto:
    - Si el articulo uso la tarjeta CTA de A2.1: el bloque <style> del
      inicio de la tarjeta sigue presente en el body (no fue eliminado
      por Shopify al guardar).
+   - Cada producto mencionado usa la tarjeta de A2.4 (marco + beneficio
+     + boton), no la imagen simple envuelta en <a>.
 3. Si algo falla, corrigelo con articleUpdate y vuelve a verificar --
    no lo dejes para "despues" ni asumas que quedo bien porque tu
    borrador lo tenia.
+4. NO compartas el link del articulo (WhatsApp, redes, etc.) para
+   probarlo hasta haber confirmado el punto 2 (image.url no nulo).
+   WhatsApp/Facebook rastrean y CACHEAN la vista previa del link la
+   primera vez que alguien lo comparte -- si ese primer rastreo ocurre
+   mientras image.url todavia esta en null (por ejemplo, se comparte el
+   link antes de terminar el Paso 6.5), la miniatura queda "pegada" en
+   blanco para siempre en el cache de WhatsApp, aunque el articulo ya
+   este arreglado del lado de Shopify. Esto paso en la practica con
+   resveratrol-antienvejecimiento-ciencia. Si ya se comparto el link
+   antes de tiempo y no aparece miniatura, la solucion NO es tocar
+   codigo del tema -- es forzar un nuevo rastreo desde
+   https://developers.facebook.com/tools/debug/sharing/ (pegar la URL
+   y usar "Scrape Again"/"Depurar") antes de volver a compartirlo.
 
 --- Paso 7 — Actualizar el calendario ---
 

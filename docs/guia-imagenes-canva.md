@@ -102,15 +102,18 @@ mutation fileCreate($files: [FileCreateInput!]!) {
 
 ### 3.5 — Dos errores que no se deben repetir
 
-**a) Imagen de producto sin enlace.** Cada imagen de producto en el body va envuelta en un enlace a su producto real, nunca suelta:
+**a) Imagen de producto sin enlace.** Cada imagen de producto en el body va dentro de la tarjeta de producto de `motorsinscripts.txt` A2.4 (marco + beneficio + botón "Ver producto"), que ya incluye el enlace a su producto real -- nunca una imagen suelta ni envuelta en un simple `<a>` sin el resto de la tarjeta:
 
 ```html
-<a href="/products/<handle-real-del-producto>"><img src="..." alt="..." width="600"></a>
+<a href="/products/<handle-real-del-producto>" style="display:flex;align-items:center;gap:20px;border:1px solid #C8DDD0;border-radius:12px;padding:16px;margin:28px 0;background:#F4F7F2;text-decoration:none;">
+  <img src="..." alt="..." style="width:96px;height:96px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+  ...
+</a>
 ```
 
-Un `<img>` de producto sin el `<a>` alrededor es un error de QA, aunque la imagen en sí sea correcta y el texto ya tenga un enlace de texto al mismo producto en otro lugar del párrafo.
+Un `<img>` de producto sin ese enlace es un error de QA, aunque la imagen en sí sea correcta y el texto ya tenga un enlace de texto al mismo producto en otro lugar del párrafo. Ver A2.4 para la plantilla completa.
 
-**b) Olvidar el "featured image" del artículo.** El `<img>` de cabecera dentro del `body` es SOLO el contenido del artículo -- el tema de Shopify además necesita el campo `image` del artículo (`ArticleCreateInput.image` / `ArticleUpdateInput.image`, con `url` y `altText`) para renderizar el banner destacado que aparece ENCIMA del título, en la parte superior de la página. Si se omite, el banner queda con un placeholder roto ("Next, add a featured image to your blog post") aunque el body tenga todas sus imágenes bien puestas. Usa ahí la MISMA URL y alt que la primera imagen de contexto del body -- nunca generes una imagen distinta solo para ese campo. Después de publicar (o actualizar), verifica con una query que `image.url` no sea `null`.
+**b) Olvidar el "featured image" del artículo.** El `<img>` de cabecera dentro del `body` es SOLO el contenido del artículo -- el tema de Shopify además necesita el campo `image` del artículo (`ArticleCreateInput.image` / `ArticleUpdateInput.image`, con `url` y `altText`) para renderizar el banner destacado que aparece ENCIMA del título, en la parte superior de la página, Y para la miniatura que se genera automáticamente al compartir el link (WhatsApp, Facebook, etc. leen `og:image` a partir de este mismo campo -- no requiere tocar nada del tema). Si se omite, el banner queda con un placeholder roto ("Next, add a featured image to your blog post") aunque el body tenga todas sus imágenes bien puestas. Usa ahí la MISMA URL y alt que la primera imagen de contexto del body -- nunca generes una imagen distinta solo para ese campo. Después de publicar (o actualizar), verifica con una query que `image.url` no sea `null` **antes de compartir el link en cualquier lado**: si se comparte primero y el campo está en `null` en ese momento, WhatsApp/Facebook cachean esa vista previa sin miniatura y se queda "pegada" así aunque el campo se corrija después (ver `motorsinscripts.txt` Paso 6.5, punto 4, para cómo forzar un nuevo rastreo si esto ya pasó).
 
 ---
 
