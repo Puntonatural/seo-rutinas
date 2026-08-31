@@ -1058,8 +1058,10 @@ No las apliques por tu cuenta -- confirmalas con Julian primero:
 REGLAS DE ORO (NO NEGOCIABLES)
 ================================================================
 
-- Nunca publiques un articulo visible (isPublished: true) -- siempre
-  oculto.
+- Todo articulo nuevo se publica con isPublished:true (ver Paso 6 --
+  "oculto" significa accesible por URL directa pero sin promocionar,
+  NO isPublished:false). Nunca lo agregues a menus, redes ni ninguna
+  ubicacion destacada del sitio sin decision humana explicita.
 - Nunca inventes una URL de enlace interno o imagen que no hayas
   resuelto en el Paso 3 contra datos reales.
 - Nunca publiques un articulo sin haber generado o reutilizado su imagen
