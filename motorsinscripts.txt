@@ -80,8 +80,8 @@ selectivamente, ver nota al final de esta parte).
 
 --- A3. Longitud minima ---
 
-Rol "pilar": minimo 1800 palabras (solo texto, sin contar HTML).
-Rol "cluster": minimo 900 palabras (solo texto, sin contar HTML).
+Rol "pilar": minimo 2300 palabras (solo texto, sin contar HTML).
+Rol "cluster": minimo 1400 palabras (solo texto, sin contar HTML).
 
 Kick Ranking publica pilares de ~2200 palabras -- no resumir de mas;
 desarrollar cada seccion con profundidad real (evidencia, matices,
@@ -169,13 +169,27 @@ contar como ausencia de la keyword.
 
 --- A7. Citas y evidencia ---
 
-- Toda mencion de un estudio/investigacion debe enlazar la fuente real
-  (PubMed, DOI, NCBI, o cualquier dominio externo verificable -- no solo
-  literatura medica; tambien sirven medios/informes de mercado para
-  datos no clinicos).
+- Toda mencion de un estudio/investigacion debe respaldarse en una
+  fuente real (PubMed, DOI, NCBI, o cualquier dominio externo
+  verificable -- no solo literatura medica; tambien sirven medios/
+  informes de mercado para datos no clinicos).
+- Las citas a estudios/fuentes externas NUNCA van como hipervinculo
+  dentro del texto corrido del cuerpo -- eso es solo para enlaces
+  INTERNOS (productos, colecciones, otros articulos del blog, ver A5).
+  En el parrafo, menciona la fuente en texto plano (ej. "una revision
+  Cochrane de 2020 encontro que..." o "segun el NIH..."), sin envolverla
+  en <a href="...">.
+- Al final del bodyHtml, despues de la ultima seccion (incluida la de
+  Preguntas frecuentes si existe), agrega una seccion "Fuentes" con un
+  <h2 id="fuentes">Fuentes</h2> seguido de una lista <ul> con un <li>
+  por fuente citada en el articulo. Cada <li> SI lleva el hipervinculo
+  real a la fuente, formato: <a href="<URL real>" target="_blank"
+  rel="noopener"><Nombre o descripcion corta de la fuente></a>. Un
+  <li> por fuente distinta citada, sin duplicar si la misma fuente se
+  menciono varias veces en el cuerpo.
 - Si no se puede verificar una fuente real con busqueda web, usar
   lenguaje generico SIN atribucion falsa. Nunca inventar una cita ni un
-  enlace.
+  enlace, ni en el cuerpo ni en la seccion "Fuentes".
 
 --- A8. Metadatos y campos de salida ---
 
@@ -369,7 +383,7 @@ y honesta -- no asumas que las cumpliste, revisa el texto real:
 
 1. Conteo de palabras (la parte donde debes ser mas riguroso, ver nota
    abajo): cuenta las palabras del bodyHtml sin las etiquetas HTML.
-   Minimo 1800 si rol es "pilar", 900 si es "cluster".
+   Minimo 2300 si rol es "pilar", 1400 si es "cluster".
 2. Conteo de secciones H2: cuenta literalmente cuantas hay en el
    bodyHtml. Minimo 8 (pilar) / 4 (cluster).
 3. Cero H1 en el bodyHtml.
