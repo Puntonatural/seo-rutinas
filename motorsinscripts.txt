@@ -203,24 +203,27 @@ seccion A3.
 PARTE B — PROCESO PASO A PASO
 ================================================================
 
---- Archivos de datos que vas a leer ---
+--- Fuente de datos: una sola hoja de Google Sheets ---
 
-- content-calendar.yaml: lista de temas -- cluster, rol (pilar/cluster),
-  keyword objetivo, enlaces internos obligatorios (como descripciones de
-  texto), estado actual de cada articulo.
-- data/link-targets.yaml: mapa de alias de texto -> URL real (productos,
-  colecciones, articulos ya existentes) + galerias de imagenes reales
-  por producto + imagenes de contexto por cluster.
+"Vitaliah - Calendario SEO (Completo)" -- columnas: Titulo, Cluster,
+Rol, Estado, Palabra clave, Keywords secundarias, Enlaces internos
+obligatorios, Handle propuesto, Handle final, Article GID.
+
+No hay ningun otro archivo de datos que leer. Los enlaces a
+productos/colecciones/imagenes se buscan EN VIVO en Shopify (Paso 3),
+nunca desde una lista estatica -- asi el catalogo siempre esta
+actualizado sin que nadie tenga que mantener un archivo aparte.
 
 --- Paso 1 — Elegir el tema ---
 
-Lee content-calendar.yaml. Busca el PRIMER articulo bajo "articulos:"
-cuyo campo "estado" sea exactamente "idea".
+Abre la hoja "Vitaliah - Calendario SEO (Completo)". Busca la PRIMERA
+fila cuya columna "Estado" sea exactamente "idea".
 
-- Si no hay ninguno: reporta "no hay temas pendientes" y detente. No
+- Si no hay ninguna: reporta "no hay temas pendientes" y detente. No
   hagas nada mas.
-- Si lo hay: toma nota de tema, cluster, rol, keyword_objetivo,
-  keywords_secundarias, enlaces_internos_obligatorios, handle_propuesto.
+- Si la hay: toma nota de Titulo, Cluster, Rol, Palabra clave, Keywords
+  secundarias (separadas por " ; "), Enlaces internos obligatorios
+  (separados por " ; "), Handle propuesto.
 
 --- Paso 2 — Chequeo de canibalizacion ---
 
@@ -230,7 +233,7 @@ blog "noticias" de la tienda. Via el conector de Shopify:
 1. Encuentra el blog: busca el blog cuyo handle sea "noticias".
 2. Trae TODOS sus articulos, paginando, pidiendo titulo y handle.
 
-Con esa lista, compara el tema + keyword_objetivo del Paso 1 contra cada
+Con esa lista, compara el Titulo + Palabra clave del Paso 1 contra cada
 titulo existente, usando tu propio juicio semantico:
 
 - ¿Hay un articulo existente que cubra el MISMO angulo especifico (no
@@ -238,55 +241,58 @@ titulo existente, usando tu propio juicio semantico:
   y "Melena de Leon para la Memoria" NO se canibalizan entre si (angulos
   distintos dentro del mismo tema), pero dos articulos ambos titulados
   esencialmente "Beneficios de la Melena de Leon" si.
-- Si encuentras un solapamiento real: edita content-calendar.yaml,
-  cambia el estado de este articulo a "canibalizacion_detectada", guarda
-  el archivo, reporta contra cual articulo existente se solapa, y
-  DETENTE -- no redactes nada.
+- Si encuentras un solapamiento real: en la hoja, cambia el Estado de
+  esta fila a "canibalizacion_detectada", reporta contra cual articulo
+  existente se solapa, y DETENTE -- no redactes nada.
 - Si no hay solapamiento: continua al Paso 3.
 
---- Paso 3 — Resolver enlaces internos e imagenes ---
+--- Paso 3 — Resolver enlaces internos e imagenes (busqueda en vivo) ---
 
-Para cada descripcion en enlaces_internos_obligatorios del Paso 1 (ej.
+Para cada descripcion en Enlaces internos obligatorios del Paso 1 (ej.
 "Batido Lion Factor - Melena de Leon 500g (producto)"):
 
 1. Quitale el sufijo entre parentesis final -- te queda el nucleo del
-   texto (ej. "Batido Lion Factor - Melena de Leon 500g").
-2. Busca ese nucleo en dos lugares, EN ESTE ORDEN:
+   texto (ej. "Batido Lion Factor - Melena de Leon 500g") y la pista de
+   que tipo de cosa es (producto, coleccion, articulo existente,
+   pilar/articulo hermano de este calendario).
+2. Segun el tipo:
 
-   a) PRIMERO, contra los "aliases" de data/link-targets.yaml (secciones
-      productos, colecciones, articulos_existentes). Si algun alias
-      aparece dentro del nucleo del texto (comparacion insensible a
-      mayusculas/tildes), la URL es el campo "url" de esa entrada. Si la
-      entrada tiene un campo "images", guarda esa lista -- son fotos
-      reales del producto que puedes usar. Esta comparacion es precisa
-      (aliases curados a mano) y SIEMPRE tiene prioridad.
+   - "(producto)": busca ese producto por nombre en Shopify via el
+     conector (busqueda de productos por titulo). Usa el handle/URL real
+     que te devuelva la busqueda. Si el producto tiene imagenes en su
+     galeria, toma nota de 1-2 URLs reales -- las puedes usar como
+     imagen del articulo.
 
-   b) SOLO SI NO HUBO MATCH en (a), contra el "tema" de otros articulos
-      del mismo content-calendar.yaml: ¿el nucleo comparte la GRAN
-      MAYORIA de sus palabras significativas con el tema de otro
-      articulo (aproximadamente 70% o mas de las palabras)? No exijas
-      coincidencia literal exacta -- un articulo puede describirse de
-      forma distinta a como se titulo. Pero se estricto con el umbral:
-      dentro de un mismo cluster, varios articulos comparten vocabulario
-      generico (ej. "yogurt griego polvo" aparece en casi todos los
-      temas del cluster yogurt-griego), asi que un match debil puede
-      confundir un producto con un articulo hermano. Si coincide con
-      suficiente fuerza, la URL es "/blogs/noticias/<handle del otro
-      articulo>".
+   - "(ya existe)" / coleccion: busca esa coleccion por nombre en
+     Shopify via el conector. Usa la URL real que te devuelva.
 
-3. Si no encuentras coincidencia suficientemente fuerte en ninguno de
-   los dos lugares: esa URL queda SIN RESOLVER. NO inventes ni adivines
-   una URL -- vas a omitir ese enlace especifico al redactar (ver regla
-   A5).
+   - "(articulo existente)": busca ese articulo por titulo entre los
+     articulos ya publicados del blog (la lista del Paso 2). Usa su
+     handle real.
 
-Despues, para las imagenes de contexto: en data/link-targets.yaml,
-seccion imagenes_contexto, busca la entrada cuyo "cluster" coincida con
-el cluster del articulo del Paso 1. Si existe, es la imagen de
-cabecera/contexto a usar (ver regla A6).
+   - "(pilar, este calendario)" / "(articulo hermano, este calendario)":
+     NO busques en Shopify -- busca en la MISMA hoja de Sheets otra fila
+     cuyo Titulo comparta la gran mayoria de las palabras significativas
+     con este nucleo de texto (no exijas coincidencia literal exacta;
+     se estricto igual, ~70% o mas de las palabras, porque varias filas
+     del mismo cluster comparten vocabulario generico). Si esa fila ya
+     tiene Handle final (o si no, Handle propuesto), la URL es
+     "/blogs/noticias/<ese handle>".
 
-Al final de este paso deberias tener, para cada enlace obligatorio:
-descripcion, url (o ninguna), e imagenes de producto si las hay, mas la
-imagen de contexto del cluster si existe.
+3. Si una busqueda no devuelve ningun resultado razonable: esa URL queda
+   SIN RESOLVER. NO inventes ni adivines una URL -- vas a omitir ese
+   enlace especifico al redactar (ver regla A5). Nunca construyas una
+   URL "a mano" combinando palabras -- siempre debe venir de un
+   resultado real de busqueda.
+
+Para la imagen de cabecera/contexto del articulo (opcional pero
+recomendable): busca en Shopify, dentro de los archivos/contenido de la
+tienda, si existe una imagen relacionada al tema o cluster (por ejemplo
+buscando por el nombre del cluster o ingrediente principal). Si
+encuentras una imagen de marca genuina (no una foto de empaque de
+producto), usala como cabecera. Si no encuentras nada apropiado, usa
+directamente imagenes de producto real (Paso 3.2) o un marcador
+[IMAGEN: ...].
 
 --- Paso 4 — Redactar ---
 
@@ -334,10 +340,10 @@ estandar. Si NO tienes terminal disponible, cuenta el cuerpo en bloques
 de ~100 palabras marcando cada bloque, en vez de estimar de un vistazo
 -- es lento pero mucho mas confiable que una estimacion.
 
-Si CUALQUIER regla falla: NO publiques. Edita content-calendar.yaml,
-cambia el estado de este articulo a "qa_fallido", guarda, y reporta
-exactamente que fallo. Corrige y vuelve a intentar el Paso 4-5 si tiene
-sentido, o detente y deja que el usuario decida.
+Si CUALQUIER regla falla: NO publiques. En la hoja, cambia el Estado de
+esta fila a "qa_fallido", reporta exactamente que fallo. Corrige y
+vuelve a intentar el Paso 4-5 si tiene sentido, o detente y deja que el
+usuario decida.
 
 Si todo pasa: continua al Paso 6.
 
@@ -356,8 +362,8 @@ Variables:
 {
   "article": {
     "blogId": "<gid del blog 'noticias', obtenido en el Paso 2>",
-    "title": "<tema del Paso 1>",
-    "handle": "<handle_propuesto del Paso 1>",
+    "title": "<Titulo del Paso 1>",
+    "handle": "<Handle propuesto del Paso 1>",
     "author": { "name": "Equipo Vitaliah" },
     "tags": ["<tags del Paso 4>"],
     "body": "<bodyHtml del Paso 4>",
@@ -373,28 +379,24 @@ Variables:
 isPublished DEBE ser false, siempre, sin excepcion. Publicar visible es
 una decision humana posterior.
 
-Si el articulo tenia faqJsonLd: guardalo como archivo separado en
-drafts/<handle_propuesto>.faq.jsonld.html (texto plano, el bloque
-JSON-LD completo) -- nunca lo pegues dentro de bodyHtml, Shopify lo
+Si el articulo tenia faqJsonLd, guardalo aparte (o inclúyelo en tu
+reporte final) y avisale al usuario que debe pegarlo manualmente en el
+tema de Shopify -- nunca lo pegues dentro de bodyHtml, Shopify lo
 elimina al re-guardar el articulo desde el editor visual.
 
---- Paso 7 — Actualizar el calendario ---
+--- Paso 7 — Actualizar la hoja ---
 
-Edita content-calendar.yaml, en la entrada de este articulo:
+En la fila de este articulo:
 
-- estado: publicado_oculto
-- handle_final: <el handle que devolvio la mutacion>
-- article_gid: <el id que devolvio la mutacion>
-- fecha_publicacion_oculta: '<fecha de hoy, YYYY-MM-DD>'
-- Si hubo faqJsonLd: faq_jsonld_pendiente_de_pegar:
-  drafts/<handle_propuesto>.faq.jsonld.html
-
-Guarda el archivo.
+- Estado -> publicado_oculto
+- Handle final -> el handle que devolvio la mutacion
+- Article GID -> el id que devolvio la mutacion
 
 --- Paso 8 — Reporte final ---
 
 Dile al usuario: que articulo procesaste, si paso el QA (y si no, por
-que), y el link del articulo en el admin de Shopify si se publico.
+que), y el link del articulo en el admin de Shopify si se publico. Si
+quedo un faqJsonLd pendiente de pegar, recuerdaselo.
 
 ================================================================
 REGLAS DE ORO (NO NEGOCIABLES)
