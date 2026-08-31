@@ -128,6 +128,119 @@ selectivamente, ver nota al final de esta parte).
   "/pages/maquila-de-productos" (unica URL de CTA verificada, no
   inventar otra), texto de ancla tipo "Cotiza tu maquila".
 
+--- A2.1. Componente visual CTA maquila-b2b (tarjeta con imagen, enriquecimiento opcional) ---
+
+- Aplica EXCLUSIVAMENTE al cierre de articulos del cluster "maquila-b2b"
+  (mismo alcance que el CTA de negocio de A2 -- nunca en articulos B2C).
+  Es una alternativa visual MAS RICA al cierre de parrafo + enlace simple
+  de A2 -- no lo reemplaza obligatoriamente, el redactor puede usar
+  cualquiera de los dos formatos; si el articulo ya tiene una imagen real
+  disponible relacionada con el servicio de maquila, preferir esta
+  tarjeta.
+- Plantilla verificada (adaptada el 2026-08-31 de un articulo de
+  referencia externo sobre "maquila de productos saludables" que Julian
+  aporto, simplificada respecto al original -- ver los ajustes abajo):
+
+  <style>
+  .ctamaq-card, .ctamaq-card *, .ctamaq-card *::before, .ctamaq-card *::after { box-sizing: border-box !important; }
+  .ctamaq-card { position: relative !important; display: grid !important; grid-template-columns: 1.3fr 1fr !important; gap: 0 !important; max-width: 720px !important; margin: 40px auto !important; background: linear-gradient(135deg, #0a3520 0%, #0f4729 50%, #1f5c3a 100%) !important; border-radius: 20px !important; overflow: hidden !important; text-decoration: none !important; color: inherit !important; box-shadow: 0 8px 28px rgba(15,71,41,0.18) !important; }
+  .ctamaq-content { padding: 32px 28px !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
+  .ctamaq-eyebrow { display: inline-flex !important; font-size: 11px !important; font-weight: 700 !important; letter-spacing: .14em !important; text-transform: uppercase !important; color: #dceec6 !important; background: rgba(220,238,198,.12) !important; border: 1px solid rgba(220,238,198,.25) !important; padding: 6px 12px !important; border-radius: 100px !important; margin: 0 0 16px 0 !important; width: fit-content !important; }
+  .ctamaq-headline { font-size: clamp(20px,2.5vw,26px) !important; font-weight: 600 !important; color: #fff !important; line-height: 1.2 !important; margin: 0 0 10px 0 !important; }
+  .ctamaq-desc { font-size: 13.5px !important; line-height: 1.55 !important; color: rgba(255,255,255,.85) !important; margin: 0 0 20px 0 !important; }
+  .ctamaq-features { list-style: none !important; padding: 0 !important; margin: 0 0 22px 0 !important; display: flex !important; flex-wrap: wrap !important; gap: 6px !important; }
+  .ctamaq-feature { display: inline-flex !important; font-size: 11px !important; font-weight: 600 !important; color: #dceec6 !important; background: rgba(220,238,198,.08) !important; border: 1px solid rgba(220,238,198,.18) !important; padding: 4px 10px !important; border-radius: 6px !important; }
+  .ctamaq-btn { display: inline-flex !important; align-items: center !important; gap: 10px !important; background: #dceec6 !important; color: #0f4729 !important; font-size: 14px !important; font-weight: 700 !important; padding: 0 22px !important; height: 46px !important; border-radius: 100px !important; width: fit-content !important; }
+  .ctamaq-visual { position: relative !important; min-height: 240px !important; overflow: hidden !important; }
+  .ctamaq-visual img { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; }
+  @media (max-width: 640px) { .ctamaq-card { grid-template-columns: 1fr !important; } .ctamaq-visual { min-height: 180px !important; order: -1 !important; } }
+  </style>
+
+  <a class="ctamaq-card" href="/pages/maquila-de-productos" rel="noopener">
+    <div class="ctamaq-content">
+      <span class="ctamaq-eyebrow">Servicio B2B</span>
+      <h3 class="ctamaq-headline">Crea tu propia marca con nuestro servicio de maquila</h3>
+      <p class="ctamaq-desc">Desarrollamos, fabricamos y envasamos tus suplementos y alimentos bajo tu marca, con respaldo INVIMA.</p>
+      <ul class="ctamaq-features">
+        <li class="ctamaq-feature">Tramites INVIMA</li>
+        <li class="ctamaq-feature">Formulas a medida</li>
+        <li class="ctamaq-feature">Asesoria integral</li>
+        <li class="ctamaq-feature">Hecho en Colombia</li>
+      </ul>
+      <span class="ctamaq-btn">Cotiza tu maquila</span>
+    </div>
+    <div class="ctamaq-visual">
+      <img src="<URL real de Shopify>" alt="<alt descriptivo real>" loading="lazy">
+    </div>
+  </a>
+
+- Ajustes respecto al original de referencia (leer antes de usar la
+  plantilla):
+  1. Se quitaron los SVG decorativos, el badge "Calidad Garantizada" y el
+     bloque de rating con estrellas -- el original incluia el texto "5.0
+     · +200 marcas creadas", una cifra que NO esta verificada en ningun
+     dato real de Vitaliah. La regla de A7/REGLAS DE ORO ("nunca inventes
+     una cifra") aplica igual a este componente visual: nunca agregues un
+     rating, numero de clientes o estadistica en la tarjeta CTA salvo que
+     Julian confirme un numero real -- si no hay dato real, se omite ese
+     elemento (como en la plantilla de arriba), nunca se rellena con una
+     cifra de ejemplo.
+  2. El href SIEMPRE es exactamente "/pages/maquila-de-productos" (misma
+     URL unica verificada de A9.1), relativa y sin target="_blank" -- el
+     original usaba una URL absoluta con dominio y abria pestaña nueva;
+     al ser un enlace interno del mismo sitio no debe hacerlo.
+  3. La imagen de ".ctamaq-visual" debe ser una foto/render real (galeria
+     de producto o una imagen de contexto ya generada por Canva para el
+     cluster maquila-b2b) subida al CDN de Shopify -- nunca inventar la
+     URL. El original tenia un atributo onerror que repetia la misma URL
+     que ya habia fallado (sin fallback real); no lo repliques. Si no hay
+     imagen real disponible, omite el bloque ".ctamaq-visual" completo y
+     usa solo la columna de contenido (ajusta grid-template-columns a 1fr
+     en ese caso), nunca un placeholder.
+- ADVERTENCIA TECNICA: el bloque <style> vive dentro del bodyHtml. Igual
+  que con los <script> del faqJsonLd (ver Paso 6), Shopify puede eliminar
+  o alterar etiquetas <style> si el articulo se re-guarda despues desde
+  el editor visual. Si este articulo usa la tarjeta CTA, el Paso 6.5
+  (verificacion post-publicacion) debe confirmar ademas que el bloque
+  <style> sigue presente en el body devuelto por la query -- si Shopify
+  lo elimino, avisa a Julian en el reporte final (Paso 8) en vez de
+  asumir que la tarjeta se ve bien.
+
+--- A2.2. Acordeon nativo para Preguntas Frecuentes (formato alternativo opcional) ---
+
+- Alternativa de presentacion para la seccion "Preguntas frecuentes" (H2
+  de A2), usando el elemento nativo HTML <details>/<summary> en vez de H3
+  planos. No reemplaza obligatoriamente el formato H3 -- ambos son
+  validos, el redactor elige cual usar. No requiere CSS adicional (se ve
+  bien con el estilo por defecto del navegador), asi que no tiene el
+  riesgo tecnico de la tarjeta CTA de A2.1.
+- Formato:
+  <div class="faq" id="preguntas-frecuentes">
+  <h2 class="faq-title">Preguntas frecuentes sobre [tema]</h2>
+  <details>
+  <summary><h3>¿Pregunta 1?</h3></summary>
+  <p>Respuesta 1.</p>
+  </details>
+  <details>
+  <summary><h3>¿Pregunta 2?</h3></summary>
+  <p>Respuesta 2.</p>
+  </details>
+  ...
+  </div>
+- El <h2 class="faq-title"> lleva el id de ancla (ej. id="preguntas-
+  frecuentes" o el slug que corresponda) para que el indice de A2 lo
+  enlace igual que a cualquier otro H2 -- este formato NO exime del
+  indice obligatorio.
+- El faqJsonLd (A8) se sigue generando exactamente igual, con el mismo
+  texto de pregunta/respuesta que va dentro de cada <details> -- el
+  acordeon es solo presentacion visual, no cambia la regla de generar el
+  JSON-LD por separado.
+- NOTA: el articulo de referencia externo que aporto estos dos formatos
+  (A2.1 y A2.2) NO tenia indice/tabla de contenido pese a tener 9+ H2 --
+  eso es un defecto del articulo de referencia, no un patron a copiar. El
+  indice sigue siendo obligatorio segun A2/QA punto 16 en todo articulo
+  que use estos formatos.
+
 --- A3. Longitud minima ---
 
 Rol "pilar": minimo 2300 palabras (solo texto, sin contar HTML).
@@ -617,6 +730,9 @@ esto:
      final (A7, A9.1).
    - Los <img> de producto estan envueltos en <a href="/products/...">
      (A6).
+   - Si el articulo uso la tarjeta CTA de A2.1: el bloque <style> del
+     inicio de la tarjeta sigue presente en el body (no fue eliminado
+     por Shopify al guardar).
 3. Si algo falla, corrigelo con articleUpdate y vuelve a verificar --
    no lo dejes para "despues" ni asumas que quedo bien porque tu
    borrador lo tenia.
