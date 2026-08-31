@@ -58,3 +58,15 @@ Este es el proceso estándar: no se requiere pedir permiso paso a paso en
 cada corrida futura, salvo que aparezca un bloqueo real (dato faltante,
 canibalización detectada, QA fallido) contemplado en las Reglas de Oro
 del playbook.
+
+## Referencias científicas: prioridad estratégica, no solo checklist
+
+Julián enfatizó que agregar referencias científicas reales (enlaces a
+PubMed, NCBI, NIH ODS, revistas indexadas, etc.) a los artículos es una
+prioridad estratégica: le da peso y credibilidad real a la evidencia
+citada, no es solo un requisito de QA para cumplir (regla A7 del
+playbook). Al redactar, buscar activamente estudios/fuentes verificables
+para respaldar cada afirmación de beneficio o mecanismo -- mientras más
+sólido y verificable el respaldo científico citado, mejor. Nunca inventar
+una cita, pero sí invertir tiempo real en la búsqueda web de fuentes
+antes de dar por hecho que algo "no tiene evidencia disponible".
