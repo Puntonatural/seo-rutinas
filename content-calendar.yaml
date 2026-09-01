@@ -625,7 +625,11 @@ articulos:
     (autor Julian E. Zamora, 1678 palabras, tabla + guia rapida + infografia real
     generada y verificada en Canva, 2 imagenes de contexto + 2 de producto en
     tarjeta A2.4, seccion Fuentes con 4 citas reales fuera del cuerpo, disclaimer
-    INVIMA). QA de 20 puntos completo, pasa todos. NO se publico (isPublished
+    INVIMA, FAQ en formato acordeon <details>/<summary> de A2.2 -- consistente con
+    los otros 4 articulos del cluster resveratrol, que ya usaban ese formato; el
+    primer borrador uso H3 planos, valido segun la letra de A2.2 pero inconsistente
+    con sus hermanos, corregido tras revision del usuario). QA de 20 puntos
+    completo, pasa todos. NO se publico (isPublished
     sigue false) porque el limite de 1 articulo/dia ya se habia alcanzado hoy
     (6 articulos con publishedAt entre 2026-08-31T17:05 y 2026-08-31T20:44,
     dentro de las ultimas 24h desde 2026-09-01T14:48). Queda listo para
