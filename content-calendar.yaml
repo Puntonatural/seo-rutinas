@@ -607,7 +607,7 @@ articulos:
 - titulo: 'Resveratrol vs. Otros Antioxidantes: Comparativa'
   cluster: resveratrol
   rol: cluster
-  estado: qa_fallido
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: resveratrol vs antioxidantes
   keywords_secundarias:
   - mejores antioxidantes naturales
@@ -618,22 +618,20 @@ articulos:
   handle_propuesto: resveratrol-vs-otros-antioxidantes-comparativa
   handle_final: resveratrol-vs-otros-antioxidantes-comparativa
   article_gid: gid://shopify/Article/614707888444
-  fecha_publicacion_oculta: '2026-09-01'
+  fecha_publicacion_oculta: null
   faq_jsonld_pendiente_de_pegar: drafts/resveratrol-vs-otros-antioxidantes-comparativa.faq.jsonld.html
   nota: >-
-    Redactado y creado en Shopify (isPublished:false) el 2026-09-01 por una sesion
-    que todavia seguia el motorsinscripts.txt viejo (reglas pre-2026-08-31), antes de
-    descubrir esta rama con las reglas actualizadas. NO cumple el estandar vigente:
-    autor "Equipo Vitaliah" en vez de "Julian E. Zamora" (A1.1); 967 palabras, por
-    debajo del minimo de cluster de 1400 (A3); citas de estudios como hipervinculos
-    inline en el cuerpo en vez de una seccion "Fuentes" al final (A7); falta el
-    disclaimer INVIMA de A9.1; solo 2 imagenes en vez de las 4 requeridas (2 contexto
-    Canva + 2 producto en tarjeta A2.4, A6); sin elementos de sintesis A2.3 (tiene
-    tabla, faltan guia rapida e infografia); campo "image" (featured) no seteado;
-    isPublished:false en vez de true (definicion de "oculto" corregida el 2026-08-31,
-    ver REGLAS DE ORO). Pendiente: reescribir/actualizar el articulo real en Shopify
-    contra el SKILL.md vigente y volver a correr el Paso 5-7 completo antes de darlo
-    por terminado.
+    Reescrito por completo el 2026-09-01 siguiendo el skill redactor-blog vigente
+    (autor Julian E. Zamora, 1678 palabras, tabla + guia rapida + infografia real
+    generada y verificada en Canva, 2 imagenes de contexto + 2 de producto en
+    tarjeta A2.4, seccion Fuentes con 4 citas reales fuera del cuerpo, disclaimer
+    INVIMA). QA de 20 puntos completo, pasa todos. NO se publico (isPublished
+    sigue false) porque el limite de 1 articulo/dia ya se habia alcanzado hoy
+    (6 articulos con publishedAt entre 2026-08-31T17:05 y 2026-08-31T20:44,
+    dentro de las ultimas 24h desde 2026-09-01T14:48). Queda listo para
+    publicarse (isPublished:true) el proximo dia disponible sin ningun trabajo
+    adicional -- solo falta correr articleUpdate con isPublished:true cuando
+    corresponda y actualizar este estado a publicado_oculto.
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
