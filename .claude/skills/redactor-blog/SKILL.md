@@ -231,17 +231,24 @@ selectivamente, ver nota al final de esta parte).
   lo elimino, avisa a Julian en el reporte final (Paso 8) en vez de
   asumir que la tarjeta se ve bien.
 
---- A2.2. Acordeon nativo para Preguntas Frecuentes (formato alternativo opcional) ---
+--- A2.2. Acordeon nativo para Preguntas Frecuentes (OBLIGATORIO) ---
 
-- Alternativa de presentacion para la seccion "Preguntas frecuentes" (H2
-  de A2), usando el elemento nativo HTML <details>/<summary> en vez de H3
-  planos. No reemplaza obligatoriamente el formato H3 -- ambos son
-  validos, el redactor elige cual usar. No requiere CSS adicional (se ve
-  bien con el estilo por defecto del navegador), asi que no tiene el
-  riesgo tecnico de la tarjeta CTA de A2.1.
-- Formato:
-  <div class="faq" id="preguntas-frecuentes">
-  <h2 class="faq-title">Preguntas frecuentes sobre [tema]</h2>
+- Formato OBLIGATORIO para la seccion "Preguntas frecuentes" (H2 de A2)
+  en TODO articulo nuevo, pilar o cluster: el elemento nativo HTML
+  <details>/<summary>, nunca H3 planos sueltos. Dejo de ser "alternativa
+  opcional" el 2026-09-01 -- un primer borrador de
+  resveratrol-vs-otros-antioxidantes-comparativa uso H3 planos (valido
+  segun la redaccion anterior de esta regla, que decia "el redactor
+  elige"), y quedo como el unico articulo del cluster resveratrol
+  inconsistente con sus 4 hermanos, que ya usaban el acordeon. El usuario
+  lo señalo despues de publicado. No vuelvas a dejarlo a criterio del
+  redactor: siempre acordeon. No requiere CSS adicional (se ve bien con
+  el estilo por defecto del navegador), asi que tampoco tiene el riesgo
+  tecnico de la tarjeta CTA de A2.1.
+- Formato exacto (asi aparece en los 5 articulos reales que ya lo usan --
+  el id de ancla va en el <h2>, NUNCA en el <div> exterior):
+  <div class="faq">
+  <h2 class="faq-title" id="preguntas-frecuentes">Preguntas frecuentes sobre [tema]</h2>
   <details>
   <summary><h3>¿Pregunta 1?</h3></summary>
   <p>Respuesta 1.</p>
@@ -264,7 +271,7 @@ selectivamente, ver nota al final de esta parte).
   (A2.1 y A2.2) NO tenia indice/tabla de contenido pese a tener 9+ H2 --
   eso es un defecto del articulo de referencia, no un patron a copiar. El
   indice sigue siendo obligatorio segun A2/QA punto 16 en todo articulo
-  que use estos formatos.
+  que use este formato.
 
 --- A2.3. Elementos de sintesis: tabla comparativa, guia rapida, infografia (recomendado en pilares) ---
 
@@ -786,7 +793,9 @@ opcionales ni "si hay tiempo".
    consultarlo, este punto tambien falla.
 9. Excerpt no vacio, >=2 tags.
 10. Si hay seccion "Preguntas frecuentes": debe existir el faqJsonLd con
-    tipo FAQPage.
+    tipo FAQPage, Y la seccion en el bodyHtml debe usar el formato de
+    acordeon <details>/<summary> de A2.2 (obligatorio, no H3 planos) --
+    verifica el bodyHtml real, no asumas que lo generaste asi.
 11. Toda mencion de "estudio"/"investigacion" tiene al menos un enlace
     externo real en el articulo.
 12. Ningun enlace externo va inline en el cuerpo -- todas las fuentes
@@ -976,6 +985,8 @@ esto:
      si el articulo tiene 5+ H2 (A2, QA punto 16).
    - El body contiene la seccion "Fuentes" y el disclaimer INVIMA al
      final (A7, A9.1).
+   - Si hay seccion "Preguntas frecuentes": usa el acordeon <details>/
+     <summary> de A2.2 (obligatorio), no H3 planos.
    - Los <img> de producto estan envueltos en <a href="/products/...">
      (A6).
    - Si el articulo uso la tarjeta CTA de A2.1: el bloque <style> del
