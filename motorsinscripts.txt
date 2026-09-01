@@ -203,27 +203,35 @@ seccion A3.
 PARTE B — PROCESO PASO A PASO
 ================================================================
 
---- Fuente de datos: una sola hoja de Google Sheets ---
+--- Fuente de datos: un solo archivo YAML en el repo ---
 
-"Vitaliah - Calendario SEO (Completo)" -- columnas: Titulo, Cluster,
-Rol, Estado, Palabra clave, Keywords secundarias, Enlaces internos
-obligatorios, Handle propuesto, Handle final, Article GID.
+`seo-engine/calendars/content-calendar.yaml` -- lista `articulos`, cada
+uno con: tema, cluster, rol, keyword_objetivo, keywords_secundarias,
+estado, handle_propuesto, handle_final, article_gid,
+fecha_publicacion_oculta, faq_jsonld_pendiente_de_pegar,
+enlaces_internos_obligatorios. El archivo trae su propio encabezado con
+el detalle de cada campo.
 
-No hay ningun otro archivo de datos que leer. Los enlaces a
-productos/colecciones/imagenes se buscan EN VIVO en Shopify (Paso 3),
-nunca desde una lista estatica -- asi el catalogo siempre esta
-actualizado sin que nadie tenga que mantener un archivo aparte.
+No hay ningun otro archivo de datos que leer (dejo de usarse la hoja de
+Google Sheets "Vitaliah - Calendario SEO (Completo)" el 2026-09-01: al
+vivir fuera del repo, el agente solo tenia lectura sobre ella -- nunca
+podia escribir el Paso 7, lo que la dejaba desincronizada de lo que en
+verdad existia en Shopify). Los enlaces a productos/colecciones/imagenes
+se buscan EN VIVO en Shopify (Paso 3), nunca desde una lista estatica --
+asi el catalogo siempre esta actualizado sin que nadie tenga que
+mantener un archivo aparte.
 
 --- Paso 1 — Elegir el tema ---
 
-Abre la hoja "Vitaliah - Calendario SEO (Completo)". Busca la PRIMERA
-fila cuya columna "Estado" sea exactamente "idea".
+Abre `seo-engine/calendars/content-calendar.yaml`. Busca la PRIMERA
+entrada de `articulos` (en el orden en que aparecen en el archivo) cuyo
+campo `estado` sea exactamente "idea".
 
 - Si no hay ninguna: reporta "no hay temas pendientes" y detente. No
   hagas nada mas.
-- Si la hay: toma nota de Titulo, Cluster, Rol, Palabra clave, Keywords
-  secundarias (separadas por " ; "), Enlaces internos obligatorios
-  (separados por " ; "), Handle propuesto.
+- Si la hay: toma nota de tema, cluster, rol, keyword_objetivo,
+  keywords_secundarias (lista), enlaces_internos_obligatorios (lista),
+  handle_propuesto.
 
 --- Paso 2 — Chequeo de canibalizacion ---
 
@@ -241,9 +249,10 @@ titulo existente, usando tu propio juicio semantico:
   y "Melena de Leon para la Memoria" NO se canibalizan entre si (angulos
   distintos dentro del mismo tema), pero dos articulos ambos titulados
   esencialmente "Beneficios de la Melena de Leon" si.
-- Si encuentras un solapamiento real: en la hoja, cambia el Estado de
-  esta fila a "canibalizacion_detectada", reporta contra cual articulo
-  existente se solapa, y DETENTE -- no redactes nada.
+- Si encuentras un solapamiento real: en el YAML, cambia el `estado` de
+  esta entrada a "canibalizacion_detectada", comitea y pushea el cambio
+  al repo, reporta contra cual articulo existente se solapa, y DETENTE
+  -- no redactes nada.
 - Si no hay solapamiento: continua al Paso 3.
 
 --- Paso 3 — Resolver enlaces internos e imagenes (busqueda en vivo) ---
@@ -271,13 +280,13 @@ Para cada descripcion en Enlaces internos obligatorios del Paso 1 (ej.
      handle real.
 
    - "(pilar, este calendario)" / "(articulo hermano, este calendario)":
-     NO busques en Shopify -- busca en la MISMA hoja de Sheets otra fila
-     cuyo Titulo comparta la gran mayoria de las palabras significativas
-     con este nucleo de texto (no exijas coincidencia literal exacta;
-     se estricto igual, ~70% o mas de las palabras, porque varias filas
-     del mismo cluster comparten vocabulario generico). Si esa fila ya
-     tiene Handle final (o si no, Handle propuesto), la URL es
-     "/blogs/noticias/<ese handle>".
+     NO busques en Shopify -- busca en el MISMO YAML otra entrada de
+     `articulos` cuyo `tema` comparta la gran mayoria de las palabras
+     significativas con este nucleo de texto (no exijas coincidencia
+     literal exacta; se estricto igual, ~70% o mas de las palabras,
+     porque varias entradas del mismo cluster comparten vocabulario
+     generico). Si esa entrada ya tiene `handle_final` (o si no,
+     `handle_propuesto`), la URL es "/blogs/noticias/<ese handle>".
 
 3. Si una busqueda no devuelve ningun resultado razonable: esa URL queda
    SIN RESOLVER. NO inventes ni adivines una URL -- vas a omitir ese
@@ -340,10 +349,10 @@ estandar. Si NO tienes terminal disponible, cuenta el cuerpo en bloques
 de ~100 palabras marcando cada bloque, en vez de estimar de un vistazo
 -- es lento pero mucho mas confiable que una estimacion.
 
-Si CUALQUIER regla falla: NO publiques. En la hoja, cambia el Estado de
-esta fila a "qa_fallido", reporta exactamente que fallo. Corrige y
-vuelve a intentar el Paso 4-5 si tiene sentido, o detente y deja que el
-usuario decida.
+Si CUALQUIER regla falla: NO publiques. En el YAML, cambia el `estado`
+de esta entrada a "qa_fallido", comitea y pushea el cambio al repo,
+reporta exactamente que fallo. Corrige y vuelve a intentar el Paso 4-5
+si tiene sentido, o detente y deja que el usuario decida.
 
 Si todo pasa: continua al Paso 6.
 
@@ -384,13 +393,26 @@ reporte final) y avisale al usuario que debe pegarlo manualmente en el
 tema de Shopify -- nunca lo pegues dentro de bodyHtml, Shopify lo
 elimina al re-guardar el articulo desde el editor visual.
 
---- Paso 7 — Actualizar la hoja ---
+--- Paso 7 — Actualizar el YAML y comitear ---
 
-En la fila de este articulo:
+En la entrada de este articulo dentro de
+`seo-engine/calendars/content-calendar.yaml`:
 
-- Estado -> publicado_oculto
-- Handle final -> el handle que devolvio la mutacion
-- Article GID -> el id que devolvio la mutacion
+- estado -> publicado
+- handle_final -> el handle que devolvio la mutacion
+- article_gid -> el id que devolvio la mutacion
+- fecha_publicacion_oculta -> la fecha de hoy (YYYY-MM-DD)
+- Si hubo faqJsonLd (Paso 4/6): guarda el bloque
+  `<script type="application/ld+json">...</script>` en un archivo nuevo
+  `seo-engine/calendars/drafts/<handle_final>.faq.jsonld.html`, y agrega
+  `faq_jsonld_pendiente_de_pegar: drafts/<handle_final>.faq.jsonld.html`
+  a la entrada.
+
+Comitea y pushea el cambio al repo (rama de trabajo configurada para
+esta tarea) con un mensaje breve tipo "seo: publica <handle_final>
+(oculto)". Este commit es el que reemplaza la escritura a Google Sheets
+-- sin el, la proxima corrida del motor volveria a elegir el mismo tema
+en el Paso 1.
 
 --- Paso 8 — Reporte final ---
 
