@@ -1,0 +1,1042 @@
+# Calendario SEO Vitaliah -- fuente unica de verdad para el agente redactor (.claude/skills/redactor-blog/SKILL.md)
+# y el motor mensual (seo-engine/). No editar manualmente el 'estado' salvo para corregir un error --
+# los agentes lo actualizan automaticamente (idea -> publicado_oculto / canibalizacion_detectada / qa_fallido).
+#
+# INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
+# redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
+# sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
+#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
+#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
+#     maquila-b2b (4)
+#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
+#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#
+# PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
+# lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
+# entre 2026-08-30 y 2026-08-31 (una explosion de publicaciones -- la mayoria de una carga masiva
+# el 2026-08-30 20:05 mas la produccion incremental normal del 2026-08-31), un patron de velocidad
+# que puede leerse como spam/manipulacion por Google. Para mitigarlo, se dejaron visibles solo 5
+# (isPublished:true) y se paso el resto (36) a isPublished:false TEMPORALMENTE via articleUpdate,
+# sin tocar el campo 'estado' de este YAML (que sigue reflejando que el contenido esta terminado,
+# no si esta visible en la tienda ahora mismo):
+#   Visibles: productos-naturales-en-colombia-guia (hub), resveratrol-beneficios-evidencia-como-
+#     tomarlo, hongos-adaptogenos-funcionales-colombia-guia, monk-fruit-fruto-del-monje-colombia-
+#     guia, magnesio-para-dormir-reducir-estres-guia -- se eligieron por ser el hub + un pilar por
+#     cluster, y se verificaron sus enlaces internos entre si para no dejar links rotos.
+#   Ocultos (36): el resto de los articulos publicados en esa ventana -- ver el commit de esta
+#   fecha para la lista completa de handles.
+# ACCION FUTURA: republicar (isPublished:true) el resto de forma gradual (unos pocos por semana,
+# no todos de golpe) en vez de revertir esta pausa de una sola vez -- revertir todo junto
+# reproduciria el mismo problema de velocidad que esto buscaba evitar.
+
+articulos:
+- titulo: 'Hongos Adaptogenos en Colombia: Guia Completa 2026'
+  cluster: hongos-adaptogenos
+  rol: pilar
+  estado: publicado
+  palabra_clave: hongos adaptogenos Colombia
+  keywords_secundarias:
+  - hongos funcionales Colombia
+  - hongos medicinales que son
+  enlaces_internos_obligatorios:
+  - Batido Lion Factor - Melena de Leon 500g (producto)
+  - Masticables Lion Mane - Melena de Leon (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: hongos-adaptogenos-funcionales-colombia-guia
+  handle_final: hongos-adaptogenos-funcionales-colombia-guia
+  article_gid: gid://shopify/Article/614688358716
+- titulo: 'Melena de Leon: Beneficios Respaldados por la Ciencia'
+  cluster: hongos-adaptogenos
+  rol: cluster
+  estado: publicado
+  palabra_clave: melena de leon beneficios
+  keywords_secundarias:
+  - hericium erinaceus para que sirve
+  enlaces_internos_obligatorios:
+  - Hongos adaptogenos y funcionales en Colombia (pilar, este calendario)
+  - Batido Melena de Leon by Natalia Paris (producto)
+  - Masticables Lion Mane - Melena de Leon (producto)
+  handle_propuesto: melena-de-leon-beneficios-ciencia
+  handle_final: melena-de-leon-beneficios-ciencia
+  article_gid: gid://shopify/Article/614688424252
+- titulo: Melena de Leon para la Memoria y la Concentracion
+  cluster: hongos-adaptogenos
+  rol: cluster
+  estado: publicado
+  palabra_clave: melena de leon para que sirve
+  keywords_secundarias:
+  - melena de leon memoria
+  - melena de leon concentracion
+  enlaces_internos_obligatorios:
+  - Hongos adaptogenos y funcionales en Colombia (pilar, este calendario)
+  - Batido Lion Factor - Melena de Leon 500g (producto)
+  - 'Melena de Leon: Beneficios Respaldados por la Ciencia (articulo hermano, este calendario)'
+  handle_propuesto: melena-de-leon-memoria-concentracion
+  handle_final: melena-de-leon-memoria-concentracion
+  article_gid: gid://shopify/Article/614688457020
+- titulo: 'Melena de Leon en Polvo o Masticables: Cual Elegir'
+  cluster: hongos-adaptogenos
+  rol: cluster
+  estado: publicado
+  palabra_clave: melena de leon capsulas vs polvo
+  keywords_secundarias:
+  - melena de leon masticables
+  enlaces_internos_obligatorios:
+  - Batido Lion Factor - Melena de Leon 500g (producto)
+  - Masticables Lion Mane - Melena de Leon (producto)
+  - Batido Melena de Leon by Natalia Paris (producto)
+  handle_propuesto: melena-de-leon-capsulas-polvo-masticables
+  handle_final: melena-de-leon-capsulas-polvo-masticables
+  article_gid: gid://shopify/Article/614688489788
+- titulo: 'Betaglucanos: Que Son y Por Que Importan en un Suplemento'
+  cluster: hongos-adaptogenos
+  rol: cluster
+  estado: publicado
+  palabra_clave: betaglucanos hericium erinaceus
+  keywords_secundarias:
+  - betaglucanos melena de leon que son
+  enlaces_internos_obligatorios:
+  - Hongos adaptogenos y funcionales en Colombia (pilar, este calendario)
+  - Batido Lion Factor - Melena de Leon 500g (producto)
+  - 'Melena de Leon: Beneficios Respaldados por la Ciencia (articulo hermano, este calendario)'
+  handle_propuesto: betaglucanos-melena-de-leon-que-son
+  handle_final: betaglucanos-melena-de-leon-que-son
+  article_gid: gid://shopify/Article/614688522556
+- titulo: 'Hongos Adaptogenos y Estres: Como Actuan en el Cuerpo'
+  cluster: hongos-adaptogenos
+  rol: cluster
+  estado: publicado
+  palabra_clave: hongos adaptogenos estres
+  keywords_secundarias:
+  - adaptogenos naturales que son
+  enlaces_internos_obligatorios:
+  - Hongos adaptogenos y funcionales en Colombia (pilar, este calendario)
+  - Batido Lion Factor - Melena de Leon 500g (producto)
+  - Melena de Leon para la Memoria y la Concentracion (articulo hermano, este calendario)
+  handle_propuesto: hongos-adaptogenos-estres-como-actuan
+  handle_final: hongos-adaptogenos-estres-como-actuan
+  article_gid: gid://shopify/Article/614688588092
+- titulo: 'Monk Fruit en Colombia: Que Es, Beneficios y Como Usarlo'
+  cluster: monk-fruit
+  rol: pilar
+  estado: publicado
+  palabra_clave: monk fruit en Colombia
+  keywords_secundarias:
+  - fruto del monje que es
+  - fruta del monje beneficios
+  enlaces_internos_obligatorios:
+  - 3 Monk Sweet Vitaliah Gotero (producto)
+  - Monk Sweet Doyoack polvo (producto)
+  - Coleccion Endulzantes con stevia
+  handle_propuesto: monk-fruit-fruto-del-monje-colombia-guia
+  handle_final: monk-fruit-fruto-del-monje-colombia-guia
+  article_gid: gid://shopify/Article/614688391484
+- titulo: 'Monk Fruit vs. Stevia: Diferencias y Cual Conviene'
+  cluster: monk-fruit
+  rol: cluster
+  estado: publicado
+  palabra_clave: monk fruit vs stevia
+  keywords_secundarias:
+  - diferencia monk fruit y stevia
+  enlaces_internos_obligatorios:
+  - Monk fruit en Colombia (pilar, este calendario)
+  - 3 Monk Sweet Vitaliah Gotero (producto)
+  - Monk Sweet Doyoack polvo (producto)
+  handle_propuesto: monk-fruit-vs-stevia-diferencias
+  handle_final: monk-fruit-vs-stevia-diferencias
+  article_gid: gid://shopify/Article/614688620860
+- titulo: 'Monk Fruit para Diabeticos: Que Dice la Evidencia'
+  cluster: monk-fruit
+  rol: cluster
+  estado: publicado
+  palabra_clave: monk fruit diabeticos
+  keywords_secundarias:
+  - monk fruit indice glicemico
+  enlaces_internos_obligatorios:
+  - Monk fruit en Colombia (pilar, este calendario)
+  - 3 Monk Sweet Vitaliah Gotero (producto)
+  - Monk Sweet Doyoack polvo (producto)
+  handle_propuesto: monk-fruit-diabeticos-indice-glicemico
+  handle_final: monk-fruit-diabeticos-indice-glicemico
+  article_gid: gid://shopify/Article/614688653628
+- titulo: 'Monk Fruit en Gotas o en Polvo: Cual Elegir y Como Usarlo'
+  cluster: monk-fruit
+  rol: cluster
+  estado: publicado
+  palabra_clave: monk fruit gotero vs polvo
+  keywords_secundarias:
+  - como dosificar monk fruit
+  enlaces_internos_obligatorios:
+  - 3 Monk Sweet Vitaliah Gotero (producto)
+  - Monk Sweet Doyoack polvo (producto)
+  - Monk fruit en Colombia (pilar, este calendario)
+  handle_propuesto: monk-fruit-gotas-vs-polvo-dosificacion
+  handle_final: monk-fruit-gotas-vs-polvo-dosificacion
+  article_gid: gid://shopify/Article/614688686396
+- titulo: 'Productos Naturales en Colombia: Guia para Elegir Bien'
+  cluster: productos-naturales-colombia
+  rol: pilar
+  estado: publicado
+  palabra_clave: productos naturales en Colombia
+  keywords_secundarias:
+  - donde comprar productos naturales en Colombia
+  - tienda de alimentos saludables online Colombia
+  enlaces_internos_obligatorios:
+  - Hongos adaptogenos y funcionales en Colombia (este calendario)
+  - Monk fruit en Colombia (este calendario)
+  - Coleccion Colageno Hidrolizado y Marino en Colombia
+  - 'Te Chai (Masala Chai): que es, beneficios (ya publicado)'
+  handle_propuesto: productos-naturales-en-colombia-guia
+  handle_final: productos-naturales-en-colombia-guia
+  article_gid: gid://shopify/Article/614688719164
+- titulo: Como Verificar el Registro INVIMA de un Producto Natural
+  cluster: productos-naturales-colombia
+  rol: cluster
+  estado: publicado
+  palabra_clave: productos naturales de calidad Colombia
+  keywords_secundarias:
+  - invima productos naturales
+  - como saber si un producto natural es de calidad
+  enlaces_internos_obligatorios:
+  - Productos naturales en Colombia (pilar, este calendario)
+  - 'Suplementos Naturales en Colombia: Tendencias 2026 (articulo hermano, este calendario)'
+  - Coleccion Colageno Hidrolizado y Marino en Colombia
+  handle_propuesto: producto-natural-de-calidad-invima-colombia
+  handle_final: producto-natural-de-calidad-invima-colombia
+  article_gid: gid://shopify/Article/614688751932
+- titulo: 'Suplementos Naturales en Colombia: Tendencias 2026'
+  cluster: productos-naturales-colombia
+  rol: cluster
+  estado: publicado
+  palabra_clave: suplementos naturales Colombia
+  keywords_secundarias:
+  - suplementos naturales mas vendidos Colombia
+  enlaces_internos_obligatorios:
+  - Productos naturales en Colombia (pilar, este calendario)
+  - Hongos adaptogenos y funcionales en Colombia (este calendario)
+  - Monk fruit en Colombia (este calendario)
+  handle_propuesto: suplementos-naturales-mas-buscados-colombia-2026
+  handle_final: suplementos-naturales-mas-buscados-colombia-2026
+  article_gid: gid://shopify/Article/614688784700
+- titulo: 'Laboratorios de Maquila en Colombia: Que Evaluar'
+  cluster: maquila-b2b
+  rol: pilar
+  estado: publicado
+  palabra_clave: laboratorios de maquila Colombia
+  keywords_secundarias:
+  - maquilas en Colombia
+  - como elegir laboratorio de maquila
+  enlaces_internos_obligatorios:
+  - Servicios de maquila y otros Vitaliah Labs (articulo existente, pilar B2B original)
+  - Requisitos INVIMA para Maquilar Suplementos en Colombia (articulo hermano, este calendario)
+  - Costos y MOQ de Maquila de Suplementos en Colombia (articulo hermano, este calendario)
+  handle_propuesto: laboratorios-de-maquila-en-colombia-que-evaluar
+  handle_final: laboratorios-de-maquila-en-colombia-que-evaluar
+  article_gid: gid://shopify/Article/614688817468
+- titulo: Laboratorios de Productos Naturales en Colombia Confiables
+  cluster: maquila-b2b
+  rol: cluster
+  estado: publicado
+  palabra_clave: laboratorios de productos naturales en Colombia
+  keywords_secundarias:
+  - fabricantes de productos naturales Colombia confiables
+  enlaces_internos_obligatorios:
+  - Laboratorios de maquila en Colombia (pilar, este calendario)
+  - Servicios de maquila y otros Vitaliah Labs (articulo existente)
+  - Requisitos INVIMA para Maquilar Suplementos en Colombia (articulo hermano, este calendario)
+  handle_propuesto: laboratorios-productos-naturales-colombia-confiables
+  handle_final: laboratorios-productos-naturales-colombia-confiables
+  article_gid: gid://shopify/Article/614688850236
+- titulo: 'Marca Propia vs. Marca Blanca: Diferencias y Cual Elegir'
+  cluster: maquila-b2b
+  rol: cluster
+  estado: publicado
+  palabra_clave: marca propia vs marca blanca
+  keywords_secundarias:
+  - diferencia marca blanca y marca propia
+  enlaces_internos_obligatorios:
+  - Servicios de maquila y otros Vitaliah Labs (articulo existente)
+  - Laboratorios de maquila en Colombia (pilar, este calendario)
+  - 'Maquila para Dropshippers: Como Vender con tu Marca Propia (articulo hermano, este calendario)'
+  handle_propuesto: marca-propia-vs-marca-blanca-diferencias
+  handle_final: marca-propia-vs-marca-blanca-diferencias
+  article_gid: gid://shopify/Article/614688883004
+- titulo: 'Maquila para Dropshippers: Como Vender con tu Marca Propia'
+  cluster: maquila-b2b
+  rol: cluster
+  estado: publicado
+  palabra_clave: maquila para dropshippers
+  keywords_secundarias:
+  - maquila de productos para dropshippers Colombia
+  enlaces_internos_obligatorios:
+  - Marca propia vs. marca blanca (este calendario)
+  - Servicios de maquila y otros Vitaliah Labs (articulo existente)
+  - Laboratorios de maquila en Colombia (pilar, este calendario)
+  handle_propuesto: maquila-para-dropshippers-marca-propia
+  handle_final: maquila-para-dropshippers-marca-propia
+  article_gid: gid://shopify/Article/614688915772
+- titulo: Requisitos INVIMA para Maquilar Suplementos en Colombia
+  cluster: maquila-b2b
+  rol: cluster
+  estado: publicado
+  palabra_clave: requisitos INVIMA maquila
+  keywords_secundarias:
+  - registro sanitario suplementos Colombia
+  enlaces_internos_obligatorios:
+  - Laboratorios de maquila en Colombia (pilar, este calendario)
+  - Servicios de maquila y otros Vitaliah Labs (articulo existente)
+  - Costos y MOQ de Maquila de Suplementos en Colombia (articulo hermano, este calendario)
+  handle_propuesto: requisitos-invima-maquila-suplementos
+  handle_final: requisitos-invima-maquila-suplementos
+  article_gid: gid://shopify/Article/614689046844
+- titulo: Costos y MOQ de Maquila de Suplementos en Colombia
+  cluster: maquila-b2b
+  rol: cluster
+  estado: publicado
+  palabra_clave: costos maquila suplementos Colombia
+  keywords_secundarias:
+  - MOQ maquila Colombia
+  - pedido minimo maquila suplementos
+  enlaces_internos_obligatorios:
+  - Laboratorios de maquila en Colombia (pilar, este calendario)
+  - Servicios de maquila y otros Vitaliah Labs (articulo existente)
+  - Requisitos INVIMA para Maquilar Suplementos en Colombia (articulo hermano, este calendario)
+  handle_propuesto: costos-moq-maquila-suplementos-colombia
+  handle_final: costos-moq-maquila-suplementos-colombia
+  article_gid: gid://shopify/Article/614689112380
+- titulo: 'Linaza: Beneficios, Omega-3 Vegetal y Como Usarla'
+  cluster: linaza-masticables
+  rol: pilar
+  estado: publicado
+  palabra_clave: linaza beneficios
+  keywords_secundarias:
+  - linaza para que sirve
+  - omega 3 vegetal linaza
+  enlaces_internos_obligatorios:
+  - Coleccion Linazas y fibras naturales (ya existe)
+  - Fibra Linaza + Te Verde Doypack (producto)
+  - Fibra QB Linaza + Chia + Limon Doypack (producto)
+  handle_propuesto: linaza-beneficios-omega-3-vegetal-guia
+  handle_final: linaza-beneficios-omega-3-vegetal-guia
+  article_gid: gid://shopify/Article/614689145148
+- titulo: 'Linaza para Adelgazar: Que Dice la Evidencia'
+  cluster: linaza-masticables
+  rol: cluster
+  estado: publicado
+  palabra_clave: linaza para bajar de peso
+  keywords_secundarias:
+  - linaza adelgazar evidencia
+  enlaces_internos_obligatorios:
+  - 'Linaza: Beneficios, Omega-3 Vegetal (pilar, este calendario)'
+  - Fibra Linaza + Alcachofa Doypack (producto)
+  - Coleccion Linazas y fibras naturales (ya existe)
+  handle_propuesto: linaza-para-adelgazar-evidencia
+  handle_final: linaza-para-adelgazar-evidencia
+  article_gid: gid://shopify/Article/614689177916
+- titulo: 'Linaza y Salud Digestiva: Como Actua en tu Cuerpo'
+  cluster: linaza-masticables
+  rol: cluster
+  estado: publicado
+  palabra_clave: linaza fibra digestion
+  keywords_secundarias:
+  - linaza estreñimiento
+  - fibra soluble linaza
+  enlaces_internos_obligatorios:
+  - 'Linaza: Beneficios, Omega-3 Vegetal (pilar, este calendario)'
+  - Fibra Linaza Pitaya + Noni Doypack (producto)
+  - Coleccion Linazas y fibras naturales (ya existe)
+  handle_propuesto: linaza-fibra-salud-digestiva
+  handle_final: linaza-fibra-salud-digestiva
+  article_gid: gid://shopify/Article/614689210684
+- titulo: 'Linaza Molida o Entera: Cual Absorbe Mejor tu Cuerpo'
+  cluster: linaza-masticables
+  rol: cluster
+  estado: publicado
+  palabra_clave: linaza molida o entera
+  keywords_secundarias:
+  - como consumir linaza correctamente
+  enlaces_internos_obligatorios:
+  - 'Linaza: Beneficios, Omega-3 Vegetal (pilar, este calendario)'
+  - Coleccion Linazas y fibras naturales (ya existe)
+  - Fibra Linaza + Te Verde Doypack (producto)
+  handle_propuesto: linaza-molida-vs-entera-absorcion
+  handle_final: linaza-molida-vs-entera-absorcion
+  article_gid: gid://shopify/Article/614689243452
+- titulo: 'Masticables Funcionales: Que Son y Como Elegir el Tuyo'
+  cluster: linaza-masticables
+  rol: cluster
+  estado: publicado
+  palabra_clave: masticables funcionales que son
+  keywords_secundarias:
+  - masticables funcionales beneficios
+  enlaces_internos_obligatorios:
+  - Coleccion Masticables Funcionales (ya existe)
+  - Melena de Leon en Polvo o Masticables (articulo publicado, este motor)
+  - Coleccion Linazas y fibras naturales (ya existe)
+  handle_propuesto: masticables-funcionales-que-son-como-elegir
+  handle_final: masticables-funcionales-que-son-como-elegir
+  article_gid: gid://shopify/Article/614689276220
+- titulo: 'Yogurt Griego en Polvo: Beneficios y Como Prepararlo'
+  cluster: yogurt-griego
+  rol: pilar
+  estado: publicado
+  palabra_clave: yogurt griego en polvo beneficios
+  keywords_secundarias:
+  - yogurt griego proteina
+  - como preparar yogurt griego en polvo
+  enlaces_internos_obligatorios:
+  - Coleccion Yogurt Griego (ya existe)
+  - Yogurt Griego Vitaliah en Polvo 500g (producto)
+  - Yogurt Griego en Polvo Vitaliah 250g (producto)
+  handle_propuesto: yogurt-griego-en-polvo-beneficios-guia
+  handle_final: yogurt-griego-en-polvo-beneficios-guia
+  article_gid: gid://shopify/Article/614689308988
+- titulo: 'Yogurt Griego vs. Tradicional: Diferencias Nutricionales'
+  cluster: yogurt-griego
+  rol: cluster
+  estado: publicado
+  palabra_clave: yogurt griego vs yogurt normal
+  keywords_secundarias:
+  - diferencia yogurt griego yogurt tradicional
+  enlaces_internos_obligatorios:
+  - 'Yogurt Griego en Polvo: Beneficios (pilar, este calendario)'
+  - Coleccion Yogurt Griego (ya existe)
+  - Yogurt Griego Vitaliah en Polvo 500g (producto)
+  handle_propuesto: yogurt-griego-vs-tradicional-diferencias
+  handle_final: yogurt-griego-vs-tradicional-diferencias
+  article_gid: gid://shopify/Article/614689341756
+- titulo: 'Yogurt Griego con Colageno: Para Que Sirve Combinarlos'
+  cluster: yogurt-griego
+  rol: cluster
+  estado: publicado
+  palabra_clave: yogurt griego con colageno
+  keywords_secundarias:
+  - combinar yogurt griego y colageno
+  enlaces_internos_obligatorios:
+  - 'Yogurt Griego en Polvo: Beneficios (pilar, este calendario)'
+  - Colageno con Yogurt Griego en Polvo 540g (producto)
+  - Coleccion Yogurt Griego (ya existe)
+  handle_propuesto: yogurt-griego-con-colageno-para-que-sirve
+  handle_final: yogurt-griego-con-colageno-para-que-sirve
+  article_gid: gid://shopify/Article/614689374524
+- titulo: 'Linea Natalia Paris en Vitaliah: Que Productos Incluye'
+  cluster: natalia-paris-lifestyle
+  rol: pilar
+  estado: publicado
+  palabra_clave: Natalia Paris productos Vitaliah
+  keywords_secundarias:
+  - linea Natalia Paris bienestar
+  enlaces_internos_obligatorios:
+  - Coleccion Productos Natalia Paris (ya existe)
+  - Hongos Adaptogenos en Colombia (articulo publicado, este motor)
+  - 'Melena de Leon: Beneficios (articulo publicado, este motor)'
+  handle_propuesto: linea-natalia-paris-vitaliah-productos
+  handle_final: linea-natalia-paris-vitaliah-productos
+  article_gid: gid://shopify/Article/614689407292
+- titulo: 'Magnesio para Dormir y Reducir el Estres: Guia Completa'
+  cluster: magnesio
+  rol: pilar
+  estado: publicado
+  palabra_clave: magnesio para dormir
+  keywords_secundarias:
+  - magnesio para el estres
+  - magnesio Colombia
+  enlaces_internos_obligatorios:
+  - Masticables Mag Fussion (producto)
+  - Bebida Herbal Mag Fussion (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: magnesio-para-dormir-reducir-estres-guia
+  handle_final: magnesio-para-dormir-reducir-estres-guia
+  article_gid: gid://shopify/Article/614690783548
+- titulo: 'Tipos de Magnesio: Cual Elegir Segun tu Objetivo'
+  cluster: magnesio
+  rol: cluster
+  estado: publicado
+  palabra_clave: tipos de magnesio
+  keywords_secundarias:
+  - magnesio glicinato vs citrato
+  enlaces_internos_obligatorios:
+  - Magnesio para Dormir y Reducir el Estres (pilar, este calendario)
+  - Masticables Mag Fussion (producto)
+  - Bebida Herbal Mag Fussion (producto)
+  handle_propuesto: tipos-de-magnesio-cual-elegir
+  handle_final: tipos-de-magnesio-cual-elegir
+  article_gid: gid://shopify/Article/614690816316
+- titulo: Magnesio para Calambres y Recuperacion Muscular
+  cluster: magnesio
+  rol: cluster
+  estado: publicado_oculto
+  palabra_clave: magnesio para calambres
+  keywords_secundarias:
+  - magnesio recuperacion muscular
+  enlaces_internos_obligatorios:
+  - Magnesio para Dormir y Reducir el Estres (pilar, este calendario)
+  - Masticables Mag Fussion (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: magnesio-para-calambres-recuperacion-muscular
+  handle_final: magnesio-para-calambres-recuperacion-muscular
+  article_gid: gid://shopify/Article/614695633212
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/magnesio-para-calambres-recuperacion-muscular.faq.jsonld.html
+  nota: >-
+    Enlace obligatorio "Masticables Mag Fussion (producto)" no resuelto: el
+    producto existe en Shopify pero esta en estado DRAFT (no tiene pagina
+    publica). Se enlazo en su lugar el producto activo "Bebida Herbal Mag
+    Fussion" (misma linea, real y publicado) para cumplir el minimo de 3
+    enlaces internos sin inventar una URL. Revisar si conviene publicar el
+    producto Masticables Mag Fussion. Imagen de cabecera/contexto generada
+    con Canva (Paso 3.5) y subida a Shopify:
+    https://cdn.shopify.com/s/files/1/0072/8026/3219/files/magnesio-calambres-recuperacion-muscular-contexto.png
+- titulo: 'Masticables vs. Bebida de Magnesio: Cual Absorbe Mejor'
+  cluster: magnesio
+  rol: cluster
+  estado: publicado_oculto
+  palabra_clave: magnesio masticables vs bebida
+  keywords_secundarias:
+  - mejor forma de tomar magnesio
+  enlaces_internos_obligatorios:
+  - Magnesio para Dormir y Reducir el Estres (pilar, este calendario)
+  - Masticables Mag Fussion (producto)
+  - Bebida Herbal Mag Fussion (producto)
+  handle_propuesto: masticables-vs-bebida-magnesio-absorcion
+  handle_final: masticables-vs-bebida-magnesio-absorcion
+  article_gid: gid://shopify/Article/614695665980
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/masticables-vs-bebida-magnesio-absorcion.faq.jsonld.html
+  nota: >-
+    "Masticables Mag Fussion (producto)" no existe con ese nombre activo en
+    Shopify -- el producto real y publicado de masticables de esta linea es
+    "Masticables Mag Harmony" (handle masticables-mag-harmony-magnesio-120-und),
+    ya usado por los articulos hermanos del cluster (pilar y tipos-de-magnesio).
+    Se enlazo ese en su lugar. Sugerido: actualizar el nombre en las entradas
+    "idea" restantes del cluster magnesio que todavia dicen "Mag Fussion" para
+    el masticable.
+- titulo: 'Magnesio y Ansiedad: Que Dice la Evidencia'
+  cluster: magnesio
+  rol: cluster
+  estado: publicado_oculto
+  palabra_clave: magnesio para la ansiedad
+  keywords_secundarias:
+  - magnesio sistema nervioso
+  enlaces_internos_obligatorios:
+  - Magnesio para Dormir y Reducir el Estres (pilar, este calendario)
+  - Bebida Herbal Mag Fussion (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: magnesio-y-ansiedad-evidencia
+  handle_final: magnesio-y-ansiedad-evidencia
+  article_gid: gid://shopify/Article/614696845628
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/magnesio-y-ansiedad-evidencia.faq.jsonld.html
+- titulo: 'Magnesio y Migrana: Que Dice la Evidencia'
+  cluster: magnesio
+  rol: cluster
+  estado: publicado_oculto
+  palabra_clave: magnesio para la migrana
+  keywords_secundarias:
+  - magnesio dolor de cabeza
+  enlaces_internos_obligatorios:
+  - Magnesio para Dormir y Reducir el Estres (pilar, este calendario)
+  - Masticables Mag Harmony (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: magnesio-y-migrana-evidencia
+  handle_final: magnesio-y-migrana-evidencia
+  article_gid: gid://shopify/Article/614696911164
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/magnesio-y-migrana-evidencia.faq.jsonld.html
+- titulo: 'Resveratrol: Beneficios, Evidencia y Como Tomarlo'
+  cluster: resveratrol
+  rol: pilar
+  estado: publicado_oculto
+  palabra_clave: resveratrol beneficios
+  keywords_secundarias:
+  - resveratrol para que sirve
+  enlaces_internos_obligatorios:
+  - Batido con Resveratrol (producto)
+  - Masticables Minttrol (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: resveratrol-beneficios-evidencia-como-tomarlo
+  handle_final: resveratrol-beneficios-evidencia-como-tomarlo
+  article_gid: gid://shopify/Article/614697107772
+  fecha_publicacion_oculta: '2026-08-31'
+  faq_jsonld_pendiente_de_pegar: drafts/resveratrol-beneficios-evidencia-como-tomarlo.faq.jsonld.html
+- titulo: 'Resveratrol y Antienvejecimiento: Que Dice la Ciencia'
+  cluster: resveratrol
+  rol: cluster
+  estado: publicado_oculto
+  palabra_clave: resveratrol antienvejecimiento
+  keywords_secundarias:
+  - resveratrol piel
+  enlaces_internos_obligatorios:
+  - 'Resveratrol: Beneficios, Evidencia y Como Tomarlo (pilar, este calendario)'
+  - Batido con Resveratrol (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: resveratrol-antienvejecimiento-ciencia
+  handle_final: resveratrol-antienvejecimiento-ciencia
+  article_gid: gid://shopify/Article/614698189116
+  fecha_publicacion_oculta: '2026-08-31'
+- titulo: 'Resveratrol en Batido o Masticables: Cual Elegir'
+  cluster: resveratrol
+  rol: cluster
+  estado: publicado_oculto
+  palabra_clave: resveratrol batido vs masticables
+  keywords_secundarias:
+  - mejor presentacion de resveratrol
+  enlaces_internos_obligatorios:
+  - 'Resveratrol: Beneficios, Evidencia y Como Tomarlo (pilar, este calendario)'
+  - Batido con Resveratrol (producto)
+  - Masticables Minttrol (producto)
+  handle_propuesto: resveratrol-batido-o-masticables-cual-elegir
+  handle_final: resveratrol-batido-o-masticables-cual-elegir
+  article_gid: gid://shopify/Article/614698385724
+  fecha_publicacion_oculta: '2026-08-31'
+- titulo: Resveratrol para la Salud Cardiovascular
+  cluster: resveratrol
+  rol: cluster
+  estado: publicado_oculto
+  palabra_clave: resveratrol salud cardiovascular
+  keywords_secundarias:
+  - resveratrol corazon
+  enlaces_internos_obligatorios:
+  - 'Resveratrol: Beneficios, Evidencia y Como Tomarlo (pilar, este calendario)'
+  - Masticables Minttrol (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: resveratrol-salud-cardiovascular
+  handle_final: resveratrol-salud-cardiovascular
+  article_gid: gid://shopify/Article/614698746172
+  fecha_publicacion_oculta: '2026-08-31'
+- titulo: 'Resveratrol vs. Otros Antioxidantes: Comparativa'
+  cluster: resveratrol
+  rol: cluster
+  estado: qa_fallido
+  palabra_clave: resveratrol vs antioxidantes
+  keywords_secundarias:
+  - mejores antioxidantes naturales
+  enlaces_internos_obligatorios:
+  - 'Resveratrol: Beneficios, Evidencia y Como Tomarlo (pilar, este calendario)'
+  - Batido con Resveratrol (producto)
+  - Masticables Minttrol (producto)
+  handle_propuesto: resveratrol-vs-otros-antioxidantes-comparativa
+  handle_final: resveratrol-vs-otros-antioxidantes-comparativa
+  article_gid: gid://shopify/Article/614707888444
+  fecha_publicacion_oculta: '2026-09-01'
+  faq_jsonld_pendiente_de_pegar: drafts/resveratrol-vs-otros-antioxidantes-comparativa.faq.jsonld.html
+  nota: >-
+    Redactado y creado en Shopify (isPublished:false) el 2026-09-01 por una sesion
+    que todavia seguia el motorsinscripts.txt viejo (reglas pre-2026-08-31), antes de
+    descubrir esta rama con las reglas actualizadas. NO cumple el estandar vigente:
+    autor "Equipo Vitaliah" en vez de "Julian E. Zamora" (A1.1); 967 palabras, por
+    debajo del minimo de cluster de 1400 (A3); citas de estudios como hipervinculos
+    inline en el cuerpo en vez de una seccion "Fuentes" al final (A7); falta el
+    disclaimer INVIMA de A9.1; solo 2 imagenes en vez de las 4 requeridas (2 contexto
+    Canva + 2 producto en tarjeta A2.4, A6); sin elementos de sintesis A2.3 (tiene
+    tabla, faltan guia rapida e infografia); campo "image" (featured) no seteado;
+    isPublished:false en vez de true (definicion de "oculto" corregida el 2026-08-31,
+    ver REGLAS DE ORO). Pendiente: reescribir/actualizar el articulo real en Shopify
+    contra el SKILL.md vigente y volver a correr el Paso 5-7 completo antes de darlo
+    por terminado.
+- titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
+  cluster: creatina
+  rol: pilar
+  estado: idea
+  palabra_clave: creatina para que sirve
+  keywords_secundarias:
+  - beneficios de la creatina
+  enlaces_internos_obligatorios:
+  - Batido Crea 10 (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  - Batidos de proteina vs. batidos de frutas (articulo existente)
+  handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
+  handle_final: null
+  article_gid: null
+- titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
+  cluster: creatina
+  rol: cluster
+  estado: idea
+  palabra_clave: creatina para mujeres
+  keywords_secundarias:
+  - creatina engorda mujeres
+  enlaces_internos_obligatorios:
+  - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (pilar, este calendario)'
+  - Batido Crea 10 (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: creatina-para-mujeres-mitos-evidencia
+  handle_final: null
+  article_gid: null
+- titulo: 'Creatina Monohidratada: Dosis, Horarios y Carga'
+  cluster: creatina
+  rol: cluster
+  estado: idea
+  palabra_clave: como tomar creatina
+  keywords_secundarias:
+  - dosis de creatina monohidratada
+  enlaces_internos_obligatorios:
+  - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (pilar, este calendario)'
+  - Batido Crea 10 (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: creatina-monohidratada-dosis-horarios-carga
+  handle_final: null
+  article_gid: null
+- titulo: 'Creatina y Rendimiento Fisico: Que Dice la Evidencia'
+  cluster: creatina
+  rol: cluster
+  estado: idea
+  palabra_clave: creatina rendimiento fisico
+  keywords_secundarias:
+  - creatina fuerza muscular
+  enlaces_internos_obligatorios:
+  - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (pilar, este calendario)'
+  - Batido Crea 10 (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: creatina-rendimiento-fisico-evidencia
+  handle_final: null
+  article_gid: null
+- titulo: Mitos sobre la Creatina Desmentidos con Evidencia
+  cluster: creatina
+  rol: cluster
+  estado: idea
+  palabra_clave: mitos de la creatina
+  keywords_secundarias:
+  - creatina es mala para los rinones
+  enlaces_internos_obligatorios:
+  - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (pilar, este calendario)'
+  - Batido Crea 10 (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: mitos-sobre-la-creatina-desmentidos
+  handle_final: null
+  article_gid: null
+- titulo: 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia'
+  cluster: proteina-vegana
+  rol: pilar
+  estado: idea
+  palabra_clave: proteina vegana Colombia
+  keywords_secundarias:
+  - mejor proteina vegana
+  enlaces_internos_obligatorios:
+  - Vitaliah Pro Proteina Vegana Aislada (producto)
+  - Vitaliah Pro Proteina Vegana Artesanal (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: proteina-vegana-guia-completa-colombia
+  handle_final: null
+  article_gid: null
+- titulo: 'Proteina Vegana vs. Whey: Diferencias y Cual Conviene'
+  cluster: proteina-vegana
+  rol: cluster
+  estado: idea
+  palabra_clave: proteina vegana vs whey
+  keywords_secundarias:
+  - diferencia proteina vegana whey
+  enlaces_internos_obligatorios:
+  - 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia (pilar, este calendario)'
+  - Vitaliah Pro Proteina Vegana Aislada (producto)
+  - Batidos de proteina vs. batidos de frutas (articulo existente)
+  handle_propuesto: proteina-vegana-vs-whey-diferencias
+  handle_final: null
+  article_gid: null
+- titulo: 'Proteina Vegana Aislada vs. Artesanal: Cual Elegir'
+  cluster: proteina-vegana
+  rol: cluster
+  estado: idea
+  palabra_clave: proteina vegana aislada vs artesanal
+  keywords_secundarias:
+  - tipos de proteina vegana
+  enlaces_internos_obligatorios:
+  - 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia (pilar, este calendario)'
+  - Vitaliah Pro Proteina Vegana Aislada (producto)
+  - Vitaliah Pro Proteina Vegana Artesanal (producto)
+  handle_propuesto: proteina-vegana-aislada-vs-artesanal
+  handle_final: null
+  article_gid: null
+- titulo: 'Proteina Vegana para Ganar Musculo: Es Suficiente?'
+  cluster: proteina-vegana
+  rol: cluster
+  estado: idea
+  palabra_clave: proteina vegana para ganar musculo
+  keywords_secundarias:
+  - proteina vegana hipertrofia
+  enlaces_internos_obligatorios:
+  - 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia (pilar, este calendario)'
+  - Vitaliah Pro Proteina Vegana Artesanal (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: proteina-vegana-para-ganar-musculo
+  handle_final: null
+  article_gid: null
+- titulo: Cuanta Proteina Vegana Necesitas al Dia
+  cluster: proteina-vegana
+  rol: cluster
+  estado: idea
+  palabra_clave: cuanta proteina vegana al dia
+  keywords_secundarias:
+  - requerimiento diario de proteina vegana
+  enlaces_internos_obligatorios:
+  - 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia (pilar, este calendario)'
+  - Vitaliah Pro Proteina Vegana Aislada (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: cuanta-proteina-vegana-necesitas-al-dia
+  handle_final: null
+  article_gid: null
+- titulo: 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo'
+  cluster: vinagre-manzana
+  rol: pilar
+  estado: idea
+  palabra_clave: vinagre de manzana beneficios
+  keywords_secundarias:
+  - para que sirve el vinagre de manzana
+  enlaces_internos_obligatorios:
+  - Masticables MintsVing (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  - Linaza y Salud Digestiva (articulo hermano tematico, este calendario)
+  handle_propuesto: vinagre-de-manzana-beneficios-evidencia-como-tomarlo
+  handle_final: null
+  article_gid: null
+- titulo: 'Vinagre de Manzana para Adelgazar: Que Dice la Ciencia'
+  cluster: vinagre-manzana
+  rol: cluster
+  estado: idea
+  palabra_clave: vinagre de manzana para adelgazar
+  keywords_secundarias:
+  - vinagre de manzana quema grasa
+  enlaces_internos_obligatorios:
+  - 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo (pilar, este calendario)'
+  - Masticables MintsVing (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: vinagre-de-manzana-para-adelgazar-evidencia
+  handle_final: null
+  article_gid: null
+- titulo: 'Masticables de Vinagre de Manzana vs. Liquido: Ventajas'
+  cluster: vinagre-manzana
+  rol: cluster
+  estado: idea
+  palabra_clave: vinagre de manzana masticables
+  keywords_secundarias:
+  - vinagre de manzana en pastillas
+  enlaces_internos_obligatorios:
+  - 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo (pilar, este calendario)'
+  - Masticables MintsVing (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: masticables-vinagre-de-manzana-vs-liquido
+  handle_final: null
+  article_gid: null
+- titulo: 'Vinagre de Manzana y Digestion: Beneficios Reales'
+  cluster: vinagre-manzana
+  rol: cluster
+  estado: idea
+  palabra_clave: vinagre de manzana digestion
+  keywords_secundarias:
+  - vinagre de manzana para la acidez
+  enlaces_internos_obligatorios:
+  - 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo (pilar, este calendario)'
+  - Masticables MintsVing (producto)
+  - Linaza y Salud Digestiva (articulo hermano tematico, este calendario)
+  handle_propuesto: vinagre-de-manzana-y-digestion-beneficios
+  handle_final: null
+  article_gid: null
+- titulo: 'Vinagre de Manzana: Contraindicaciones y Precauciones'
+  cluster: vinagre-manzana
+  rol: cluster
+  estado: idea
+  palabra_clave: vinagre de manzana contraindicaciones
+  keywords_secundarias:
+  - efectos secundarios del vinagre de manzana
+  enlaces_internos_obligatorios:
+  - 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo (pilar, este calendario)'
+  - Masticables MintsVing (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: vinagre-de-manzana-contraindicaciones-precauciones
+  handle_final: null
+  article_gid: null
+- titulo: 'Registro INVIMA para Productos Saludables: Que Revisar Antes de Lanzar'
+  cluster: maquila-b2b
+  rol: cluster
+  estado: idea
+  palabra_clave: registro invima productos saludables
+  keywords_secundarias:
+  - registro invima antes de lanzar un producto
+  enlaces_internos_obligatorios:
+  - Laboratorios de Maquila en Colombia (pilar, este calendario)
+  - Requisitos INVIMA para Maquilar Suplementos en Colombia (articulo existente)
+  - Como Verificar el Registro INVIMA de un Producto Natural (articulo existente)
+  handle_propuesto: registro-invima-productos-saludables-antes-de-lanzar
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 040", estado
+    "Pendiente"). Angulo distinto a "Requisitos INVIMA para Maquilar
+    Suplementos en Colombia" (ya publicado): este se enfoca en el tramite de
+    registro en si, no en los requisitos generales de maquila. Revisar
+    canibalizacion con cuidado en el Paso 2 antes de redactar.
+- titulo: Como Elegir una Empresa de Maquila de Productos Naturales en Colombia
+  cluster: maquila-b2b
+  rol: cluster
+  estado: idea
+  palabra_clave: empresa de maquila de productos naturales
+  keywords_secundarias:
+  - como elegir un laboratorio de maquila en Colombia
+  enlaces_internos_obligatorios:
+  - Laboratorios de Maquila en Colombia (pilar, este calendario)
+  - Laboratorios de Productos Naturales en Colombia Confiables (articulo hermano, este calendario)
+  - Servicios de maquila y otros Vitaliah Labs (articulo existente)
+  handle_propuesto: como-elegir-empresa-de-maquila-productos-naturales
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 041", estado
+    "Pendiente"). Angulo muy cercano al pilar "Laboratorios de Maquila en
+    Colombia: Que Evaluar" (ya publicado) y a "Laboratorios de Productos
+    Naturales en Colombia Confiables" (ya publicado) -- revisar
+    canibalizacion con cuidado en el Paso 2; puede que convenga ampliar uno
+    de esos articulos existentes en vez de crear uno nuevo.
+- titulo: Cuanto Cuesta Crear una Marca Propia de Suplementos o Alimentos Saludables
+  cluster: maquila-b2b
+  rol: cluster
+  estado: idea
+  palabra_clave: cuanto cuesta crear una marca propia de suplementos
+  keywords_secundarias:
+  - costo de crear una marca propia de alimentos saludables
+  enlaces_internos_obligatorios:
+  - Laboratorios de Maquila en Colombia (pilar, este calendario)
+  - Costos y MOQ de Maquila de Suplementos en Colombia (articulo existente)
+  - Marca Propia vs. Marca Blanca: Diferencias y Cual Elegir (articulo existente)
+  handle_propuesto: cuanto-cuesta-crear-marca-propia-suplementos
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 042", estado
+    "Pendiente"). Angulo relacionado con "Costos y MOQ de Maquila de
+    Suplementos en Colombia" (ya publicado, enfocado en produccion) pero
+    este cubre el costo total de crear la marca (branding, empaque, etc.),
+    no solo la maquila -- revisar solapamiento en el Paso 2 antes de
+    redactar.
+- titulo: Errores al Lanzar una Marca de Productos Saludables y Como Evitarlos
+  cluster: maquila-b2b
+  rol: cluster
+  estado: idea
+  palabra_clave: errores al lanzar marca de suplementos
+  keywords_secundarias:
+  - errores comunes al lanzar una marca de alimentos saludables
+  enlaces_internos_obligatorios:
+  - Laboratorios de Maquila en Colombia (pilar, este calendario)
+  - Como Crear una Marca Propia de Productos Saludables en Colombia (articulo existente)
+  - Requisitos INVIMA para Maquilar Suplementos en Colombia (articulo existente)
+  handle_propuesto: errores-al-lanzar-marca-productos-saludables
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 043", estado "Pendiente").
+- titulo: 'Para Que Sirve la Clorofila en el Cuerpo Humano: Beneficios y Evidencia'
+  cluster: clorofila
+  rol: pilar
+  estado: idea
+  palabra_clave: para que sirve la clorofila
+  keywords_secundarias:
+  - beneficios de la clorofila
+  - clorofila para que sirve
+  enlaces_internos_obligatorios:
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: para-que-sirve-la-clorofila-beneficios-evidencia
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 044", estado
+    "Pendiente"). Primer articulo del cluster clorofila -- no existia
+    previamente en este calendario ni en el blog publicado. Producto real
+    verificado en Shopify: VITALIAH CLOROFILA MENTA 240 ML (handle
+    vitaliah-clorofila-menta-240-ml).
+- titulo: 'Clorofila Liquida: Para Que Sirve y Que Esperar Realmente'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: para que sirve la clorofila liquida
+  keywords_secundarias:
+  - beneficios reales de la clorofila liquida
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: clorofila-liquida-para-que-sirve
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 045", estado "Pendiente").
+- titulo: 'Como Tomar Clorofila Liquida: Dosis, en Ayunas y Por Cuanto Tiempo'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: clorofila liquida como se toma
+  keywords_secundarias:
+  - dosis de clorofila liquida
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: como-tomar-clorofila-liquida-dosis
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 046", estado "Pendiente").
+- titulo: 'Clorofila para la Mujer: Para Que Sirve y en Que Etapas Tiene Sentido'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: clorofila para que sirve en la mujer
+  keywords_secundarias:
+  - clorofila y salud femenina
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: clorofila-para-la-mujer
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 047", estado "Pendiente").
+- titulo: 'Clorofila Liquida o en Capsulas: Cual Conviene Segun tu Caso'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: clorofila en capsulas
+  keywords_secundarias:
+  - clorofila liquida vs capsulas
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: clorofila-liquida-o-capsulas-cual-conviene
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 048", estado "Pendiente").
+- titulo: 'Contraindicaciones de la Clorofila: Quien No Deberia Tomarla'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: desventajas de tomar clorofila
+  keywords_secundarias:
+  - contraindicaciones de la clorofila liquida
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: contraindicaciones-de-la-clorofila
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 049", estado "Pendiente").
+- titulo: 'Clorofila y Perdida de Peso: Que Dice la Evidencia'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: la clorofila sirve para bajar de peso
+  keywords_secundarias:
+  - clorofila y perdida de peso
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  handle_propuesto: clorofila-para-bajar-de-peso-evidencia
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 050", estado "Pendiente").
+- titulo: 'Cual es la Mejor Clorofila Liquida en Colombia: Precio y Como Elegir'
+  cluster: clorofila
+  rol: cluster
+  estado: idea
+  palabra_clave: clorofila liquida precio
+  keywords_secundarias:
+  - mejor clorofila liquida en Colombia
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
+  - VITALIAH CLOROFILA MENTA 240 ML (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: mejor-clorofila-liquida-en-colombia-precio
+  handle_final: null
+  article_gid: null
+  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 051", estado "Pendiente").

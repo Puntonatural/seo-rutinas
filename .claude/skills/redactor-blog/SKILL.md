@@ -1,0 +1,1112 @@
+---
+name: redactor-blog
+description: Ejecuta el flujo completo del "agente redactor" de blog SEO de stevia.com.co (Vitaliah SAS) -- toma el siguiente articulo en estado "idea" de content-calendar.yaml, lo redacta siguiendo las reglas de esta skill (tono, estructura HTML, tabla/guia rapida/infografia, tarjeta de producto), genera sus imagenes con Canva segun imagenes-canva.md, lo publica en Shopify via GraphQL (isPublished:true, accesible por URL directa pero sin promocionar), corre el checklist de QA de 20 puntos, verifica el articulo ya publicado, actualiza el calendario y cierra con el inventario de articulos pendientes. USA ESTA SKILL SIEMPRE que el usuario pida seguir con el siguiente blog/articulo, "corramos la rutina", "el agente redactor", "publica el proximo", o cualquier variante de continuar el flujo de contenido de Vitaliah dentro de este repo -- incluso si no dice "skill" ni nombra el archivo explicitamente. NO uses esta skill para el motor mensual que agrega ideas nuevas al calendario (ese vive en seo-engine/, es un agente distinto) ni para editar un articulo ya publicado fuera de este flujo (ahi trabaja directo con el usuario sobre que cambiar).
+---
+
+# Agente redactor de blog -- Vitaliah / stevia.com.co
+
+Este archivo ES el playbook completo -- reglas de contenido (Parte A) y proceso paso a paso
+(Parte B). No hay una copia separada en la raiz del repo: existio como `motorsinscripts.txt`
+hasta 2026-09-01, cuando se fusiono aqui para eliminar el riesgo de que las dos copias se
+desalinearan (paso mas de una vez -- una version del playbook decia una cosa y otro archivo
+del repo describia el proceso de forma distinta, y nadie se dio cuenta hasta que un agente
+siguio la version equivocada). Si necesitas corregir una regla, corrigela AQUI -- no hay
+otro lugar donde vivan estas instrucciones.
+
+`imagenes-canva.md`, en esta misma carpeta, es la unica referencia externa real: el proceso
+detallado de generacion de imagenes con Canva (demasiado especifico y de mecanica de
+herramienta como para mezclarlo en este archivo) que el Paso 3.5 exige leer completo cuando
+toca generar imagenes de contexto.
+
+MOTOR SEO VITALIAH — PLAYBOOK COMPLETO PARA AGENTE
+
+Este documento son las instrucciones completas para que un agente Claude
+(Rutina, sesion de Claude Code, o cualquier contexto con acceso a los
+archivos de este repositorio + un conector de Shopify) genere y publique
+un articulo del blog completo, de principio a fin, razonando
+directamente sobre los datos.
+
+Incluye DOS partes: (A) las reglas de contenido que debe cumplir todo
+articulo, y (B) el proceso paso a paso para generarlo y publicarlo.
+
+================================================================
+PARTE A — REGLAS DE CONTENIDO
+================================================================
+
+Origen de los estandares: auditoria del blog original (95+ articulos, 9
+defectos sistematicos) + benchmark contra articulos reales de Kick
+Ranking (agencia SEO contratada, ~2200 palabras / 11 H2 por articulo
+pilar) + hallazgos del checklist tecnico de Avada SEO Suite (adoptados
+selectivamente, ver nota al final de esta parte).
+
+--- A1. Identidad y tono ---
+
+- Redactor / autor: SIEMPRE la persona real "Julian E. Zamora", nunca
+  "Equipo Vitaliah" ni ninguna otra identidad (actualizado segun la
+  Guia Maestra de Produccion de Blogs Vitaliah v2 -- ver A1.1 abajo
+  para el texto exacto). Consistente en el campo "author" de la
+  mutacion y en cualquier firma dentro del texto -- nunca mezclar
+  identidades en un mismo articulo ni entre articulos.
+- Español, dirigido al cliente final en primera/segunda persona
+  ("Descubre...", "tu rutina...").
+- Ortografia correcta del español, tildes incluidas, siempre -- un
+  articulo completo redactado sin acentos (ej. "informacion" en vez de
+  "información") paso desapercibido una vez porque nada en este
+  documento lo pedia explicitamente (ver Paso 5, punto 20, para el
+  incidente y la verificacion obligatoria).
+- Frases mayormente cortas: evitar que una frase supere ~20-25 palabras.
+  Preferir frases directas; dividir ideas complejas en dos frases en vez
+  de una sola con muchas comas.
+- Respetar el rol B2C/B2B del cluster -- nunca mezclar tono de venta a
+  consumidor final con tono de negocio (maquila) en el mismo articulo.
+- Tono (5 atributos, los 5 se cumplen en todo articulo):
+  1. Cercano: explicar como un experto sin condescendencia -- nunca
+     lenguaje clinico frio ni jerga inaccesible.
+  2. Honesto: citar evidencia real y decir explicitamente cuando la
+     ciencia es limitada -- nunca prometer efectos sin respaldo.
+  3. Practico: cada seccion principal debe dejar una accion concreta o
+     una decision clara al lector -- nunca dejarlo sin saber que hacer.
+  4. Colombiano: referencias locales cuando aplique (precios en COP,
+     ciudades, normativa INVIMA) -- nunca traducir contenido extranjero
+     sin darle contexto local.
+  5. Confiable (E-E-A-T): autor identificado con credenciales reales,
+     fuentes reales, INVIMA visible cuando aplica -- nunca publicar sin
+     firma de autor ni fuentes.
+- Frases prohibidas como apertura del primer parrafo (ningun articulo
+  puede empezar asi, ni con una variacion cercana):
+  - "En el mundo actual cada vez mas personas buscan..."
+  - "La salud es lo mas importante en la vida..."
+  - "¿Sabias que existe un superalimento que...?"
+  - "Si estas aqui es porque quieres mejorar tu salud..."
+  En su lugar: el primer parrafo responde la intencion de busqueda de
+  forma directa (ver A4 sobre la keyword en la primera frase).
+
+--- A1.1 Datos exactos del autor (usar siempre textualmente) ---
+
+- Nombre: Julian E. Zamora
+- Titulo: Ingeniero Quimico y Microbiologo
+- Institucion: Universidad de los Andes, Bogota
+- Experiencia: 14+ años en suplementos naturales
+- Como aparece en el articulo (firma/bio corta si el formato la pide):
+  "Julian E. Zamora — Ing. Quimico y Microbiologo, U. de los Andes"
+- En el campo "author" de la mutacion de Shopify (ArticleCreateInput /
+  ArticleUpdateInput), usar: { "name": "Julian E. Zamora" }
+
+--- A2. Estructura HTML ---
+
+- H1: nunca dentro del cuerpo del articulo. El tema de Shopify ya
+  renderiza el titulo del articulo como el H1 real de la pagina -- un H1
+  en el cuerpo lo duplicaria. El nivel superior dentro del cuerpo es H2.
+- El titulo del articulo (= H1 real) debe ser idealmente 50-65
+  caracteres, nunca mas de 65 (rango de la Guia Maestra; se mantiene la
+  keyword como parte natural del titulo, no forzada).
+- Minimo de secciones H2: 8 para articulos "pilar", 4 para "cluster"
+  (basado en el articulo de referencia de Kick Ranking: 11 H2 en 2181
+  palabras, ~1 cada 200). Cada H2 debe cubrir un sub-tema concreto --
+  dividir el contenido en secciones especificas y escaneables, nunca en
+  pocos bloques largos.
+- Indice con anclas (tabla de contenido): OBLIGATORIO en articulos
+  "pilar", y OBLIGATORIO tambien en "cluster" si tiene 5+ H2 (no
+  "opcional" -- en la practica, con el minimo de longitud de A3, casi
+  todo cluster llega a 5+ H2, asi que este indice aplica casi siempre).
+  Va justo despues del parrafo de introduccion, ANTES de la primera
+  imagen o H2, con este formato exacto:
+  <p>Antes de entrar en detalle, aqui tienes un resumen de lo que vas a
+  encontrar:</p>
+  <ul>
+  <li><a href="#ancla-1">Titulo del H2 1</a></li>
+  <li><a href="#ancla-2">Titulo del H2 2</a></li>
+  ...
+  </ul>
+  Un <li> por cada H2 principal del articulo (incluida la seccion de
+  Preguntas frecuentes si existe -- normalmente NO incluyas "Fuentes"
+  como item del indice), y cada H2 correspondiente lleva su
+  identificador de ancla (id="ancla-1" etc., slugs cortos, minusculas,
+  con guiones) que debe coincidir exactamente con el href del indice.
+- Estructura sugerida -- articulo pilar:
+  1. H2: Que es [tema] (definicion clara, keyword en el primer parrafo)
+  2. H2: Beneficios / evidencia (con H3 por beneficio, citas reales)
+  3. H2-H3 adicionales: desglosar evidencia/beneficios en varias
+     secciones especificas, no un solo bloque
+  4. H2: Como elegir / como usar (conecta con el catalogo, enlaces a
+     producto)
+  5. H2: Comparativa o tabla (si aplica)
+  6. H2: Precauciones/contraindicaciones (si aplica al tema)
+  7. H2: Preguntas frecuentes (marcar para JSON-LD FAQPage)
+- Estructura sugerida -- articulo cluster:
+  1. H2: Respuesta directa a la pregunta del titulo, en el primer
+     parrafo
+  2. H2-H3: Desarrollo/evidencia, dividido en varias secciones
+     especificas
+  3. H2: Aplicacion practica (conecta con producto/coleccion)
+  4. H2: Preguntas frecuentes (si el tema lo amerita)
+- Contenido comparativo (2+ opciones/productos): elegir UNA SOLA forma,
+  nunca ambas -- tabla HTML real si se comparan 4+ criterios simetricos,
+  o pares de H3 "Ventajas de X" / "Desventajas de X" si es mas
+  cualitativo.
+- Seccion "Mitos" (opcional, solo si el tema tiene creencias populares
+  falsas que valga la pena desmentir -- comun en salud): H2 "Mitos sobre
+  [tema]" con 2-4 items "Mito: [creencia]" + parrafo que lo desmiente con
+  fuente real si aplica.
+- CTA de negocio: SOLO en articulos del cluster "maquila-b2b", nunca en
+  articulos B2C de producto/salud. Cierre con parrafo corto + enlace a
+  "/pages/maquila-de-productos" (unica URL de CTA verificada, no
+  inventar otra), texto de ancla tipo "Cotiza tu maquila".
+
+--- A2.1. Componente visual CTA maquila-b2b (tarjeta con imagen, enriquecimiento opcional) ---
+
+- Aplica EXCLUSIVAMENTE al cierre de articulos del cluster "maquila-b2b"
+  (mismo alcance que el CTA de negocio de A2 -- nunca en articulos B2C).
+  Es una alternativa visual MAS RICA al cierre de parrafo + enlace simple
+  de A2 -- no lo reemplaza obligatoriamente, el redactor puede usar
+  cualquiera de los dos formatos; si el articulo ya tiene una imagen real
+  disponible relacionada con el servicio de maquila, preferir esta
+  tarjeta.
+- Plantilla verificada (adaptada el 2026-08-31 de un articulo de
+  referencia externo sobre "maquila de productos saludables" que Julian
+  aporto, simplificada respecto al original -- ver los ajustes abajo):
+
+  <style>
+  .ctamaq-card, .ctamaq-card *, .ctamaq-card *::before, .ctamaq-card *::after { box-sizing: border-box !important; }
+  .ctamaq-card { position: relative !important; display: grid !important; grid-template-columns: 1.3fr 1fr !important; gap: 0 !important; max-width: 720px !important; margin: 40px auto !important; background: linear-gradient(135deg, #0a3520 0%, #0f4729 50%, #1f5c3a 100%) !important; border-radius: 20px !important; overflow: hidden !important; text-decoration: none !important; color: inherit !important; box-shadow: 0 8px 28px rgba(15,71,41,0.18) !important; }
+  .ctamaq-content { padding: 32px 28px !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
+  .ctamaq-eyebrow { display: inline-flex !important; font-size: 11px !important; font-weight: 700 !important; letter-spacing: .14em !important; text-transform: uppercase !important; color: #dceec6 !important; background: rgba(220,238,198,.12) !important; border: 1px solid rgba(220,238,198,.25) !important; padding: 6px 12px !important; border-radius: 100px !important; margin: 0 0 16px 0 !important; width: fit-content !important; }
+  .ctamaq-headline { font-size: clamp(20px,2.5vw,26px) !important; font-weight: 600 !important; color: #fff !important; line-height: 1.2 !important; margin: 0 0 10px 0 !important; }
+  .ctamaq-desc { font-size: 13.5px !important; line-height: 1.55 !important; color: rgba(255,255,255,.85) !important; margin: 0 0 20px 0 !important; }
+  .ctamaq-features { list-style: none !important; padding: 0 !important; margin: 0 0 22px 0 !important; display: flex !important; flex-wrap: wrap !important; gap: 6px !important; }
+  .ctamaq-feature { display: inline-flex !important; font-size: 11px !important; font-weight: 600 !important; color: #dceec6 !important; background: rgba(220,238,198,.08) !important; border: 1px solid rgba(220,238,198,.18) !important; padding: 4px 10px !important; border-radius: 6px !important; }
+  .ctamaq-btn { display: inline-flex !important; align-items: center !important; gap: 10px !important; background: #dceec6 !important; color: #0f4729 !important; font-size: 14px !important; font-weight: 700 !important; padding: 0 22px !important; height: 46px !important; border-radius: 100px !important; width: fit-content !important; }
+  .ctamaq-visual { position: relative !important; min-height: 240px !important; overflow: hidden !important; }
+  .ctamaq-visual img { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; }
+  @media (max-width: 640px) { .ctamaq-card { grid-template-columns: 1fr !important; } .ctamaq-visual { min-height: 180px !important; order: -1 !important; } }
+  </style>
+
+  <a class="ctamaq-card" href="/pages/maquila-de-productos" rel="noopener">
+    <div class="ctamaq-content">
+      <span class="ctamaq-eyebrow">Servicio B2B</span>
+      <h3 class="ctamaq-headline">Crea tu propia marca con nuestro servicio de maquila</h3>
+      <p class="ctamaq-desc">Desarrollamos, fabricamos y envasamos tus suplementos y alimentos bajo tu marca, con respaldo INVIMA.</p>
+      <ul class="ctamaq-features">
+        <li class="ctamaq-feature">Tramites INVIMA</li>
+        <li class="ctamaq-feature">Formulas a medida</li>
+        <li class="ctamaq-feature">Asesoria integral</li>
+        <li class="ctamaq-feature">Hecho en Colombia</li>
+      </ul>
+      <span class="ctamaq-btn">Cotiza tu maquila</span>
+    </div>
+    <div class="ctamaq-visual">
+      <img src="<URL real de Shopify>" alt="<alt descriptivo real>" loading="lazy">
+    </div>
+  </a>
+
+- Ajustes respecto al original de referencia (leer antes de usar la
+  plantilla):
+  1. Se quitaron los SVG decorativos, el badge "Calidad Garantizada" y el
+     bloque de rating con estrellas -- el original incluia el texto "5.0
+     · +200 marcas creadas", una cifra que NO esta verificada en ningun
+     dato real de Vitaliah. La regla de A7/REGLAS DE ORO ("nunca inventes
+     una cifra") aplica igual a este componente visual: nunca agregues un
+     rating, numero de clientes o estadistica en la tarjeta CTA salvo que
+     Julian confirme un numero real -- si no hay dato real, se omite ese
+     elemento (como en la plantilla de arriba), nunca se rellena con una
+     cifra de ejemplo.
+  2. El href SIEMPRE es exactamente "/pages/maquila-de-productos" (misma
+     URL unica verificada de A9.1), relativa y sin target="_blank" -- el
+     original usaba una URL absoluta con dominio y abria pestaña nueva;
+     al ser un enlace interno del mismo sitio no debe hacerlo.
+  3. La imagen de ".ctamaq-visual" debe ser una foto/render real (galeria
+     de producto o una imagen de contexto ya generada por Canva para el
+     cluster maquila-b2b) subida al CDN de Shopify -- nunca inventar la
+     URL. El original tenia un atributo onerror que repetia la misma URL
+     que ya habia fallado (sin fallback real); no lo repliques. Si no hay
+     imagen real disponible, omite el bloque ".ctamaq-visual" completo y
+     usa solo la columna de contenido (ajusta grid-template-columns a 1fr
+     en ese caso), nunca un placeholder.
+- ADVERTENCIA TECNICA: el bloque <style> vive dentro del bodyHtml. Igual
+  que con los <script> del faqJsonLd (ver Paso 6), Shopify puede eliminar
+  o alterar etiquetas <style> si el articulo se re-guarda despues desde
+  el editor visual. Si este articulo usa la tarjeta CTA, el Paso 6.5
+  (verificacion post-publicacion) debe confirmar ademas que el bloque
+  <style> sigue presente en el body devuelto por la query -- si Shopify
+  lo elimino, avisa a Julian en el reporte final (Paso 8) en vez de
+  asumir que la tarjeta se ve bien.
+
+--- A2.2. Acordeon nativo para Preguntas Frecuentes (formato alternativo opcional) ---
+
+- Alternativa de presentacion para la seccion "Preguntas frecuentes" (H2
+  de A2), usando el elemento nativo HTML <details>/<summary> en vez de H3
+  planos. No reemplaza obligatoriamente el formato H3 -- ambos son
+  validos, el redactor elige cual usar. No requiere CSS adicional (se ve
+  bien con el estilo por defecto del navegador), asi que no tiene el
+  riesgo tecnico de la tarjeta CTA de A2.1.
+- Formato:
+  <div class="faq" id="preguntas-frecuentes">
+  <h2 class="faq-title">Preguntas frecuentes sobre [tema]</h2>
+  <details>
+  <summary><h3>¿Pregunta 1?</h3></summary>
+  <p>Respuesta 1.</p>
+  </details>
+  <details>
+  <summary><h3>¿Pregunta 2?</h3></summary>
+  <p>Respuesta 2.</p>
+  </details>
+  ...
+  </div>
+- El <h2 class="faq-title"> lleva el id de ancla (ej. id="preguntas-
+  frecuentes" o el slug que corresponda) para que el indice de A2 lo
+  enlace igual que a cualquier otro H2 -- este formato NO exime del
+  indice obligatorio.
+- El faqJsonLd (A8) se sigue generando exactamente igual, con el mismo
+  texto de pregunta/respuesta que va dentro de cada <details> -- el
+  acordeon es solo presentacion visual, no cambia la regla de generar el
+  JSON-LD por separado.
+- NOTA: el articulo de referencia externo que aporto estos dos formatos
+  (A2.1 y A2.2) NO tenia indice/tabla de contenido pese a tener 9+ H2 --
+  eso es un defecto del articulo de referencia, no un patron a copiar. El
+  indice sigue siendo obligatorio segun A2/QA punto 16 en todo articulo
+  que use estos formatos.
+
+--- A2.3. Elementos de sintesis: tabla comparativa, guia rapida, infografia (recomendado en pilares) ---
+
+Ademas del texto corrido, todo articulo "pilar" (y cualquier "cluster" con
+datos comparables) deberia incluir al menos UN elemento que sintetice
+informacion real del articulo en un formato mas rapido de escanear que un
+parrafo -- el objetivo es que alguien que solo escanea el articulo (sin leer
+cada palabra) se lleve el dato concreto igual. Tres formatos disponibles,
+ninguno excluye a los otros:
+
+1. TABLA COMPARATIVA. Cuando el articulo cubre varias areas/opciones/
+   variantes con datos comparables (ej. "area de salud x dosis x hallazgo x
+   fuerza de evidencia", o "producto A vs producto B vs producto C"). Usa
+   <table> HTML real (no una imagen) con estilos INLINE en cada
+   tag (style="..." directo en <table>/<th>/<td>), nunca un bloque <style>
+   separado -- ver la advertencia tecnica de A2.1 sobre por que un <style>
+   dentro del body es arriesgado; con estilos inline ese riesgo no aplica.
+   Paleta de marca (ver imagenes-canva.md seccion 4) en el
+   encabezado de la tabla. Cada dato de la tabla debe ser un resumen fiel de
+   algo ya afirmado y citado en el cuerpo del articulo -- una tabla nunca
+   introduce un dato nuevo que no este ya respaldado en el texto/Fuentes. Si
+   la tabla incluye una columna cualitativa tipo "fuerza de la evidencia"
+   (Alta/Moderada/Limitada), agrega debajo una nota aclarando que es una
+   sintesis del propio articulo, no una escala clinica oficial -- para no
+   sugerir un aval regulatorio que no existe.
+
+2. GUIA RAPIDA (caja de resumen). Un <div> con estilos inline (fondo suave
+   de la paleta de marca, ej. background:#F4F7F2, borde sutil, padding) que
+   contiene una lista corta (3-6 items) de los datos mas accionables del
+   articulo: dosis, mejor momento para tomar, que buscar en la etiqueta,
+   cuando consultar al medico, etc. Va cerca de la seccion mas practica del
+   articulo (tipicamente "Como tomar/usar"). Mismo principio que la tabla:
+   solo sintetiza datos que ya estan desarrollados y citados en el cuerpo,
+   nunca agrega algo nuevo.
+
+3. INFOGRAFIA (Canva). A diferencia de las imagenes de contexto de A6 (que
+   PROHIBEN todo texto), una infografia de sintesis SI lleva texto -- por
+   eso el proceso es distinto y mas estricto en verificacion, ver
+   imagenes-canva.md seccion 6 para el proceso completo. Puntos
+   clave:
+   - Enfoque de contenido: uso practico y beneficios (como tomarlo, que
+     beneficio obtiene el lector), NO un resumen tipo paper cientifico --
+     ver seccion 6.1 de la guia. Formato de 4 celdas recomendado: Como
+     tomarlo / Beneficios respaldados / Dosis / Ten en cuenta.
+   - Formato cuadrado: usa `design_type: "facebook_post"`, nunca
+     `"infographic"` -- ese design_type de Canva siempre devuelve un
+     poster vertical alargado sin importar lo que pidas en el prompt (ver
+     seccion 6.2 de la guia).
+   - Redacta tu mismo el texto exacto que debe aparecer (titulo, cada
+     celda con su propio titulo y cuerpo, cada cifra) ANTES de generarla,
+     dale ese texto literal a Canva en el prompt, y despues de generarla
+     usa `read-design` con `design_content` para leer el texto real que
+     Canva puso en el diseno -- compara cada cifra y afirmacion contra tu
+     lista aprobada antes de exportarla. Un vistazo al thumbnail no basta
+     para detectar un numero mal escrito, un titulo cruzado con el cuerpo
+     de otra celda, o una afirmacion parafraseada de forma incorrecta.
+   - Si el texto no coincide exactamente con lo aprobado, NO regeneres de
+     inmediato -- primero intenta corregirlo con `edit-design`
+     (`replace_text` sobre el `locator_id` exacto) segun la seccion 6.3 de
+     la guia; es mas confiable que una regeneracion nueva, que puede
+     introducir un error distinto (cifra inventada, texto sin sentido) en
+     vez de arreglar el original.
+
+Ninguno de estos tres elementos es tecnicamente obligatorio para pasar
+el QA (a diferencia de las imagenes de contexto/producto de A6, que si
+lo son), pero el default es incluir LOS TRES en cualquier articulo
+(pilar o cluster) cuyo tema tenga datos comparables -- no solo "al
+menos uno". Omitir alguno requiere una razon explicita documentada en
+el Paso 8 (ver Paso 5, punto 17), no una decision silenciosa. Mejora la
+experiencia de lectura y da mas motivos para que Google featuree el
+contenido (rich snippets de tabla, etc.).
+
+--- A2.4. Tarjeta de producto (reemplaza la imagen simple envuelta en enlace) ---
+
+Cada vez que el articulo menciona un producto propio con imagen + enlace
+(la seccion tipica "Como aprovecharlo" / "Como incorporarlo a tu rutina"),
+usa esta tarjeta HTML en vez del patron antiguo de una sola imagen envuelta
+en un <a> (`<p><a href="..."><img ...></a></p>`). La tarjeta da mas
+contexto: marco, foto real del producto, un beneficio corto ligado al
+propio articulo, y un boton de llamada a la accion.
+
+Estructura (todo con estilos INLINE, nunca un bloque <style> separado --
+misma razon tecnica que en A2.1: Shopify puede eliminar un <style> del
+body al re-guardar desde el editor visual):
+
+<a href="/products/<handle-real>" style="display:flex;align-items:center;gap:20px;border:1px solid #C8DDD0;border-radius:12px;padding:16px;margin:28px 0;background:#F4F7F2;text-decoration:none;">
+  <img src="<url-real-del-producto>" alt="<alt-descriptivo>" style="width:96px;height:96px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+  <div>
+    <p style="margin:0 0 4px 0;font-weight:700;color:#1E3D2F;font-size:16px;"><nombre del producto></p>
+    <p style="margin:0 0 12px 0;font-size:13px;color:#3F5148;line-height:1.5;"><beneficio ya mencionado en el cuerpo del articulo></p>
+    <span style="display:inline-flex;align-items:center;background:#1E3D2F;color:#F4F7F2;font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:100px;">Ver producto &rarr;</span>
+  </div>
+</a>
+
+Reglas:
+
+1. Sin datos inventados. El texto de "beneficio" nunca es un claim nuevo --
+   es una frase que parafrasea algo que el propio articulo ya dijo y cito
+   sobre ese producto o su forma de uso (mismo principio que en tabla/guia
+   rapida de A2.3). Si el articulo no menciona nada especifico sobre el
+   producto mas alla del enlace, usa la razon practica de presentacion
+   (en polvo / masticable / sin preparacion, etc.) en vez de inventar un
+   beneficio.
+2. Un boton por producto mencionado -- no agrupar dos productos en una
+   sola tarjeta.
+3. Colores de la paleta de marca (ver imagenes-canva.md seccion
+   4): fondo #F4F7F2, borde #C8DDD0, texto/boton #1E3D2F.
+4. Usa la URL de imagen y el handle de producto REALES (nunca inventados),
+   igual que cualquier otro enlace interno/producto del articulo (A5, A6).
+5. Verifica el resultado contra el articulo publicado (no solo el borrador
+   local) despues de aplicar el cambio -- misma disciplina de A2.3/Paso 6.5.
+
+--- A3. Longitud minima ---
+
+Rol "pilar": minimo 2300 palabras (solo texto, sin contar HTML).
+Rol "cluster": minimo 1400 palabras (solo texto, sin contar HTML).
+
+Kick Ranking publica pilares de ~2200 palabras -- no resumir de mas;
+desarrollar cada seccion con profundidad real (evidencia, matices,
+ejemplos), nunca con relleno artificial.
+
+Nota deliberada: un checklist de SEO on-page generico (Avada SEO Suite)
+recomienda 600-1000 palabras como "optimo". Esa regla se ignora a
+proposito -- el propio articulo de referencia de Kick Ranking (2181
+palabras) tambien la incumpliria, lo que confirma que es un estandar
+generico desactualizado para este tipo de contenido competitivo.
+
+--- A4. Keyword principal ---
+
+La keyword principal (keyword_objetivo del calendario) debe aparecer, de
+forma literal (por palabras significativas, no como frase exacta
+forzada -- ver nota), en:
+
+1. El titulo del articulo (H1)
+2. La PRIMERA FRASE del primer parrafo (no solo en algun lugar del
+   parrafo)
+3. Al menos un H2 o H3
+4. La meta description
+5. El cuerpo del articulo (cobertura general del tema)
+
+No repetir la frase exacta mas alla de eso -- prioriza que se lea
+natural sobre repetir la frase forzadamente (evitar relleno de
+palabras clave).
+
+Nota tecnica: la comparacion es por palabras significativas (se ignoran
+preposiciones/articulos: de, la, el, en, y, con, para, por, que, un,
+una...), no por coincidencia exacta de la frase completa. Esto es
+intencional: un redactor real varia el orden o agrega preposiciones
+("monk fruit Colombia" -> "monk fruit EN Colombia"), y eso no debe
+contar como ausencia de la keyword.
+
+--- A5. Enlaces internos ---
+
+- Minimo 3, maximo 5 enlaces internos por articulo, resueltos a URLs
+  reales (nunca inventadas). El minimo de 3 es mas estricto que el
+  minimo generico de 2 de la Guia Maestra -- se mantiene el mas
+  estricto de los dos.
+- Anchor text siempre descriptivo del contenido al que apunta -- nunca
+  "haz clic aqui" ni variantes genericas.
+- Cada articulo debe enlazar al articulo pilar de su cluster (si el
+  articulo mismo no es el pilar) -- normalmente ya viene en
+  enlaces_internos_obligatorios del Paso 1, pero si por alguna razon no
+  estuviera, agregalo igual.
+- Usar la URL EXACTAMENTE como se resolvio -- nunca modificarla,
+  completarla ni corregirla, ni un caracter.
+- Si una URL no se pudo resolver, omitir ese enlace especifico -- nunca
+  inventar ni adivinar un slug.
+- Insertar los enlaces de forma natural dentro del texto, nunca como
+  lista al final.
+
+--- A6. Imagenes ---
+
+- Cada articulo lleva 4 imagenes en total: 2 de contexto (Canva) + 2 de
+  producto (Shopify). Cada una con texto alternativo descriptivo no
+  vacio. Esto NO es opcional.
+- Imagenes de contexto (2): la primera va de cabecera, justo despues
+  del primer parrafo -- y es ADEMAS el "featured image" del articulo
+  (campo "image" de la mutacion, ver Paso 6, distinto del <img> del
+  body). La segunda va repartida en el cuerpo, cerca de la seccion con
+  la que mejor conecte tematicamente. Ninguna de las dos es nunca una
+  foto de producto ni un marcador de texto:
+  1. Primero busca si el cluster de este articulo YA tiene una imagen de
+     contexto que encaje con este tema especifico (revisa el body de
+     otro articulo ya publicado del mismo cluster via el conector de
+     Shopify). Si existe y encaja, reutiliza esa misma URL.
+  2. Si no existe o no encaja con este tema especifico, GENERA una
+     nueva con el conector de Canva siguiendo EXACTAMENTE el proceso de
+     imagenes-canva.md (prompt, checklist de revision, paleta
+     de marca, exportar y subir a Shopify para obtener una URL estable).
+  3. Las 2 imagenes de contexto de un mismo articulo NO deben usar el
+     mismo estilo -- alterna entre ilustracion watercolor/editorial y
+     fotografia realista de composicion (ver imagenes-canva.md
+     seccion 3.1). Nunca fotorrealista de PRODUCTO en una imagen de
+     contexto -- eso son las imagenes de producto, otro slot distinto.
+- Imagenes de producto (2): siempre fotos REALES de la galeria del
+  producto mencionado -- nunca generadas. Variar cual se usa entre
+  articulos del mismo cluster, no repetir siempre la misma. SIEMPRE
+  dentro de la tarjeta de producto de A2.4 (marco + beneficio + boton
+  "Ver producto"), que ya incluye el enlace <a href="/products/<handle-
+  real>"> al producto real -- una imagen de producto sin ese enlace es
+  un error de QA, aunque el texto del parrafo ya tenga un enlace de
+  texto al mismo producto en otro lugar.
+- Si de verdad no hay ninguna URL real de producto disponible para una
+  imagen de producto, usar un marcador de texto tipo [IMAGEN:
+  descripcion + alt sugerido] -- pero esto nunca aplica a las imagenes
+  de contexto, que siempre salen de Canva o de un articulo hermano del
+  mismo cluster.
+- Nunca inventar ni adivinar una URL de imagen que no venga de una
+  fuente real y verificada (ni de Shopify ni del export final de Canva).
+
+--- A7. Citas y evidencia ---
+
+- Toda mencion de un estudio/investigacion debe respaldarse en una
+  fuente real (PubMed, DOI, NCBI, o cualquier dominio externo
+  verificable -- no solo literatura medica; tambien sirven medios/
+  informes de mercado para datos no clinicos).
+- Las citas a estudios/fuentes externas NUNCA van como hipervinculo
+  dentro del texto corrido del cuerpo -- eso es solo para enlaces
+  INTERNOS (productos, colecciones, otros articulos del blog, ver A5).
+  En el parrafo, menciona la fuente en texto plano (ej. "una revision
+  Cochrane de 2020 encontro que..." o "segun el NIH..."), sin envolverla
+  en <a href="...">.
+- Al final del bodyHtml, despues de la ultima seccion (incluida la de
+  Preguntas frecuentes si existe, y antes del disclaimer INVIMA de
+  A9.1), agrega una seccion "Fuentes" con un <h2 id="fuentes">Fuentes</h2>
+  seguido de una lista <ul> con un <li> por fuente citada en el
+  articulo. Minimo 3 fuentes reales por articulo (regla de la Guia
+  Maestra). Cada <li> SI lleva el hipervinculo real a la fuente, con
+  rel="noopener", en formato de referencia legible: "Apellido I. et
+  al., <em>Revista</em> (Año)." envuelto en el link cuando el estudio
+  tiene autores/revista identificables, o el titulo del estudio/fuente
+  cuando no los tiene (ej. un fact sheet institucional como el NIH).
+  Ejemplo: <li><a href="<URL real>" target="_blank" rel="noopener">Tarasoff L. et al., <em>Journal of the American College of Nutrition</em> (1993)</a></li>.
+  Un <li> por fuente distinta citada, sin duplicar si la misma fuente
+  se menciono varias veces en el cuerpo.
+- Si no se puede verificar una fuente real con busqueda web, usar
+  lenguaje generico SIN atribucion falsa. Nunca inventar una cita ni un
+  enlace, ni en el cuerpo ni en la seccion "Fuentes".
+
+--- A8. Metadatos y campos de salida ---
+
+- metaTitle: 50-65 caracteres, nunca mas de 65. Formato keyword +
+  diferenciador si cabe (ej. "Para que sirve la clorofila | Vitaliah
+  Colombia" -- no es obligatorio agregar "| Vitaliah" si no cabe bien).
+- metaDescription: 140-160 caracteres, debe incluir la keyword
+  principal, idealmente en los primeros 100 caracteres.
+- URL slug (handle): menos de 60 caracteres, solo minusculas y guiones
+  (nunca guion bajo), sin palabras vacias innecesarias.
+- excerpt: 1-2 frases, no vacio.
+- tags: minimo 2, alineadas al cluster. Incluir tambien "colombia" como
+  tag si el articulo tiene relevancia geografica clara (regla de la
+  Guia Maestra: keywords secundarias + Colombia + Vitaliah).
+- bodyHtml: HTML valido para el editor de Shopify, sin ninguna etiqueta
+  H1. Debe terminar con la seccion "Fuentes" (A7) seguida del bloque de
+  disclaimer INVIMA (A9.1) -- en ese orden, siempre.
+- faqJsonLd: si hay seccion "Preguntas frecuentes", el bloque JSON-LD
+  FAQPage completo, SEPARADO del cuerpo (nunca embebido en el bodyHtml
+  -- Shopify elimina los scripts al re-guardar el articulo desde el
+  editor visual).
+
+Formato de salida esperado:
+{
+  "metaTitle": "...",
+  "metaDescription": "...",
+  "excerpt": "...",
+  "tags": ["...", "..."],
+  "bodyHtml": "...",
+  "faqJsonLd": "..." o null
+}
+
+--- A9. Publicacion ---
+
+- SIEMPRE oculto (isPublished: false) al crear/actualizar el articulo --
+  nunca visible al publico automaticamente. La publicacion visible es
+  una decision manual humana, posterior al QA.
+- Sin canibalizacion: el tema/keyword no debe solaparse fuertemente con
+  un articulo ya existente del blog. Si hay solapamiento real, ampliar
+  el articulo existente en vez de crear uno nuevo.
+
+--- A9.1 Disclaimer regulatorio y credenciales de marca (OBLIGATORIO) ---
+
+Al final del bodyHtml, despues de la seccion "Fuentes" (A7), agrega
+SIEMPRE este bloque, textual, sin parafrasear:
+
+<p><em>Este articulo tiene proposito informativo y educativo. El
+contenido no constituye asesoria medica ni nutricional personalizada.
+Los suplementos dietarios son alimentos complementarios y no sustituyen
+una alimentacion balanceada ni el tratamiento medico prescrito por un
+profesional de salud. Consulta a tu medico antes de iniciar cualquier
+suplementacion. Vitaliah INVIMA RSA-0010130-2020 · RSA-0021928-2022.</em></p>
+
+Datos de marca disponibles si el formato de la seccion Vitaliah/CTA los
+pide (no inventar otros, usar siempre estos exactos):
+- Registro INVIMA 1: RSA-0010130-2020
+- Registro INVIMA 2: RSA-0021928-2022
+- Años de experiencia: 14+ años en el mercado colombiano
+- Premios: Premio Empresarial U. de los Andes · Destapa Futuro Bavaria
+- Clean label (solo articulos B2C de producto): sin maltodextrina, sin
+  soya, endulzado con stevia
+- Tienda: stevia.com.co
+- Pagina maquila B2B (solo articulos del cluster maquila-b2b):
+  stevia.com.co/pages/maquila-de-productos (unica URL de CTA B2B
+  verificada, ver A2)
+
+--- A10. Sobre checklists de SEO genericos (contexto) ---
+
+Herramientas como Avada SEO Suite se revisaron como segunda opinion. La
+mayoria de sus reglas de keyword (densidad, keyword en subtitulo, en
+meta, en introduccion) dependen de un campo interno de configuracion
+manual por articulo que vive solo dentro de esa app, sin acceso
+programatico. Las reglas que si se adoptaron aqui (keyword en primera
+frase, keyword en algun H2/H3) estan incorporadas en la seccion A4. La
+regla de longitud de esas herramientas (600-1000 palabras) se rechazo
+deliberadamente por contradecir el benchmark real de Kick Ranking -- ver
+seccion A3.
+
+================================================================
+PARTE B — PROCESO PASO A PASO
+================================================================
+
+--- Fuente de datos: un solo archivo YAML en este repo ---
+
+content-calendar.yaml, en la raiz del repo -- lista "articulos" con los
+campos: titulo, cluster, rol, estado, palabra_clave,
+keywords_secundarias (lista), enlaces_internos_obligatorios (lista),
+handle_propuesto, handle_final, article_gid.
+
+No hay ningun otro archivo de datos que leer. Los enlaces a
+productos/colecciones/imagenes se buscan EN VIVO en Shopify (Paso 3),
+nunca desde una lista estatica -- asi el catalogo siempre esta
+actualizado sin que nadie tenga que mantener un archivo aparte.
+
+El motor mensual (seo-engine/, ver seo-engine/CLAUDE.md) agrega nuevas
+entradas con estado "idea" directamente a este mismo content-calendar.yaml
+-- no genera un archivo YAML separado por mes.
+
+--- Paso 1 — Elegir el tema ---
+
+Abre content-calendar.yaml. Busca la PRIMERA entrada de "articulos"
+cuyo campo "estado" sea exactamente "idea".
+
+- Si no hay ninguna: reporta "no hay temas pendientes" y detente. No
+  hagas nada mas.
+- Si la hay: toma nota de titulo, cluster, rol, palabra_clave,
+  keywords_secundarias, enlaces_internos_obligatorios, handle_propuesto.
+
+--- Paso 2 — Chequeo de canibalizacion ---
+
+Necesitas la lista de titulos de TODOS los articulos ya publicados del
+blog "noticias" de la tienda. Via el conector de Shopify:
+
+1. Encuentra el blog: busca el blog cuyo handle sea "noticias".
+2. Trae TODOS sus articulos, paginando, pidiendo titulo y handle.
+
+Atajo util para cuando el tema tiene una palabra clave distintiva (ej. un
+ingrediente especifico como "resveratrol", "clorofila", "magnesio"): la
+query de nivel raiz `articles(first: N, query: "title:*<palabra>*")`
+filtra directamente por titulo sin paginar todo el blog -- mucho mas
+rapido que traer los ~120 articulos completos cuando solo te interesa ver
+que ya existe sobre ese tema puntual. Uso correcto: como primer filtro
+rapido para acotar candidatos a comparar, no como sustituto del juicio
+semantico de abajo -- dos articulos pueden canibalizarse sin compartir la
+palabra exacta buscada (ej. "para que sirve el resveratrol" vs. "beneficios
+del resveratrol" si comparten la palabra; pero un articulo que hable del
+mismo angulo con una sinonimia distinta podria no aparecer en el filtro).
+Si el tema no tiene una palabra clave distintiva y corta, sigue usando el
+paginado completo del blog.
+
+Con esa lista, compara el titulo + palabra_clave del Paso 1 contra cada
+titulo existente, usando tu propio juicio semantico:
+
+- ¿Hay un articulo existente que cubra el MISMO angulo especifico (no
+  solo el mismo tema general)? Por ejemplo, "Melena de Leon: Beneficios"
+  y "Melena de Leon para la Memoria" NO se canibalizan entre si (angulos
+  distintos dentro del mismo tema), pero dos articulos ambos titulados
+  esencialmente "Beneficios de la Melena de Leon" si.
+- Si encuentras un solapamiento real: en content-calendar.yaml, cambia
+  el estado de esta entrada a "canibalizacion_detectada", guarda el
+  archivo, reporta contra cual articulo existente se solapa, y DETENTE
+  -- no redactes nada.
+- Si no hay solapamiento: continua al Paso 3.
+
+--- Paso 3 — Resolver enlaces internos e imagenes (busqueda en vivo) ---
+
+Para cada descripcion en enlaces_internos_obligatorios del Paso 1 (ej.
+"Batido Lion Factor - Melena de Leon 500g (producto)"):
+
+1. Quitale el sufijo entre parentesis final -- te queda el nucleo del
+   texto (ej. "Batido Lion Factor - Melena de Leon 500g") y la pista de
+   que tipo de cosa es (producto, coleccion, articulo existente,
+   pilar/articulo hermano de este calendario).
+2. Segun el tipo:
+
+   - "(producto)": busca ese producto por nombre en Shopify via el
+     conector (busqueda de productos por titulo). Usa el handle/URL real
+     que te devuelva la busqueda. Si el producto tiene imagenes en su
+     galeria, toma nota de 1-2 URLs reales -- las puedes usar como
+     imagen del articulo.
+
+   - "(ya existe)" / coleccion: busca esa coleccion por nombre en
+     Shopify via el conector. Usa la URL real que te devuelva.
+
+   - "(articulo existente)": busca ese articulo por titulo entre los
+     articulos ya publicados del blog (la lista del Paso 2). Usa su
+     handle real.
+
+   - "(pilar, este calendario)" / "(articulo hermano, este calendario)":
+     NO busques en Shopify -- busca en el MISMO content-calendar.yaml
+     otra entrada cuyo titulo comparta la gran mayoria de las palabras
+     significativas con este nucleo de texto (no exijas coincidencia
+     literal exacta; se estricto igual, ~70% o mas de las palabras,
+     porque varias entradas del mismo cluster comparten vocabulario
+     generico). Si esa entrada ya tiene handle_final (o si no,
+     handle_propuesto), la URL es "/blogs/noticias/<ese handle>".
+
+3. Si una busqueda no devuelve ningun resultado razonable: esa URL queda
+   SIN RESOLVER. NO inventes ni adivines una URL -- vas a omitir ese
+   enlace especifico al redactar (ver regla A5). Nunca construyas una
+   URL "a mano" combinando palabras -- siempre debe venir de un
+   resultado real de busqueda.
+
+--- Paso 3.5 — Imagenes de contexto: 2 por articulo (OBLIGATORIO, ver regla A6) ---
+
+Este paso es obligatorio para TODO articulo, pilar o cluster -- nunca lo
+saltes ni lo trates como opcional. Necesitas 2 imagenes de contexto,
+una de cabecera y otra intermedia:
+
+1. Busca si el cluster de este articulo ya tiene una imagen de contexto
+   que encaje con ESTE tema especifico: revisa (via el conector de
+   Shopify) el body HTML de otro articulo ya publicado del mismo
+   cluster -- su imagen de cabecera (justo despues del primer
+   parrafo/indice). Si encaja tematicamente, copia esa misma URL para
+   reutilizarla como una de tus 2 imagenes. Si el tema de este articulo
+   es distinto al de las imagenes ya existentes del cluster (ej. este
+   articulo es sobre "recuperacion muscular" y la imagen del cluster es
+   sobre "sueno"), no la reutilices -- genera una nueva.
+2. Para cada imagen que necesites generar: sigue EXACTAMENTE
+   imagenes-canva.md (seccion 1 para saber que pedir, seccion
+   3.1 para el prompt -- alternando estilo ilustracion/realista entre
+   tus 2 imagenes -- con la paleta de marca de la seccion 4, seccion 3.2
+   para revisar el resultado contra el checklist -- cero texto, cero
+   cifras inventadas, cero foto de producto, cero rostro real -- seccion
+   3.3 si hay que limpiar texto no deseado, y seccion 3.4 para exportar
+   como PNG y subirla a Shopify (mutacion fileCreate con originalSource
+   apuntando a la URL de exportacion de Canva, o el equivalente via el
+   conector) y obtener asi una URL estable del CDN de Shopify.
+3. Nunca publiques el articulo usando la URL temporal de exportacion de
+   Canva (expira) ni sin haber revisado el resultado contra el checklist
+   de la seccion 3.2 -- si el resultado tiene texto, cifras o una foto de
+   producto, descartalo y vuelve a generar (seccion 3.3 si es solo un
+   problema de texto sobrepuesto).
+4. Guarda la URL y el alt de la PRIMERA de las 2 imagenes (la de
+   cabecera) por separado -- la vas a necesitar de nuevo en el Paso 6
+   para el campo "image" del articulo (el featured/banner image del
+   tema de Shopify, que es distinto del <img> del body y se olvida
+   facil si no lo tienes anotado).
+
+--- Paso 4 — Redactar ---
+
+Con todo lo anterior (tema, keyword, rol, enlaces resueltos, imagenes
+disponibles), redacta el articulo completo siguiendo TODAS las reglas
+de la Parte A de este documento. Usa busqueda web para fundamentar
+cualquier dato o estudio que cites, con el enlace real a la fuente.
+
+Produce internamente estos campos (los vas a necesitar en los pasos
+siguientes):
+
+metaTitle, metaDescription, excerpt, tags (lista), bodyHtml, faqJsonLd
+(o ninguno)
+
+--- Paso 5 — Autoevaluacion (QA) ---
+
+Antes de publicar, verifica cada regla de la Parte A de forma explicita
+y honesta -- no asumas que las cumpliste, revisa el texto real.
+
+ESTA LISTA SE RECORRE ITEM POR ITEM, SIN SALTAR NINGUNO, ESCRIBIENDO LA
+RESPUESTA DE CADA UNO -- nunca "de memoria" ni asumiendo que ya se hizo
+porque un articulo anterior del mismo cluster lo tenia. Esto no es
+teorico, y ya paso dos veces en el mismo cluster (resveratrol):
+
+- El articulo "resveratrol-antienvejecimiento-ciencia" se publico sin
+  ningun elemento de A2.3 (tabla/guia rapida/infografia) a pesar de que
+  la regla ya estaba documentada, porque el punto 17 se paso por alto
+  sin verificarlo explicitamente.
+- El articulo "resveratrol-batido-o-masticables-cual-elegir" se publico
+  (a) sin infografia -- se incluyeron solo 2 de los 3 elementos de
+  A2.3 sin decirle al usuario cuales se habian omitido ni por que -- y
+  (b) con el body practicamente completo sin tildes (mas de 1700
+  palabras, solo 3 con acentos), porque nada en este documento exigia
+  explicitamente una revision ortografica como paso propio. En ambos
+  casos el usuario tuvo que señalarlo despues de publicado, no antes.
+
+Tratar esta lista como un tramite mental es exactamente lo que permite
+que un punto ya documentado se quede sin aplicar. Los puntos 19 y 20
+de abajo existen especificamente por este segundo incidente -- no son
+opcionales ni "si hay tiempo".
+
+1. Conteo de palabras (la parte donde debes ser mas riguroso, ver nota
+   abajo): cuenta las palabras del bodyHtml sin las etiquetas HTML.
+   Minimo 2300 si rol es "pilar", 1400 si es "cluster".
+2. Conteo de secciones H2: cuenta literalmente cuantas hay en el
+   bodyHtml. Minimo 8 (pilar) / 4 (cluster).
+3. Cero H1 en el bodyHtml.
+4. Titulo <=60 caracteres.
+5. Meta description: 140-160 caracteres, y contiene las palabras
+   significativas de la keyword.
+6. Keyword: presente en la primera frase del primer parrafo, en al
+   menos un H2/H3, y en el cuerpo en general.
+7. >=3 enlaces internos con URL real.
+8. 4 imagenes con texto alternativo no vacio: 2 de contexto del Paso 3.5
+   (Canva) + 2 de producto reales (o marcadores [IMAGEN: ...] solo si de
+   verdad no habia URL real de producto disponible -- esto nunca aplica
+   a las de contexto). Cada imagen de producto debe estar dentro de la
+   tarjeta de producto de A2.4 (o, como minimo, envuelta en
+   <a href="/products/..."> al producto real) -- si falta ese enlace,
+   este punto de QA falla igual que si faltara la imagen. Verifica
+   ademas que el campo "image" del articulo (Paso 6) quedo seteado con
+   la misma URL que la primera imagen de contexto -- si sale null al
+   consultarlo, este punto tambien falla.
+9. Excerpt no vacio, >=2 tags.
+10. Si hay seccion "Preguntas frecuentes": debe existir el faqJsonLd con
+    tipo FAQPage.
+11. Toda mencion de "estudio"/"investigacion" tiene al menos un enlace
+    externo real en el articulo.
+12. Ningun enlace externo va inline en el cuerpo -- todas las fuentes
+    citadas estan solo en la seccion "Fuentes" del final (A7), con
+    minimo 3 fuentes distintas.
+13. El campo "author" de la mutacion es exactamente {"name": "Julian E.
+    Zamora"} -- nunca "Equipo Vitaliah" ni otra variante (A1.1).
+14. El bloque de disclaimer INVIMA de A9.1 esta presente, textual, al
+    final del bodyHtml, despues de la seccion "Fuentes".
+15. El primer parrafo no empieza con ninguna de las frases prohibidas
+    de A1.
+16. Si el articulo tiene 5+ H2 (pilar siempre, cluster casi siempre):
+    el indice con anclas de A2 esta presente justo despues de la intro,
+    ANTES de la primera imagen/H2, con un <li><a href="#..."> por cada
+    H2 principal (incluida la seccion de Preguntas frecuentes) y cada
+    href coincide exactamente con el id del H2 al que apunta. Este
+    punto se salto en la practica varias veces por no estar en esta
+    checklist explicitamente -- ahora esta aqui, no se vuelve a omitir.
+17. (Recomendado, no bloqueante -- pero se responde explicitamente, nunca
+    se omite la pregunta, y la respuesta se repite textual en el Paso 8)
+    ¿El tema de este articulo tiene datos comparables (dosis, estudios,
+    formatos, marcas, cifras de varias fuentes)? Si la respuesta es si,
+    el default es incluir los TRES elementos de A2.3 (tabla comparativa,
+    guia rapida, E infografia) -- no basta con uno o dos. Si terminas
+    incluyendo menos de tres, tenes que decidirlo de forma consciente y
+    explicar la razon concreta (ej. "el tema no tiene suficientes datos
+    numericos para una infografia"), nunca por omision silenciosa o
+    porque "ya se incluyeron dos y pareció suficiente". Aplica tanto a
+    "pilar" como a "cluster" -- A2.3 nunca dijo que fuera solo para
+    pilares, dice "cualquier cluster con datos comparables" tambien.
+18. Nombres de archivo de las imagenes generadas con Canva en este
+    articulo (contexto e infografia): ¿se subieron con un nombre
+    descriptivo relacionado al tema (parametro "filename" de la mutacion
+    fileCreate, ver imagenes-canva.md seccion 3.4), en vez del
+    nombre aleatorio que trae la URL de exportacion de Canva (tipo
+    "0001-547701793116121815.png")? Un nombre de archivo descriptivo es
+    parte del SEO de imagenes (Google Imagenes, accesibilidad) -- no
+    dejarlo con el nombre aleatorio del export.
+19. Cada producto mencionado con imagen usa la tarjeta de producto de
+    A2.4 (marco + beneficio + boton "Ver producto"), no el patron antiguo
+    de una sola imagen envuelta en <a> sin mas contexto. Si el articulo
+    es nuevo, aplica A2.4 desde el primer borrador -- no lo dejes como
+    "mejora futura".
+20. Revision ortografica de tildes (paso propio, no se combina con
+    ningun otro punto de esta lista): lee el bodyHtml completo una vez
+    pensando UNICAMENTE en acentos -- ¿"informacion" o "información"?
+    ¿"esta" (adjetivo, sin tilde) o "está" (verbo, con tilde)? ¿"como"
+    (comparativo) o "cómo" (pregunta)? Si tienes terminal disponible,
+    una señal rapida de alarma: cuenta cuantas palabras del texto
+    contienen alguna vocal con tilde o "ñ" -- en un articulo real en
+    español ese numero deberia ser una fraccion notable del total de
+    palabras (decenas o cientos, no un puñado). Si el conteo sale
+    sospechosamente bajo (ej. menos de 20-30 en un articulo de 1500+
+    palabras), el texto probablemente se redacto sin tildes y hay que
+    reescribirlo con las tildes correctas antes de publicar -- no es un
+    detalle cosmetico, es un error ortografico visible para cualquier
+    lector y afecta la credibilidad (A1, atributo "Confiable").
+
+NOTA SOBRE EL CONTEO DE PALABRAS/H2: contar con precision un texto largo
+"a ojo" es donde mas facil te puedes equivocar. Si tienes acceso a una
+herramienta de shell/terminal en este entorno, la forma mas confiable es
+escribir el bodyHtml a un archivo temporal y contar con utilidades
+estandar. Si NO tienes terminal disponible, cuenta el cuerpo en bloques
+de ~100 palabras marcando cada bloque, en vez de estimar de un vistazo
+-- es lento pero mucho mas confiable que una estimacion.
+
+Si CUALQUIER regla falla: NO publiques. En content-calendar.yaml, cambia
+el estado de esta entrada a "qa_fallido", guarda el archivo, reporta
+exactamente que fallo. Corrige y
+vuelve a intentar el Paso 4-5 si tiene sentido, o detente y deja que el
+usuario decida.
+
+Si todo pasa: continua al Paso 6.
+
+LIMITE DURO DESDE 2026-08-31: maximo 1 articulo publicado (isPublished:
+true) por dia calendario, sin excepcion salvo autorizacion explicita
+de Julian para un caso puntual. Antes de publicar, consulta cuantos
+articulos tienen `publishedAt` dentro de las ultimas 24 horas:
+
+`articles(query: "published_status:published AND published_at:>='<hace
+24 horas, formato YYYY-MM-DD>'")`
+
+- Si ya hay 1 o mas articulos publicados hoy: DETENTE, no publiques
+  otro. Dile al usuario en el Paso 8 que el articulo quedo listo
+  (borrador validado por QA) pero que no se publica porque ya se
+  alcanzo el limite diario, y sugiere la fecha en que corresponde
+  publicarlo.
+- Si no hay ninguno publicado hoy: continua con la publicacion normal.
+
+Este limite existe porque el 2026-08-31 se detectaron 41 articulos
+publicados en menos de 36 horas -una explosion de velocidad que puede
+leerse como spam/manipulacion por Google- y hubo que pasar 36 de
+vuelta a isPublished:false (ver el comentario "PAUSA DE VISIBILIDAD"
+al inicio de content-calendar.yaml y la seccion "Cadencia de
+publicacion" de CLAUDE.md). El problema nunca fue publicar un articulo
+individual -era la acumulacion sin ningun limite verificable-, por eso
+la regla ahora es un numero concreto (1/dia) y no una sugerencia de
+"avisar si el ritmo parece alto".
+
+--- Paso 6 — Publicar (SIEMPRE oculto) ---
+
+Via el conector de Shopify, ejecuta la mutacion de creacion de articulo:
+
+mutation CreateArticle($article: ArticleCreateInput!) {
+  articleCreate(article: $article) {
+    article { id handle title isPublished }
+    userErrors { field message }
+  }
+}
+
+Variables:
+{
+  "article": {
+    "blogId": "<gid del blog 'noticias', obtenido en el Paso 2>",
+    "title": "<titulo del Paso 1>",
+    "handle": "<handle_propuesto del Paso 1>",
+    "author": { "name": "Julian E. Zamora" },
+    "tags": ["<tags del Paso 4>"],
+    "body": "<bodyHtml del Paso 4>",
+    "summary": "<excerpt del Paso 4>",
+    "isPublished": true,
+    "image": {
+      "url": "<la MISMA URL de la primera imagen de contexto del Paso 3.5>",
+      "altText": "<el mismo alt de esa imagen>"
+    },
+    "metafields": [
+      { "namespace": "global", "key": "title_tag", "type": "single_line_text_field", "value": "<metaTitle>" },
+      { "namespace": "global", "key": "description_tag", "type": "single_line_text_field", "value": "<metaDescription>" }
+    ]
+  }
+}
+
+isPublished DEBE ser true. "Oculto" en este flujo significa que el
+articulo esta realmente en linea y accesible por su URL directa (asi
+es como se verifica en Paso 6.5 y como se comparte para QA humano),
+pero sin promocionarlo -- no se agrega a menus, no se anuncia, no se
+enlaza desde otras paginas destacadas. isPublished: false lo dejaria
+inaccesible incluso por URL directa, lo cual rompe ese flujo. Esto se
+corrigio despues de verificar via API que los articulos ya marcados
+"publicado_oculto" en el calendario (resveratrol-beneficios-evidencia-
+como-tomarlo, resveratrol-antienvejecimiento-ciencia) tienen
+isPublished: true -- la version anterior de esta instruccion (false)
+nunca reflejo la practica real. Publicar destacado/promocionado (menus,
+redes, etc.) si es una decision humana posterior.
+
+EL CAMPO "image" ES OBLIGATORIO Y NO ES LO MISMO QUE UN <img> DENTRO DE
+"body". El tema de Shopify renderiza "image" como el banner destacado
+en la parte superior de la pagina del articulo (encima del titulo) --
+si lo omites, el banner queda vacio con un placeholder roto de tipo
+"Next, add a featured image to your blog post", aunque el cuerpo del
+articulo tenga imagenes perfectamente colocadas. Usa como "image" la
+MISMA URL (y el mismo alt) que la primera imagen de contexto que
+insertaste en el body en el Paso 3.5 -- no generes ni subas una imagen
+distinta solo para este campo. Antes de dar el Paso 6 por terminado,
+verifica con una query que el articulo devuelto tiene "image.url" no
+nulo -- si sale null, la mutacion no lo seteo correctamente y hay que
+repetir la llamada con el campo "image" incluido.
+
+Si estas actualizando un articulo ya publicado (por ejemplo porque en
+el Paso 4-5 corregiste el body despues de crearlo), usa articleUpdate
+en vez de articleCreate, pero el campo "image" aplica exactamente
+igual -- articleUpdate no lo hereda ni lo infiere solo, hay que
+pasarlo explicitamente en cada llamada si quieres que quede o cambie.
+
+Si el articulo tenia faqJsonLd, guardalo aparte (o inclúyelo en tu
+reporte final) y avisale al usuario que debe pegarlo manualmente en el
+tema de Shopify -- nunca lo pegues dentro de bodyHtml, Shopify lo
+elimina al re-guardar el articulo desde el editor visual.
+
+--- Paso 6.5 — Verificacion post-publicacion (OBLIGATORIO) ---
+
+El Paso 5 (QA) revisa tu BORRADOR antes de publicar. Este paso revisa
+el ARTICULO REAL ya en Shopify despues de publicar -- son cosas
+distintas, y varios errores (imagen destacada faltante, indice
+faltante) solo salieron a la luz cuando alguien reviso el articulo
+publicado, no el borrador. No des el articulo por terminado sin hacer
+esto:
+
+1. Haz una query del articulo recien creado/actualizado (por handle o
+   id) trayendo como minimo: body, image { url }, author { name },
+   tags.
+2. Contra ese resultado real (no contra tu borrador en memoria),
+   confirma:
+   - image.url no es null (Paso 6, campo "image").
+   - author.name es exactamente "Julian E. Zamora" (A1.1).
+   - El body contiene el indice con anclas justo despues de la intro,
+     si el articulo tiene 5+ H2 (A2, QA punto 16).
+   - El body contiene la seccion "Fuentes" y el disclaimer INVIMA al
+     final (A7, A9.1).
+   - Los <img> de producto estan envueltos en <a href="/products/...">
+     (A6).
+   - Si el articulo uso la tarjeta CTA de A2.1: el bloque <style> del
+     inicio de la tarjeta sigue presente en el body (no fue eliminado
+     por Shopify al guardar).
+   - Cada producto mencionado usa la tarjeta de A2.4 (marco + beneficio
+     + boton), no la imagen simple envuelta en <a>.
+3. Si algo falla, corrigelo con articleUpdate y vuelve a verificar --
+   no lo dejes para "despues" ni asumas que quedo bien porque tu
+   borrador lo tenia.
+4. NO compartas el link del articulo (WhatsApp, redes, etc.) para
+   probarlo hasta haber confirmado el punto 2 (image.url no nulo).
+   WhatsApp/Facebook rastrean y CACHEAN la vista previa del link la
+   primera vez que alguien lo comparte -- si ese primer rastreo ocurre
+   mientras image.url todavia esta en null (por ejemplo, se comparte el
+   link antes de terminar el Paso 6.5), la miniatura queda "pegada" en
+   blanco para siempre en el cache de WhatsApp, aunque el articulo ya
+   este arreglado del lado de Shopify. Esto paso en la practica con
+   resveratrol-antienvejecimiento-ciencia. Si ya se comparto el link
+   antes de tiempo y no aparece miniatura, la solucion NO es tocar
+   codigo del tema -- es forzar un nuevo rastreo desde
+   https://developers.facebook.com/tools/debug/sharing/ (pegar la URL
+   y usar "Scrape Again"/"Depurar") antes de volver a compartirlo.
+
+--- Paso 7 — Actualizar el calendario ---
+
+En content-calendar.yaml, en la entrada de este articulo:
+
+- estado -> publicado_oculto
+- handle_final -> el handle que devolvio la mutacion
+- article_gid -> el id que devolvio la mutacion
+
+Guarda el archivo y haz commit + push al repo (mensaje tipo
+"seo: publicar <handle> (oculto)").
+
+--- Paso 8 — Reporte final ---
+
+Dile al usuario: que articulo procesaste, si paso el QA (y si no, por
+que), y el link del articulo en el admin de Shopify si se publico. Si
+quedo un faqJsonLd pendiente de pegar, recuerdaselo.
+
+Incluye siempre, de forma explicita (no lo omitas aunque parezca
+obvio): cuales de los tres elementos de A2.3 (tabla/guia rapida/
+infografia) quedaron en el articulo y cuales no -- si falta alguno, la
+razon concreta (respuesta del punto 17 del Paso 5). El usuario no
+deberia tener que abrir el articulo publicado para descubrir que un
+elemento recomendado no se incluyo.
+
+Cierra SIEMPRE el reporte con un inventario del saldo de articulos
+pendientes en content-calendar.yaml, para que el usuario sepa en todo
+momento cuantos blogs quedan programados sin tener que abrir el
+archivo el mismo:
+
+- Cuenta cuantas entradas del YAML tienen estado "idea" (pendientes de
+  redactar), agrupadas por "cluster".
+- Si tienes terminal disponible, la forma confiable es un script corto
+  (python+yaml o similar) que cargue content-calendar.yaml y cuente
+  por estado y por cluster -- no cuentes "a ojo" leyendo el archivo,
+  es facil perder una entrada en un YAML de decenas de items.
+- Formato del inventario en el reporte (ejemplo real):
+  "Quedan 28 articulos en estado 'idea': clorofila (8), creatina (5),
+  proteina-vegana (5), vinagre-manzana (5), maquila-b2b (4),
+  resveratrol (1)."
+- Esto va en TODA corrida del agente redactor, no solo cuando el
+  usuario lo pida explicitamente -- es parte fija del Paso 8, igual
+  que reportar si paso el QA.
+- Ademas de decirselo al usuario en el reporte, DEJA el mismo
+  inventario por escrito en el repo: actualiza el bloque de comentario
+  "INVENTARIO" al inicio de content-calendar.yaml (fecha + conteo por
+  cluster) en el mismo commit del Paso 7. Asi el saldo pendiente queda
+  legible para cualquiera que abra el archivo, no solo en el chat de
+  esta sesion.
+
+================================================================
+PENDIENTE DE CONFIRMAR (no implementado por conflicto -- ver "Guia
+Maestra de Produccion de Blogs Vitaliah v2" que Julian subio el
+2026-08-31)
+================================================================
+
+Esa guia trae dos cosas que NO se implementaron todavia porque entran
+en conflicto directo con lo que ya esta publicado en vivo en Shopify.
+No las apliques por tu cuenta -- confirmalas con Julian primero:
+
+1. SISTEMA VISUAL CON CAJAS DE COLOR (Seccion 4 de la guia): la guia
+   describe una plantilla con etiqueta superior tipo badge, caja de
+   introduccion con gradiente, circulos numerados, caja de dato
+   cientifico en naranja, caja de advertencia en rojo, bloque de cierre
+   oscuro con boton -- todo con estilos inline y una paleta de color
+   (#065F46 verde oscuro, etc.) DISTINTA a la de docs/guia-imagenes-
+   canva.md (#1E3D2F). Los articulos ya publicados en el blog (incluidos
+   los 3 de magnesio publicados hoy) son HTML semantico plano (p, h2,
+   h3, ul, table, img), SIN ese sistema de cajas. Adoptar esto
+   implicaria: (a) definir cual paleta es la oficial, (b) rediseñar la
+   plantilla de bodyHtml que usa este playbook, y (c) decidir si se
+   retrofitea a los articulos ya publicados o solo aplica hacia
+   adelante. No se asume nada de esto sin que Julian lo confirme.
+2. CLUSTERS FALTANTES EN content-calendar.yaml: la guia lista clusters
+   (Colageno Marino, Clorofila, Stevia, Te Chai) que YA tienen articulos
+   reales publicados en el blog "noticias" (confirmado revisando la
+   lista completa de articulos), pero content-calendar.yaml no los
+   trackea -- el calendario actual solo tiene magnesio, resveratrol,
+   creatina, proteina-vegana, vinagre-manzana, hongos-adaptogenos,
+   monk-fruit, productos-naturales-colombia, maquila-b2b, linaza-
+   masticables, yogurt-griego y natalia-paris-lifestyle. Antes de que el
+   motor mensual (seo-engine) o este playbook generen mas ideas para
+   esos clusters faltantes, alguien tiene que reconstruir esas entradas
+   en el calendario con los articulos ya publicados -- no se inventaron
+   entradas especulativas para no arriesgar datos incorrectos.
+
+================================================================
+REGLAS DE ORO (NO NEGOCIABLES)
+================================================================
+
+- Todo articulo nuevo se publica con isPublished:true (ver Paso 6 --
+  "oculto" significa accesible por URL directa pero sin promocionar,
+  NO isPublished:false). Nunca lo agregues a menus, redes ni ninguna
+  ubicacion destacada del sitio sin decision humana explicita.
+- Nunca inventes una URL de enlace interno o imagen que no hayas
+  resuelto en el Paso 3 contra datos reales.
+- Nunca publiques un articulo sin haber generado o reutilizado su imagen
+  de contexto/cabecera con Canva (Paso 3.5, regla A6) -- no es opcional,
+  no la reemplaces silenciosamente por fotos de producto.
+- Nunca publiques un articulo con autor distinto a "Julian E. Zamora"
+  (A1.1) ni sin el disclaimer INVIMA textual al final (A9.1).
+- Nunca adoptes el sistema visual de cajas con gradiente de la Guia
+  Maestra (badges, cajas de color, boton de cierre) sin confirmarlo
+  primero con Julian -- ver "PENDIENTE DE CONFIRMAR" arriba.
+- Nunca inventes una cita de estudio sin una fuente real verificable con
+  busqueda web.
+- Nunca canibalices un tema ya cubierto -- si tienes duda razonable de
+  solapamiento, detente y pregunta en vez de asumir que esta bien.
+- Si en cualquier paso algo no cuadra (falta un archivo, un dato no
+  existe, una herramienta falla), DETENTE Y REPORTA EL PROBLEMA -- no lo
+  improvises ni lo rellenes a tu criterio.

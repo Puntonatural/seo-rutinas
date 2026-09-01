@@ -1,6 +1,8 @@
 /**
- * calendar.js — genera el YAML del mes a partir de data/report.json
- * Output: calendars/YYYY-MM.yaml
+ * calendar.js — agrega nuevas ideas de artículos a content-calendar.yaml
+ * a partir de data/report.json (generado por collect.js).
+ * Output: content-calendar.yaml (raíz del repo) -- misma fuente que lee
+ * el agente redactor (motorsinscripts.txt). No genera un archivo por mes.
  * Uso: node src/calendar.js
  */
 import fs from 'fs'
@@ -10,14 +12,15 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const DATA_DIR = path.join(__dirname, '..', 'data')
-const CALENDARS_DIR = path.join(__dirname, '..', 'calendars')
+const REPO_ROOT = path.join(__dirname, '..', '..')
+const CALENDAR_PATH = path.join(REPO_ROOT, 'content-calendar.yaml')
 
-function getCurrentMonth() {
-  const now = new Date()
-  const y = now.getFullYear()
-  const m = String(now.getMonth() + 1).padStart(2, '0')
-  return { key: `${y}-${m}`, label: now.toLocaleString('es-CO', { month: 'long', year: 'numeric' }) }
-}
+const CALENDAR_HEADER =
+  '# Calendario SEO Vitaliah -- fuente unica de verdad para el agente redactor (motorsinscripts.txt)\n' +
+  "# y el motor mensual (seo-engine/). No editar manualmente el 'estado' salvo para corregir un error --\n" +
+  '# los agentes lo actualizan automaticamente (idea -> publicado_oculto / canibalizacion_detectada / qa_fallido).\n\n'
+
+const HUB_REF = 'Productos naturales en Colombia (articulo hub, este calendario)'
 
 function suggestHandle(titulo) {
   return titulo
@@ -35,107 +38,115 @@ function main() {
     console.error('No existe data/report.json — corre primero: node src/collect.js')
     process.exit(1)
   }
-
   const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'))
-  const { key: monthKey, label: monthLabel } = getCurrentMonth()
 
-  // 1. Prioridad: oportunidades de posición con impresiones altas
-  const topOpportunities = report.gsc.positionOpportunities
-    .slice(0, 15)
+  if (!fs.existsSync(CALENDAR_PATH)) {
+    console.error('No existe content-calendar.yaml en la raíz del repo — no se puede anexar.')
+    process.exit(1)
+  }
+  const calendarDoc = yaml.load(fs.readFileSync(CALENDAR_PATH, 'utf8')) || { articulos: [] }
+  const existentes = calendarDoc.articulos || []
 
-  // 2. Clusters sin pilar publicado (máxima prioridad)
-  const sinPilar = report.summary.clustersSinPilarPublicado || []
+  const titulosExistentes = new Set(existentes.map((a) => (a.titulo || '').toLowerCase().trim()))
 
-  // 3. Construir artículos del calendario
-  const articulos = []
-
-  // Primero: un pilar para el primer cluster sin pilar
-  if (sinPilar.length > 0) {
-    const clusterTarget = sinPilar[0]
-    const clusterData = report.clusters[clusterTarget]
-    const seedKw = clusterData?.pilar?.palabraClave || clusterTarget
-
-    articulos.push({
-      titulo: `Guía completa: ${clusterTarget} — beneficios, usos y recomendaciones`,
-      keyword_principal: seedKw || clusterTarget,
-      keywords_secundarias: (report.keywordExpansions[clusterTarget] || []).slice(0, 4),
-      cluster: clusterTarget,
-      rol: 'pilar',
-      handle: suggestHandle(`guia-completa-${clusterTarget}`),
-      semana_sugerida: 1,
-      brief: `Artículo pilar del cluster "${clusterTarget}". Debe cubrir qué es, beneficios, cómo usar, contraindicaciones y productos disponibles. Mínimo 2000 palabras. Enlazar todos los artículos cluster del grupo.`,
-    })
+  function pilarRefDe(cluster, nuevosDeEstaCorrida) {
+    const enRepo = existentes.find((a) => a.cluster === cluster && a.rol === 'pilar')
+    if (enRepo) return `${enRepo.titulo} (pilar, este calendario)`
+    const enEstaCorrida = nuevosDeEstaCorrida.find((a) => a.cluster === cluster && a.rol === 'pilar')
+    if (enEstaCorrida) return `${enEstaCorrida.titulo} (pilar, este calendario)`
+    return null
   }
 
-  // Luego: artículos cluster basados en oportunidades GSC
-  for (const opp of topOpportunities.slice(0, 5)) {
-    if (articulos.length >= 5) break
+  const nuevos = []
+  const sinPilar = report.summary.clustersSinPilarPublicado || []
 
-    // Inferir cluster desde la query
-    const clusterInferido = Object.keys(report.clusters).find((c) =>
-      opp.query.toLowerCase().includes(c.toLowerCase().split('-')[0])
-    ) || 'general'
+  // 1. Pilar para el primer cluster sin pilar publicado, si no hay ya una idea pendiente para ese pilar
+  if (sinPilar.length > 0) {
+    const clusterTarget = sinPilar[0]
+    const yaHayIdeaPilar = existentes.some(
+      (a) => a.cluster === clusterTarget && a.rol === 'pilar' && a.estado === 'idea'
+    )
+    if (!yaHayIdeaPilar) {
+      const clusterData = report.clusters[clusterTarget]
+      const seedKw = clusterData?.pilar?.palabraClave || clusterTarget
+      const titulo = `Guía completa: ${clusterTarget} — beneficios, usos y recomendaciones`
 
-    articulos.push({
-      titulo: opp.query.charAt(0).toUpperCase() + opp.query.slice(1),
-      keyword_principal: opp.query,
-      keywords_secundarias: [],
+      if (!titulosExistentes.has(titulo.toLowerCase())) {
+        nuevos.push({
+          titulo,
+          cluster: clusterTarget,
+          rol: 'pilar',
+          estado: 'idea',
+          palabra_clave: seedKw,
+          keywords_secundarias: (report.keywordExpansions[clusterTarget] || []).slice(0, 4),
+          enlaces_internos_obligatorios: [HUB_REF],
+          handle_propuesto: suggestHandle(`guia-completa-${clusterTarget}`),
+          handle_final: null,
+          article_gid: null,
+        })
+        titulosExistentes.add(titulo.toLowerCase())
+      }
+    }
+  }
+
+  // 2. Artículos cluster basados en oportunidades de posición en GSC
+  const topOpportunities = (report.gsc.positionOpportunities || []).slice(0, 15)
+  for (const opp of topOpportunities) {
+    if (nuevos.length >= 5) break
+
+    const titulo = opp.query.charAt(0).toUpperCase() + opp.query.slice(1)
+    if (titulosExistentes.has(titulo.toLowerCase())) continue
+
+    const clusterInferido =
+      Object.keys(report.clusters).find((c) =>
+        opp.query.toLowerCase().includes(c.toLowerCase().split('-')[0])
+      ) || 'general'
+
+    const enlaces = []
+    const refPilar = pilarRefDe(clusterInferido, nuevos)
+    if (refPilar) enlaces.push(refPilar)
+    enlaces.push(HUB_REF)
+
+    nuevos.push({
+      titulo,
       cluster: clusterInferido,
       rol: 'cluster',
-      handle: suggestHandle(opp.query),
-      semana_sugerida: articulos.length <= 1 ? 2 : articulos.length <= 2 ? 3 : 4,
-      brief: `Artículo específico sobre "${opp.query}". GSC muestra ${opp.impressions} impresiones/mes con posición ${opp.position} — hay demanda real. Orientar a intención informacional + CTA hacia producto.`,
+      estado: 'idea',
+      palabra_clave: opp.query,
+      keywords_secundarias: [],
+      enlaces_internos_obligatorios: enlaces,
+      handle_propuesto: suggestHandle(opp.query),
+      handle_final: null,
+      article_gid: null,
       gsc_data: {
         impresiones: opp.impressions,
         clicks: opp.clicks,
         posicion_actual: opp.position,
       },
     })
+    titulosExistentes.add(titulo.toLowerCase())
   }
 
-  // Asegurar mínimo 3 artículos
-  while (articulos.length < 3 && topOpportunities.length > articulos.length) {
-    const opp = topOpportunities[articulos.length]
-    articulos.push({
-      titulo: opp.query.charAt(0).toUpperCase() + opp.query.slice(1),
-      keyword_principal: opp.query,
-      keywords_secundarias: [],
-      cluster: 'general',
-      rol: 'cluster',
-      handle: suggestHandle(opp.query),
-      semana_sugerida: 4,
-      brief: `Oportunidad detectada en GSC con ${opp.impressions} impresiones y posición ${opp.position}.`,
-    })
+  if (nuevos.length === 0) {
+    console.log('No se encontraron oportunidades nuevas — content-calendar.yaml sin cambios.')
+    return
   }
 
-  const calendarDoc = {
-    mes: monthLabel,
-    generado: new Date().toISOString().split('T')[0],
-    fuente_datos: 'Google Search Console (90 días)',
-    meta: {
-      objetivo: `Publicar mínimo ${articulos.length} artículos en ${monthLabel}`,
-      clusters_prioritarios: sinPilar.slice(0, 3),
-    },
-    articulos,
-    mejoras_pendientes: report.gsc.ctrOpportunities.slice(0, 5).map((o) => ({
-      query: o.query,
-      accion: 'mejorar_titulo_meta',
-      impresiones: o.impresiones,
-      ctr_actual: `${o.ctr}%`,
-      posicion: o.posicion,
-    })),
-  }
+  calendarDoc.articulos = [...existentes, ...nuevos]
+  const yamlBody = yaml.dump(calendarDoc, { allowUnicode: true, lineWidth: 100, sortKeys: false })
+  fs.writeFileSync(CALENDAR_PATH, CALENDAR_HEADER + yamlBody)
 
-  if (!fs.existsSync(CALENDARS_DIR)) fs.mkdirSync(CALENDARS_DIR, { recursive: true })
-
-  const outPath = path.join(CALENDARS_DIR, `${monthKey}.yaml`)
-  fs.writeFileSync(outPath, yaml.dump(calendarDoc, { allowUnicode: true, lineWidth: 120 }))
-
-  console.log(`✅ Calendario generado: calendars/${monthKey}.yaml`)
-  console.log(`   ${articulos.length} artículos planificados para ${monthLabel}`)
-  articulos.forEach((a, i) => {
-    console.log(`   ${i + 1}. [${a.rol}] ${a.titulo} (semana ${a.semana_sugerida})`)
+  console.log(`✅ ${nuevos.length} artículo(s) nuevo(s) agregados a content-calendar.yaml`)
+  nuevos.forEach((a, i) => {
+    console.log(`   ${i + 1}. [${a.rol}] ${a.titulo} (cluster: ${a.cluster})`)
   })
+  console.log(
+    '\n⚠ Revisa enlaces_internos_obligatorios de cada entrada nueva antes de que el agente' +
+      ' redactor la tome: este script solo puede enlazar el pilar del cluster y el hub general' +
+      ' -- agrega a mano los productos reales de Shopify que apliquen si los conoces, o deja que' +
+      ' el redactor los resuelva por su cuenta en el Paso 3 (puede quedar con menos de 3 enlaces' +
+      ' y fallar el QA si ninguno aplica).'
+  )
 }
 
 main()
