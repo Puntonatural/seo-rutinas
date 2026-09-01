@@ -11,16 +11,17 @@ Corre el primer lunes de cada mes.
 - Agrega nuevas entradas con estado `idea` a `content-calendar.yaml` (raíz del repo)
 - Lee las instrucciones completas en `seo-engine/CLAUDE.md`
 
-### 2. Agente redactor — `motorsinscripts.txt`
+### 2. Agente redactor — skill `redactor-blog`
 Corre **como maximo una vez por dia calendario** (cadencia fija desde 2026-08-31, ver
 "Cadencia de publicacion" abajo -- antes de esa fecha no habia un limite explicito, lo
 que llevo a publicar 41 articulos en menos de 36 horas y tener que ocultar 36 de vuelta
 por riesgo de que Google lo lea como spam). Invócalo con la skill `redactor-blog`
-(`.claude/skills/redactor-blog/`) para no tener que pegar el playbook completo cada vez
--- la skill solo apunta a los archivos reales de abajo, nunca los copia, así que siempre
-corre sobre la versión más reciente.
+(`.claude/skills/redactor-blog/SKILL.md`) -- ese archivo ES el playbook completo (reglas
+de contenido + proceso paso a paso), no hay una copia separada en la raíz del repo desde
+el 2026-09-01 (antes existía como `motorsinscripts.txt`, eliminado para que no pudiera
+quedar desalineado del skill que lo invocaba).
 - Lee `content-calendar.yaml` (raíz del repo) para saber qué artículo publicar
-- Sigue el playbook de `motorsinscripts.txt` para redactar y publicar en Shopify
+- Sigue las reglas de `.claude/skills/redactor-blog/SKILL.md` para redactar y publicar en Shopify
 - Actualiza el estado del artículo en el YAML (`publicado_oculto`, `canibalizacion_detectada`
   o `qa_fallido`) y hace commit
 
@@ -28,10 +29,10 @@ corre sobre la versión más reciente.
 
 Regla dura desde 2026-08-31: **maximo 1 articulo publicado (isPublished:true) por dia
 calendario**, sin excepcion salvo que Julian la autorice explicitamente para un caso
-puntual. El Paso 6 de `motorsinscripts.txt` verifica esto contra `publishedAt` antes de
-publicar. Horario objetivo: **7:00 a.m. hora Colombia (UTC-5)** -- sujeto a que Julian lo
-confirme o ajuste; nada se ejecuta solo hasta que exista una automatizacion real (Trigger
-de Claude Code on the web) o alguien invoque la skill `redactor-blog` ese dia.
+puntual. El Paso 6 de la skill verifica esto contra `publishedAt` antes de publicar.
+Horario objetivo: **7:00 a.m. hora Colombia (UTC-5)** -- sujeto a que Julian lo confirme
+o ajuste; nada se ejecuta solo hasta que exista una automatizacion real (Trigger de
+Claude Code on the web) o alguien invoque la skill `redactor-blog` ese dia.
 
 ## Flujo mensual
 

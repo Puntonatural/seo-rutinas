@@ -6,7 +6,7 @@ Eres el motor SEO de stevia.com.co. Esta es tu rutina mensual/diaria automatizad
 
 Todo el calendario de contenido vive en `content-calendar.yaml`, en la **raíz del
 repo** (no en `seo-engine/`, no en Google Sheets). Tanto este motor como el agente
-redactor (`motorsinscripts.txt`) leen y escriben ese mismo archivo. Nunca crees un
+redactor (`.claude/skills/redactor-blog/SKILL.md`) leen y escriben ese mismo archivo. Nunca crees un
 YAML de calendario separado por mes ni escribas a una hoja de Sheets.
 
 ## Carpeta `keyword-research/` (referencia estática, no fuente de datos)
@@ -69,7 +69,7 @@ completas los enlaces a producto reales de cada entrada nueva:**
 - Para cada artículo que `calendar.js` acaba de agregar, busca en Shopify
   (vía el conector) 1-2 productos reales relacionados con su `cluster` o
   `palabra_clave` (por nombre, igual que hace el agente redactor en el Paso 3
-  de `motorsinscripts.txt`).
+  de `.claude/skills/redactor-blog/SKILL.md`).
 - Si encuentras un resultado razonable, agrega su nombre a
   `enlaces_internos_obligatorios` con el sufijo `(producto)`, ej. `"Batido
   Crea 10 (producto)"` — el agente redactor ya sabe resolver eso a una URL real

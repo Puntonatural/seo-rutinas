@@ -1,13 +1,15 @@
-# Calendario SEO Vitaliah -- fuente unica de verdad para el agente redactor (motorsinscripts.txt)
+# Calendario SEO Vitaliah -- fuente unica de verdad para el agente redactor (.claude/skills/redactor-blog/SKILL.md)
 # y el motor mensual (seo-engine/). No editar manualmente el 'estado' salvo para corregir un error --
 # los agentes lo actualizan automaticamente (idea -> publicado_oculto / canibalizacion_detectada / qa_fallido).
 #
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
-# redactor -- ver motorsinscripts.txt Paso 8. No es la fuente de verdad, solo un snapshot legible
+# redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-08-31 -- 28 en "idea":
+#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
 #     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4), resveratrol (1)
+#     maquila-b2b (4)
+#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
+#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -605,7 +607,7 @@ articulos:
 - titulo: 'Resveratrol vs. Otros Antioxidantes: Comparativa'
   cluster: resveratrol
   rol: cluster
-  estado: idea
+  estado: qa_fallido
   palabra_clave: resveratrol vs antioxidantes
   keywords_secundarias:
   - mejores antioxidantes naturales
@@ -614,8 +616,24 @@ articulos:
   - Batido con Resveratrol (producto)
   - Masticables Minttrol (producto)
   handle_propuesto: resveratrol-vs-otros-antioxidantes-comparativa
-  handle_final: null
-  article_gid: null
+  handle_final: resveratrol-vs-otros-antioxidantes-comparativa
+  article_gid: gid://shopify/Article/614707888444
+  fecha_publicacion_oculta: '2026-09-01'
+  faq_jsonld_pendiente_de_pegar: drafts/resveratrol-vs-otros-antioxidantes-comparativa.faq.jsonld.html
+  nota: >-
+    Redactado y creado en Shopify (isPublished:false) el 2026-09-01 por una sesion
+    que todavia seguia el motorsinscripts.txt viejo (reglas pre-2026-08-31), antes de
+    descubrir esta rama con las reglas actualizadas. NO cumple el estandar vigente:
+    autor "Equipo Vitaliah" en vez de "Julian E. Zamora" (A1.1); 967 palabras, por
+    debajo del minimo de cluster de 1400 (A3); citas de estudios como hipervinculos
+    inline en el cuerpo en vez de una seccion "Fuentes" al final (A7); falta el
+    disclaimer INVIMA de A9.1; solo 2 imagenes en vez de las 4 requeridas (2 contexto
+    Canva + 2 producto en tarjeta A2.4, A6); sin elementos de sintesis A2.3 (tiene
+    tabla, faltan guia rapida e infografia); campo "image" (featured) no seteado;
+    isPublished:false en vez de true (definicion de "oculto" corregida el 2026-08-31,
+    ver REGLAS DE ORO). Pendiente: reescribir/actualizar el articulo real en Shopify
+    contra el SKILL.md vigente y volver a correr el Paso 5-7 completo antes de darlo
+    por terminado.
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
