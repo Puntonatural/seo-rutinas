@@ -5,11 +5,29 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
+#   Ultima actualizacion: 2026-09-02 -- 26 en "idea":
+#     clorofila (8), proteina-vegana (5), vinagre-manzana (5), creatina (4),
 #     maquila-b2b (4)
-#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
-#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#   Ademas 2 en "qa_aprobado_pendiente_publicacion" (borrador/oculto ya creado en Shopify,
+#   QA de 20 puntos completo, pendientes de que Julian decida publicar):
+#   resveratrol-vs-otros-antioxidantes-comparativa y
+#   creatina-para-que-sirve-beneficios-como-tomarla (ver su campo 'nota' -- este ultimo se
+#   creo con isPublished:false, un borrador real, no el estado "oculto" habitual, por
+#   instruccion explicita de Julian el 2026-09-02).
+#
+# DESINCRONIZACION DETECTADA 2026-09-02 (IMPORTANTE -- pendiente de resolver): el
+# 2026-09-01 entre las 21:11 y 21:32 se publicaron en Shopify (isPublished:true) 5
+# articulos del cluster clorofila -- clorofila-para-la-mujer, clorofila-liquida-o-capsulas,
+# contraindicaciones-clorofila, clorofila-sirve-para-bajar-de-peso y
+# mejor-clorofila-liquida-colombia -- fuera de este flujo: no hay commit en el repo que los
+# registre y las 5 entradas correspondientes de este YAML siguen en estado "idea" con
+# handle_final null. Sumado a la republicacion de magnesio-y-ansiedad-evidencia y
+# resveratrol-salud-cardiovascular ese mismo dia, fueron 7 publicaciones en 24 horas --
+# la misma dinamica que causo el incidente del 2026-08-30/31 de mas abajo. NO se ha
+# corregido el estado de esas 5 entradas de clorofila en este YAML todavia porque haria
+# falta decidir primero (con Julian) si esos articulos se dejan visibles, se ocultan de
+# nuevo, y como reconciliar sus datos reales (handle/gid) contra las entradas propuestas
+# aqui, que pueden no coincidir en handle exacto con lo que ya existe en Shopify.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -639,7 +657,7 @@ articulos:
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -648,8 +666,42 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  faq_jsonld_pendiente_de_pegar: drafts/creatina-para-que-sirve-beneficios-como-tomarla.faq.jsonld.html
+  nota: >-
+    Redactado el 2026-09-02 siguiendo el skill redactor-blog (autor Julian E.
+    Zamora, 2572 palabras, indice con anclas, tabla comparativa + guia rapida +
+    infografia real generada en Canva -- los TRES elementos de A2.3, ninguno
+    omitido porque el tema si tiene datos comparables -- 2 imagenes de contexto
+    + 2 de producto en tarjeta A2.4, seccion Fuentes con 5 citas academicas
+    reales (ISSN position stand, 2 metaanalisis, 1 revision de timing, el
+    estudio de Burke 2003 en vegetarianos), disclaimer INVIMA, FAQ en formato
+    acordeon <details>/<summary> de A2.2. QA de 20 puntos completo, todos
+    pasan. Creado en Shopify con isPublished:false -- NO es el estado
+    "oculto" (isPublished:true sin promocionar) que usa el resto del
+    calendario, es un borrador real no accesible por URL, por instruccion
+    explicita de Julian el 2026-09-02 tras detectarse que 7 articulos se
+    habian publicado el 2026-09-01 (incluidos 5 de clorofila nunca
+    reflejados en este YAML), repitiendo el incidente de velocidad del
+    2026-08-30/31. AVISO IMPORTANTE sobre las imagenes: el entorno de esta
+    sesion bloquea el acceso de red a canva.com/design.canva.ai, asi que no
+    fue posible la revision visual obligatoria del Paso 3.2/imagenes-canva.md
+    (paleta, ausencia de foto de producto, ausencia de rostro real). Se
+    verifico programaticamente via design_content de Canva que las 2 imagenes
+    de contexto no contienen ningun elemento de texto, y que el texto de la
+    infografia coincide exactamente con el texto aprobado -- pero la
+    composicion visual de las 3 imagenes generadas
+    (creatina-para-que-sirve-contexto-cuchara-cristales-ilustracion.png,
+    creatina-para-que-sirve-contexto-preparacion-batido-fotorrealista.png,
+    creatina-para-que-sirve-infografia-guia-rapida-dosis.png, las 3 ya
+    subidas a Shopify) NO ha sido confirmada por un humano. Julian debe
+    revisarlas visualmente en el admin de Shopify antes de aprobar la
+    publicacion. Queda pendiente ademas: (1) decidir que hacer con los 5
+    articulos de clorofila publicados fuera de este flujo, (2) pegar el
+    faqJsonLd manualmente en el tema de Shopify, (3) decidir cuando pasar
+    este articulo a isPublished:true una vez resuelto el punto 1 y
+    confirmadas las imagenes.
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
