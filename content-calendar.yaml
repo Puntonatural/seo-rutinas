@@ -5,11 +5,12 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
-#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
-#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#   Ultima actualizacion: 2026-09-04 -- 26 en "idea":
+#     clorofila (8), proteina-vegana (5), vinagre-manzana (5), maquila-b2b (4),
+#     creatina (4)
+#   Ademas 1 en "qa_aprobado_pendiente_publicacion": resveratrol-vs-otros-antioxidantes-comparativa
+#   (QA de 20 puntos completo y aprobado, listo para publicar el proximo dia
+#   disponible segun el limite de 1/dia -- ver su campo 'nota').
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -639,7 +640,7 @@ articulos:
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -648,8 +649,32 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  fecha_publicacion_oculta: '2026-09-04'
+  faq_jsonld_pendiente_de_pegar: drafts/creatina-para-que-sirve-beneficios-como-tomarla.faq.jsonld.html
+  nota: >-
+    El articulo ya existia creado en Shopify (isPublished:false, creado
+    2026-09-02T11:28:32Z) con el bodyHtml completo siguiendo el skill vigente
+    -- indice con anclas, tabla comparativa, guia rapida, infografia Canva,
+    2 imagenes de contexto + 2 de producto en tarjeta A2.4, FAQ en acordeon
+    <details>/<summary>, seccion Fuentes con 5 citas reales, disclaimer
+    INVIMA, autor Julian E. Zamora -- pero este calendario seguia marcandolo
+    como "idea" (handle_final/article_gid en null), es decir una corrida
+    anterior redacto y publico en Shopify (oculto) pero nunca completo el
+    Paso 7 de actualizar este YAML. Esta corrida (2026-09-04) verifico el
+    contenido real contra el checklist de 20 puntos del Paso 5 (2572
+    palabras, 12 H2, 255 palabras con tilde/ene de 2572 totales, 4 enlaces
+    internos reales, author correcto, disclaimer presente) -- todo paso --
+    confirmo que no habia ningun articulo publicado en las ultimas 24h
+    (limite de 1/dia), publico con articleUpdate (isPublished:true,
+    reafirmando el campo "image"), verifico el articulo real post-
+    publicacion (Paso 6.5) y genero el faqJsonLd faltante (no existia como
+    archivo en drafts/) a partir de las 5 preguntas reales del acordeon.
+    Unica salvedad: no se pudo re-verificar visualmente el texto de la
+    infografia con read-design de Canva porque el egress de red de esta
+    sesion bloquea cdn.shopify.com -- el archivo ya estaba subido con
+    nombre descriptivo y alt text coherente de una corrida previa.
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
