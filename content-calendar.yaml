@@ -726,7 +726,10 @@ articulos:
     Reutiliza las 2 imagenes de contexto del pilar (encajan tematicamente).
     A2.3: tabla + guia rapida incluidas; infografia omitida a proposito (el
     pilar ya tiene una infografia de dosis muy similar, evitar duplicar) --
-    pendiente de decidir si se genera una propia.
+    pendiente de decidir si se genera una propia. NOTA 2026-09-06 (pase de
+    infografias): quedo pendiente -- el pilar tampoco tenia infografia
+    propia (tambien fallo por cuota de Canva), asi que la razon original ya
+    no aplica; se retomara cuando se libere cupo de Canva.
 - titulo: 'Creatina y Rendimiento Fisico: Que Dice la Evidencia'
   cluster: creatina
   rol: cluster
@@ -794,10 +797,10 @@ articulos:
     redactado via skill redactor-blog (autor Julian E. Zamora), 2584
     palabras, QA de 20 puntos completo. Creado en Shopify con
     isPublished:false (borrador). 2 imagenes de contexto nuevas generadas en
-    Canva. A2.3: tabla + guia rapida incluidas; infografia omitida por
-    limite de cuota de Canva (3 intentos fallidos) -- texto ya definido
-    (Como tomarla / Beneficios respaldados / Dosis diaria / Ten en cuenta),
-    solo falta generarla.
+    Canva. A2.3: COMPLETO -- tabla + guia rapida + infografia (generada,
+    verificada celda por celda y agregada al body el 2026-09-06 en nueva
+    seccion "Resumen Visual" con su entrada en el indice):
+    https://cdn.shopify.com/s/files/1/0072/8026/3219/files/proteina-vegana-guia-completa-infografia-guia-rapida.png
 - titulo: 'Proteina Vegana vs. Whey: Diferencias y Cual Conviene'
   cluster: proteina-vegana
   rol: cluster
@@ -817,8 +820,12 @@ articulos:
     BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
     Zamora), 2219 palabras, QA de 20 puntos completo. Creado en Shopify con
     isPublished:false (borrador). 2 imagenes de contexto nuevas generadas en
-    Canva. A2.3: tabla + guia rapida incluidas; infografia omitida por
-    limite de cuota de Canva (2 intentos fallidos).
+    Canva. A2.3: COMPLETO -- tabla + guia rapida + infografia (generada,
+    verificada celda por celda -- una candidata inicial tenia las celdas 3 y
+    4 cruzadas, corregido con edit-design -- y agregada al body el
+    2026-09-06 en nueva seccion "Resumen Visual" con su entrada en el
+    indice):
+    https://cdn.shopify.com/s/files/1/0072/8026/3219/files/proteina-vegana-vs-whey-infografia-comparativa.png
 - titulo: 'Proteina Vegana Aislada vs. Artesanal: Cual Elegir'
   cluster: proteina-vegana
   rol: cluster
@@ -838,8 +845,10 @@ articulos:
     BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
     Zamora), 1692 palabras, QA de 20 puntos completo. Creado en Shopify con
     isPublished:false (borrador). 2 imagenes de contexto nuevas generadas en
-    Canva. A2.3: tabla + guia rapida incluidas; infografia omitida por
-    limite de cuota de Canva (2 intentos fallidos).
+    Canva. A2.3: COMPLETO -- tabla + guia rapida + infografia (candidata sin
+    errores de texto, agregada al body el 2026-09-06 en nueva seccion
+    "Resumen Visual" con su entrada en el indice):
+    https://cdn.shopify.com/s/files/1/0072/8026/3219/files/proteina-vegana-aislada-vs-artesanal-infografia.png
 - titulo: 'Proteina Vegana para Ganar Musculo: Es Suficiente?'
   cluster: proteina-vegana
   rol: cluster
