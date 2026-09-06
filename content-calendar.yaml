@@ -29,6 +29,34 @@
 # no todos de golpe) en vez de revertir esta pausa de una sola vez -- revertir todo junto
 # reproduciria el mismo problema de velocidad que esto buscaba evitar.
 
+#
+# CLUSTERS LEGACY FORMALIZADOS 2026-09-06 (sin articulo pilar nuevo -- ya tienen pilar
+# fuerte y multiples articulos publicados FUERA de este calendario, de antes de que este
+# sistema existiera). Se registran aqui solo para que el motor mensual y el agente
+# redactor los reconozcan como clusters existentes y NO propongan un pilar nuevo:
+#   - colageno: ~30 articulos legacy, pilar "Los Mejores Colagenos Hidrolizados en
+#     Colombia" (mejores-colagenos-hidrolizados-en-colombia). ADVERTENCIA: se detecto
+#     canibalizacion (6+ pares de articulos duplicados/casi identicos) -- antes de sumar
+#     contenido nuevo de colageno generico, consolidar duplicados. Ver
+#     seo-engine/keyword-research/oportunidades-20-clusters-2026-09-06.md seccion D.
+#   - te-chai: ~15 articulos legacy, sin pilar unico claro (varios articulos con angulo
+#     similar: que es, beneficios, receta, comparativas). Revisar solapamiento antes de
+#     sumar contenido nuevo.
+#   - stevia: ~15 articulos legacy, sin pilar unico claro. Revisar solapamiento antes de
+#     sumar contenido nuevo.
+# Los clusters colla-fem, colla-men, coffee-colageno, colageno-50-50-marino-bovino y
+# lactosa-cero (agregados en este mismo commit) son angulos especificos DENTRO del
+# universo colageno pero con audiencia/intencion de busqueda distinta al pilar generico
+# -- no se consideran duplicado del pilar legacy.
+#
+# 37 CLUSTERS NUEVOS AGREGADOS 2026-09-06 (rol: pilar, estado: idea) desde
+# seo-engine/keyword-research/oportunidades-20-clusters-2026-09-06.md y
+# oportunidades-20-clusters-parte-2-2026-09-06.md (40 oportunidades documentadas, 3
+# formalizadas arriba en vez de generar articulo nuevo). De los 37, 16 tienen la nota
+# "PRODUCTO NO EXISTE EN CATALOGO" -- NO deben publicarse con llamado a la compra de un
+# SKU inexistente hasta que Julian decida si se abastece ese ingrediente. Revisar cada
+# nota individual antes de que el agente redactor los tome de la cola.
+#
 articulos:
 - titulo: 'Hongos Adaptogenos en Colombia: Guia Completa 2026'
   cluster: hongos-adaptogenos
@@ -1042,3 +1070,691 @@ articulos:
   handle_final: null
   article_gid: null
   nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 051", estado "Pendiente").
+- titulo: 'Maca Peruana: Beneficios, Para Que Sirve y Como Tomarla'
+  cluster: maca
+  rol: pilar
+  estado: idea
+  palabra_clave: maca peruana beneficios
+  keywords_secundarias:
+  - maca plus para que sirve
+  - maca energia y libido
+  enlaces_internos_obligatorios:
+  - Maka Plus 500 g - Nutrition Factory (producto)
+  - Maka Plus 700 g - Nutrition Factory (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: maca-peruana-beneficios-para-que-sirve
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#1).
+    Producto real verificado en Shopify (Nutrition Factory, dos presentaciones).
+- titulo: 'Calcio: Para Que Sirve y Como Elegir un Buen Suplemento'
+  cluster: calcio
+  rol: pilar
+  estado: idea
+  palabra_clave: calcio para que sirve
+  keywords_secundarias:
+  - suplemento de calcio colombia
+  - calbio para que sirve
+  enlaces_internos_obligatorios:
+  - CALBIO - 500g - NUTRITION FACTORY (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: calcio-para-que-sirve-como-elegir-suplemento
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#2). Solo 2
+    enlaces internos verificados (un solo SKU real) -- al redactar, sumar un
+    tercer enlace real (ej. coleccion Nutrition Factory) para cumplir el minimo
+    de 3 que usan los demas clusters.
+- titulo: 'Moringa: Beneficios de un Superalimento Natural'
+  cluster: moringa
+  rol: pilar
+  estado: idea
+  palabra_clave: moringa beneficios
+  keywords_secundarias:
+  - moringa para que sirve
+  - moringa complex vitaliah
+  enlaces_internos_obligatorios:
+  - Batido Moringa Complex 600 g (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: moringa-beneficios-superalimento
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#3). Solo
+    1 SKU real -- sumar un segundo enlace real al redactar.
+- titulo: 'Niacina (Vitamina B3): Para Que Sirve y Beneficios'
+  cluster: niacina
+  rol: pilar
+  estado: idea
+  palabra_clave: niacina para que sirve
+  keywords_secundarias:
+  - vitamina b3 beneficios
+  - niacina colesterol
+  enlaces_internos_obligatorios:
+  - Masticables NADPRO - Niacina 120 und (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: niacina-vitamina-b3-para-que-sirve
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#4).
+    OJO: no confundir con el cluster "nmn-antienvejecimiento" de este mismo lote
+    -- NADPRO es Niacina/B3, no un precursor de NAD+, pese al nombre parecido.
+- titulo: 'Potasio: Para Que Sirve, Beneficios y Como Tomarlo'
+  cluster: potasio
+  rol: pilar
+  estado: idea
+  palabra_clave: potasio para que sirve
+  keywords_secundarias:
+  - citrato de potasio beneficios
+  - potasio y calambres
+  enlaces_internos_obligatorios:
+  - Citrato Potasio Doypack 250 g + Mentas Stevia Mints Hierbabuena 15 g (producto)
+  - Magnesio para Calambres y Recuperacion Muscular (articulo hermano tematico, este calendario)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: potasio-para-que-sirve-beneficios
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#5).
+    Enlaza al cluster magnesio ya publicado por el eje comun de electrolitos y
+    calambres.
+- titulo: 'Curcuma: Beneficios, Leche Dorada y Como Tomarla'
+  cluster: curcuma-golden-mix
+  rol: pilar
+  estado: idea
+  palabra_clave: curcuma beneficios
+  keywords_secundarias:
+  - leche dorada beneficios
+  - mix golden vitaliah
+  enlaces_internos_obligatorios:
+  - MIX GOLDEN DOYPACK 250 G (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: curcuma-beneficios-leche-dorada
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#6). Solo
+    1 SKU real -- sumar un segundo enlace real al redactar.
+- titulo: 'Te Frio Sin Azucar: Como Elegir el Mejor'
+  cluster: te-frio-sin-azucar
+  rol: pilar
+  estado: idea
+  palabra_clave: te helado sin azucar
+  keywords_secundarias:
+  - te frio sin azucar
+  - te helado ictevia
+  enlaces_internos_obligatorios:
+  - Te Helado Sin Azucar Ictevia (producto)
+  - Coleccion Te Chai (ya existe)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: te-frio-sin-azucar-como-elegir
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#7). GSC
+    ya muestra ~90 impresiones combinadas para este producto sin contenido de
+    blog (posicion 5.5-6.4).
+- titulo: 'Flor de Jamaica: Beneficios de esta Infusion Natural'
+  cluster: flor-de-jamaica-wanda
+  rol: pilar
+  estado: idea
+  palabra_clave: flor de jamaica beneficios
+  keywords_secundarias:
+  - te de flor de jamaica para que sirve
+  - wanda vitaliah
+  enlaces_internos_obligatorios:
+  - Bebida aromatica Wanda - Flor de Jamaica x500 g (producto)
+  - Masticables Wanda Mints - Hierbas Aromaticas 120 und (producto)
+  - Magnesio para Dormir y Reducir el Estres (articulo hermano tematico, este calendario)
+  handle_propuesto: flor-de-jamaica-beneficios-infusion
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#8).
+    Comparte eje de relajacion/sueno con el cluster magnesio ya publicado.
+- titulo: 'Leches Vegetales: Cual Elegir Segun tu Objetivo'
+  cluster: leches-vegetales
+  rol: pilar
+  estado: idea
+  palabra_clave: leches vegetales cual elegir
+  keywords_secundarias:
+  - leche de almendras beneficios
+  - leche de coco beneficios
+  enlaces_internos_obligatorios:
+  - Batido Coco de Leitte con Crema de Coco Doypack 500 g (producto)
+  - Vitaliah Pro Batido - Deleitte de Almendras - 500 g (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: leches-vegetales-cual-elegir
+  handle_final: null
+  article_gid: null
+  nota: Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#9).
+- titulo: 'Batido Base para Smoothies: Como Usarlo en tus Recetas'
+  cluster: vitaliah-smooth
+  rol: pilar
+  estado: idea
+  palabra_clave: batido base para smoothies
+  keywords_secundarias:
+  - vitaliah smooth para que sirve
+  - recetas de smoothies saludables
+  enlaces_internos_obligatorios:
+  - Batido Base para Smoothies - Vitaliah Smooth - 900g (producto)
+  - Batidos Verdes Saludables (articulo existente)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: batido-base-para-smoothies-vitaliah-smooth
+  handle_final: null
+  article_gid: null
+  nota: Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#10).
+- titulo: 'Colageno para la Mujer: Por Que Elegir una Formula Especifica'
+  cluster: colla-fem
+  rol: pilar
+  estado: idea
+  palabra_clave: colageno para mujeres
+  keywords_secundarias:
+  - colla fem para que sirve
+  - colageno hormonal mujer
+  enlaces_internos_obligatorios:
+  - Batido CollaFem Mujeres - 1020 g (producto)
+  - Combo Mujeres 24/7 (producto)
+  - Coleccion Colageno Hidrolizado y Marino en Colombia (ya existe)
+  handle_propuesto: colageno-para-la-mujer-formula-especifica
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#11).
+    Puente natural hacia el cluster "bienestar-hormonal-femenino" (mismo
+    publico) si Vitaliah decide sumar un producto de equilibrio hormonal.
+- titulo: 'Colageno para Hombres: Beneficios para Rendimiento y Recuperacion'
+  cluster: colla-men
+  rol: pilar
+  estado: idea
+  palabra_clave: colageno para hombres
+  keywords_secundarias:
+  - colla men para que sirve
+  - colageno y masa muscular hombres
+  enlaces_internos_obligatorios:
+  - Batido Colla Men - Colageno para Hombres - 700g (producto)
+  - Batido Proteina Aislada Whey 900 g - Vitaliah Pro (producto)
+  - Coleccion Colageno Hidrolizado y Marino en Colombia (ya existe)
+  handle_propuesto: colageno-para-hombres-rendimiento-recuperacion
+  handle_final: null
+  article_gid: null
+  nota: Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#12).
+- titulo: 'Como Ser Distribuidor Mayorista de Productos Naturales en Colombia'
+  cluster: distribuidor-mayorista
+  rol: pilar
+  estado: idea
+  palabra_clave: distribuidor de productos naturales al por mayor
+  keywords_secundarias:
+  - venta de productos naturales al por mayor colombia
+  - como ser distribuidor de productos naturales
+  enlaces_internos_obligatorios:
+  - Distribuidor Mayorista (pagina existente, /pages/distribuidor-mayorista)
+  - Distribuidor Mayorista o Tienda (pagina existente, /pages/distribuidor-mayorista-o-tienda)
+  - Laboratorios de Maquila en Colombia (articulo hermano B2B, este calendario)
+  handle_propuesto: como-ser-distribuidor-mayorista-productos-naturales-colombia
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#13). GSC
+    ya muestra 230 impresiones combinadas sirviendo solo landing estatica, sin
+    contenido de blog. Angulo distinto a "maquila-b2b" (ese es "crea tu marca
+    propia", este es "compra al por mayor para revender").
+- titulo: 'Mio-Inositol: Que Es y Como se Relaciona con la Fertilidad Femenina'
+  cluster: bienestar-hormonal-femenino
+  rol: pilar
+  estado: idea
+  palabra_clave: mio inositol para que sirve
+  keywords_secundarias:
+  - mio inositol fertilidad
+  - inositol ovario poliquistico
+  enlaces_internos_obligatorios:
+  - Coleccion Colageno Hidrolizado y Marino en Colombia (ya existe)
+  - Colageno para la Mujer (articulo hermano, este calendario)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: mio-inositol-fertilidad-femenina-que-es
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#17).
+    PRODUCTO NO EXISTE EN CATALOGO -- Vitaliah no vende mio-inositol todavia.
+    NO publicar con CTA de compra de un SKU inexistente. Requiere decision de
+    sourcing de Julian antes de escribir; si se aprueba redactar mientras tanto,
+    debe ser contenido educativo/de tendencia, enlazando solo a colageno
+    (mismo publico) sin inventar un producto de inositol.
+- titulo: 'Ashwagandha: Beneficios para el Estres y el Sueno'
+  cluster: ashwagandha
+  rol: pilar
+  estado: idea
+  palabra_clave: ashwagandha beneficios
+  keywords_secundarias:
+  - ashwagandha para que sirve
+  - ashwagandha estres y sueno
+  enlaces_internos_obligatorios:
+  - Magnesio para Dormir y Reducir el Estres (articulo hermano, este calendario)
+  - Masticables GanoC - Ganoderma 120 und (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: ashwagandha-beneficios-estres-sueno
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#18).
+    PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de un SKU
+    inexistente. Requiere decision de sourcing antes de escribir; mientras
+    tanto puede reencuadrarse como comparativa "alternativas naturales al
+    estres" mencionando Mag Fussion/GanoC (productos reales) sin prometer
+    ashwagandha en tienda.
+- titulo: 'Berberina: Que Dice la Evidencia sobre el Control de la Glicemia'
+  cluster: berberina
+  rol: pilar
+  estado: idea
+  palabra_clave: berberina para que sirve
+  keywords_secundarias:
+  - berberina glicemia
+  - berberina beneficios evidencia
+  enlaces_internos_obligatorios:
+  - Stevia para Diabeticos: Indice Glicemico Cero (articulo hermano tematico, este calendario)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: berberina-control-glicemia-evidencia
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#19).
+    PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de un SKU
+    inexistente. Encaja con el publico ya educado en stevia/diabeticos.
+    Requiere decision de sourcing antes de escribir. Solo 2 enlaces internos
+    disponibles -- sumar un tercero real al redactar.
+- titulo: 'Probioticos: Para Que Sirven y Como Elegir el Mejor'
+  cluster: probioticos
+  rol: pilar
+  estado: idea
+  palabra_clave: probioticos para que sirven
+  keywords_secundarias:
+  - mejores probioticos colombia
+  - probioticos salud intestinal
+  enlaces_internos_obligatorios:
+  - 'Linaza: Beneficios, Omega-3 Vegetal y Como Usarla (articulo hermano tematico, este calendario)'
+  - Linaza y Salud Digestiva: Como Actua en tu Cuerpo (articulo hermano, este calendario)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: probioticos-para-que-sirven-como-elegir
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#20).
+    PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de un SKU
+    inexistente. Conecta con la linea de fibra/linaza, el cluster de salud
+    digestiva mas fuerte del catalogo. Requiere decision de sourcing.
+- titulo: 'Nutricion Infantil Natural: Que Buscar en un Batido para Ninos'
+  cluster: batido-junior-kds
+  rol: pilar
+  estado: idea
+  palabra_clave: batido nutricional para ninos
+  keywords_secundarias:
+  - batido junior kds vitaliah
+  - nutricion infantil natural
+  enlaces_internos_obligatorios:
+  - Batido Junior KDS Tarro 700 g Vitaliah (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: nutricion-infantil-batido-para-ninos
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#21). Categoria completamente nueva para el blog (audiencia: padres). Solo
+    1 SKU real -- sumar un segundo enlace real al redactar.
+- titulo: 'Batidos Deslactosados: Nutricion sin Lactosa para Intolerantes'
+  cluster: lactosa-cero
+  rol: pilar
+  estado: idea
+  palabra_clave: batido deslactosado colageno
+  keywords_secundarias:
+  - vitaliah lac deslactosado
+  - colageno para intolerantes a la lactosa
+  enlaces_internos_obligatorios:
+  - Batido Vitaliah D-LAC Deslactosado con Colageno Marino - 800 g (producto)
+  - Batido Vitaliah LAC con Colageno Marino - 1000 g (producto)
+  - Coleccion Colageno Hidrolizado y Marino en Colombia (ya existe)
+  handle_propuesto: batidos-deslactosados-colageno-sin-lactosa
+  handle_final: null
+  article_gid: null
+  nota: Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md (#22).
+- titulo: 'Colageno 50/50 Marino y Bovino: Por Que Combinar Ambos Origenes'
+  cluster: colageno-50-50-marino-bovino
+  rol: pilar
+  estado: idea
+  palabra_clave: colageno marino y bovino combinado
+  keywords_secundarias:
+  - colageno 50 50 beneficios
+  - diferencia colageno combinado vs puro
+  enlaces_internos_obligatorios:
+  - Batido Colageno Marino y Bovino 50/50 - 700 g (producto)
+  - 'Colageno Marino vs. Bovino: Diferencias y Cual es Mejor para Ti (articulo existente)'
+  - Coleccion Colageno Hidrolizado y Marino en Colombia (ya existe)
+  handle_propuesto: colageno-50-50-marino-bovino-combinacion
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#23). Verificar en Paso 2 del skill que no canibaliza el articulo
+    existente "Colageno Marino vs. Bovino" (ese compara los puros, este cubre
+    el blend hibrido -- angulo distinto pero cercano).
+- titulo: 'Rutina de Suplementos para Mujeres: Como Armar tu Combo'
+  cluster: combos-mujer
+  rol: pilar
+  estado: idea
+  palabra_clave: rutina de suplementos para mujeres
+  keywords_secundarias:
+  - combo mujeres 24/7 vitaliah
+  - combo power fem
+  enlaces_internos_obligatorios:
+  - Combo Mujeres 24/7 (producto)
+  - Combo Power Fem (producto)
+  - Colageno para la Mujer (articulo hermano, este calendario)
+  handle_propuesto: rutina-de-suplementos-para-mujeres-combo
+  handle_final: null
+  article_gid: null
+  nota: Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md (#24).
+- titulo: 'Colageno con Cafe: Una Alternativa Saludable a tu Cafe de Siempre'
+  cluster: coffee-colageno
+  rol: pilar
+  estado: idea
+  palabra_clave: colageno con cafe
+  keywords_secundarias:
+  - coffee colageno para que sirve
+  - cafe con colageno beneficios
+  enlaces_internos_obligatorios:
+  - Bebida con Colageno Hidrolizado sabor Cafe - 700g (producto)
+  - Vitaliah Pro - Colageno de Cafe con leche de Almendras - 900g (producto)
+  - Coleccion Colageno Hidrolizado y Marino en Colombia (ya existe)
+  handle_propuesto: colageno-con-cafe-alternativa-saludable
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#25). GSC ya muestra senal para "coffee colageno" / "cafe colageno"
+    (87-107 impresiones, CTR ~6.5%, buena senal) diluida hoy dentro del
+    cluster generico colageno.
+- titulo: 'Omega 3 Marino: Beneficios y Diferencias con el Omega 3 Vegetal'
+  cluster: omega-3-marino
+  rol: pilar
+  estado: idea
+  palabra_clave: omega 3 marino beneficios
+  keywords_secundarias:
+  - omega 3 epa dha para que sirve
+  - diferencia omega 3 marino y vegetal
+  enlaces_internos_obligatorios:
+  - 'Linaza: Beneficios, Omega-3 Vegetal y Como Usarla (articulo hermano, este calendario)'
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: omega-3-marino-beneficios-vs-vegetal
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#26). PRODUCTO NO EXISTE EN CATALOGO (Vitaliah solo tiene omega 3 vegetal
+    via linaza) -- no publicar con CTA de compra de un SKU inexistente.
+    Requiere decision de sourcing.
+- titulo: 'Biotina: Para Que Sirve y Beneficios para Cabello y Piel'
+  cluster: biotina
+  rol: pilar
+  estado: idea
+  palabra_clave: biotina para que sirve
+  keywords_secundarias:
+  - biotina para el cabello
+  - vitamina b7 beneficios
+  enlaces_internos_obligatorios:
+  - Beneficios del Colageno Hidrolizado para la Piel (articulo hermano tematico, este calendario)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: biotina-para-que-sirve-cabello-piel
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#27). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Requiere decision de sourcing (posible combo con
+    colageno, como hace la competencia).
+- titulo: 'Acido Hialuronico Oral: Para Que Sirve y Como Se Combina con Colageno'
+  cluster: acido-hialuronico-oral
+  rol: pilar
+  estado: idea
+  palabra_clave: acido hialuronico oral para que sirve
+  keywords_secundarias:
+  - acido hialuronico y colageno
+  - acido hialuronico piel suplemento
+  enlaces_internos_obligatorios:
+  - Beneficios del Colageno Hidrolizado para la Piel (articulo hermano tematico, este calendario)
+  - Coleccion Colageno Hidrolizado y Marino en Colombia (ya existe)
+  handle_propuesto: acido-hialuronico-oral-para-que-sirve
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#28). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. La competencia colombiana ya combina esto con colageno
+    y biotina en un solo producto -- evaluar combo propio.
+- titulo: 'Spirulina: Beneficios de este Superalimento Azul-Verde'
+  cluster: spirulina
+  rol: pilar
+  estado: idea
+  palabra_clave: spirulina beneficios
+  keywords_secundarias:
+  - spirulina para que sirve
+  - spirulina vs clorofila
+  enlaces_internos_obligatorios:
+  - 'Para Que Sirve la Clorofila en el Cuerpo Humano (articulo hermano, este calendario)'
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: spirulina-beneficios-superalimento
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#29). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Mismo publico que clorofila (cluster mas fuerte de GSC
+    hoy), ingrediente distinto.
+- titulo: 'Electrolitos para Entrenar: Por Que son Clave Antes y Despues del Ejercicio'
+  cluster: electrolitos-pre-entreno
+  rol: pilar
+  estado: idea
+  palabra_clave: electrolitos para entrenar
+  keywords_secundarias:
+  - hidratacion deportiva electrolitos
+  - electrolitos antes de entrenar
+  enlaces_internos_obligatorios:
+  - Batido Proteina Aislada Whey 900 g - Vitaliah Pro (producto)
+  - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (articulo hermano, este calendario)'
+  - Citrato Potasio Doypack 250 g (producto)
+  handle_propuesto: electrolitos-para-entrenar-hidratacion
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#30). No hay un producto de electrolitos standalone -- se apoya en
+    potasio (real) y en la linea deportiva (whey/creatina) ya existente.
+- titulo: 'Kombucha: Que Es y Sus Beneficios para la Salud Intestinal'
+  cluster: kombucha
+  rol: pilar
+  estado: idea
+  palabra_clave: kombucha beneficios
+  keywords_secundarias:
+  - kombucha para que sirve
+  - kombucha salud intestinal
+  enlaces_internos_obligatorios:
+  - Linaza y Salud Digestiva: Como Actua en tu Cuerpo (articulo hermano, este calendario)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: kombucha-beneficios-salud-intestinal
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#31). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Complementa la oportunidad "probioticos" del mismo lote.
+- titulo: 'Vitamina C Natural: Para Que Sirve y Cuales son sus Mejores Fuentes'
+  cluster: vitamina-c-natural
+  rol: pilar
+  estado: idea
+  palabra_clave: vitamina c natural para que sirve
+  keywords_secundarias:
+  - fuentes naturales de vitamina c
+  - vitamina c inmunidad
+  enlaces_internos_obligatorios:
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  - 'Suplementos Naturales en Colombia: Tendencias 2026 (articulo hermano, este calendario)'
+  handle_propuesto: vitamina-c-natural-para-que-sirve
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#32). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Solo 2 enlaces disponibles (ninguno a producto real).
+- titulo: 'Propoleo y Jalea Real: Beneficios de estos Productos de la Colmena'
+  cluster: propoleo-jalea-real
+  rol: pilar
+  estado: idea
+  palabra_clave: propoleo beneficios
+  keywords_secundarias:
+  - jalea real para que sirve
+  - propoleo y jalea real diferencias
+  enlaces_internos_obligatorios:
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  - 'Suplementos Naturales en Colombia: Tendencias 2026 (articulo hermano, este calendario)'
+  handle_propuesto: propoleo-jalea-real-beneficios
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#33). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Solo 2 enlaces disponibles (ninguno a producto real).
+- titulo: 'Glutamina y L-Carnitina: Para Que Sirven en la Recuperacion Muscular'
+  cluster: glutamina-l-carnitina
+  rol: pilar
+  estado: idea
+  palabra_clave: glutamina para que sirve
+  keywords_secundarias:
+  - l carnitina beneficios
+  - glutamina recuperacion muscular
+  enlaces_internos_obligatorios:
+  - Batido Proteina Aislada Whey 900 g - Vitaliah Pro (producto)
+  - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (articulo hermano, este calendario)'
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: glutamina-l-carnitina-recuperacion-muscular
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#34). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Categoria deportiva complementaria a whey/creatina.
+- titulo: 'Melatonina: Para Que Sirve y Como se Compara con el Magnesio para Dormir'
+  cluster: melatonina
+  rol: pilar
+  estado: idea
+  palabra_clave: melatonina para dormir
+  keywords_secundarias:
+  - melatonina para que sirve
+  - melatonina vs magnesio para dormir
+  enlaces_internos_obligatorios:
+  - Magnesio para Dormir y Reducir el Estres (articulo hermano, este calendario)
+  - Masticables Mag Harmony (producto)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: melatonina-para-dormir-vs-magnesio
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#35). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Mismo objetivo (dormir mejor) que el cluster magnesio
+    ya publicado -- buen candidato para comparativa honesta sin vender lo que
+    no existe.
+- titulo: 'Quinoa y Avena: Cereales Funcionales para tus Batidos'
+  cluster: funcionales-quinoa-avena
+  rol: pilar
+  estado: idea
+  palabra_clave: quinoa y avena beneficios
+  keywords_secundarias:
+  - avena en batidos beneficios
+  - quinoa para batidos saludables
+  enlaces_internos_obligatorios:
+  - Batidos Saludables: Guia Completa con Recetas Nutritivas (articulo existente)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: quinoa-avena-cereales-funcionales-batidos
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#36). PRODUCTO NO EXISTE EN CATALOGO como ingrediente dedicado -- solo 2
+    enlaces disponibles.
+- titulo: 'GABA y L-Teanina: Calma y Enfoque Sin Sedacion'
+  cluster: gaba-l-teanina
+  rol: pilar
+  estado: idea
+  palabra_clave: gaba para que sirve
+  keywords_secundarias:
+  - l teanina beneficios
+  - gaba y l teanina para la ansiedad
+  enlaces_internos_obligatorios:
+  - Magnesio y Ansiedad: Que Dice la Evidencia (articulo hermano, este calendario)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: gaba-l-teanina-calma-enfoque
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#37). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Solo 2 enlaces disponibles.
+- titulo: 'NMN y Precursores de NAD+: La Ciencia Detras de la Tendencia Antienvejecimiento'
+  cluster: nmn-antienvejecimiento
+  rol: pilar
+  estado: idea
+  palabra_clave: nmn para que sirve
+  keywords_secundarias:
+  - precursores de nad+ antienvejecimiento
+  - nmn beneficios evidencia
+  enlaces_internos_obligatorios:
+  - 'Resveratrol y Antienvejecimiento: Que Dice la Ciencia (articulo hermano, este calendario)'
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: nmn-nad-antienvejecimiento-ciencia
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#38). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. IMPORTANTE: no confundir con "niacina" (Masticables
+    NADPRO) de este mismo lote -- son ingredientes distintos pese al nombre
+    parecido del producto NADPRO.
+- titulo: 'Zinc: Para Que Sirve y su Rol en el Sistema Inmune'
+  cluster: zinc-inmunidad
+  rol: pilar
+  estado: idea
+  palabra_clave: zinc para que sirve
+  keywords_secundarias:
+  - zinc sistema inmune
+  - zinc beneficios evidencia
+  enlaces_internos_obligatorios:
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  - 'Suplementos Naturales en Colombia: Tendencias 2026 (articulo hermano, este calendario)'
+  handle_propuesto: zinc-para-que-sirve-sistema-inmune
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#39). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Solo 2 enlaces disponibles.
+- titulo: 'Coenzima Q10: Beneficios para la Energia Celular y el Corazon'
+  cluster: coenzima-q10
+  rol: pilar
+  estado: idea
+  palabra_clave: coenzima q10 beneficios
+  keywords_secundarias:
+  - coenzima q10 para que sirve
+  - coenzima q10 y corazon
+  enlaces_internos_obligatorios:
+  - Resveratrol para la Salud Cardiovascular (articulo hermano, este calendario)
+  - Productos naturales en Colombia (articulo hub, este calendario)
+  handle_propuesto: coenzima-q10-energia-celular-corazon
+  handle_final: null
+  article_gid: null
+  nota: >-
+    Cluster nuevo, tomado de oportunidades-20-clusters-parte-2-2026-09-06.md
+    (#40). PRODUCTO NO EXISTE EN CATALOGO -- no publicar con CTA de compra de
+    un SKU inexistente. Comparte eje antioxidante/cardiovascular con
+    resveratrol, ya publicado.
