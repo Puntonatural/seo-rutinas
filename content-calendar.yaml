@@ -5,9 +5,18 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-06 -- 17 en "idea":
-#     proteina-vegana (5), vinagre-manzana (5), creatina (3), clorofila (3),
-#     maquila-b2b (1)
+#   Ultima actualizacion: 2026-09-06 (tarde) -- 4 en "idea": clorofila (3),
+#     maquila-b2b (1) -- las 3 de clorofila y la 1 de maquila-b2b tienen un
+#     borrador externo sin publicar sobre el mismo tema, ver su 'nota'.
+#   Ademas 13 en "qa_aprobado_pendiente_publicacion" (BACKFILL 2026-09-06):
+#     proteina-vegana (5), vinagre-manzana (5), creatina (3) -- redactados
+#     completos via skill redactor-blog, QA de 20 puntos corrido, creados en
+#     Shopify con isPublished:false (borrador real, no solo texto local).
+#     Quedan listos para que Julian decida cuando publicarlos (articleUpdate
+#     con isPublished:true). Varios quedaron con solo 2 de 3 elementos de
+#     A2.3 (falta la infografia) por limite de cuota de Canva al correr 13
+#     redacciones en paralelo -- ver la nota de cada entrada para el detalle
+#     y el texto ya aprobado, pendiente de generarlas una por una.
 #
 # RECONCILIACION 2026-09-06 (IMPORTANTE): se detecto que un proceso externo a este
 # skill -- author real en Shopify "Asesor Punto Natural", plantilla con H1 dentro del
@@ -698,7 +707,7 @@ articulos:
 - titulo: 'Creatina Monohidratada: Dosis, Horarios y Carga'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: como tomar creatina
   keywords_secundarias:
   - dosis de creatina monohidratada
@@ -707,12 +716,21 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-monohidratada-dosis-horarios-carga
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-monohidratada-dosis-horarios-carga
+  article_gid: gid://shopify/Article/614736920892
+  faq_jsonld_pendiente_de_pegar: drafts/creatina-monohidratada-dosis-horarios-carga.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 1973 palabras, QA de 20 puntos completo. Creado en Shopify con
+    isPublished:false (borrador, a la espera de que Julian decida publicar).
+    Reutiliza las 2 imagenes de contexto del pilar (encajan tematicamente).
+    A2.3: tabla + guia rapida incluidas; infografia omitida a proposito (el
+    pilar ya tiene una infografia de dosis muy similar, evitar duplicar) --
+    pendiente de decidir si se genera una propia.
 - titulo: 'Creatina y Rendimiento Fisico: Que Dice la Evidencia'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: creatina rendimiento fisico
   keywords_secundarias:
   - creatina fuerza muscular
@@ -721,12 +739,20 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-rendimiento-fisico-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-rendimiento-fisico-evidencia
+  article_gid: gid://shopify/Article/614737117500
+  faq_jsonld_pendiente_de_pegar: drafts/creatina-rendimiento-fisico-evidencia.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 1931 palabras, QA de 20 puntos completo. Creado en Shopify con
+    isPublished:false (borrador). Imagen de cabecera reutilizada del pilar +
+    1 imagen nueva de Canva. A2.3: tabla + guia rapida incluidas; infografia
+    omitida por limite de cuota de Canva (2 intentos fallidos) -- pendiente
+    de generar cuando se libere cupo.
 - titulo: Mitos sobre la Creatina Desmentidos con Evidencia
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: mitos de la creatina
   keywords_secundarias:
   - creatina es mala para los rinones
@@ -735,12 +761,23 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: mitos-sobre-la-creatina-desmentidos
-  handle_final: null
-  article_gid: null
+  handle_final: mitos-sobre-la-creatina-desmentidos
+  article_gid: gid://shopify/Article/614737707324
+  faq_jsonld_pendiente_de_pegar: drafts/mitos-sobre-la-creatina-desmentidos.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 2442 palabras, QA de 20 puntos completo salvo un punto corregido
+    despues: el campo "image" del articulo quedo apuntando temporalmente a
+    la imagen del pilar por un problema de Shopify rechazando archivos recien
+    subidos ("Imagen no es valido") -- corregido el mismo dia con
+    articleUpdate, ya apunta a la imagen de contexto propia (lupa examinando
+    cristales de creatina). 2 imagenes de contexto nuevas generadas en Canva.
+    A2.3: tabla + guia rapida incluidas; infografia omitida por limite de
+    cuota de Canva (2 intentos fallidos).
 - titulo: 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia'
   cluster: proteina-vegana
   rol: pilar
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: proteina vegana Colombia
   keywords_secundarias:
   - mejor proteina vegana
@@ -749,12 +786,22 @@ articulos:
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: proteina-vegana-guia-completa-colombia
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-guia-completa-colombia
+  article_gid: gid://shopify/Article/614736888124
+  faq_jsonld_pendiente_de_pegar: drafts/proteina-vegana-guia-completa-colombia.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: primer articulo del cluster proteina-vegana,
+    redactado via skill redactor-blog (autor Julian E. Zamora), 2584
+    palabras, QA de 20 puntos completo. Creado en Shopify con
+    isPublished:false (borrador). 2 imagenes de contexto nuevas generadas en
+    Canva. A2.3: tabla + guia rapida incluidas; infografia omitida por
+    limite de cuota de Canva (3 intentos fallidos) -- texto ya definido
+    (Como tomarla / Beneficios respaldados / Dosis diaria / Ten en cuenta),
+    solo falta generarla.
 - titulo: 'Proteina Vegana vs. Whey: Diferencias y Cual Conviene'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: proteina vegana vs whey
   keywords_secundarias:
   - diferencia proteina vegana whey
@@ -763,12 +810,19 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: proteina-vegana-vs-whey-diferencias
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-vs-whey-diferencias
+  article_gid: gid://shopify/Article/614737051964
+  faq_jsonld_pendiente_de_pegar: drafts/proteina-vegana-vs-whey-diferencias.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 2219 palabras, QA de 20 puntos completo. Creado en Shopify con
+    isPublished:false (borrador). 2 imagenes de contexto nuevas generadas en
+    Canva. A2.3: tabla + guia rapida incluidas; infografia omitida por
+    limite de cuota de Canva (2 intentos fallidos).
 - titulo: 'Proteina Vegana Aislada vs. Artesanal: Cual Elegir'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: proteina vegana aislada vs artesanal
   keywords_secundarias:
   - tipos de proteina vegana
@@ -777,12 +831,19 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   handle_propuesto: proteina-vegana-aislada-vs-artesanal
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-aislada-vs-artesanal
+  article_gid: gid://shopify/Article/614737019196
+  faq_jsonld_pendiente_de_pegar: drafts/proteina-vegana-aislada-vs-artesanal.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 1692 palabras, QA de 20 puntos completo. Creado en Shopify con
+    isPublished:false (borrador). 2 imagenes de contexto nuevas generadas en
+    Canva. A2.3: tabla + guia rapida incluidas; infografia omitida por
+    limite de cuota de Canva (2 intentos fallidos).
 - titulo: 'Proteina Vegana para Ganar Musculo: Es Suficiente?'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: proteina vegana para ganar musculo
   keywords_secundarias:
   - proteina vegana hipertrofia
@@ -791,12 +852,21 @@ articulos:
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: proteina-vegana-para-ganar-musculo
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-para-ganar-musculo
+  article_gid: gid://shopify/Article/614736953660
+  faq_jsonld_pendiente_de_pegar: drafts/proteina-vegana-para-ganar-musculo.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 2229 palabras, QA de 20 puntos completo. Creado en Shopify con
+    isPublished:false (borrador). 2 imagenes de contexto nuevas generadas en
+    Canva. A2.3: tabla (DIAAS/PDCAAS) + guia rapida incluidas; infografia
+    omitida a proposito para no duplicar cifras con la del pilar (que a su
+    vez tambien quedo pendiente por cuota de Canva) -- revisar si conviene
+    generarle una propia.
 - titulo: Cuanta Proteina Vegana Necesitas al Dia
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: cuanta proteina vegana al dia
   keywords_secundarias:
   - requerimiento diario de proteina vegana
@@ -805,12 +875,20 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: cuanta-proteina-vegana-necesitas-al-dia
-  handle_final: null
-  article_gid: null
+  handle_final: cuanta-proteina-vegana-necesitas-al-dia
+  article_gid: gid://shopify/Article/614737150268
+  faq_jsonld_pendiente_de_pegar: drafts/cuanta-proteina-vegana-necesitas-al-dia.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 2339 palabras, QA de 20 puntos completo. Creado en Shopify con
+    isPublished:false (borrador). 2 imagenes de contexto nuevas generadas en
+    Canva. A2.3: tabla (dosis por objetivo) + guia rapida incluidas;
+    infografia omitida a proposito por alcance de la tarea, no por cuota --
+    pendiente de generar.
 - titulo: 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo'
   cluster: vinagre-manzana
   rol: pilar
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: vinagre de manzana beneficios
   keywords_secundarias:
   - para que sirve el vinagre de manzana
@@ -819,12 +897,24 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Linaza y Salud Digestiva (articulo hermano tematico, este calendario)
   handle_propuesto: vinagre-de-manzana-beneficios-evidencia-como-tomarlo
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-beneficios-evidencia-como-tomarlo
+  article_gid: gid://shopify/Article/614737314108
+  faq_jsonld_pendiente_de_pegar: drafts/vinagre-de-manzana-beneficios-evidencia-como-tomarlo.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: primer articulo del cluster vinagre-manzana,
+    redactado via skill redactor-blog (autor Julian E. Zamora), 2477
+    palabras, QA de 20 puntos completo (20/20). Creado en Shopify con
+    isPublished:false (borrador). 2 imagenes de contexto nuevas generadas en
+    Canva. A2.3 COMPLETO: tabla + guia rapida + infografia (formato
+    facebook_post, texto verificado celda por celda contra el aprobado --
+    una candidata inicial traia una linea inventada, corregida con
+    edit-design antes de exportar). El enlace a "Linaza y Salud Digestiva"
+    apunta a un articulo real pero actualmente oculto (isPublished:false)
+    por la pausa de visibilidad del 2026-08-31.
 - titulo: 'Vinagre de Manzana para Adelgazar: Que Dice la Ciencia'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: vinagre de manzana para adelgazar
   keywords_secundarias:
   - vinagre de manzana quema grasa
@@ -833,12 +923,23 @@ articulos:
   - Masticables MintsVing (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: vinagre-de-manzana-para-adelgazar-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-para-adelgazar-evidencia
+  article_gid: gid://shopify/Article/614737248572
+  faq_jsonld_pendiente_de_pegar: drafts/vinagre-de-manzana-para-adelgazar-evidencia.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 2025 palabras, QA de 20 puntos completo. Incluye el hallazgo de
+    que el estudio viral que popularizo "6-8 kg" fue RETRACTADO por BMJ
+    Nutrition Prevention & Health (2025) por errores estadisticos -- tratado
+    con honestidad en el cuerpo. Solo 1 imagen de producto (no 2) porque solo
+    existe un producto real de vinagre de manzana en el catalogo -- no se
+    forzo una segunda tarjeta redundante. A2.3: tabla + guia rapida
+    incluidas; infografia omitida a proposito por alcance de la tarea, no
+    por cuota -- pendiente de generar.
 - titulo: 'Masticables de Vinagre de Manzana vs. Liquido: Ventajas'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: vinagre de manzana masticables
   keywords_secundarias:
   - vinagre de manzana en pastillas
@@ -847,12 +948,20 @@ articulos:
   - Masticables MintsVing (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: masticables-vinagre-de-manzana-vs-liquido
-  handle_final: null
-  article_gid: null
+  handle_final: masticables-vinagre-de-manzana-vs-liquido
+  article_gid: gid://shopify/Article/614737215804
+  faq_jsonld_pendiente_de_pegar: drafts/masticables-vinagre-de-manzana-vs-liquido.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 2071 palabras, QA de 20 puntos completo -- el primer borrador
+    salio casi sin tildes (mismo incidente ya documentado del cluster
+    resveratrol) y se detecto y corrigio antes de publicar. 2 imagenes de
+    contexto nuevas generadas en Canva. A2.3: tabla + guia rapida incluidas;
+    infografia omitida por limite de cuota de Canva (3 intentos fallidos).
 - titulo: 'Vinagre de Manzana y Digestion: Beneficios Reales'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: vinagre de manzana digestion
   keywords_secundarias:
   - vinagre de manzana para la acidez
@@ -861,12 +970,23 @@ articulos:
   - Masticables MintsVing (producto)
   - Linaza y Salud Digestiva (articulo hermano tematico, este calendario)
   handle_propuesto: vinagre-de-manzana-y-digestion-beneficios
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-y-digestion-beneficios
+  article_gid: gid://shopify/Article/614737183036
+  faq_jsonld_pendiente_de_pegar: drafts/vinagre-de-manzana-y-digestion-beneficios.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 2375 palabras, QA de 20 puntos completo. Tono deliberadamente
+    honesto sobre la falta de evidencia solida en acidez/reflujo (el vinagre
+    ES acido, nunca se promete que cure acidez). 2 imagenes de contexto
+    nuevas generadas en Canva. A2.3: tabla + guia rapida incluidas;
+    infografia omitida a proposito -- el tema no tiene dosis clinicamente
+    establecidas y forzar una infografia de "dosis" en un tema de evidencia
+    debil podria sugerir una precision que no existe. Si se genera despues,
+    hacerlo con el mismo cuidado (cualitativo, no forzar cifras).
 - titulo: 'Vinagre de Manzana: Contraindicaciones y Precauciones'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: vinagre de manzana contraindicaciones
   keywords_secundarias:
   - efectos secundarios del vinagre de manzana
@@ -875,8 +995,17 @@ articulos:
   - Masticables MintsVing (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: vinagre-de-manzana-contraindicaciones-precauciones
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-contraindicaciones-precauciones
+  article_gid: gid://shopify/Article/614737084732
+  faq_jsonld_pendiente_de_pegar: drafts/vinagre-de-manzana-contraindicaciones-precauciones.faq.jsonld.html
+  nota: >-
+    BACKFILL 2026-09-06: redactado via skill redactor-blog (autor Julian E.
+    Zamora), 2213 palabras, QA de 20 puntos completo (5 fuentes reales:
+    Gambon 2014, Hill 2005, Lhotta 1998, reporte JCAD 2015). 2 imagenes de
+    contexto nuevas generadas en Canva. A2.3: tabla + guia rapida incluidas;
+    infografia omitida a proposito -- en un articulo de contraindicaciones
+    la precision textual exacta es lo mas sensible (marco INVIMA), se
+    prefirio no arriesgar que Canva alterara una cifra de riesgo.
 - titulo: 'Registro INVIMA para Productos Saludables: Que Revisar Antes de Lanzar'
   cluster: maquila-b2b
   rol: cluster
