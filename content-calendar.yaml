@@ -34,12 +34,27 @@
 # "Cadencia de publicacion" de CLAUDE.md -- este backfill cuenta contra ese limite igual que un
 # articulo nuevo). Orden usado: por cluster, en el mismo orden en que aparecen en este YAML,
 # tomando el primer articulo aun oculto de cada cluster antes de pasar al siguiente.
-#   Republicados: 2026-09-08 melena-de-leon-beneficios-ciencia (cluster hongos-adaptogenos).
-#   Aun ocultos de este mismo lote (~30 handles, ver query "published_status:unpublished" en
-#   Shopify para la lista completa y exacta): resto del cluster hongos-adaptogenos (melena-de-
-#   leon-memoria-concentracion, melena-de-leon-capsulas-polvo-masticables, betaglucanos-melena-
-#   de-leon-que-son, hongos-adaptogenos-estres-como-actuan), monk-fruit (monk-fruit-vs-stevia-
-#   diferencias, monk-fruit-diabeticos-indice-glicemico, monk-fruit-gotas-vs-polvo-dosificacion),
+#
+# IMPORTANTE (agregado 2026-09-08, mismo dia): Julian pidio ademas que cada articulo se
+# "reescriba con la estructura aprobada" antes de volver a quedar visible -- estos articulos son
+# de antes del 1 de septiembre, cuando varias reglas de este skill (A2.2 acordeon FAQ obligatorio,
+# A2.3 tabla/guia rapida, A2.4 tarjeta de producto, seccion Fuentes separada del cuerpo, disclaimer
+# INVIMA, autor Julian E. Zamora) todavia no existian o no eran obligatorias. El backfill entonces
+# NO es solo un cambio de isPublished -- cada articulo se retrofitea primero (misma investigacion y
+# citas, verificadas contra fuente real, pero estructura puesta al dia) y solo el que va a quedar
+# visible ESE dia se publica; los demas se dejan retrofiteados pero isPublished:false, listos para
+# el siguiente dia. Retrofitear contenido de un articulo oculto no cuenta contra el limite de 1/dia
+# (no genera un evento de publicacion nuevo), asi que se puede adelantar trabajo de varios articulos
+# en un mismo dia mientras solo uno pasa a isPublished:true.
+#   Retrofiteados Y republicados (isPublished:true): 2026-09-08 melena-de-leon-beneficios-ciencia
+#     (cluster hongos-adaptogenos).
+#   Retrofiteados pero AUN isPublished:false (listos para publicar el siguiente dia disponible):
+#     2026-09-08 melena-de-leon-memoria-concentracion (cluster hongos-adaptogenos).
+#   Aun sin retrofitear ni republicar del resto de este mismo lote (~29 handles, ver query
+#   "published_status:unpublished" en Shopify para la lista completa y exacta): resto del cluster
+#   hongos-adaptogenos (melena-de-leon-capsulas-polvo-masticables, betaglucanos-melena-de-leon-que-
+#   son, hongos-adaptogenos-estres-como-actuan), monk-fruit (monk-fruit-vs-stevia-diferencias,
+#   monk-fruit-diabeticos-indice-glicemico, monk-fruit-gotas-vs-polvo-dosificacion),
 #   productos-naturales-colombia (producto-natural-de-calidad-invima-colombia, suplementos-
 #   naturales-mas-buscados-colombia-2026), maquila-b2b (laboratorios-de-maquila-en-colombia-que-
 #   evaluar, laboratorios-productos-naturales-colombia-confiables, marca-propia-vs-marca-blanca-
