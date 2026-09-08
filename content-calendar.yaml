@@ -28,6 +28,30 @@
 # ACCION FUTURA: republicar (isPublished:true) el resto de forma gradual (unos pocos por semana,
 # no todos de golpe) en vez de revertir esta pausa de una sola vez -- revertir todo junto
 # reproduciria el mismo problema de velocidad que esto buscaba evitar.
+#
+# BACKFILL EN PROGRESO (iniciado 2026-09-08 a pedido de Julian): se esta revirtiendo la pausa
+# gradualmente, respetando el limite de 1 isPublished:true por dia calendario (misma regla de
+# "Cadencia de publicacion" de CLAUDE.md -- este backfill cuenta contra ese limite igual que un
+# articulo nuevo). Orden usado: por cluster, en el mismo orden en que aparecen en este YAML,
+# tomando el primer articulo aun oculto de cada cluster antes de pasar al siguiente.
+#   Republicados: 2026-09-08 melena-de-leon-beneficios-ciencia (cluster hongos-adaptogenos).
+#   Aun ocultos de este mismo lote (~30 handles, ver query "published_status:unpublished" en
+#   Shopify para la lista completa y exacta): resto del cluster hongos-adaptogenos (melena-de-
+#   leon-memoria-concentracion, melena-de-leon-capsulas-polvo-masticables, betaglucanos-melena-
+#   de-leon-que-son, hongos-adaptogenos-estres-como-actuan), monk-fruit (monk-fruit-vs-stevia-
+#   diferencias, monk-fruit-diabeticos-indice-glicemico, monk-fruit-gotas-vs-polvo-dosificacion),
+#   productos-naturales-colombia (producto-natural-de-calidad-invima-colombia, suplementos-
+#   naturales-mas-buscados-colombia-2026), maquila-b2b (laboratorios-de-maquila-en-colombia-que-
+#   evaluar, laboratorios-productos-naturales-colombia-confiables, marca-propia-vs-marca-blanca-
+#   diferencias, maquila-para-dropshippers-marca-propia, requisitos-invima-maquila-suplementos,
+#   costos-moq-maquila-suplementos-colombia), linaza-masticables (las 5), yogurt-griego (las 3),
+#   natalia-paris-lifestyle (linea-natalia-paris-vitaliah-productos), magnesio (tipos-de-magnesio-
+#   cual-elegir, magnesio-para-calambres-recuperacion-muscular, masticables-vs-bebida-magnesio-
+#   absorcion, magnesio-y-migrana-evidencia), resveratrol (resveratrol-antienvejecimiento-ciencia,
+#   resveratrol-batido-o-masticables-cual-elegir). NOTA: esta lista NO incluye los borradores
+#   nuevos de creatina/proteina-vegana/vinagre-manzana/clorofila (isPublished:false pero nunca
+#   estuvieron visibles -- no son parte de esta pausa, son un problema de sincronizacion aparte,
+#   ver commit de esta misma fecha para el detalle).
 
 #
 # CLUSTERS LEGACY FORMALIZADOS 2026-09-06 (sin articulo pilar nuevo -- ya tienen pilar
