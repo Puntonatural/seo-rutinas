@@ -64,11 +64,14 @@
 #   y el cluster productos-naturales-colombia quedaron con solo 1 imagen de contexto en vez de las 2
 #   que exige A6 -- no se genero una segunda con Canva todavia. Pendiente: generar/asignar una
 #   segunda imagen de contexto para esos clusters en una pasada aparte.
-#   Aun SIN retrofitear del resto de este mismo lote (~21 handles, ver query
-#   "published_status:unpublished" en Shopify para la lista completa y exacta): maquila-b2b (laboratorios-de-maquila-en-
-#   colombia-que-evaluar, laboratorios-productos-naturales-colombia-confiables, marca-propia-vs-
-#   marca-blanca-diferencias, maquila-para-dropshippers-marca-propia, requisitos-invima-maquila-
-#   suplementos, costos-moq-maquila-suplementos-colombia), linaza-masticables (las 5), yogurt-griego
+#     laboratorios-de-maquila-en-colombia-que-evaluar (pilar, ampliado a 2600 palabras/8 H2 con 2
+#     secciones nuevas -- contrato de maquila y errores comunes -- para volver a cumplir el minimo
+#     de pilar), laboratorios-productos-naturales-colombia-confiables (cluster maquila-b2b, 2/6
+#     retrofiteados de ese cluster).
+#   Aun SIN retrofitear del resto de este mismo lote (~19 handles, ver query
+#   "published_status:unpublished" en Shopify para la lista completa y exacta): maquila-b2b (marca-
+#   propia-vs-marca-blanca-diferencias, maquila-para-dropshippers-marca-propia, requisitos-invima-
+#   maquila-suplementos, costos-moq-maquila-suplementos-colombia -- 4 restantes), linaza-masticables (las 5), yogurt-griego
 #   (las 3), natalia-paris-lifestyle (linea-natalia-paris-vitaliah-productos), magnesio (tipos-de-
 #   magnesio-cual-elegir, magnesio-para-calambres-recuperacion-muscular, masticables-vs-bebida-
 #   magnesio-absorcion, magnesio-y-migrana-evidencia), resveratrol (resveratrol-antienvejecimiento-
