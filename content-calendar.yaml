@@ -40,22 +40,45 @@
 # regla y se corrigieron via articleUpdate (solo el elemento estructural
 # puntual, sin tocar contenido/citas/cifras/Fuentes/disclaimer); el resto ya
 # estaba conforme. Detalle completo en la conversacion de esta fecha.
-# Quedan 3 hallazgos SIN corregir, a decision de Julian (fuera del alcance de
-# esta pasada porque implican contenido nuevo o datos no verificados, no solo
-# reestructurar HTML existente):
-#   1. magnesio-para-dormir-reducir-estres-guia (pilar) y tipos-de-magnesio-
-#      cual-elegir: no tienen seccion "Fuentes" ni el disclaimer INVIMA al
-#      final del body, a diferencia de los otros 4 articulos del cluster.
+# Los 3 hallazgos que habian quedado sin corregir en esta pasada se resolvieron
+# el mismo dia (2026-09-09), a pedido explicito de Julian ("resuelvelos todos
+# no dejes nada pendiente"):
+#   1. magnesio-para-dormir-reducir-estres-guia y tipos-de-magnesio-cual-elegir:
+#      se agrego seccion "Fuentes" (citas reales, reutilizadas de articulos
+#      hermanos del cluster cuando respaldaban la misma afirmacion, o
+#      encontradas por busqueda web -- nunca inventadas) y el disclaimer
+#      INVIMA verbatim al final del body.
 #   2. yogurt-griego-vs-tradicional-diferencias y yogurt-griego-con-colageno-
-#      para-que-sirve: las imagenes de producto no estan envueltas en ningun
-#      enlace (ni el patron viejo <a><img></a> ni la tarjeta A2.4) -- falla
-#      A6/QA punto 8, pero armar la tarjeta requiere verificar el handle real
-#      del producto, que no estaba ya presente en el body.
-#   3. resveratrol-beneficios-evidencia-como-tomarlo (pilar): muy pocas
-#      tildes en el cuerpo (~16 palabras acentuadas en ~3500), mismo defecto
-#      documentado en el Paso 5 punto 20 del skill para su articulo hermano
-#      resveratrol-batido-o-masticables-cual-elegir -- necesita reescritura
-#      ortografica, no un cambio estructural.
+#      para-que-sirve: se identifico el producto real de cada imagen suelta
+#      (yogur-griego-vitaliah-500g, yogurt-griego-vitaliah-250g,
+#      yogurt-griego-con-colageno-540g, verificados con search_products) y se
+#      envolvieron en la tarjeta A2.4.
+#   3. resveratrol-beneficios-evidencia-como-tomarlo: pasada completa de
+#      tildes/acentuacion sobre todo el body, verificada caracter-por-caracter
+#      contra el original (solo cambio de acentos, ninguna palabra/cifra/
+#      enlace/estructura).
+#
+# BUG DE IMAGEN DESTACADA 2026-09-09 (introducido por el backfill de arriba,
+# detectado por Julian al revisar el admin de Shopify): al reenviar el campo
+# `image` "sin cambios" durante las mutaciones del backfill de estructura, en
+# 2 articulos (linaza-beneficios-omega-3-vegetal-guia y masticables-
+# funcionales-que-son-como-elegir) se tomo por error la SEGUNDA imagen de
+# contexto del body en vez de la de cabecera real -- corregido, verificado
+# contra el primer <img> real de cada body.
+# Auditoria de este bug destapo ademas un problema legacy SIN RELACION con el
+# backfill (preexistente): 5 articulos nunca tuvieron imagen de contexto
+# embebida en el body -- su banner/`image` siempre fue una foto de PRODUCTO
+# (linaza-para-adelgazar-evidencia, linaza-fibra-salud-digestiva, linaza-
+# molida-vs-entera-absorcion, yogurt-griego-vs-tradicional-diferencias,
+# yogurt-griego-con-colageno-para-que-sirve), y 1 mas (magnesio-y-migrana-
+# evidencia) tenia la imagen correcta pero ubicada despues del primer H2 en
+# vez de antes. Se corrigieron los 6: se inserto/reubico la imagen de
+# contexto real antes del primer H2 (reutilizando, segun el Paso 3.5, la
+# imagen de cabecera ya usada por el pilar de su mismo cluster para los 5
+# casos de linaza/yogurt-griego) y se actualizo el campo `image` a esa misma
+# URL. El cluster maquila-b2b (sin imagen de contexto embebida por diseno,
+# es B2B sin producto fisico) se audito y se dejo sin tocar -- su `image`
+# actual ya es un banner coherente con el tema, no una foto de producto.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
