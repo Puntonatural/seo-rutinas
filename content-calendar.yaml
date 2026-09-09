@@ -30,43 +30,45 @@
 # reproduciria el mismo problema de velocidad que esto buscaba evitar.
 #
 # BACKFILL EN PROGRESO (iniciado 2026-09-08 a pedido de Julian): se esta revirtiendo la pausa
-# gradualmente, respetando el limite de 1 isPublished:true por dia calendario (misma regla de
-# "Cadencia de publicacion" de CLAUDE.md -- este backfill cuenta contra ese limite igual que un
-# articulo nuevo). Orden usado: por cluster, en el mismo orden en que aparecen en este YAML,
-# tomando el primer articulo aun oculto de cada cluster antes de pasar al siguiente.
+# de visibilidad del 31 de agosto de forma gradual. Orden usado: por cluster, en el mismo orden
+# en que aparecen en este YAML, tomando el primer articulo aun oculto de cada cluster antes de
+# pasar al siguiente.
 #
-# IMPORTANTE (agregado 2026-09-08, mismo dia): Julian pidio ademas que cada articulo se
-# "reescriba con la estructura aprobada" antes de volver a quedar visible -- estos articulos son
-# de antes del 1 de septiembre, cuando varias reglas de este skill (A2.2 acordeon FAQ obligatorio,
-# A2.3 tabla/guia rapida, A2.4 tarjeta de producto, seccion Fuentes separada del cuerpo, disclaimer
-# INVIMA, autor Julian E. Zamora) todavia no existian o no eran obligatorias. El backfill entonces
-# NO es solo un cambio de isPublished -- cada articulo se retrofitea primero (misma investigacion y
-# citas, verificadas contra fuente real, pero estructura puesta al dia) y solo el que va a quedar
-# visible ESE dia se publica; los demas se dejan retrofiteados pero isPublished:false, listos para
-# el siguiente dia. Retrofitear contenido de un articulo oculto no cuenta contra el limite de 1/dia
-# (no genera un evento de publicacion nuevo), asi que se puede adelantar trabajo de varios articulos
-# en un mismo dia mientras solo uno pasa a isPublished:true.
-#   Retrofiteados Y republicados (isPublished:true): 2026-09-08 melena-de-leon-beneficios-ciencia
-#     (cluster hongos-adaptogenos).
-#   Retrofiteados pero AUN isPublished:false (listos para publicar el siguiente dia disponible):
-#     2026-09-08 melena-de-leon-memoria-concentracion (cluster hongos-adaptogenos).
-#   Aun sin retrofitear ni republicar del resto de este mismo lote (~29 handles, ver query
-#   "published_status:unpublished" en Shopify para la lista completa y exacta): resto del cluster
-#   hongos-adaptogenos (melena-de-leon-capsulas-polvo-masticables, betaglucanos-melena-de-leon-que-
-#   son, hongos-adaptogenos-estres-como-actuan), monk-fruit (monk-fruit-vs-stevia-diferencias,
-#   monk-fruit-diabeticos-indice-glicemico, monk-fruit-gotas-vs-polvo-dosificacion),
-#   productos-naturales-colombia (producto-natural-de-calidad-invima-colombia, suplementos-
-#   naturales-mas-buscados-colombia-2026), maquila-b2b (laboratorios-de-maquila-en-colombia-que-
-#   evaluar, laboratorios-productos-naturales-colombia-confiables, marca-propia-vs-marca-blanca-
-#   diferencias, maquila-para-dropshippers-marca-propia, requisitos-invima-maquila-suplementos,
-#   costos-moq-maquila-suplementos-colombia), linaza-masticables (las 5), yogurt-griego (las 3),
-#   natalia-paris-lifestyle (linea-natalia-paris-vitaliah-productos), magnesio (tipos-de-magnesio-
-#   cual-elegir, magnesio-para-calambres-recuperacion-muscular, masticables-vs-bebida-magnesio-
-#   absorcion, magnesio-y-migrana-evidencia), resveratrol (resveratrol-antienvejecimiento-ciencia,
-#   resveratrol-batido-o-masticables-cual-elegir). NOTA: esta lista NO incluye los borradores
-#   nuevos de creatina/proteina-vegana/vinagre-manzana/clorofila (isPublished:false pero nunca
-#   estuvieron visibles -- no son parte de esta pausa, son un problema de sincronizacion aparte,
-#   ver commit de esta misma fecha para el detalle).
+# IMPORTANTE (agregado 2026-09-08): Julian pidio ademas que cada articulo se "reescriba con la
+# estructura aprobada" antes de volver a quedar visible -- estos articulos son de antes del 1 de
+# septiembre, cuando varias reglas de este skill (A2.2 acordeon FAQ obligatorio, A2.3 tabla/guia
+# rapida, A2.4 tarjeta de producto, seccion Fuentes separada del cuerpo con citas verificadas,
+# disclaimer INVIMA, autor Julian E. Zamora, tildes correctas) todavia no existian o no eran
+# obligatorias. El backfill entonces NO es solo un cambio de isPublished -- cada articulo se
+# retrofitea primero (misma investigacion, pero cada cita verificada contra fuente real antes de
+# moverla del cuerpo a Fuentes) y la estructura se pone al dia.
+#
+# ACLARACION 2026-09-09 (Julian, mensaje directo): "No tienes que publicar pero si arreglar todos
+# esos blogs" -- el objetivo inmediato es retrofitear TODOS los articulos ocultos de este lote,
+# no publicarlos. Se sigue respetando el limite de 1 isPublished:true/dia si se decide publicar
+# alguno, pero la prioridad ahora es dejarlos todos con la estructura correcta, isPublished:false,
+# listos para que Julian decida cuando salen a la luz.
+#
+#   Ya en linea (isPublished:true, republicados los dias 2026-09-08/09):
+#     melena-de-leon-beneficios-ciencia, melena-de-leon-memoria-concentracion (cluster hongos-adaptogenos).
+#   Retrofiteados, estructura al dia, pero AUN isPublished:false (a la espera de que Julian decida publicar):
+#     melena-de-leon-capsulas-polvo-masticables, betaglucanos-melena-de-leon-que-son,
+#     hongos-adaptogenos-estres-como-actuan (cluster hongos-adaptogenos -- cluster completo, 5/5 retrofiteados).
+#   Aun SIN retrofitear del resto de este mismo lote (~26 handles, ver query
+#   "published_status:unpublished" en Shopify para la lista completa y exacta): monk-fruit
+#   (monk-fruit-vs-stevia-diferencias, monk-fruit-diabeticos-indice-glicemico, monk-fruit-gotas-vs-
+#   polvo-dosificacion), productos-naturales-colombia (producto-natural-de-calidad-invima-colombia,
+#   suplementos-naturales-mas-buscados-colombia-2026), maquila-b2b (laboratorios-de-maquila-en-
+#   colombia-que-evaluar, laboratorios-productos-naturales-colombia-confiables, marca-propia-vs-
+#   marca-blanca-diferencias, maquila-para-dropshippers-marca-propia, requisitos-invima-maquila-
+#   suplementos, costos-moq-maquila-suplementos-colombia), linaza-masticables (las 5), yogurt-griego
+#   (las 3), natalia-paris-lifestyle (linea-natalia-paris-vitaliah-productos), magnesio (tipos-de-
+#   magnesio-cual-elegir, magnesio-para-calambres-recuperacion-muscular, masticables-vs-bebida-
+#   magnesio-absorcion, magnesio-y-migrana-evidencia), resveratrol (resveratrol-antienvejecimiento-
+#   ciencia, resveratrol-batido-o-masticables-cual-elegir). NOTA: esta lista NO incluye los
+#   borradores nuevos de creatina/proteina-vegana/vinagre-manzana/clorofila (isPublished:false pero
+#   nunca estuvieron visibles -- no son parte de esta pausa, son un problema de sincronizacion
+#   aparte, ver commit del 2026-09-08 para el detalle).
 
 #
 # CLUSTERS LEGACY FORMALIZADOS 2026-09-06 (sin articulo pilar nuevo -- ya tienen pilar
