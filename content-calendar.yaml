@@ -53,11 +53,17 @@
 #     melena-de-leon-beneficios-ciencia, melena-de-leon-memoria-concentracion (cluster hongos-adaptogenos).
 #   Retrofiteados, estructura al dia, pero AUN isPublished:false (a la espera de que Julian decida publicar):
 #     melena-de-leon-capsulas-polvo-masticables, betaglucanos-melena-de-leon-que-son,
-#     hongos-adaptogenos-estres-como-actuan (cluster hongos-adaptogenos -- cluster completo, 5/5 retrofiteados).
-#   Aun SIN retrofitear del resto de este mismo lote (~26 handles, ver query
-#   "published_status:unpublished" en Shopify para la lista completa y exacta): monk-fruit
-#   (monk-fruit-vs-stevia-diferencias, monk-fruit-diabeticos-indice-glicemico, monk-fruit-gotas-vs-
-#   polvo-dosificacion), productos-naturales-colombia (producto-natural-de-calidad-invima-colombia,
+#     hongos-adaptogenos-estres-como-actuan (cluster hongos-adaptogenos -- cluster completo, 5/5 retrofiteados);
+#     monk-fruit-vs-stevia-diferencias, monk-fruit-diabeticos-indice-glicemico,
+#     monk-fruit-gotas-vs-polvo-dosificacion (cluster monk-fruit -- cluster completo, 3/3 retrofiteados;
+#     el pilar monk-fruit-fruto-del-monje-colombia-guia ya estaba visible y no se toco).
+#   OJO IMAGENES: los 3 articulos de monk-fruit retrofiteados quedaron con solo 1 imagen de contexto
+#   (la unica que existia en el cluster) en vez de las 2 que exige A6 -- no se genero una segunda con
+#   Canva todavia para no frenar el resto del retrofit de texto/estructura. Pendiente: generar/asignar
+#   una segunda imagen de contexto para el cluster monk-fruit en una pasada aparte.
+#   Aun SIN retrofitear del resto de este mismo lote (~23 handles, ver query
+#   "published_status:unpublished" en Shopify para la lista completa y exacta):
+#   productos-naturales-colombia (producto-natural-de-calidad-invima-colombia,
 #   suplementos-naturales-mas-buscados-colombia-2026), maquila-b2b (laboratorios-de-maquila-en-
 #   colombia-que-evaluar, laboratorios-productos-naturales-colombia-confiables, marca-propia-vs-
 #   marca-blanca-diferencias, maquila-para-dropshippers-marca-propia, requisitos-invima-maquila-
