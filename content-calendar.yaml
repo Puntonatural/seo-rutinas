@@ -80,6 +80,63 @@
 # es B2B sin producto fisico) se audito y se dejo sin tocar -- su `image`
 # actual ya es un banner coherente con el tema, no una foto de producto.
 #
+# SEGUNDA PASADA DEL BUG DE IMAGEN 2026-09-09 -- Julian volvio a revisar el admin
+# de Shopify tras la correccion de arriba y encontro 3 articulos mas con foto de
+# producto como banner que la primera auditoria NO reviso, porque esa auditoria
+# solo cubrio los articulos que el backfill de estructura habia MODIFICADO (el
+# criterio de seleccion fue incorrecto: el bug de `image` puede afectar tambien
+# a articulos que el backfill de estructura dejo intactos por ya ser conformes).
+# Los 3 eran del cluster monk-fruit (monk-fruit-vs-stevia-diferencias,
+# monk-fruit-diabeticos-indice-glicemico, monk-fruit-gotas-vs-polvo-dosificacion):
+# a diferencia del problema legacy de arriba, estos 3 SI tenian la imagen de
+# contexto correcta embebida en el body (antes del primer H2) -- el `image`
+# destacado simplemente apuntaba a una foto de producto en vez de esa misma
+# imagen ya presente en el body. Corregido en los 3, y se re-verifico
+# individualmente el campo `image` de los 39 articulos trackeados en este
+# calendario (incluidos resveratrol y creatina) contra su primera imagen real
+# del body -- no quedo ningun otro caso.
+#
+# AUTOR "EQUIPO VITALIAH" 2026-09-09 -- en la misma revision, Julian tambien
+# senalo que varios articulos mostraban "Equipo Vitaliah" como autor en el
+# admin de Shopify, violando A1.1 (el autor SIEMPRE debe ser "Julian E.
+# Zamora"). Se encontraron 18 articulos legacy con `author.name = "Equipo
+# Vitaliah"` (de antes de que existiera esta regla): los pilares de hongos-
+# adaptogenos, monk-fruit, productos-naturales-colombia y magnesio; tipos-de-
+# magnesio-cual-elegir; linea-natalia-paris-vitaliah-productos; los 4 de
+# maquila-b2b ya publicados en esta pasada (marca-propia-vs-marca-blanca,
+# maquila-para-dropshippers, requisitos-invima-maquila, costos-moq-maquila); y
+# los 5 de linaza-masticables y 3 de yogurt-griego. Se corrigieron los 18
+# (`author.name` -> "Julian E. Zamora"), y ademas se elimino/corrigio una
+# firma o mencion textual a "Equipo Vitaliah" dentro del body en 8 de ellos
+# (frases tipo "Articulo elaborado/escrito por Equipo Vitaliah" al final, o
+# una mencion inline en el primer parrafo del pilar de yogurt-griego) -- el
+# resto solo tenia el dato incorrecto en el campo `author` de metadata, sin
+# texto visible en el cuerpo.
+#
+# BARRIDO FINAL DE FUENTES/DISCLAIMER 2026-09-09 -- al corregir el autor del
+# pilar de yogurt-griego se noto que tampoco tenia seccion "Fuentes" ni el
+# disclaimer INVIMA (regla A7/A9.1). Esto disparo una auditoria completa de
+# los 28 articulos de los clusters trackeados que no se habian revisado para
+# esto todavia (ya se habian corregido antes los 2 de magnesio, ver arriba).
+# Resultado: 12 de 28 no tenian Fuentes+disclaimer y se les agrego (citas
+# reales, reutilizando enlaces ya presentes en el propio cuerpo o en articulos
+# hermanos del cluster cuando respaldaban la misma afirmacion, o encontradas
+# por busqueda web -- nunca inventadas): hongos-adaptogenos-funcionales-
+# colombia-guia, monk-fruit-fruto-del-monje-colombia-guia, linea-natalia-
+# paris-vitaliah-productos, productos-naturales-en-colombia-guia, yogurt-
+# griego-en-polvo-beneficios-guia, yogurt-griego-vs-tradicional-diferencias,
+# yogurt-griego-con-colageno-para-que-sirve, marca-propia-vs-marca-blanca-
+# diferencias, maquila-para-dropshippers-marca-propia, requisitos-invima-
+# maquila-suplementos, costos-moq-maquila-suplementos-colombia, y los 5 de
+# linaza-masticables (linaza-beneficios-omega-3-vegetal-guia, linaza-para-
+# adelgazar-evidencia, linaza-fibra-salud-digestiva, linaza-molida-vs-entera-
+# absorcion, masticables-funcionales-que-son-como-elegir). Los 16 restantes ya
+# cumplian. Nota de honestidad reportada por los agentes: el fetch directo a
+# dominios PubMed/NCBI/FAO/.gov.co estuvo bloqueado por la politica de red de
+# la sesion, asi que varias citas se verificaron por busqueda web (snippets
+# con URL/titulo/autor reales) en vez de lectura directa de la pagina --
+# recomendado una verificacion manual puntual si se quiere el maximo rigor.
+#
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
 # entre 2026-08-30 y 2026-08-31 (una explosion de publicaciones -- la mayoria de una carga masiva
