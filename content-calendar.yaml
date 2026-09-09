@@ -28,6 +28,35 @@
 # proceso publicando articulos sin pasar por este calendario, para evitar que se
 # repita con otros clusters.
 #
+# BACKFILL DE ESTRUCTURA 2026-09-09 -- se audito cada articulo ya publicado de los
+# clusters trackeados en este calendario (hongos-adaptogenos, monk-fruit,
+# natalia-paris-lifestyle, productos-naturales-colombia, yogurt-griego,
+# maquila-b2b, linaza-masticables, magnesio, resveratrol -- creatina ya estaba
+# 100% conforme, ver auditoria de arriba) contra las 3 reglas obligatorias
+# vigentes que se agregaron DESPUES de que varios de estos articulos ya
+# estuvieran publicados: acordeon FAQ <details>/<summary> (A2.2), tarjeta de
+# producto con estilos inline (A2.4), e indice con anclas para 5+ H2 / 4+ en
+# cluster corto (A2). De 39 articulos revisados, 20 no cumplian al menos una
+# regla y se corrigieron via articleUpdate (solo el elemento estructural
+# puntual, sin tocar contenido/citas/cifras/Fuentes/disclaimer); el resto ya
+# estaba conforme. Detalle completo en la conversacion de esta fecha.
+# Quedan 3 hallazgos SIN corregir, a decision de Julian (fuera del alcance de
+# esta pasada porque implican contenido nuevo o datos no verificados, no solo
+# reestructurar HTML existente):
+#   1. magnesio-para-dormir-reducir-estres-guia (pilar) y tipos-de-magnesio-
+#      cual-elegir: no tienen seccion "Fuentes" ni el disclaimer INVIMA al
+#      final del body, a diferencia de los otros 4 articulos del cluster.
+#   2. yogurt-griego-vs-tradicional-diferencias y yogurt-griego-con-colageno-
+#      para-que-sirve: las imagenes de producto no estan envueltas en ningun
+#      enlace (ni el patron viejo <a><img></a> ni la tarjeta A2.4) -- falla
+#      A6/QA punto 8, pero armar la tarjeta requiere verificar el handle real
+#      del producto, que no estaba ya presente en el body.
+#   3. resveratrol-beneficios-evidencia-como-tomarlo (pilar): muy pocas
+#      tildes en el cuerpo (~16 palabras acentuadas en ~3500), mismo defecto
+#      documentado en el Paso 5 punto 20 del skill para su articulo hermano
+#      resveratrol-batido-o-masticables-cual-elegir -- necesita reescritura
+#      ortografica, no un cambio estructural.
+#
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
 # entre 2026-08-30 y 2026-08-31 (una explosion de publicaciones -- la mayoria de una carga masiva
