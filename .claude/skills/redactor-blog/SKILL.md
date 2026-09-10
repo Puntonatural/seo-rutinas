@@ -495,8 +495,9 @@ contar como ausencia de la keyword.
   Cochrane de 2020 encontro que..." o "segun el NIH..."), sin envolverla
   en <a href="...">.
 - Al final del bodyHtml, despues de la ultima seccion (incluida la de
-  Preguntas frecuentes si existe, y antes del disclaimer INVIMA de
-  A9.1), agrega una seccion "Fuentes" con un <h2 id="fuentes">Fuentes</h2>
+  Preguntas frecuentes si existe -- es la ultima seccion del bodyHtml, ver
+  A9.1 sobre por que ya no lleva un disclaimer despues), agrega una
+  seccion "Fuentes" con un <h2 id="fuentes">Fuentes</h2>
   seguido de una lista <ul> con un <li> por fuente citada en el
   articulo. Minimo 3 fuentes reales por articulo (regla de la Guia
   Maestra). Cada <li> SI lleva el hipervinculo real a la fuente, con
@@ -525,8 +526,9 @@ contar como ausencia de la keyword.
   tag si el articulo tiene relevancia geografica clara (regla de la
   Guia Maestra: keywords secundarias + Colombia + Vitaliah).
 - bodyHtml: HTML valido para el editor de Shopify, sin ninguna etiqueta
-  H1. Debe terminar con la seccion "Fuentes" (A7) seguida del bloque de
-  disclaimer INVIMA (A9.1) -- en ese orden, siempre.
+  H1. Debe terminar con la seccion "Fuentes" (A7) -- desde el 2026-09-10 ya
+  NO lleva el parrafo de disclaimer INVIMA despues (ver A9.1, el tema de
+  Shopify lo muestra solo).
 - faqJsonLd: si hay seccion "Preguntas frecuentes", el bloque JSON-LD
   FAQPage completo, SEPARADO del cuerpo (nunca embebido en el bodyHtml
   -- Shopify elimina los scripts al re-guardar el articulo desde el
@@ -551,17 +553,30 @@ Formato de salida esperado:
   un articulo ya existente del blog. Si hay solapamiento real, ampliar
   el articulo existente en vez de crear uno nuevo.
 
---- A9.1 Disclaimer regulatorio y credenciales de marca (OBLIGATORIO) ---
+--- A9.1 Disclaimer regulatorio y credenciales de marca ---
 
-Al final del bodyHtml, despues de la seccion "Fuentes" (A7), agrega
-SIEMPRE este bloque, textual, sin parafrasear:
+CAMBIO 2026-09-10 (lee esto antes de agregar un disclaimer al bodyHtml):
+Julian detecto el disclaimer DUPLICADO en la pagina publicada de varios
+articulos -- el parrafo que este Paso 4 insertaba al final del bodyHtml,
+seguido de una caja "Revisado y validado por [autor]" con su PROPIO texto
+de disclaimer generico, que el tema de Shopify agrega automaticamente
+para todo articulo (a partir del campo "author"). Se confirmo releyendo
+el body real de un articulo afectado (magnesio-para-dormir-reducir-
+estres-guia) que el texto "Revisado y validado por" NO esta en el body
+-- es una funcionalidad del tema/app, fuera del alcance de este pipeline
+(no hay forma de editarla via la API de articulos que usa este skill).
 
-<p><em>Este articulo tiene proposito informativo y educativo. El
-contenido no constituye asesoria medica ni nutricional personalizada.
-Los suplementos dietarios son alimentos complementarios y no sustituyen
-una alimentacion balanceada ni el tratamiento medico prescrito por un
-profesional de salud. Consulta a tu medico antes de iniciar cualquier
-suplementacion. Vitaliah INVIMA RSA-0010130-2020 · RSA-0021928-2022.</em></p>
+Por eso, DESDE ESTA FECHA, el Paso 4 (redactar) YA NO agrega ningun
+parrafo de disclaimer al final del bodyHtml -- el bodyHtml termina en la
+seccion "Fuentes" (A7). Agregarlo duplicaria el que el tema ya muestra
+solo. El bloque de credenciales de marca de abajo se mantiene igual,
+como referencia para otros usos (ej. los registros INVIMA que cita la
+tarjeta CTA de maquila de A2.1), pero el parrafo textual de disclaimer ya
+no es un paso del Paso 4 ni un punto del QA del Paso 5 (ver esos pasos).
+Si en algun momento notas que la caja "Revisado y validado por" desaparecio
+de un articulo publicado (o nunca aparecio -- revisalo en la pagina
+publica, no alcanza con mirar el bodyHtml crudo), avisale a Julian antes
+de asumir que sigue ahi: puede que haya que reactivar este parrafo.
 
 Datos de marca disponibles si el formato de la seccion Vitaliah/CTA los
 pide (no inventar otros, usar siempre estos exactos):
@@ -803,8 +818,9 @@ opcionales ni "si hay tiempo".
     minimo 3 fuentes distintas.
 13. El campo "author" de la mutacion es exactamente {"name": "Julian E.
     Zamora"} -- nunca "Equipo Vitaliah" ni otra variante (A1.1).
-14. El bloque de disclaimer INVIMA de A9.1 esta presente, textual, al
-    final del bodyHtml, despues de la seccion "Fuentes".
+14. El bodyHtml termina en la seccion "Fuentes" (A7), sin ningun parrafo
+    de disclaimer despues -- desde el 2026-09-10 ya no se agrega (A9.1),
+    el tema de Shopify muestra el suyo automaticamente.
 15. El primer parrafo no empieza con ninguna de las frases prohibidas
     de A1.
 16. Si el articulo tiene 5+ H2 (pilar siempre, cluster casi siempre):
@@ -983,8 +999,9 @@ esto:
    - author.name es exactamente "Julian E. Zamora" (A1.1).
    - El body contiene el indice con anclas justo despues de la intro,
      si el articulo tiene 5+ H2 (A2, QA punto 16).
-   - El body contiene la seccion "Fuentes" y el disclaimer INVIMA al
-     final (A7, A9.1).
+   - El body termina en la seccion "Fuentes" (A7), sin ningun parrafo de
+     disclaimer despues (A9.1 -- el tema lo muestra solo, ver el cambio
+     2026-09-10 en esa seccion).
    - Si hay seccion "Preguntas frecuentes": usa el acordeon <details>/
      <summary> de A2.2 (obligatorio), no H3 planos.
    - Los <img> de producto estan envueltos en <a href="/products/...">
@@ -1110,7 +1127,9 @@ REGLAS DE ORO (NO NEGOCIABLES)
   de contexto/cabecera con Canva (Paso 3.5, regla A6) -- no es opcional,
   no la reemplaces silenciosamente por fotos de producto.
 - Nunca publiques un articulo con autor distinto a "Julian E. Zamora"
-  (A1.1) ni sin el disclaimer INVIMA textual al final (A9.1).
+  (A1.1). Desde el 2026-09-10 el bodyHtml YA NO lleva un parrafo de
+  disclaimer al final (A9.1) -- el tema de Shopify muestra el suyo solo;
+  agregar uno propio lo duplicaria.
 - Nunca adoptes el sistema visual de cajas con gradiente de la Guia
   Maestra (badges, cajas de color, boton de cierre) sin confirmarlo
   primero con Julian -- ver "PENDIENTE DE CONFIRMAR" arriba.
