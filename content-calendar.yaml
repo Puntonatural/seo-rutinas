@@ -137,6 +137,46 @@
 # con URL/titulo/autor reales) en vez de lectura directa de la pagina --
 # recomendado una verificacion manual puntual si se quiere el maximo rigor.
 #
+# IMAGENES DE CONTEXTO GENERADAS PARA maquila-b2b / productos-naturales-colombia
+# 2026-09-10 -- Julian revisó visualmente el admin de Shopify (no solo el nombre
+# de archivo/alt text, que fue el error de la auditoria anterior) y confirmo que
+# 8 articulos mas seguian con foto de producto/collage-con-empaque como banner:
+# los 6 de maquila-b2b (laboratorios-de-maquila-en-colombia-que-evaluar,
+# laboratorios-productos-naturales-colombia-confiables, marca-propia-vs-marca-
+# blanca-diferencias, maquila-para-dropshippers-marca-propia, requisitos-invima-
+# maquila-suplementos, costos-moq-maquila-suplementos-colombia) y 2 de
+# productos-naturales-colombia (suplementos-naturales-mas-buscados-colombia-2026,
+# producto-natural-de-calidad-invima-colombia). A diferencia del bug de arriba
+# (imagen equivocada YA EXISTENTE en el body), estos nunca tuvieron una imagen de
+# contexto real -- habia que generarla en Canva siguiendo imagenes-canva.md.
+# Resultado (5 de 8 resueltos):
+#   - requisitos-invima-maquila-suplementos: resuelto (sello de aprobacion +
+#     documento, ilustracion watercolor).
+#   - costos-moq-maquila-suplementos-colombia: resuelto (cajas/pallets
+#     genericos, fotografia editorial; sin ninguna cifra visible).
+#   - laboratorios-productos-naturales-colombia-confiables: resuelto SIN Canva
+#     -- el body YA tenia 2 imagenes de contexto reales y correctas (alianza-
+#     empresarial y checklist), solo habia que corregir el campo `image` para
+#     que apuntara a la primera (mismo tipo de descuido que el bug de arriba).
+#   - marca-propia-vs-marca-blanca-diferencias: resuelto (siluetas abstractas
+#     de envase generico, cuidando explicitamente que no saliera un mockup
+#     fotorrealista de packaging, que era el riesgo real de este tema).
+#   - maquila-para-dropshippers-marca-propia: resuelto (caja de envio generica
+#     + icono de carrito).
+#   - laboratorios-de-maquila-en-colombia-que-evaluar (pilar): SIN RESOLVER --
+#     su imagen actual ("Collage de iconos de laboratorio de maquila") en
+#     realidad incluye un doypack sellado (foto de empaque), viola la regla de
+#     "cero foto de producto" -- bloqueado por limite de cuota de la cuenta de
+#     Canva conectada (multiples reintentos espaciados, sigue rechazando
+#     generate-design con "User has reached their quota limit").
+#   - suplementos-naturales-mas-buscados-colombia-2026: SIN RESOLVER, mismo
+#     bloqueo de cuota de Canva (11 reintentos en una ventana de varios
+#     minutos, nunca se libero).
+#   - producto-natural-de-calidad-invima-colombia: SIN RESOLVER, mismo bloqueo.
+# Los prompts para estos 3 ya estan redactados (ver la conversacion de esta
+# fecha) -- retomar desde el paso generate-design en cuanto la cuota de Canva
+# se libere, sin necesidad de rehacer nada.
+#
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
 # entre 2026-08-30 y 2026-08-31 (una explosion de publicaciones -- la mayoria de una carga masiva
