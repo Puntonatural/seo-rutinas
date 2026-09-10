@@ -5,11 +5,32 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
-#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
-#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#   Ultima actualizacion: 2026-09-10 -- 62 en "idea" (conteo real via script, no a ojo):
+#     clorofila (8), proteina-vegana (5), vinagre-manzana (5), maquila-b2b (4),
+#     creatina (3), y 41 clusters mas con 1 cada uno (los 37 agregados el
+#     2026-09-06 desde oportunidades-20-clusters-2026-09-06.md + parte-2, mas
+#     maca/calcio/moringa/niacina/potasio de antes).
+#   NOTA: la entrada anterior de este comentario (2026-09-01, "27 en idea... +1
+#   qa_fallido: resveratrol-vs-otros-antioxidantes-comparativa") ya estaba
+#   desactualizada -- ese articulo en realidad paso QA y se publico el
+#   2026-09-06, pero su 'estado' en el YAML nunca se corrigio hasta hoy. Ver
+#   "HALLAZGO 2026-09-10" abajo.
+#
+# HALLAZGO 2026-09-10 -- corrida automatica del agente redactor: la primera entrada
+# en estado "idea" (cluster creatina, pilar "Creatina: Para Que Sirve...") resulto
+# tener un articulo YA PUBLICADO en Shopify desde 2026-09-04 con ese handle exacto
+# -- el Paso 7 (actualizar el calendario tras publicar) no se habia corrido. Al
+# revisar el resto del cluster se encontro el mismo problema en las otras 4
+# entradas (2 publicadas sin registrar, 2 en borrador sin publicar) y en la entrada
+# de resveratrol-vs-otros-antioxidantes-comparativa (publicada el 2026-09-06, aun
+# marcada como pendiente). Esta corrida corrigio en el YAML las 3 que pudo verificar
+# como publicadas (estado -> publicado_oculto con handle_final/article_gid/fecha
+# reales) y dejo una 'nota' de advertencia en las 2 restantes (borradores sin
+# publicar en Shopify, no verificados contra QA) para que no se redacten
+# duplicados. NO se publico ningun articulo nuevo en esta corrida. Recomendado:
+# una auditoria completa del resto de entradas "idea" contra Shopify antes de
+# confiar en que reflejan la realidad -- este hallazgo sugiere que el problema
+# puede no ser exclusivo de estos dos clusters.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -635,7 +656,7 @@ articulos:
 - titulo: 'Resveratrol vs. Otros Antioxidantes: Comparativa'
   cluster: resveratrol
   rol: cluster
-  estado: qa_aprobado_pendiente_publicacion
+  estado: publicado_oculto
   palabra_clave: resveratrol vs antioxidantes
   keywords_secundarias:
   - mejores antioxidantes naturales
@@ -646,7 +667,7 @@ articulos:
   handle_propuesto: resveratrol-vs-otros-antioxidantes-comparativa
   handle_final: resveratrol-vs-otros-antioxidantes-comparativa
   article_gid: gid://shopify/Article/614707888444
-  fecha_publicacion_oculta: null
+  fecha_publicacion_oculta: '2026-09-06'
   faq_jsonld_pendiente_de_pegar: drafts/resveratrol-vs-otros-antioxidantes-comparativa.faq.jsonld.html
   nota: >-
     Reescrito por completo el 2026-09-01 siguiendo el skill redactor-blog vigente
@@ -657,17 +678,19 @@ articulos:
     los otros 4 articulos del cluster resveratrol, que ya usaban ese formato; el
     primer borrador uso H3 planos, valido segun la letra de A2.2 pero inconsistente
     con sus hermanos, corregido tras revision del usuario). QA de 20 puntos
-    completo, pasa todos. NO se publico (isPublished
-    sigue false) porque el limite de 1 articulo/dia ya se habia alcanzado hoy
-    (6 articulos con publishedAt entre 2026-08-31T17:05 y 2026-08-31T20:44,
-    dentro de las ultimas 24h desde 2026-09-01T14:48). Queda listo para
-    publicarse (isPublished:true) el proximo dia disponible sin ningun trabajo
-    adicional -- solo falta correr articleUpdate con isPublished:true cuando
-    corresponda y actualizar este estado a publicado_oculto.
+    completo, pasa todos. NO se publico el 2026-09-01 (isPublished seguia false)
+    porque el limite de 1 articulo/dia ya se habia alcanzado ese dia. CORRECCION
+    RETROACTIVA 2026-09-10: verificado en vivo que el articulo SI se publico
+    despues (isPublished:true desde 2026-09-06T15:06:31Z), pero esta entrada y
+    el comentario INVENTARIO al inicio del archivo (que aun lo listaba como
+    "qa_fallido") nunca se actualizaron -- Paso 7 no se completo en su momento.
+    Recordatorio pendiente: el faqJsonLd de este articulo (ver
+    faq_jsonld_pendiente_de_pegar arriba) puede seguir sin pegarse manualmente
+    en el tema de Shopify; no se verifico en esta corrida.
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -676,12 +699,25 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  fecha_publicacion_oculta: '2026-09-04'
+  nota: >-
+    Correccion retroactiva 2026-09-10: esta entrada seguia marcada 'idea' pero
+    el articulo ya existia publicado en Shopify (isPublished:true desde
+    2026-09-04T11:15:52Z, handle/autor/enlaces/disclaimer verificados en vivo
+    y consistentes con esta entrada) -- el Paso 7 (actualizar el calendario)
+    nunca se corrio despues de publicarlo. Detectado por la corrida del agente
+    redactor de hoy al intentar tomar esta entrada como la siguiente "idea":
+    el chequeo de canibalizacion (Paso 2) encontro que el articulo ya existente
+    con ese titulo/handle exacto ES este mismo articulo planeado, no un
+    solapamiento distinto. No se redacto nada nuevo. Ver tambien el mismo
+    problema en las otras 4 entradas del cluster creatina (dos publicadas,
+    dos en borrador sin publicar) -- pendiente de revision completa por Julian.
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para mujeres
   keywords_secundarias:
   - creatina engorda mujeres
@@ -690,8 +726,14 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-para-mujeres-mitos-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-mujeres-mitos-evidencia
+  article_gid: gid://shopify/Article/614730498364
+  fecha_publicacion_oculta: '2026-09-05'
+  nota: >-
+    Correccion retroactiva 2026-09-10, mismo problema que el pilar de este
+    cluster (ver su nota): el articulo ya estaba publicado en Shopify desde
+    2026-09-05T11:24:07Z pero esta entrada seguia marcada 'idea'. Verificado
+    en vivo (isPublished:true, handle coincide). No se redacto nada nuevo.
 - titulo: 'Creatina Monohidratada: Dosis, Horarios y Carga'
   cluster: creatina
   rol: cluster
@@ -699,6 +741,13 @@ articulos:
   palabra_clave: como tomar creatina
   keywords_secundarias:
   - dosis de creatina monohidratada
+  nota: >-
+    ADVERTENCIA 2026-09-10: ya existe un articulo con este handle exacto en
+    Shopify (gid://shopify/Article/614736920892, isPublished:false -- borrador
+    sin publicar, no verificado contra el checklist de QA de 20 puntos). Antes
+    de que el agente redactor tome esta entrada, alguien debe revisar ese
+    borrador en Shopify y decidir si se completa/publica desde ahi o se
+    descarta -- no redactar uno nuevo sin revisar primero, se duplicaria.
   enlaces_internos_obligatorios:
   - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (pilar, este calendario)'
   - Batido Crea 10 (producto)
@@ -713,6 +762,13 @@ articulos:
   palabra_clave: creatina rendimiento fisico
   keywords_secundarias:
   - creatina fuerza muscular
+  nota: >-
+    ADVERTENCIA 2026-09-10: ya existe un articulo con este handle exacto en
+    Shopify (gid://shopify/Article/614737117500, isPublished:false -- borrador
+    sin publicar, no verificado contra el checklist de QA de 20 puntos). Antes
+    de que el agente redactor tome esta entrada, alguien debe revisar ese
+    borrador en Shopify y decidir si se completa/publica desde ahi o se
+    descarta -- no redactar uno nuevo sin revisar primero, se duplicaria.
   enlaces_internos_obligatorios:
   - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (pilar, este calendario)'
   - Batido Crea 10 (producto)
@@ -727,6 +783,13 @@ articulos:
   palabra_clave: mitos de la creatina
   keywords_secundarias:
   - creatina es mala para los rinones
+  nota: >-
+    ADVERTENCIA 2026-09-10: ya existe un articulo con este handle exacto en
+    Shopify (gid://shopify/Article/614737707324, isPublished:false -- borrador
+    sin publicar, no verificado contra el checklist de QA de 20 puntos). Antes
+    de que el agente redactor tome esta entrada, alguien debe revisar ese
+    borrador en Shopify y decidir si se completa/publica desde ahi o se
+    descarta -- no redactar uno nuevo sin revisar primero, se duplicaria.
   enlaces_internos_obligatorios:
   - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (pilar, este calendario)'
   - Batido Crea 10 (producto)
