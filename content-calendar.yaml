@@ -248,7 +248,7 @@ articulos:
 - titulo: Como Verificar el Registro INVIMA de un Producto Natural
   cluster: productos-naturales-colombia
   rol: cluster
-  estado: publicado
+  estado: publicado_oculto
   palabra_clave: productos naturales de calidad Colombia
   keywords_secundarias:
   - invima productos naturales
@@ -260,10 +260,25 @@ articulos:
   handle_propuesto: producto-natural-de-calidad-invima-colombia
   handle_final: producto-natural-de-calidad-invima-colombia
   article_gid: gid://shopify/Article/614688751932
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: >-
+    Republicado 2026-09-11 a pedido explicito de Julian ("faltan por arreglar
+    estos dos blogs", senalando captura del admin de Shopify con ambos en
+    estado Oculto). Era uno de los 36 articulos pasados a isPublished:false
+    en la PAUSA DE VISIBILIDAD del 2026-08-31 (ver comentario al inicio del
+    archivo); el 'estado' de esta entrada seguia diciendo 'publicado' aunque
+    en Shopify estaba isPublished:false -- mismo patron de desincronizacion
+    que el hallazgo del cluster creatina del 2026-09-10, esta vez del lado
+    de "estado dice mas de lo que hay" en vez de "menos". Se republico
+    (isPublished:true, articleUpdate) sin tocar el body -- el contenido ya
+    existia completo y no se le hizo QA de 20 puntos nuevo, solo se
+    restauro visibilidad. Shopify le asigno un publishedAt nuevo
+    (2026-09-11T01:24:01Z) al pasar de false a true; no retomo la fecha de
+    publicacion original de antes de la pausa.
 - titulo: 'Suplementos Naturales en Colombia: Tendencias 2026'
   cluster: productos-naturales-colombia
   rol: cluster
-  estado: publicado
+  estado: publicado_oculto
   palabra_clave: suplementos naturales Colombia
   keywords_secundarias:
   - suplementos naturales mas vendidos Colombia
@@ -274,6 +289,11 @@ articulos:
   handle_propuesto: suplementos-naturales-mas-buscados-colombia-2026
   handle_final: suplementos-naturales-mas-buscados-colombia-2026
   article_gid: gid://shopify/Article/614688784700
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: >-
+    Republicado 2026-09-11, mismo caso que su hermano "Como Verificar el
+    Registro INVIMA de un Producto Natural" (ver su nota) -- ver esa nota
+    para el detalle completo. isPublished:true desde 2026-09-11T01:24:06Z.
 - titulo: 'Laboratorios de Maquila en Colombia: Que Evaluar'
   cluster: maquila-b2b
   rol: pilar
