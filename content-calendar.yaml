@@ -5,11 +5,18 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-10 -- 62 en "idea" (conteo real via script, no a ojo):
+#   Ultima actualizacion: 2026-09-11 -- 61 en "idea" (conteo real via script, no a ojo):
 #     clorofila (8), proteina-vegana (5), vinagre-manzana (5), maquila-b2b (4),
-#     creatina (3), y 41 clusters mas con 1 cada uno (los 37 agregados el
+#     creatina (2), y 41 clusters mas con 1 cada uno (los 37 agregados el
 #     2026-09-06 desde oportunidades-20-clusters-2026-09-06.md + parte-2, mas
 #     maca/calcio/moringa/niacina/potasio de antes).
+#   2026-09-11: se publico (isPublished:true, oculto) "Creatina Monohidratada:
+#   Dosis, Horarios y Carga" -- el borrador que ya existia en Shopify desde antes
+#   del hallazgo del 2026-09-10, revisado contra el QA de 20 puntos completo
+#   antes de publicar (ver su campo 'nota'). Quedan 2 borradores sin publicar en
+#   el cluster creatina (Creatina y Rendimiento Fisico, Mitos sobre la Creatina)
+#   con advertencia en su 'nota' -- pendientes de la misma revision antes de
+#   tomarlos.
 #   NOTA: la entrada anterior de este comentario (2026-09-01, "27 en idea... +1
 #   qa_fallido: resveratrol-vs-otros-antioxidantes-comparativa") ya estaba
 #   desactualizada -- ese articulo en realidad paso QA y se publico el
@@ -737,24 +744,45 @@ articulos:
 - titulo: 'Creatina Monohidratada: Dosis, Horarios y Carga'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: como tomar creatina
   keywords_secundarias:
   - dosis de creatina monohidratada
-  nota: >-
-    ADVERTENCIA 2026-09-10: ya existe un articulo con este handle exacto en
-    Shopify (gid://shopify/Article/614736920892, isPublished:false -- borrador
-    sin publicar, no verificado contra el checklist de QA de 20 puntos). Antes
-    de que el agente redactor tome esta entrada, alguien debe revisar ese
-    borrador en Shopify y decidir si se completa/publica desde ahi o se
-    descarta -- no redactar uno nuevo sin revisar primero, se duplicaria.
   enlaces_internos_obligatorios:
   - 'Creatina: Para Que Sirve, Beneficios y Como Tomarla (pilar, este calendario)'
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-monohidratada-dosis-horarios-carga
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-monohidratada-dosis-horarios-carga
+  article_gid: gid://shopify/Article/614736920892
+  fecha_publicacion_oculta: '2026-09-11'
+  faq_jsonld_pendiente_de_pegar: drafts/creatina-monohidratada-dosis-horarios-carga.faq.jsonld.html
+  nota: >-
+    2026-09-11: el borrador que ya existia en Shopify (marcado con ADVERTENCIA
+    el 2026-09-10 tras el hallazgo del desincronizado del cluster creatina) se
+    revisó contra el checklist de QA de 20 puntos completo antes de publicar:
+    1973 palabras (min. 1400 cluster), 9 H2 de contenido + Fuentes, indice con
+    anclas correcto, keyword "como tomar creatina" en primera frase y en un H2,
+    3 enlaces internos reales (pilar, hub, producto), 4 imagenes con alt (2
+    contexto + 2 producto en tarjeta A2.4) mas una infografia adicional, tabla
+    comparativa + guia rapida + infografia (los 3 elementos de A2.3), FAQ en
+    acordeon <details>/<summary> con 5 preguntas, 4 fuentes reales solo en la
+    seccion Fuentes (ningun enlace externo inline), disclaimer INVIMA textual,
+    autor Julian E. Zamora, tags correctos, tildes presentes en todo el texto.
+    Unico ajuste hecho en esta corrida: el campo "image" (banner) no coincidia
+    exactamente con la URL de la imagen de cabecera del body (Shopify re-sube
+    la imagen con un hash de archivo nuevo cada vez que se setea el campo
+    "image" por URL, incluso pasando la misma URL de origen -- no es un error,
+    es el comportamiento de la mutacion); se re-seteo con la URL/alt de la
+    imagen de cabecera real del body para máxima consistencia visual. Publicado
+    (isPublished:true) y verificado post-publicacion (Paso 6.5) contra el
+    articulo real ya en Shopify, no solo contra el borrador. Ningun articulo
+    mas se publico hoy (limite de 1/dia respetado; verificado que no habia
+    ninguno con publishedAt en las ultimas 24h antes de publicar este). El
+    faqJsonLd no estaba guardado en drafts/ de este repo -- se reconstruyo a
+    partir de las 5 preguntas/respuestas reales del <details> del body y se
+    dejo en la ruta de faq_jsonld_pendiente_de_pegar arriba para pegarlo
+    manualmente en el tema de Shopify.
 - titulo: 'Creatina y Rendimiento Fisico: Que Dice la Evidencia'
   cluster: creatina
   rol: cluster
