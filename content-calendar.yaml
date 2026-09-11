@@ -269,12 +269,27 @@ articulos:
     archivo); el 'estado' de esta entrada seguia diciendo 'publicado' aunque
     en Shopify estaba isPublished:false -- mismo patron de desincronizacion
     que el hallazgo del cluster creatina del 2026-09-10, esta vez del lado
-    de "estado dice mas de lo que hay" en vez de "menos". Se republico
-    (isPublished:true, articleUpdate) sin tocar el body -- el contenido ya
-    existia completo y no se le hizo QA de 20 puntos nuevo, solo se
-    restauro visibilidad. Shopify le asigno un publishedAt nuevo
-    (2026-09-11T01:24:01Z) al pasar de false a true; no retomo la fecha de
-    publicacion original de antes de la pausa.
+    de "estado dice mas de lo que hay" en vez de "menos". Primer republicado
+    (isPublished:true) sin QA nuevo -- Julian senalo despues que no cumplia
+    la estructura. CORRECCION 2026-09-11: revisado contra la Parte A completa
+    y se encontraron violaciones reales, no solo cosmeticas -- el articulo es
+    de antes de que existiera el skill actual: (1) A7, 4 enlaces externos a
+    invima.gov.co puestos INLINE en el cuerpo ademas de estar bien citados en
+    Fuentes -- corregido a texto plano; (2) A6, solo 1 imagen de contexto y 0
+    imagenes de producto -- se genero una segunda imagen de contexto en Canva
+    (lupa examinando un sello, estilo ilustracion, ver
+    registro-invima-producto-natural-lupa-sello-contexto.png) y se agregaron
+    2 tarjetas de producto A2.4 (colageno hidrolizado y marino, ligados a la
+    seccion "Aplicacion practica" que ya los mencionaba); (3) Paso 6, el
+    campo "image" no coincidia con la imagen de cabecera del body -- corregido
+    a la misma URL; (4) A2.3, se agrego tabla comparativa de categorias
+    INVIMA (PFT/PFTI/SD/PUE, dato ya mencionado en el texto, no inventado).
+    QA re-verificado sobre el body final: 1786 palabras, 8 H2 + Fuentes,
+    0 enlaces externos inline, 4 imagenes con alt, 2 tarjetas de producto,
+    tabla + guia rapida (2 de 3 de A2.3 -- SIN infografia: decision consciente
+    por limite de cuota de Canva alcanzado esa sesion, no omision silenciosa;
+    pendiente si Julian la quiere despues). Verificado contra el articulo
+    real ya en Shopify (Paso 6.5), no solo el borrador.
 - titulo: 'Suplementos Naturales en Colombia: Tendencias 2026'
   cluster: productos-naturales-colombia
   rol: cluster
@@ -292,8 +307,23 @@ articulos:
   fecha_publicacion_oculta: '2026-09-11'
   nota: >-
     Republicado 2026-09-11, mismo caso que su hermano "Como Verificar el
-    Registro INVIMA de un Producto Natural" (ver su nota) -- ver esa nota
-    para el detalle completo. isPublished:true desde 2026-09-11T01:24:06Z.
+    Registro INVIMA de un Producto Natural" (ver su nota) -- isPublished:true
+    desde 2026-09-11T01:24:06Z. CORRECCION 2026-09-11: este si tenia sus 2
+    tarjetas de producto A2.4 correctas (Lion Factor, 3 Monk Sweet) y cero
+    enlaces externos inline -- el unico problema real era A6 (solo 1 imagen
+    de contexto, faltaba la segunda) y Paso 6 (campo "image" no coincidia con
+    la cabecera del body). Se reutilizo la misma imagen de contexto nueva del
+    articulo hermano (lupa/sello, ver su nota) en la seccion "Que significa
+    esto para ti como comprador", que tambien habla de verificar el registro
+    INVIMA -- encaja tematicamente (regla A6 permite reutilizar entre
+    articulos del mismo cluster si aplica). No se genero una imagen distinta
+    para este articulo por limite de cuota de Canva alcanzado esa sesion; si
+    Julian prefiere una imagen propia para este articulo, generarla despues.
+    Banner corregido a la misma URL de la imagen de cabecera. QA
+    re-verificado: 1420 palabras (justo sobre el minimo de 1400 cluster), 7
+    H2 + Fuentes, 4 imagenes con alt, tabla + guia rapida (sin infografia,
+    misma razon que el hermano). Verificado contra el articulo real ya en
+    Shopify.
 - titulo: 'Laboratorios de Maquila en Colombia: Que Evaluar'
   cluster: maquila-b2b
   rol: pilar
