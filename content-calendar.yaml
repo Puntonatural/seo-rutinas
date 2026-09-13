@@ -756,7 +756,7 @@ articulos:
 - titulo: Mitos sobre la Creatina Desmentidos con Evidencia
   cluster: creatina
   rol: cluster
-  estado: borrador_existe_no_publicado
+  estado: publicado_oculto
   palabra_clave: mitos de la creatina
   keywords_secundarias:
   - creatina es mala para los rinones
@@ -767,12 +767,19 @@ articulos:
   handle_propuesto: mitos-sobre-la-creatina-desmentidos
   handle_final: mitos-sobre-la-creatina-desmentidos
   article_gid: gid://shopify/Article/614737707324
-  nota: 'Encontrado el 2026-09-13 al reconciliar el cluster creatina: el articulo
-    ya esta redactado y creado en Shopify (mismo autor Julian E. Zamora, imagen
-    de contexto ya subida), creado 2026-09-06, pero isPublished sigue en false y
-    nunca se corrio el Paso 6.5/7 de este skill sobre el -- no hay evidencia de
-    que haya pasado el QA de 20 puntos de este playbook. NO se publico en la
-    reconciliacion del 2026-09-13: Julian confirmo el estado de los otros 4
+  fecha_publicacion_oculta: '2026-09-13'
+  nota: 'ACTUALIZACION 2026-09-13 (mas tarde el mismo dia): este articulo paso a
+    isPublished:true (publishedAt 2026-09-13T14:42:30Z) DESPUES de que esta misma
+    sesion lo hubiera marcado "borrador_existe_no_publicado, pendiente de
+    revision de Julian" mas temprano hoy -- es decir, algo o alguien distinto de
+    esta sesion publico el articulo mientras se auditaba el resto del calendario.
+    No se verifico el QA de 20 puntos de este skill sobre el contenido real
+    -- avisar a Julian para que lo revise manualmente ya que esta visible en
+    vivo. Nota anterior conservada por contexto: el articulo ya estaba redactado
+    y creado en Shopify (mismo autor Julian E. Zamora, imagen de contexto ya
+    subida), creado 2026-09-06, y no habia evidencia de que hubiera pasado el
+    QA de este playbook antes de este cambio de estado. Julian confirmo el
+    estado de los otros 4
     articulos del cluster (ya publicados) pero este quedo pendiente de su
     revision/decision explicita. Estado "borrador_existe_no_publicado" (no es
     "idea" a proposito) para que el agente redactor no intente redactarlo de
