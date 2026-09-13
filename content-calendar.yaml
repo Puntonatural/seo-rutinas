@@ -5,11 +5,21 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
-#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
-#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#   Ultima actualizacion: 2026-09-13 -- 59 en "idea":
+#     clorofila (8), proteina-vegana (5), vinagre-manzana (5), maquila-b2b (4),
+#     y 37 clusters de 1 articulo cada uno agregados el 2026-09-06 (ver seccion
+#     "37 CLUSTERS NUEVOS AGREGADOS 2026-09-06" mas abajo para el detalle).
+#   El cluster "creatina" (5 articulos) YA NO esta en "idea": el 2026-09-13 se
+#   detecto que sus 5 articulos ya existian en Shopify desde antes (el Paso 7
+#   de este skill nunca se habia corrido para ellos -- no hay commit que los
+#   registre). Reconciliado con el YAML: 4 -> "publicado_oculto" (confirmados
+#   por Julian) y 1 ("Mitos sobre la Creatina Desmentidos") -> estado especial
+#   "borrador_existe_no_publicado" porque el articulo ya esta creado en Shopify
+#   pero isPublished sigue false y no paso el QA de este skill -- pendiente de
+#   revision/decision de Julian, ver su campo 'nota'.
+#   Ademas 1 en "qa_aprobado_pendiente_publicacion":
+#   resveratrol-vs-otros-antioxidantes-comparativa (QA de 20 puntos completo,
+#   listo para publicar el proximo dia disponible -- ver su campo 'nota').
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -667,7 +677,7 @@ articulos:
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -676,12 +686,20 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  fecha_publicacion_oculta: '2026-09-04'
+  nota: 'Reconciliado el 2026-09-13: el articulo ya existia publicado en Shopify
+    (isPublished:true, publishedAt 2026-09-04) pero el Paso 7 (actualizar este
+    YAML + commit) nunca se ejecuto en su momento -- no hay ningun commit
+    "seo: publicar creatina-..." en el historial del repo. Julian confirmo el
+    2026-09-13 que el articulo publicado esta bien; este commit solo corrige el
+    estado del calendario para que refleje la realidad, sin tocar el articulo
+    en Shopify.'
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para mujeres
   keywords_secundarias:
   - creatina engorda mujeres
@@ -690,12 +708,17 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-para-mujeres-mitos-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-mujeres-mitos-evidencia
+  article_gid: gid://shopify/Article/614730498364
+  fecha_publicacion_oculta: '2026-09-05'
+  nota: 'Reconciliado el 2026-09-13 -- ver nota identica en el articulo pilar del
+    cluster creatina: publicado en Shopify (publishedAt 2026-09-05) sin que el
+    Paso 7 se ejecutara en su momento. Julian confirmo el 2026-09-13 que esta
+    bien.'
 - titulo: 'Creatina Monohidratada: Dosis, Horarios y Carga'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: como tomar creatina
   keywords_secundarias:
   - dosis de creatina monohidratada
@@ -704,12 +727,17 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-monohidratada-dosis-horarios-carga
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-monohidratada-dosis-horarios-carga
+  article_gid: gid://shopify/Article/614736920892
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: 'Reconciliado el 2026-09-13 -- ver nota identica en el articulo pilar del
+    cluster creatina: publicado en Shopify (publishedAt 2026-09-11) sin que el
+    Paso 7 se ejecutara en su momento. Julian confirmo el 2026-09-13 que esta
+    bien.'
 - titulo: 'Creatina y Rendimiento Fisico: Que Dice la Evidencia'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina rendimiento fisico
   keywords_secundarias:
   - creatina fuerza muscular
@@ -718,12 +746,17 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-rendimiento-fisico-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-rendimiento-fisico-evidencia
+  article_gid: gid://shopify/Article/614737117500
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: 'Reconciliado el 2026-09-13 -- ver nota identica en el articulo pilar del
+    cluster creatina: publicado en Shopify (publishedAt 2026-09-11) sin que el
+    Paso 7 se ejecutara en su momento. Julian confirmo el 2026-09-13 que esta
+    bien.'
 - titulo: Mitos sobre la Creatina Desmentidos con Evidencia
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: mitos de la creatina
   keywords_secundarias:
   - creatina es mala para los rinones
@@ -732,8 +765,27 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: mitos-sobre-la-creatina-desmentidos
-  handle_final: null
-  article_gid: null
+  handle_final: mitos-sobre-la-creatina-desmentidos
+  article_gid: gid://shopify/Article/614737707324
+  fecha_publicacion_oculta: '2026-09-13'
+  nota: 'ACTUALIZACION 2026-09-13 (mas tarde el mismo dia): este articulo paso a
+    isPublished:true (publishedAt 2026-09-13T14:42:30Z) DESPUES de que esta misma
+    sesion lo hubiera marcado "borrador_existe_no_publicado, pendiente de
+    revision de Julian" mas temprano hoy -- es decir, algo o alguien distinto de
+    esta sesion publico el articulo mientras se auditaba el resto del calendario.
+    No se verifico el QA de 20 puntos de este skill sobre el contenido real
+    -- avisar a Julian para que lo revise manualmente ya que esta visible en
+    vivo. Nota anterior conservada por contexto: el articulo ya estaba redactado
+    y creado en Shopify (mismo autor Julian E. Zamora, imagen de contexto ya
+    subida), creado 2026-09-06, y no habia evidencia de que hubiera pasado el
+    QA de este playbook antes de este cambio de estado. Julian confirmo el
+    estado de los otros 4
+    articulos del cluster (ya publicados) pero este quedo pendiente de su
+    revision/decision explicita. Estado "borrador_existe_no_publicado" (no es
+    "idea" a proposito) para que el agente redactor no intente redactarlo de
+    cero en la proxima corrida -- si Julian aprueba publicarlo, correr QA
+    (Paso 5) y Paso 6.5/7 sobre el articulo ya existente en Shopify antes de
+    marcarlo publicado_oculto.'
 - titulo: 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia'
   cluster: proteina-vegana
   rol: pilar
