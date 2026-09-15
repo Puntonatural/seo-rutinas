@@ -827,7 +827,7 @@ articulos:
 - titulo: 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia'
   cluster: proteina-vegana
   rol: pilar
-  estado: borrador_en_shopify_sin_publicar
+  estado: publicado_oculto
   palabra_clave: proteina vegana Colombia
   keywords_secundarias:
   - mejor proteina vegana
@@ -838,14 +838,20 @@ articulos:
   handle_propuesto: proteina-vegana-guia-completa-colombia
   handle_final: proteina-vegana-guia-completa-colombia
   article_gid: gid://shopify/Article/614736888124
+  fecha_publicacion_oculta: '2026-09-15'
   nota: >-
-    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
-    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
-    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
-    agente redactor no intente recrearlo. No se verifico si el contenido
-    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
-    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
-    SINCRONIZACION 2026-09-15" al inicio del archivo.
+    AUDITORIA 2026-09-15: este articulo ya existia como borrador completo en
+    Shopify con el mismo handle propuesto. Se corrio el QA de 20 puntos sobre
+    el contenido real (2610 palabras, 12 H2, autor Julian E. Zamora, indice
+    con anclas, tabla + guia rapida + infografia, FAQ en acordeon
+    <details>/<summary>, tarjeta de producto A2.4 para los 2 productos
+    mencionados, seccion Fuentes con 6 citas reales fuera del cuerpo,
+    disclaimer INVIMA textual, 3 enlaces internos validos, metaTitle/
+    metaDescription dentro de rango) -- paso todos los puntos verificables
+    sin acceso a los assets de Canva originales. Publicado (isPublished:true)
+    el 2026-09-15 con autorizacion explicita de Julian tras el reporte de la
+    auditoria. Ver bloque "AUDITORIA DE SINCRONIZACION 2026-09-15" al inicio
+    del archivo.
 - titulo: 'Proteina Vegana vs. Whey: Diferencias y Cual Conviene'
   cluster: proteina-vegana
   rol: cluster
