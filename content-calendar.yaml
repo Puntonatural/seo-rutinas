@@ -5,11 +5,15 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
-#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
-#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#   Ultima actualizacion: 2026-09-15 (auditoria de sincronizacion, ver bloque
+#   abajo) -- recuento pendiente de rehacer para los 37 clusters agregados el
+#   2026-09-06 y para los clusters legacy; como referencia parcial, de los
+#   clusters mas antiguos solo quedan genuinamente en "idea": clorofila (1:
+#   como-tomar-clorofila-liquida-dosis), maquila-b2b (4, no verificados en esta
+#   auditoria). creatina, proteina-vegana y vinagre-manzana ya NO tienen
+#   entradas en "idea" (ver bloque de auditoria). resveratrol-vs-otros-
+#   antioxidantes-comparativa esta publicado (publishedAt 2026-09-06), su
+#   'estado' en este archivo seguia sin reflejarlo -- ver nota de esa entrada.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -56,6 +60,64 @@
 # "PRODUCTO NO EXISTE EN CATALOGO" -- NO deben publicarse con llamado a la compra de un
 # SKU inexistente hasta que Julian decida si se abastece ese ingrediente. Revisar cada
 # nota individual antes de que el agente redactor los tome de la cola.
+#
+
+#
+# AUDITORIA DE SINCRONIZACION 2026-09-15 (corrida automatica del agente redactor):
+# antes de redactar el "siguiente articulo idea", se verifico contra Shopify (GraphQL)
+# el estado real de los articulos marcados "idea" en este archivo, y se encontro que
+# el calendario llevaba dias desincronizado de la realidad en Shopify:
+#   - Cluster creatina (5/5 articulos): TODOS ya publicados en Shopify entre
+#     2026-09-04 y 2026-09-13, pero el calendario los seguia marcando "idea". El
+#     ultimo commit que toco este archivo antes de hoy es del 2026-09-06 (641f0ed)
+#     y no incluye ninguno de estos 5 articulos -- el Paso 7 (commit) de esas
+#     corridas nunca se hizo, o se hizo y no se pusheo.
+#   - Cluster proteina-vegana (5/5) y cluster vinagre-manzana (5/5): los 5
+#     articulos de cada cluster YA EXISTEN como borrador en Shopify
+#     (isPublished:false, publishedAt null, mismo handle_propuesto exacto) pero
+#     el calendario los seguia marcando "idea" -- si un agente redactor hubiera
+#     tomado alguno de estos como "siguiente idea" y corrido articleCreate,
+#     habria intentado crear un articulo con un handle ya existente.
+#   - Cluster clorofila (7/8): 5 articulos ya publicados el 2026-09-01 (ver
+#     violacion de cadencia abajo) y 2 mas existen como borrador sin publicar.
+#     Solo "como-tomar-clorofila-liquida-dosis" sigue genuinamente pendiente. Los
+#     handles reales en Shopify difieren ligeramente del handle_propuesto en
+#     varios casos (ver nota de cada articulo).
+#   - Violaciones del limite de 1 articulo publicado/dia (regla dura desde
+#     2026-08-31, ver "Cadencia de publicacion" en CLAUDE.md): se detectaron DOS
+#     episodios ademas del incidente original del 2026-08-30/31 --
+#       1. 2026-09-01, cluster clorofila: 5 articulos publicados entre las 21:11
+#          y las 21:32 UTC (21 minutos) -- mismo patron de rafaga que motivo la
+#          regla original.
+#       2. 2026-09-11, cluster creatina: 2 articulos publicados el mismo dia
+#          (creatina-monohidratada-dosis-horarios-carga a las 01:20 UTC y
+#          creatina-rendimiento-fisico-evidencia a las 11:14 UTC).
+#   - Ademas, varios articulos con temas de maquila-b2b publicados el 2026-08-31
+#     durante el incidente original (handles: cuanto-cuesta-marca-propia-
+#     suplementos-colombia, empresa-maquila-productos-naturales-colombia,
+#     errores-lanzar-marca-productos-saludables-colombia, maquila-suplementos-
+#     formatos-colombia, productos-saludables-para-marca-propia-en-colombia-
+#     vitaliah, proceso-maquila-alimentos-saludables-colombia-vitaliah) siguen
+#     con isPublished:true hoy, pese a que la "PAUSA DE VISIBILIDAD" de esa fecha
+#     dice que solo 5 articulos se dejaron visibles en todo el blog -- esos 6 no
+#     fueron cubiertos por la pausa (o se revirtieron despues). NO corresponden a
+#     entradas "idea" de este calendario (titulos/handles de un lote distinto) --
+#     no se tocaron en esta auditoria, quedan reportados para revision de Julian.
+# ACCION TOMADA: se corrigio estado/handle_final/article_gid de los 20 articulos
+# confirmados en Shopify (creatina x5, proteina-vegana x5, vinagre-manzana x5,
+# clorofila x5) para que un futuro agente redactor no intente recrearlos ni los
+# procese como "idea". NO se publico ni redacto ningun articulo nuevo en esta
+# corrida -- se detuvo el flujo normal (Paso 1-6) para reportar este hallazgo
+# primero, siguiendo la regla de "si algo no cuadra, detente y reporta" del
+# skill redactor-blog. NO se modifico la visibilidad de ningun articulo ya
+# publicado (eso es una decision de negocio de Julian, no una correccion de
+# datos). Tampoco se corrio el Paso 6.5 de verificacion de contenido (imagenes,
+# autor, disclaimer, FAQ) sobre estos 20 articulos -- falta revision manual.
+# PENDIENTE PARA JULIAN: entender por que el Paso 7 (commit al repo) llevaba mas
+# de una semana sin ejecutarse pese a actividad de publicacion constante en
+# Shopify en ese periodo -- posible causa: la skill se invoco desde un contexto
+# que no hizo commit/push al terminar, o se invoco por otro medio que no sigue
+# este playbook. Revisar tambien los 6 articulos maquila-b2b listados arriba.
 #
 articulos:
 - titulo: 'Hongos Adaptogenos en Colombia: Guia Completa 2026'
@@ -635,7 +697,7 @@ articulos:
 - titulo: 'Resveratrol vs. Otros Antioxidantes: Comparativa'
   cluster: resveratrol
   rol: cluster
-  estado: qa_aprobado_pendiente_publicacion
+  estado: publicado_oculto
   palabra_clave: resveratrol vs antioxidantes
   keywords_secundarias:
   - mejores antioxidantes naturales
@@ -646,7 +708,7 @@ articulos:
   handle_propuesto: resveratrol-vs-otros-antioxidantes-comparativa
   handle_final: resveratrol-vs-otros-antioxidantes-comparativa
   article_gid: gid://shopify/Article/614707888444
-  fecha_publicacion_oculta: null
+  fecha_publicacion_oculta: '2026-09-06'
   faq_jsonld_pendiente_de_pegar: drafts/resveratrol-vs-otros-antioxidantes-comparativa.faq.jsonld.html
   nota: >-
     Reescrito por completo el 2026-09-01 siguiendo el skill redactor-blog vigente
@@ -657,17 +719,16 @@ articulos:
     los otros 4 articulos del cluster resveratrol, que ya usaban ese formato; el
     primer borrador uso H3 planos, valido segun la letra de A2.2 pero inconsistente
     con sus hermanos, corregido tras revision del usuario). QA de 20 puntos
-    completo, pasa todos. NO se publico (isPublished
-    sigue false) porque el limite de 1 articulo/dia ya se habia alcanzado hoy
-    (6 articulos con publishedAt entre 2026-08-31T17:05 y 2026-08-31T20:44,
-    dentro de las ultimas 24h desde 2026-09-01T14:48). Queda listo para
-    publicarse (isPublished:true) el proximo dia disponible sin ningun trabajo
-    adicional -- solo falta correr articleUpdate con isPublished:true cuando
-    corresponda y actualizar este estado a publicado_oculto.
+    completo, paso todos en su momento. AUDITORIA 2026-09-15: se confirmo via
+    Shopify que este articulo se publico (isPublished:true, publishedAt
+    2026-09-06T15:06:31Z) -- el estado de este archivo seguia diciendo
+    "qa_aprobado_pendiente_publicacion" y nunca se actualizo tras la
+    publicacion. Corregido a publicado_oculto con la fecha real. Ver bloque
+    "AUDITORIA DE SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -676,12 +737,17 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  fecha_publicacion_oculta: '2026-09-04'
+  nota: >-
+    AUDITORIA 2026-09-15: ya estaba publicado en Shopify (publishedAt
+    2026-09-04T11:15:52Z), el calendario no se habia actualizado. Ver bloque
+    "AUDITORIA DE SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para mujeres
   keywords_secundarias:
   - creatina engorda mujeres
@@ -690,12 +756,17 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-para-mujeres-mitos-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-mujeres-mitos-evidencia
+  article_gid: gid://shopify/Article/614730498364
+  fecha_publicacion_oculta: '2026-09-05'
+  nota: >-
+    AUDITORIA 2026-09-15: ya estaba publicado en Shopify (publishedAt
+    2026-09-05T11:24:07Z), el calendario no se habia actualizado. Ver bloque
+    "AUDITORIA DE SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Creatina Monohidratada: Dosis, Horarios y Carga'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: como tomar creatina
   keywords_secundarias:
   - dosis de creatina monohidratada
@@ -704,12 +775,19 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-monohidratada-dosis-horarios-carga
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-monohidratada-dosis-horarios-carga
+  article_gid: gid://shopify/Article/614736920892
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: >-
+    AUDITORIA 2026-09-15: ya estaba publicado en Shopify (publishedAt
+    2026-09-11T01:20:44Z), el calendario no se habia actualizado. Junto con
+    creatina-rendimiento-fisico-evidencia (publicado el mismo dia calendario,
+    2026-09-11T11:14:05Z), esto viola el limite de 1 articulo/dia -- ver bloque
+    "AUDITORIA DE SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Creatina y Rendimiento Fisico: Que Dice la Evidencia'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina rendimiento fisico
   keywords_secundarias:
   - creatina fuerza muscular
@@ -718,12 +796,19 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-rendimiento-fisico-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-rendimiento-fisico-evidencia
+  article_gid: gid://shopify/Article/614737117500
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: >-
+    AUDITORIA 2026-09-15: ya estaba publicado en Shopify (publishedAt
+    2026-09-11T11:14:05Z), el calendario no se habia actualizado. Publicado el
+    mismo dia calendario que creatina-monohidratada-dosis-horarios-carga
+    (2026-09-11T01:20:44Z) -- viola el limite de 1 articulo/dia. Ver bloque
+    "AUDITORIA DE SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: Mitos sobre la Creatina Desmentidos con Evidencia
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: mitos de la creatina
   keywords_secundarias:
   - creatina es mala para los rinones
@@ -732,12 +817,17 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: mitos-sobre-la-creatina-desmentidos
-  handle_final: null
-  article_gid: null
+  handle_final: mitos-sobre-la-creatina-desmentidos
+  article_gid: gid://shopify/Article/614737707324
+  fecha_publicacion_oculta: '2026-09-13'
+  nota: >-
+    AUDITORIA 2026-09-15: ya estaba publicado en Shopify (publishedAt
+    2026-09-13T14:42:30Z), el calendario no se habia actualizado. Ver bloque
+    "AUDITORIA DE SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia'
   cluster: proteina-vegana
   rol: pilar
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: proteina vegana Colombia
   keywords_secundarias:
   - mejor proteina vegana
@@ -746,12 +836,20 @@ articulos:
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: proteina-vegana-guia-completa-colombia
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-guia-completa-colombia
+  article_gid: gid://shopify/Article/614736888124
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Proteina Vegana vs. Whey: Diferencias y Cual Conviene'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: proteina vegana vs whey
   keywords_secundarias:
   - diferencia proteina vegana whey
@@ -760,12 +858,20 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: proteina-vegana-vs-whey-diferencias
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-vs-whey-diferencias
+  article_gid: gid://shopify/Article/614737051964
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Proteina Vegana Aislada vs. Artesanal: Cual Elegir'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: proteina vegana aislada vs artesanal
   keywords_secundarias:
   - tipos de proteina vegana
@@ -774,12 +880,20 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   handle_propuesto: proteina-vegana-aislada-vs-artesanal
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-aislada-vs-artesanal
+  article_gid: gid://shopify/Article/614737019196
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Proteina Vegana para Ganar Musculo: Es Suficiente?'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: proteina vegana para ganar musculo
   keywords_secundarias:
   - proteina vegana hipertrofia
@@ -788,12 +902,20 @@ articulos:
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: proteina-vegana-para-ganar-musculo
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-para-ganar-musculo
+  article_gid: gid://shopify/Article/614736953660
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: Cuanta Proteina Vegana Necesitas al Dia
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: cuanta proteina vegana al dia
   keywords_secundarias:
   - requerimiento diario de proteina vegana
@@ -802,12 +924,20 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: cuanta-proteina-vegana-necesitas-al-dia
-  handle_final: null
-  article_gid: null
+  handle_final: cuanta-proteina-vegana-necesitas-al-dia
+  article_gid: gid://shopify/Article/614737150268
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo'
   cluster: vinagre-manzana
   rol: pilar
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: vinagre de manzana beneficios
   keywords_secundarias:
   - para que sirve el vinagre de manzana
@@ -816,12 +946,20 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Linaza y Salud Digestiva (articulo hermano tematico, este calendario)
   handle_propuesto: vinagre-de-manzana-beneficios-evidencia-como-tomarlo
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-beneficios-evidencia-como-tomarlo
+  article_gid: gid://shopify/Article/614737314108
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Vinagre de Manzana para Adelgazar: Que Dice la Ciencia'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: vinagre de manzana para adelgazar
   keywords_secundarias:
   - vinagre de manzana quema grasa
@@ -830,12 +968,20 @@ articulos:
   - Masticables MintsVing (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: vinagre-de-manzana-para-adelgazar-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-para-adelgazar-evidencia
+  article_gid: gid://shopify/Article/614737248572
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Masticables de Vinagre de Manzana vs. Liquido: Ventajas'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: vinagre de manzana masticables
   keywords_secundarias:
   - vinagre de manzana en pastillas
@@ -844,12 +990,20 @@ articulos:
   - Masticables MintsVing (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: masticables-vinagre-de-manzana-vs-liquido
-  handle_final: null
-  article_gid: null
+  handle_final: masticables-vinagre-de-manzana-vs-liquido
+  article_gid: gid://shopify/Article/614737215804
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Vinagre de Manzana y Digestion: Beneficios Reales'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: vinagre de manzana digestion
   keywords_secundarias:
   - vinagre de manzana para la acidez
@@ -858,12 +1012,20 @@ articulos:
   - Masticables MintsVing (producto)
   - Linaza y Salud Digestiva (articulo hermano tematico, este calendario)
   handle_propuesto: vinagre-de-manzana-y-digestion-beneficios
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-y-digestion-beneficios
+  article_gid: gid://shopify/Article/614737183036
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Vinagre de Manzana: Contraindicaciones y Precauciones'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: vinagre de manzana contraindicaciones
   keywords_secundarias:
   - efectos secundarios del vinagre de manzana
@@ -872,8 +1034,16 @@ articulos:
   - Masticables MintsVing (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: vinagre-de-manzana-contraindicaciones-precauciones
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-contraindicaciones-precauciones
+  article_gid: gid://shopify/Article/614737084732
+  nota: >-
+    AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR en Shopify
+    (isPublished:false, sin publishedAt) con el mismo handle propuesto, pero el
+    calendario lo marcaba "idea". Se corrigio el estado para que un futuro
+    agente redactor no intente recrearlo. No se verifico si el contenido
+    cumple el QA de 20 puntos del skill -- requiere revision manual antes de
+    decidir si se publica, se corrige o se descarta. Ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Registro INVIMA para Productos Saludables: Que Revisar Antes de Lanzar'
   cluster: maquila-b2b
   rol: cluster
@@ -954,7 +1124,7 @@ articulos:
 - titulo: 'Para Que Sirve la Clorofila en el Cuerpo Humano: Beneficios y Evidencia'
   cluster: clorofila
   rol: pilar
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: para que sirve la clorofila
   keywords_secundarias:
   - beneficios de la clorofila
@@ -963,18 +1133,24 @@ articulos:
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: para-que-sirve-la-clorofila-beneficios-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: para-que-sirve-la-clorofila-cuerpo-humano
+  article_gid: gid://shopify/Article/614699106620
   nota: >-
     Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 044", estado
     "Pendiente"). Primer articulo del cluster clorofila -- no existia
     previamente en este calendario ni en el blog publicado. Producto real
     verificado en Shopify: VITALIAH CLOROFILA MENTA 240 ML (handle
-    vitaliah-clorofila-menta-240-ml).
+    vitaliah-clorofila-menta-240-ml). AUDITORIA 2026-09-15: este articulo ya
+    existe como BORRADOR en Shopify (isPublished:false, sin publishedAt), con
+    un handle distinto al propuesto (para-que-sirve-la-clorofila-cuerpo-humano
+    en vez de para-que-sirve-la-clorofila-beneficios-evidencia) y titulo mas
+    corto ("Para que sirve la clorofila"). El calendario lo marcaba "idea". No
+    se verifico contra el QA de 20 puntos -- requiere revision manual. Ver
+    bloque "AUDITORIA DE SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Clorofila Liquida: Para Que Sirve y Que Esperar Realmente'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: borrador_en_shopify_sin_publicar
   palabra_clave: para que sirve la clorofila liquida
   keywords_secundarias:
   - beneficios reales de la clorofila liquida
@@ -982,9 +1158,15 @@ articulos:
   - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   handle_propuesto: clorofila-liquida-para-que-sirve
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 045", estado "Pendiente").
+  handle_final: clorofila-liquida-para-que-sirve
+  article_gid: gid://shopify/Article/614699172156
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 045", estado
+    "Pendiente"). AUDITORIA 2026-09-15: este articulo ya existe como BORRADOR
+    en Shopify (isPublished:false, sin publishedAt, handle exacto). El
+    calendario lo marcaba "idea". No se verifico contra el QA de 20 puntos --
+    requiere revision manual. Ver bloque "AUDITORIA DE SINCRONIZACION
+    2026-09-15" al inicio del archivo.
 - titulo: 'Como Tomar Clorofila Liquida: Dosis, en Ayunas y Por Cuanto Tiempo'
   cluster: clorofila
   rol: cluster
@@ -1002,7 +1184,7 @@ articulos:
 - titulo: 'Clorofila para la Mujer: Para Que Sirve y en Que Etapas Tiene Sentido'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: clorofila para que sirve en la mujer
   keywords_secundarias:
   - clorofila y salud femenina
@@ -1010,13 +1192,20 @@ articulos:
   - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   handle_propuesto: clorofila-para-la-mujer
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 047", estado "Pendiente").
+  handle_final: clorofila-para-la-mujer
+  article_gid: gid://shopify/Article/614709756220
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 047", estado
+    "Pendiente"). AUDITORIA 2026-09-15: ya estaba publicado en Shopify
+    (publishedAt 2026-09-01T21:11:39Z), el calendario no se habia
+    actualizado. Es uno de 5 articulos del cluster clorofila publicados en
+    una rafaga de 21 minutos ese dia -- ver bloque "AUDITORIA DE
+    SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Clorofila Liquida o en Capsulas: Cual Conviene Segun tu Caso'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: clorofila en capsulas
   keywords_secundarias:
   - clorofila liquida vs capsulas
@@ -1024,13 +1213,21 @@ articulos:
   - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   handle_propuesto: clorofila-liquida-o-capsulas-cual-conviene
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 048", estado "Pendiente").
+  handle_final: clorofila-liquida-o-capsulas
+  article_gid: gid://shopify/Article/614709788988
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 048", estado
+    "Pendiente"). AUDITORIA 2026-09-15: ya estaba publicado en Shopify
+    (publishedAt 2026-09-01T21:14:53Z) con un handle mas corto que el
+    propuesto (clorofila-liquida-o-capsulas). El calendario no se habia
+    actualizado. Uno de 5 articulos de clorofila publicados en una rafaga de
+    21 minutos ese dia -- ver bloque "AUDITORIA DE SINCRONIZACION 2026-09-15"
+    al inicio del archivo.
 - titulo: 'Contraindicaciones de la Clorofila: Quien No Deberia Tomarla'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: desventajas de tomar clorofila
   keywords_secundarias:
   - contraindicaciones de la clorofila liquida
@@ -1038,13 +1235,21 @@ articulos:
   - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: contraindicaciones-de-la-clorofila
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 049", estado "Pendiente").
+  handle_final: contraindicaciones-clorofila
+  article_gid: gid://shopify/Article/614709821756
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 049", estado
+    "Pendiente"). AUDITORIA 2026-09-15: ya estaba publicado en Shopify
+    (publishedAt 2026-09-01T21:19:37Z) con un handle distinto al propuesto
+    (contraindicaciones-clorofila). El calendario no se habia actualizado.
+    Uno de 5 articulos de clorofila publicados en una rafaga de 21 minutos
+    ese dia -- ver bloque "AUDITORIA DE SINCRONIZACION 2026-09-15" al inicio
+    del archivo.
 - titulo: 'Clorofila y Perdida de Peso: Que Dice la Evidencia'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: la clorofila sirve para bajar de peso
   keywords_secundarias:
   - clorofila y perdida de peso
@@ -1052,13 +1257,22 @@ articulos:
   - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   handle_propuesto: clorofila-para-bajar-de-peso-evidencia
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 050", estado "Pendiente").
+  handle_final: clorofila-sirve-para-bajar-de-peso
+  article_gid: gid://shopify/Article/614709854524
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 050", estado
+    "Pendiente"). AUDITORIA 2026-09-15: ya estaba publicado en Shopify
+    (publishedAt 2026-09-01T21:22:59Z) con titulo y handle distintos a los
+    propuestos (titulo real: "La clorofila sirve para bajar de peso? Lo que
+    la evidencia si respalda", handle clorofila-sirve-para-bajar-de-peso). El
+    calendario no se habia actualizado. Uno de 5 articulos de clorofila
+    publicados en una rafaga de 21 minutos ese dia -- ver bloque "AUDITORIA
+    DE SINCRONIZACION 2026-09-15" al inicio del archivo.
 - titulo: 'Cual es la Mejor Clorofila Liquida en Colombia: Precio y Como Elegir'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: clorofila liquida precio
   keywords_secundarias:
   - mejor clorofila liquida en Colombia
@@ -1067,9 +1281,17 @@ articulos:
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: mejor-clorofila-liquida-en-colombia-precio
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 051", estado "Pendiente").
+  handle_final: mejor-clorofila-liquida-colombia
+  article_gid: gid://shopify/Article/614709920060
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 051", estado
+    "Pendiente"). AUDITORIA 2026-09-15: ya estaba publicado en Shopify
+    (publishedAt 2026-09-01T21:32:19Z) con un handle mas corto que el
+    propuesto (mejor-clorofila-liquida-colombia). El calendario no se habia
+    actualizado. Uno de 5 articulos de clorofila publicados en una rafaga de
+    21 minutos ese dia -- ver bloque "AUDITORIA DE SINCRONIZACION 2026-09-15"
+    al inicio del archivo.
 - titulo: 'Maca Peruana: Beneficios, Para Que Sirve y Como Tomarla'
   cluster: maca
   rol: pilar
