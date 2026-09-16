@@ -609,6 +609,23 @@ articulos:
   article_gid: gid://shopify/Article/614696911164
   fecha_publicacion_oculta: '2026-08-31'
   faq_jsonld_pendiente_de_pegar: drafts/magnesio-y-migrana-evidencia.faq.jsonld.html
+  fecha_visible_isPublished_true: '2026-09-16'
+  nota: >-
+    Contenido terminado desde el 2026-08-31 (parte del lote afectado por la
+    PAUSA DE VISIBILIDAD, ver comentario al inicio del YAML) pero quedo con
+    isPublished:false hasta hoy. Elegido 2026-09-16 para republicar (1/dia,
+    ningun articulo publicado hoy todavia) siguiendo la ACCION FUTURA de
+    republicar el lote oculto gradualmente. Verificado antes de publicar:
+    autor Julian E. Zamora, imagen destacada presente, 1577 palabras, 7 H2 +
+    fuentes, indice con anclas, FAQ en acordeon <details>/<summary>, 2
+    tarjetas de producto A2.4, seccion Fuentes con 4 citas reales, disclaimer
+    INVIMA, tildes correctas en todo el cuerpo (revisado con conteo de
+    palabras acentuadas). Verificado post-publicacion (Paso 6.5): image.url
+    no nulo, author correcto, body integro. Otro candidato del mismo lote
+    (resveratrol-antienvejecimiento-ciencia) se descarto para hoy: su body
+    tiene un problema real de tildes faltantes ("mas" sin tilde 14 veces
+    donde debia decir "más") que no se habia detectado antes -- pendiente de
+    corregir en una proxima corrida antes de republicarlo.
 - titulo: 'Resveratrol: Beneficios, Evidencia y Como Tomarlo'
   cluster: resveratrol
   rol: pilar
@@ -640,6 +657,16 @@ articulos:
   handle_final: resveratrol-antienvejecimiento-ciencia
   article_gid: gid://shopify/Article/614698189116
   fecha_publicacion_oculta: '2026-08-31'
+  nota: >-
+    ALERTA de ortografia encontrada 2026-09-16 (Paso 5 punto 20, ver
+    SKILL.md): el body en Shopify (isPublished:false, aun no republicado)
+    tiene la palabra "mas" sin tilde 14 veces donde el sentido es "más"
+    (cantidad), con solo 2 usos correctos de "más" -- ademas de otras
+    palabras que deberian llevar tilde y no la llevan. El resto del articulo
+    (estructura, tabla, guia rapida, infografia, FAQ en acordeon, fuentes,
+    disclaimer, autor) esta correcto. NO republicar (isPublished:true) sin
+    corregir antes las tildes en todo el cuerpo -- no se toco el articulo en
+    esta corrida, solo se documenta el hallazgo.
 - titulo: 'Resveratrol en Batido o Masticables: Cual Elegir'
   cluster: resveratrol
   rol: cluster
