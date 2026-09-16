@@ -5,11 +5,49 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
-#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
-#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#   Ultima actualizacion: 2026-09-16 -- 50 en "idea":
+#     vinagre-manzana (5), proteina-vegana (4), clorofila (3), maquila-b2b (1),
+#     y 39 clusters de 1 idea pendiente cada uno (maca, calcio, moringa, niacina,
+#     potasio, curcuma-golden-mix, te-frio-sin-azucar, flor-de-jamaica-wanda,
+#     leches-vegetales, vitaliah-smooth, colla-fem, colla-men,
+#     distribuidor-mayorista, bienestar-hormonal-femenino, ashwagandha,
+#     berberina, probioticos, batido-junior-kds, lactosa-cero,
+#     colageno-50-50-marino-bovino, combos-mujer, coffee-colageno,
+#     omega-3-marino, biotina, acido-hialuronico-oral, spirulina,
+#     electrolitos-pre-entreno, kombucha, vitamina-c-natural,
+#     propoleo-jalea-real, glutamina-l-carnitina, melatonina,
+#     funcionales-quinoa-avena, gaba-l-teanina, nmn-antienvejecimiento,
+#     zinc-inmunidad, coenzima-q10).
+#   0 en "qa_fallido". 23 en "publicado_oculto" (incluye 14 corregidos hoy, ver
+#   "DRIFT DE CALENDARIO" abajo).
+#
+# DRIFT DE CALENDARIO DETECTADO Y CORREGIDO 2026-09-16 (IMPORTANTE): antes de
+# publicar el articulo pendiente de esta corrida, se encontro que 14 entradas
+# marcadas "idea" en este YAML ya estaban publicadas en Shopify de verdad
+# (isPublished:true), algunas desde hace mas de dos semanas -- el YAML no
+# reflejaba la realidad. Se corrigieron todas a "publicado_oculto" con su
+# handle_final/article_gid/fecha_publicacion_oculta real, sin tocar nada en
+# Shopify. Dos causas distintas:
+#   1. Cluster creatina completo (5 articulos, 2026-09-04 al 2026-09-13) y el
+#      pilar de proteina-vegana (2026-09-15, PUBLICADO AYER): autor correcto
+#      "Julian E. Zamora", contenido consistente con este skill -- se publicaron
+#      bien, pero la sesion que los publico nunca dejo el commit del Paso 7 que
+#      actualiza este YAML. Sin daño real, solo bookkeeping perdido.
+#   2. Cluster clorofila (5 de sus 8 articulos, 2026-09-01, los 5 publicados en
+#      21 minutos) y 3 articulos del cluster maquila-b2b (2026-08-31, los 3 en
+#      22 minutos): autor "Asesor Punto Natural", NO "Julian E. Zamora" -- no
+#      pasaron por este skill ni por su QA de 20 puntos, y violan la regla de
+#      1 articulo/dia por un margen amplio. Todo indica que existe OTRO proceso
+#      o herramienta, ajeno a este repo y a este skill, escribiendo articulos
+#      directamente al blog "noticias" de Shopify. Uno de ellos ademas tiene un
+#      bug de contenido confirmado: errores-lanzar-marca-productos-saludables-
+#      colombia quedo publicado con el titulo de otro articulo hermano
+#      ("Cuanto cuesta una marca propia de suplementos?") en vez del suyo
+#      propio. Julian deberia: (a) identificar que herramienta es "Asesor
+#      Punto Natural" y si su acceso de escritura al blog es intencional, (b)
+#      revisar la calidad/autoria real de esos 8 articulos, y (c) corregir el
+#      titulo del articulo con el bug. Ver el campo 'nota' de cada entrada
+#      afectada para el detalle puntual.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -635,7 +673,7 @@ articulos:
 - titulo: 'Resveratrol vs. Otros Antioxidantes: Comparativa'
   cluster: resveratrol
   rol: cluster
-  estado: qa_aprobado_pendiente_publicacion
+  estado: publicado_oculto
   palabra_clave: resveratrol vs antioxidantes
   keywords_secundarias:
   - mejores antioxidantes naturales
@@ -646,28 +684,23 @@ articulos:
   handle_propuesto: resveratrol-vs-otros-antioxidantes-comparativa
   handle_final: resveratrol-vs-otros-antioxidantes-comparativa
   article_gid: gid://shopify/Article/614707888444
-  fecha_publicacion_oculta: null
-  faq_jsonld_pendiente_de_pegar: drafts/resveratrol-vs-otros-antioxidantes-comparativa.faq.jsonld.html
+  fecha_publicacion_oculta: '2026-09-06'
   nota: >-
     Reescrito por completo el 2026-09-01 siguiendo el skill redactor-blog vigente
     (autor Julian E. Zamora, 1678 palabras, tabla + guia rapida + infografia real
     generada y verificada en Canva, 2 imagenes de contexto + 2 de producto en
     tarjeta A2.4, seccion Fuentes con 4 citas reales fuera del cuerpo, disclaimer
     INVIMA, FAQ en formato acordeon <details>/<summary> de A2.2 -- consistente con
-    los otros 4 articulos del cluster resveratrol, que ya usaban ese formato; el
-    primer borrador uso H3 planos, valido segun la letra de A2.2 pero inconsistente
-    con sus hermanos, corregido tras revision del usuario). QA de 20 puntos
-    completo, pasa todos. NO se publico (isPublished
-    sigue false) porque el limite de 1 articulo/dia ya se habia alcanzado hoy
-    (6 articulos con publishedAt entre 2026-08-31T17:05 y 2026-08-31T20:44,
-    dentro de las ultimas 24h desde 2026-09-01T14:48). Queda listo para
-    publicarse (isPublished:true) el proximo dia disponible sin ningun trabajo
-    adicional -- solo falta correr articleUpdate con isPublished:true cuando
-    corresponda y actualizar este estado a publicado_oculto.
+    los otros 4 articulos del cluster resveratrol, que ya usaban ese formato).
+    QA de 20 puntos completo, paso todos. Quedo pendiente de isPublished:true por
+    el limite de 1/dia; corrida del 2026-09-16 encontro que ya estaba publicado
+    (publishedAt 2026-09-06T15:06:31Z, isPublished:true verificado via API) --
+    el estado de este YAML no se habia actualizado despues de esa publicacion.
+    Se corrige aqui para reflejar la realidad; no se toco el articulo en Shopify.
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -676,12 +709,18 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  fecha_publicacion_oculta: '2026-09-04'
+  nota: >-
+    Corregido 2026-09-16: ya estaba publicado (isPublished:true, autor Julian E.
+    Zamora, verificado via API) desde 2026-09-04, pero este YAML seguia en 'idea'
+    -- la corrida que lo publico no dejo commit del Paso 7. Se corrige aqui para
+    reflejar la realidad; no se toco el articulo en Shopify.
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para mujeres
   keywords_secundarias:
   - creatina engorda mujeres
@@ -690,12 +729,17 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-para-mujeres-mitos-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-mujeres-mitos-evidencia
+  article_gid: gid://shopify/Article/614730498364
+  fecha_publicacion_oculta: '2026-09-05'
+  nota: >-
+    Corregido 2026-09-16: ya publicado (isPublished:true, autor Julian E. Zamora)
+    desde 2026-09-05; el YAML no se habia actualizado (ver nota del pilar del
+    cluster para el detalle del hallazgo).
 - titulo: 'Creatina Monohidratada: Dosis, Horarios y Carga'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: como tomar creatina
   keywords_secundarias:
   - dosis de creatina monohidratada
@@ -704,12 +748,17 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-monohidratada-dosis-horarios-carga
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-monohidratada-dosis-horarios-carga
+  article_gid: gid://shopify/Article/614736920892
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: >-
+    Corregido 2026-09-16: ya publicado (isPublished:true, autor Julian E. Zamora)
+    desde 2026-09-11; el YAML no se habia actualizado (ver nota del pilar del
+    cluster para el detalle del hallazgo).
 - titulo: 'Creatina y Rendimiento Fisico: Que Dice la Evidencia'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina rendimiento fisico
   keywords_secundarias:
   - creatina fuerza muscular
@@ -718,12 +767,17 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-rendimiento-fisico-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-rendimiento-fisico-evidencia
+  article_gid: gid://shopify/Article/614737117500
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: >-
+    Corregido 2026-09-16: ya publicado (isPublished:true, autor Julian E. Zamora)
+    desde 2026-09-11; el YAML no se habia actualizado (ver nota del pilar del
+    cluster para el detalle del hallazgo).
 - titulo: Mitos sobre la Creatina Desmentidos con Evidencia
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: mitos de la creatina
   keywords_secundarias:
   - creatina es mala para los rinones
@@ -732,12 +786,18 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: mitos-sobre-la-creatina-desmentidos
-  handle_final: null
-  article_gid: null
+  handle_final: mitos-sobre-la-creatina-desmentidos
+  article_gid: gid://shopify/Article/614737707324
+  fecha_publicacion_oculta: '2026-09-13'
+  nota: >-
+    Corregido 2026-09-16: ya publicado (isPublished:true, autor Julian E. Zamora)
+    desde 2026-09-13; el YAML no se habia actualizado (ver nota del pilar del
+    cluster para el detalle del hallazgo). Cluster creatina completo: los 5
+    articulos (pilar + 4 cluster) ya estan publicados.
 - titulo: 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia'
   cluster: proteina-vegana
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: proteina vegana Colombia
   keywords_secundarias:
   - mejor proteina vegana
@@ -746,8 +806,13 @@ articulos:
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: proteina-vegana-guia-completa-colombia
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-guia-completa-colombia
+  article_gid: gid://shopify/Article/614736888124
+  fecha_publicacion_oculta: '2026-09-15'
+  nota: >-
+    Corregido 2026-09-16: ya publicado (isPublished:true, autor Julian E. Zamora)
+    desde ayer (2026-09-15); el YAML no se habia actualizado -- la corrida que
+    lo publico no dejo commit del Paso 7.
 - titulo: 'Proteina Vegana vs. Whey: Diferencias y Cual Conviene'
   cluster: proteina-vegana
   rol: cluster
@@ -897,7 +962,6 @@ articulos:
 - titulo: Como Elegir una Empresa de Maquila de Productos Naturales en Colombia
   cluster: maquila-b2b
   rol: cluster
-  estado: idea
   palabra_clave: empresa de maquila de productos naturales
   keywords_secundarias:
   - como elegir un laboratorio de maquila en Colombia
@@ -906,19 +970,27 @@ articulos:
   - Laboratorios de Productos Naturales en Colombia Confiables (articulo hermano, este calendario)
   - Servicios de maquila y otros Vitaliah Labs (articulo existente)
   handle_propuesto: como-elegir-empresa-de-maquila-productos-naturales
-  handle_final: null
-  article_gid: null
+  handle_final: empresa-maquila-productos-naturales-colombia
+  article_gid: gid://shopify/Article/614698942780
+  fecha_publicacion_oculta: '2026-08-31'
+  estado: publicado_oculto
   nota: >-
     Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 041", estado
-    "Pendiente"). Angulo muy cercano al pilar "Laboratorios de Maquila en
-    Colombia: Que Evaluar" (ya publicado) y a "Laboratorios de Productos
-    Naturales en Colombia Confiables" (ya publicado) -- revisar
-    canibalizacion con cuidado en el Paso 2; puede que convenga ampliar uno
-    de esos articulos existentes en vez de crear uno nuevo.
+    "Pendiente"). ALERTA encontrada 2026-09-16: este tema ya esta publicado en
+    Shopify (isPublished:true desde 2026-08-31T20:38:32Z, titulo real "Como
+    elegir empresa de maquila de productos naturales | Vitaliah", handle
+    empresa-maquila-productos-naturales-colombia) pero con autor "Asesor Punto
+    Natural", NO "Julian E. Zamora" (viola A1.1) -- no fue publicado siguiendo
+    este skill (no hay commit de Paso 7 ni rastro de haber pasado por el QA de
+    20 puntos). Parece obra de otro proceso/herramienta que escribe
+    directamente al blog "noticias" sin pasar por content-calendar.yaml ni
+    por la regla de 1 articulo/dia. Se marca publicado_oculto para que el
+    agente redactor no lo re-redacte (cannibalizacion), pero el articulo en
+    si no fue verificado contra el estandar de este skill -- Julian deberia
+    revisarlo.
 - titulo: Cuanto Cuesta Crear una Marca Propia de Suplementos o Alimentos Saludables
   cluster: maquila-b2b
   rol: cluster
-  estado: idea
   palabra_clave: cuanto cuesta crear una marca propia de suplementos
   keywords_secundarias:
   - costo de crear una marca propia de alimentos saludables
@@ -927,19 +999,25 @@ articulos:
   - Costos y MOQ de Maquila de Suplementos en Colombia (articulo existente)
   - Marca Propia vs. Marca Blanca: Diferencias y Cual Elegir (articulo existente)
   handle_propuesto: cuanto-cuesta-crear-marca-propia-suplementos
-  handle_final: null
-  article_gid: null
+  handle_final: cuanto-cuesta-marca-propia-suplementos-colombia
+  article_gid: gid://shopify/Article/614698975548
+  fecha_publicacion_oculta: '2026-08-31'
+  estado: publicado_oculto
   nota: >-
     Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 042", estado
-    "Pendiente"). Angulo relacionado con "Costos y MOQ de Maquila de
-    Suplementos en Colombia" (ya publicado, enfocado en produccion) pero
-    este cubre el costo total de crear la marca (branding, empaque, etc.),
-    no solo la maquila -- revisar solapamiento en el Paso 2 antes de
-    redactar.
+    "Pendiente"). ALERTA encontrada 2026-09-16: este tema ya esta publicado en
+    Shopify (isPublished:true desde 2026-08-31T20:41:18Z, titulo real "Cuanto
+    cuesta una marca propia de suplementos?", handle
+    cuanto-cuesta-marca-propia-suplementos-colombia) pero con autor "Asesor
+    Punto Natural", NO "Julian E. Zamora" (viola A1.1) -- mismo patron que el
+    resto del bloque maquila-b2b publicado el 2026-08-31 20:22-20:44 (ver nota
+    del articulo "Como Elegir una Empresa de Maquila..." para el detalle
+    completo del hallazgo). Se marca publicado_oculto para evitar
+    canibalizacion; el contenido en si no fue verificado contra el QA de este
+    skill -- Julian deberia revisarlo.
 - titulo: Errores al Lanzar una Marca de Productos Saludables y Como Evitarlos
   cluster: maquila-b2b
   rol: cluster
-  estado: idea
   palabra_clave: errores al lanzar marca de suplementos
   keywords_secundarias:
   - errores comunes al lanzar una marca de alimentos saludables
@@ -948,9 +1026,23 @@ articulos:
   - Como Crear una Marca Propia de Productos Saludables en Colombia (articulo existente)
   - Requisitos INVIMA para Maquilar Suplementos en Colombia (articulo existente)
   handle_propuesto: errores-al-lanzar-marca-productos-saludables
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 043", estado "Pendiente").
+  handle_final: errores-lanzar-marca-productos-saludables-colombia
+  article_gid: gid://shopify/Article/614699073852
+  fecha_publicacion_oculta: '2026-08-31'
+  estado: publicado_oculto
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 043", estado
+    "Pendiente"). ALERTA encontrada 2026-09-16: publicado en Shopify
+    (isPublished:true desde 2026-08-31T20:44:44Z) con autor "Asesor Punto
+    Natural" (mismo patron que el resto del bloque maquila-b2b de esa fecha,
+    ver nota de "Como Elegir una Empresa de Maquila..."), Y ADEMAS con un bug
+    de contenido: el campo "title" real del articulo en Shopify es
+    "¿Cuánto cuesta una marca propia de suplementos?" -- identico al titulo
+    del articulo hermano cuanto-cuesta-marca-propia-suplementos-colombia, no
+    al tema "Errores al lanzar una marca..." que le corresponde por handle y
+    URL. El body no se reviso a fondo. Se marca publicado_oculto para evitar
+    que el agente redactor reescriba el mismo tema, pero Julian deberia
+    revisar/corregir el titulo de este articulo en Shopify directamente.
 - titulo: 'Para Que Sirve la Clorofila en el Cuerpo Humano: Beneficios y Evidencia'
   cluster: clorofila
   rol: pilar
@@ -1002,7 +1094,7 @@ articulos:
 - titulo: 'Clorofila para la Mujer: Para Que Sirve y en Que Etapas Tiene Sentido'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: clorofila para que sirve en la mujer
   keywords_secundarias:
   - clorofila y salud femenina
@@ -1010,13 +1102,23 @@ articulos:
   - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   handle_propuesto: clorofila-para-la-mujer
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 047", estado "Pendiente").
+  handle_final: clorofila-para-la-mujer
+  article_gid: gid://shopify/Article/614709756220
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 047", estado
+    "Pendiente"). ALERTA encontrada 2026-09-16: ya publicado en Shopify
+    (isPublished:true desde 2026-09-01T21:11:39Z) con autor "Asesor Punto
+    Natural", NO "Julian E. Zamora" -- todo el cluster clorofila (5 de sus 8
+    articulos) aparece publicado ese mismo dia entre 21:11 y 21:32 (21
+    minutos, los 5 juntos), mismo patron ajeno a este skill que el bloque
+    maquila-b2b del 2026-08-31. No paso por content-calendar.yaml ni por QA.
+    Se marca publicado_oculto para evitar canibalizacion; Julian deberia
+    revisar autoria y calidad real de estos 5 articulos.
 - titulo: 'Clorofila Liquida o en Capsulas: Cual Conviene Segun tu Caso'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: clorofila en capsulas
   keywords_secundarias:
   - clorofila liquida vs capsulas
@@ -1024,13 +1126,19 @@ articulos:
   - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   handle_propuesto: clorofila-liquida-o-capsulas-cual-conviene
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 048", estado "Pendiente").
+  handle_final: clorofila-liquida-o-capsulas
+  article_gid: gid://shopify/Article/614709788988
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 048", estado
+    "Pendiente"). ALERTA encontrada 2026-09-16: ya publicado (isPublished:true
+    desde 2026-09-01T21:14:53Z) con autor "Asesor Punto Natural", mismo
+    hallazgo que el resto del cluster clorofila (ver nota de "Clorofila para
+    la Mujer" para el detalle completo).
 - titulo: 'Contraindicaciones de la Clorofila: Quien No Deberia Tomarla'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: desventajas de tomar clorofila
   keywords_secundarias:
   - contraindicaciones de la clorofila liquida
@@ -1038,13 +1146,19 @@ articulos:
   - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: contraindicaciones-de-la-clorofila
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 049", estado "Pendiente").
+  handle_final: contraindicaciones-clorofila
+  article_gid: gid://shopify/Article/614709821756
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 049", estado
+    "Pendiente"). ALERTA encontrada 2026-09-16: ya publicado (isPublished:true
+    desde 2026-09-01T21:19:37Z) con autor "Asesor Punto Natural", mismo
+    hallazgo que el resto del cluster clorofila (ver nota de "Clorofila para
+    la Mujer" para el detalle completo).
 - titulo: 'Clorofila y Perdida de Peso: Que Dice la Evidencia'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: la clorofila sirve para bajar de peso
   keywords_secundarias:
   - clorofila y perdida de peso
@@ -1052,13 +1166,19 @@ articulos:
   - 'Para Que Sirve la Clorofila en el Cuerpo Humano (pilar, este calendario)'
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   handle_propuesto: clorofila-para-bajar-de-peso-evidencia
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 050", estado "Pendiente").
+  handle_final: clorofila-sirve-para-bajar-de-peso
+  article_gid: gid://shopify/Article/614709854524
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 050", estado
+    "Pendiente"). ALERTA encontrada 2026-09-16: ya publicado (isPublished:true
+    desde 2026-09-01T21:22:59Z) con autor "Asesor Punto Natural", mismo
+    hallazgo que el resto del cluster clorofila (ver nota de "Clorofila para
+    la Mujer" para el detalle completo).
 - titulo: 'Cual es la Mejor Clorofila Liquida en Colombia: Precio y Como Elegir'
   cluster: clorofila
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: clorofila liquida precio
   keywords_secundarias:
   - mejor clorofila liquida en Colombia
@@ -1067,9 +1187,19 @@ articulos:
   - VITALIAH CLOROFILA MENTA 240 ML (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: mejor-clorofila-liquida-en-colombia-precio
-  handle_final: null
-  article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 051", estado "Pendiente").
+  handle_final: mejor-clorofila-liquida-colombia
+  article_gid: gid://shopify/Article/614709920060
+  fecha_publicacion_oculta: '2026-09-01'
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 051", estado
+    "Pendiente"). ALERTA encontrada 2026-09-16: ya publicado (isPublished:true
+    desde 2026-09-01T21:32:19Z) con autor "Asesor Punto Natural", mismo
+    hallazgo que el resto del cluster clorofila (ver nota de "Clorofila para
+    la Mujer" para el detalle completo). Cluster clorofila: 5 de 8 articulos
+    ya publicados (todos por "Asesor Punto Natural", ninguno via este skill);
+    quedan pendientes de verdad solo el pilar "Para Que Sirve la Clorofila..."
+    y los clusters "Clorofila Liquida: Para Que Sirve..." y "Como Tomar
+    Clorofila Liquida: Dosis...".
 - titulo: 'Maca Peruana: Beneficios, Para Que Sirve y Como Tomarla'
   cluster: maca
   rol: pilar
