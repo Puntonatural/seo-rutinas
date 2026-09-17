@@ -627,6 +627,21 @@ articulos:
   handle_final: resveratrol-antienvejecimiento-ciencia
   article_gid: gid://shopify/Article/614698189116
   fecha_publicacion_oculta: '2026-08-31'
+  nota: >-
+    Republicado (isPublished:true, publishedAt 2026-09-17T15:15:27Z) el
+    2026-09-17 como parte del plan de republicacion gradual de la "PAUSA DE
+    VISIBILIDAD" (ver bloque al inicio de este archivo) -- se eligio por ser
+    uno de los 3 articulos restantes ocultos del cluster resveratrol que ya
+    cumplian la estructura vigente (acordeon FAQ A2.2, tarjeta de producto
+    A2.4, tabla + guia rapida A2.3, verificado contra el body real via
+    graphql_query antes de republicar). Excepcion puntual autorizada
+    explicitamente por Julian al limite de 1 articulo/dia -- el cupo de hoy ya
+    estaba consumido por la republicacion externa de magnesio-y-migrana-
+    evidencia (~2026-09-16T22:56 UTC). Quedan 2 articulos ocultos en el
+    cluster resveratrol pendientes de republicar gradualmente:
+    resveratrol-batido-o-masticables-cual-elegir (ya verificado con la misma
+    estructura vigente) y resveratrol-salud-cardiovascular (revisar su
+    isPublished real, la ultima consulta lo mostro ya visible).
 - titulo: 'Resveratrol en Batido o Masticables: Cual Elegir'
   cluster: resveratrol
   rol: cluster
