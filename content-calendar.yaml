@@ -48,12 +48,25 @@
 #     y uno de los dos ya esta en linea. Marcados "canibalizacion_detectada". No se escribio
 #     contenido nuevo. Julian debe decidir que hacer con el autor incorrecto del articulo ya
 #     publicado y con estas 2 entradas duplicadas.
-# No se publico ningun articulo nuevo en esta corrida: al momento de revisar el limite de
-# 1 publicacion/dia (Paso 5), ya habia un articulo con publishedAt dentro de las ultimas 24h
-# (resveratrol-antienvejecimiento-ciencia, 2026-09-17T15:15 UTC), asi que redactar un
-# articulo nuevo tampoco habria sido publicable hoy. Dada la magnitud del desfase encontrado,
-# se priorizo la reconciliacion del calendario sobre generar mas contenido nuevo antes de
-# que Julian revise lo anterior.
+# En esa primera corrida (mañana del 2026-09-18) no se publico ningun articulo nuevo: el
+# limite de 1 publicacion/dia (Paso 5) ya estaba consumido por resveratrol-antienvejecimiento-
+# ciencia (2026-09-17T15:15 UTC, dentro de las ultimas 24h), asi que redactar un articulo
+# nuevo tampoco habria sido publicable en ese momento. Se priorizo la reconciliacion del
+# calendario y se le reporto todo lo anterior a Julian.
+#
+# PUBLICACION 2026-09-18 (tarde, a peticion explicita de Julian: "escoge un archivo y
+# publicalo hoy"): con el limite de 1/dia ya liberado (>24h desde la ultima publicacion),
+# se eligio el pilar vinagre-de-manzana-beneficios-evidencia-como-tomarlo -- ya existia
+# como borrador completo en Shopify (ver "borrador_shopify_sin_publicar" arriba), asi que
+# se priorizo verificarlo y publicarlo en vez de redactar un articulo nuevo desde cero. Paso
+# el QA de 20 puntos con una correccion: el enlace obligatorio a "Linaza y Salud Digestiva"
+# apuntaba a un articulo sin publicar (isPublished:false, no accesible por URL) -- se quito
+# ese enlace roto y se agrego uno real ya publicado (clorofila-sirve-para-bajar-de-peso) para
+# mantener el minimo de 3 enlaces internos. Publicado, verificado post-publicacion (Paso 6.5)
+# y sincronizado en su entrada mas abajo. faqJsonLd generado de nuevo (no existia de la
+# corrida que creo el borrador) y pendiente de pegar manualmente en el tema de Shopify -- ver
+# drafts/vinagre-de-manzana-beneficios-evidencia-como-tomarlo.faq.jsonld.html. Los otros 4
+# articulos del cluster vinagre-manzana siguen sin publicar y sin QA verificado.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -878,7 +891,7 @@ articulos:
 - titulo: 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo'
   cluster: vinagre-manzana
   rol: pilar
-  estado: borrador_shopify_sin_publicar
+  estado: publicado_oculto
   palabra_clave: vinagre de manzana beneficios
   keywords_secundarias:
   - para que sirve el vinagre de manzana
@@ -889,13 +902,26 @@ articulos:
   handle_propuesto: vinagre-de-manzana-beneficios-evidencia-como-tomarlo
   handle_final: vinagre-de-manzana-beneficios-evidencia-como-tomarlo
   article_gid: gid://shopify/Article/614737314108
-  nota: 'DETECTADO 2026-09-18: todo el cluster vinagre-manzana (pilar + 4 cluster)
-    ya existe como articulos creados en Shopify (autor Julian E. Zamora, isPublished:false,
-    ninguno accesible por URL directa) pero content-calendar.yaml seguia en "idea"
-    para los 5. No se toco su contenido ni se publico ninguno -- no se verifico QA
-    de 20 puntos contra el body real de ninguno. Antes de publicar cualquiera, correr
-    el Paso 5 (QA) y 6.5 (verificacion) completos contra el articulo real, o reescribirlo
-    si no pasa.'
+  fecha_publicacion_oculta: '2026-09-18'
+  faq_jsonld_pendiente_de_pegar: drafts/vinagre-de-manzana-beneficios-evidencia-como-tomarlo.faq.jsonld.html
+  nota: 'DETECTADO 2026-09-18: el cluster vinagre-manzana completo (pilar + 4 cluster)
+    ya existia como articulos creados en Shopify (autor Julian E. Zamora, isPublished:false)
+    pero content-calendar.yaml seguia en "idea" para los 5 -- ver la reconciliacion
+    de mas arriba en este archivo. A peticion explicita de Julian, este pilar se
+    verifico contra el checklist de QA de 20 puntos (Paso 5) el 2026-09-18 y paso
+    todos los puntos, con una correccion antes de publicar: el enlace obligatorio
+    a "Linaza y Salud Digestiva" apuntaba a un articulo que existe en Shopify pero
+    con isPublished:false (inaccesible por URL directa) -- se quito ese enlace roto
+    (A5: nunca dejar un enlace interno que no resuelva a una pagina real accesible)
+    y se agrego en su lugar un enlace real y ya publicado, tematicamente relevante,
+    a "clorofila-sirve-para-bajar-de-peso", para mantener el minimo de 3 enlaces
+    internos. Publicado (isPublished:true) el 2026-09-18, verificado post-publicacion
+    (Paso 6.5): image.url no nulo, autor correcto, indice, FAQ en acordeon, Fuentes
+    y disclaimer INVIMA presentes en el body real. El faqJsonLd no existia de una
+    corrida anterior -- se genero ahora a partir de las 5 preguntas del acordeon y
+    queda en el archivo referenciado arriba, pendiente de pegar manualmente en el
+    tema de Shopify (nunca en el bodyHtml). Los otros 4 articulos del cluster
+    vinagre-manzana siguen en "borrador_shopify_sin_publicar", sin verificar.'
 - titulo: 'Vinagre de Manzana para Adelgazar: Que Dice la Ciencia'
   cluster: vinagre-manzana
   rol: cluster
