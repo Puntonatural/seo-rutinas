@@ -5,11 +5,23 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
+#   Ultima actualizacion: 2026-09-19 -- 63 en "idea":
+#     clorofila (8), creatina (5), vinagre-manzana (5), proteina-vegana (4), maquila-b2b (4),
+#     y 37 clusters con 1 cada uno (ver detalle abajo en "37 CLUSTERS NUEVOS").
 #   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
 #   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#
+# ALERTA DE DESINCRONIZACION 2026-09-19 (leer antes de confiar en el conteo de arriba para
+# clorofila/creatina/vinagre-manzana/proteina-vegana): se detecto que varias entradas "idea"
+# de esos 4 clusters YA tienen articulo real en Shopify (publicado o como borrador
+# isPublished:false) creado por una corrida anterior que nunca completo el Paso 7 de la skill
+# -- el YAML se quedo desactualizado. Confirmado y corregido en este commit solo
+# proteina-vegana-vs-whey-diferencias (publicado hoy, ver su entrada). Los otros casos
+# detectados (creatina: 5/5 ya publicados; clorofila: 7/8 ya existen, mayormente publicados;
+# vinagre-manzana: 4/4 restantes ya existen como borrador; proteina-vegana: 3/4 restantes ya
+# existen como borrador) siguen marcados "idea" a la espera de que Julian confirme la
+# reconciliacion masiva antes de tocarlos -- no asumir que el conteo de arriba para esos 4
+# clusters es fiable hasta que se resuelva.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -751,7 +763,7 @@ articulos:
 - titulo: 'Proteina Vegana vs. Whey: Diferencias y Cual Conviene'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: proteina vegana vs whey
   keywords_secundarias:
   - diferencia proteina vegana whey
@@ -760,8 +772,8 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: proteina-vegana-vs-whey-diferencias
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-vs-whey-diferencias
+  article_gid: gid://shopify/Article/614737051964
 - titulo: 'Proteina Vegana Aislada vs. Artesanal: Cual Elegir'
   cluster: proteina-vegana
   rol: cluster
