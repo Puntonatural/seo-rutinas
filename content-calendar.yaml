@@ -5,9 +5,24 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
+#   Ultima actualizacion: 2026-09-20 -- 63 en "idea":
+#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (4),
+#     maquila-b2b (4), y 38 clusters adicionales con 1 cada uno (agregados 2026-09-06).
+#
+# ADVERTENCIA 2026-09-20 -- DESYNC DETECTADO ENTRE ESTE YAML Y SHOPIFY: al correr la rutina
+# hoy, la primera entrada "idea" (creatina-para-que-sirve-beneficios-como-tomarla) resulto
+# ser un articulo YA publicado en Shopify desde 2026-09-04, con estado todavia "idea" aqui.
+# Verificado que esto afecta a los 5/5 articulos del cluster creatina, 5/8 de clorofila
+# (algunos con handle_final distinto al handle_propuesto, ej. clorofila-liquida-o-capsulas
+# vs. clorofila-liquida-o-capsulas-cual-conviene), el pilar de vinagre-manzana
+# (vinagre-de-manzana-beneficios-evidencia-como-tomarlo, publicado 2026-09-18) y al menos
+# 1 de proteina-vegana (proteina-vegana-vs-whey-diferencias, publicado 2026-09-19 -- o sea
+# el problema es reciente, no solo historico). El Paso 7 del playbook (actualizar el YAML +
+# commit tras publicar) se esta saltando en corridas recientes. NO se corrigieron esas
+# entradas en este commit (fuera del alcance de la corrida de hoy, que solo publico
+# vinagre-de-manzana-y-digestion-beneficios) -- Julian debe revisar y reconciliar cluster
+# por cluster antes de que el motor vuelva a tomar "la siguiente idea" a ciegas en esos
+# clusters, para no arriesgar articulos duplicados/canibalizados.
 #   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
 #   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
 #
@@ -849,7 +864,7 @@ articulos:
 - titulo: 'Vinagre de Manzana y Digestion: Beneficios Reales'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: vinagre de manzana digestion
   keywords_secundarias:
   - vinagre de manzana para la acidez
@@ -858,8 +873,8 @@ articulos:
   - Masticables MintsVing (producto)
   - Linaza y Salud Digestiva (articulo hermano tematico, este calendario)
   handle_propuesto: vinagre-de-manzana-y-digestion-beneficios
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-y-digestion-beneficios
+  article_gid: gid://shopify/Article/614737183036
 - titulo: 'Vinagre de Manzana: Contraindicaciones y Precauciones'
   cluster: vinagre-manzana
   rol: cluster
