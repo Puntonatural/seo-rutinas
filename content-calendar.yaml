@@ -5,11 +5,30 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
+#   Ultima actualizacion: 2026-09-22 -- 63 en "idea":
+#     clorofila (8), creatina (5), vinagre-manzana (5), proteina-vegana (4),
+#     maquila-b2b (4), y 37 clusters adicionales con 1 articulo pilar cada uno
+#     (tanda de 37 clusters nuevos agregada 2026-09-06 -- ver comentario de esa fecha
+#     mas abajo).
 #   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
 #   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#
+# DESINCRONIZACION DETECTADA 2026-09-22 (IMPORTANTE -- leer antes de confiar en el estado
+# "idea" de los clusters creatina, proteina-vegana, vinagre-manzana y maquila-b2b): al tomar
+# la primera entrada "idea" (creatina-para-que-sirve-...) se encontro que YA estaba publicada
+# en Shopify desde el 2026-09-04, sin que el YAML se hubiera actualizado y sin ningun commit
+# de "seo: publicar <handle>" en el historial de este repo para ese articulo -- a diferencia
+# de los clusters magnesio/resveratrol, que si siguieron el flujo normal. Verificacion mas
+# amplia mostro que las 5 entradas "idea" de creatina, las 5 de vinagre-manzana y al menos 4
+# de las 5 de proteina-vegana ya tenian su articulo correspondiente creado en Shopify (algunas
+# publicadas, otras con isPublished:false) bajo el mismo handle_propuesto. El cluster
+# maquila-b2b muestra ademas riesgo de canibalizacion: sus 4 entradas "idea" cubren angulos
+# casi identicos a articulos de maquila ya publicados bajo OTRO handle. No se reconciliaron
+# estas entradas en bloque -- requiere que Julian confirme el origen de esas publicaciones
+# (otra sesion/proceso escribiendo directo a Shopify por fuera de este repo) antes de seguir
+# tomando entradas "idea" de esos 4 clusters de forma automatica. Se publico manualmente UNA
+# excepcion verificada el 2026-09-22 (proteina-vegana-para-ganar-musculo, ver su commit) tras
+# confirmar contra Shopify que el articulo cumplia el QA y no estaba publicado aun.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -779,7 +798,7 @@ articulos:
 - titulo: 'Proteina Vegana para Ganar Musculo: Es Suficiente?'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: proteina vegana para ganar musculo
   keywords_secundarias:
   - proteina vegana hipertrofia
@@ -788,8 +807,8 @@ articulos:
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: proteina-vegana-para-ganar-musculo
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-para-ganar-musculo
+  article_gid: gid://shopify/Article/614736953660
 - titulo: Cuanta Proteina Vegana Necesitas al Dia
   cluster: proteina-vegana
   rol: cluster
