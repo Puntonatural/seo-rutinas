@@ -6,23 +6,33 @@
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
 #   Ultima actualizacion: 2026-09-24 (script python+yaml, conteo real sobre 103
-#   articulos totales) -- 63 en "idea":
-#     clorofila (8), proteina-vegana (5), vinagre-manzana (5), creatina (4), maquila-b2b (4),
-#     acido-hialuronico-oral (1), ashwagandha (1), batido-junior-kds (1), berberina (1),
-#     bienestar-hormonal-femenino (1), biotina (1), calcio (1), coenzima-q10 (1), coffee-
-#     colageno (1), colageno-50-50-marino-bovino (1), colla-fem (1), colla-men (1), combos-mujer
-#     (1), curcuma-golden-mix (1), distribuidor-mayorista (1), electrolitos-pre-entreno (1),
-#     flor-de-jamaica-wanda (1), funcionales-quinoa-avena (1), gaba-l-teanina (1), glutamina-l-
-#     carnitina (1), kombucha (1), lactosa-cero (1), leches-vegetales (1), maca (1), melatonina
-#     (1), moringa (1), niacina (1), nmn-antienvejecimiento (1), omega-3-marino (1), potasio
-#     (1), probioticos (1), propoleo-jalea-real (1), spirulina (1), te-frio-sin-azucar (1),
-#     vitaliah-smooth (1), vitamina-c-natural (1), zinc-inmunidad (1)
-#   Ademas: 30 en "publicado"; 10 en "publicado_oculto" (incluye
-#   creatina-para-que-sirve-beneficios-como-tomarla y resveratrol-vs-otros-antioxidantes-
-#   comparativa, ambos corregidos el 2026-09-24 -- ver su campo 'nota' en cada uno para el
+#   articulos totales) -- 62 en "idea":
+#     clorofila (8), proteina-vegana (5), vinagre-manzana (5), maquila-b2b (4),
+#     creatina (3), acido-hialuronico-oral (1), ashwagandha (1), batido-junior-
+#     kds (1), berberina (1), bienestar-hormonal-femenino (1), biotina (1),
+#     calcio (1), coenzima-q10 (1), coffee-colageno (1), colageno-50-50-marino-
+#     bovino (1), colla-fem (1), colla-men (1), combos-mujer (1), curcuma-
+#     golden-mix (1), distribuidor-mayorista (1), electrolitos-pre-entreno (1),
+#     flor-de-jamaica-wanda (1), funcionales-quinoa-avena (1), gaba-l-teanina
+#     (1), glutamina-l-carnitina (1), kombucha (1), lactosa-cero (1), leches-
+#     vegetales (1), maca (1), melatonina (1), moringa (1), niacina (1), nmn-
+#     antienvejecimiento (1), omega-3-marino (1), potasio (1), probioticos (1),
+#     propoleo-jalea-real (1), spirulina (1), te-frio-sin-azucar (1), vitaliah-
+#     smooth (1), vitamina-c-natural (1), zinc-inmunidad (1)
+#   Ademas: 30 en "publicado"; 11 en "publicado_oculto" (incluye
+#   creatina-para-que-sirve-beneficios-como-tomarla, creatina-para-mujeres-
+#   mitos-evidencia y resveratrol-vs-otros-antioxidantes-comparativa, los tres
+#   corregidos el 2026-09-24 -- ver su campo 'nota' en cada uno para el
 #   detalle de por que su 'estado' no reflejaba la realidad de Shopify). 0 en
 #   "qa_aprobado_pendiente_publicacion", 0 en "qa_fallido" y 0 en "canibalizacion_detectada"
-#   en este momento.
+#   en este momento. PENDIENTE DE VERIFICAR (ver nota de creatina-para-mujeres-
+#   mitos-evidencia): los otros 3 articulos del cluster creatina que siguen en
+#   'idea' aqui arriba (creatina-monohidratada-dosis-horarios-carga,
+#   creatina-rendimiento-fisico-evidencia, mitos-sobre-la-creatina-desmentidos)
+#   tambien parecen estar ya publicados en Shopify con el mismo patron de
+#   desincronizacion -- no se corrigieron en esta corrida por estar fuera del
+#   alcance de la tarea puntual del dia (un solo articulo); si se confirma,
+#   el conteo de "idea" bajaria de 62 a 59 y creatina quedaria en 0.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -723,7 +733,7 @@ articulos:
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para mujeres
   keywords_secundarias:
   - creatina engorda mujeres
@@ -732,8 +742,62 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-para-mujeres-mitos-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-mujeres-mitos-evidencia
+  article_gid: gid://shopify/Article/614730498364
+  nota: >-
+    Corrida del 2026-09-24 (Julian pidio en vivo "escoge uno de los blogs ya
+    listos y publicalo"; se tomo esta entrada por ser la primera en estado
+    'idea' tras corregir en la misma corrida el falso positivo del pilar de
+    creatina, ver nota de la entrada anterior). Al ejecutar el Paso 2
+    (chequeo de canibalizacion, filtro title:*creatina* en Shopify) se
+    encontro que este articulo YA estaba publicado (isPublished:true,
+    publishedAt 2026-09-05T11:24:07Z) con titulo, handle, autor y los 3
+    enlaces internos obligatorios exactos de esta entrada -- mismo patron de
+    desincronizacion que el pilar (Paso 7 nunca se corrio en la corrida que
+    lo redacto). No se redacto ni publico nada nuevo. Se verifico el
+    articulo real contra el checklist de 20 puntos con datos extraidos via
+    API + conteo por shell (no a ojo): 1844 palabras (>=1400 cluster), 9 H2
+    (diferencias-hombres-mujeres, mito-engorda-hincha, mito-masculiniza,
+    creatina-ciclo-menstrual, tabla-mitos-evidencia, como-tomar-mujeres,
+    precauciones, preguntas-frecuentes, fuentes; >=4 cluster), 0 H1, titulo
+    45 car. (<=60), metaTitle 56 car., metaDescription 144 car. con keyword
+    en los primeros 100 caracteres, keyword "creatina para mujeres" en la
+    primera frase y en el cuerpo, indice con anclas completo (8 items,
+    coincide con los 8 H2 principales, excluye Fuentes) justo despues de la
+    intro y antes de la primera imagen, tabla comparativa (mitos vs.
+    evidencia, con nota aclaratoria de que es sintesis editorial) + guia
+    rapida (caja con 6 items) + infografia (creatina-mujeres-infografia-
+    guia-rapida-dosis.png) -- los 3 elementos de A2.3 presentes, FAQ en
+    acordeon <details>/<summary> (5 preguntas) con id de ancla en el h2,
+    minimo 3 fuentes (5 reales: JISSN, Nutrients x2, ISSN 2017) solo en la
+    seccion Fuentes (ningun enlace externo inline en el cuerpo), 4 enlaces
+    internos reales (pilar, producto, coleccion batidos-saludables,
+    productos-naturales-en-colombia-guia), 2 imagenes de contexto
+    (ilustracion + fotorrealista, filenames descriptivos, campo "image"
+    featured seteado con la misma URL de la primera) + 2 imagenes de
+    producto en tarjeta A2.4 con enlace a /products/batido-crea10-creatina-
+    x400g, disclaimer INVIMA textual al final, autor exacto {"name":
+    "Julian E. Zamora"}, tags ["colombia","creatina","mujeres","rendimiento
+    fisico"] (>=2, incluye colombia), 195 palabras con tilde/enie sobre 1844
+    (~10.6%, sin problema ortografico). Unico punto no verificable via API:
+    el faqJsonLd, si se genero en la corrida original del 2026-09-05, no
+    quedo en ningun campo consultable de este articulo ni en este
+    calendario. Verificado tambien que ningun otro articulo publicado del
+    blog cubre este mismo angulo especifico (creatina + mujeres/mitos) --
+    el unico resultado relacionado es el pilar "Creatina: Para Que
+    Sirve...", angulo distinto, no canibalizacion. Se corrige aqui el
+    campo 'estado' para reflejar la realidad y no reintentar publicar un
+    duplicado. NOTA ADICIONAL: la misma busqueda de canibalizacion
+    (title:*creatina*) revelo que los otros 3 articulos restantes del
+    cluster creatina que seguian en estado 'idea' en este calendario
+    (creatina-monohidratada-dosis-horarios-carga, publishedAt
+    2026-09-11T01:20:44Z; creatina-rendimiento-fisico-evidencia,
+    publishedAt 2026-09-11T11:14:05Z; mitos-sobre-la-creatina-desmentidos,
+    publishedAt 2026-09-13T14:42:30Z) TAMBIEN estan ya publicados en
+    Shopify con el mismo patron de desincronizacion -- no se tocaron en
+    esta corrida por estar fuera del alcance de la tarea puntual de hoy
+    (un solo articulo), quedan pendientes de la misma verificacion y
+    correccion de estado en una corrida futura.
 - titulo: 'Creatina Monohidratada: Dosis, Horarios y Carga'
   cluster: creatina
   rol: cluster
