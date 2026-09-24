@@ -185,7 +185,7 @@ articulos:
 - titulo: 'Monk Fruit vs. Stevia: Diferencias y Cual Conviene'
   cluster: monk-fruit
   rol: cluster
-  estado: publicado
+  estado: publicado_oculto
   palabra_clave: monk fruit vs stevia
   keywords_secundarias:
   - diferencia monk fruit y stevia
@@ -196,6 +196,34 @@ articulos:
   handle_propuesto: monk-fruit-vs-stevia-diferencias
   handle_final: monk-fruit-vs-stevia-diferencias
   article_gid: gid://shopify/Article/614688620860
+  fecha_publicacion_oculta: '2026-09-24'
+  nota: >-
+    2026-09-24: este articulo ya estaba redactado y habia sido publicado antes
+    (handle_final/article_gid ya estaban asignados), pero Shopify lo tenia
+    isPublished:false / publishedAt:null -- consistente con la "PAUSA DE
+    VISIBILIDAD 2026-08-31" documentada al inicio de este YAML (36 articulos
+    ocultados de vuelta por riesgo de spam; monk-fruit-vs-stevia-diferencias
+    no estaba en la lista de los 5 que quedaron visibles). Julian pidio
+    explicitamente publicar uno de los articulos ya listos en borrador; esta
+    corrida solo hizo isPublished:true de vuelta (accion prevista en la nota
+    "ACCION FUTURA: republicar... gradualmente" de este mismo YAML), sin
+    redactar contenido nuevo. QA de 20 puntos corrido contra el contenido
+    real: paso todos los puntos bloqueantes. Backfill quirurgico aplicado:
+    se agrego la segunda imagen de contexto obligatoria (A6/Paso 3.5),
+    reutilizando la imagen real "monk-fruit-mogrosidos-evidencia-cientifica-
+    vitaliah.png" ya publicada en el pilar hermano
+    (monk-fruit-fruto-del-monje-colombia-guia), insertada en la seccion
+    "Evidencia cientifica" -- no se genero contenido de texto nuevo. Hallazgos
+    documentados sin corregir (no bloqueantes, fuera del alcance de un
+    backfill quirurgico hoy): (1) el nombre de archivo de la imagen de
+    cabecera sigue siendo el export sin renombrar de Canva
+    ("0001-641151397864726692.png", QA punto 18), heredado del mismo archivo
+    ya usado por el pilar; (2) A2.3 solo incluye tabla comparativa + guia
+    rapida, sin infografia (QA punto 17, no bloqueante); (3) no se pudo
+    verificar si el faqJsonLd de este articulo fue pegado alguna vez en el
+    tema de Shopify (Paso 6 dice que nunca vive en el body ni en la API de
+    Article) -- Julian deberia confirmarlo si le importa el rich snippet de
+    FAQ.
 - titulo: 'Monk Fruit para Diabeticos: Que Dice la Evidencia'
   cluster: monk-fruit
   rol: cluster
