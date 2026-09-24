@@ -17,12 +17,12 @@
 #     (1), moringa (1), niacina (1), nmn-antienvejecimiento (1), omega-3-marino (1), potasio
 #     (1), probioticos (1), propoleo-jalea-real (1), spirulina (1), te-frio-sin-azucar (1),
 #     vitaliah-smooth (1), vitamina-c-natural (1), zinc-inmunidad (1)
-#   Ademas: 1 en "qa_aprobado_pendiente_publicacion" (resveratrol-vs-otros-antioxidantes-
-#   comparativa -- QA de 20 puntos completo y aprobado, no publicado por limite diario ya
-#   alcanzado ese dia, ver su campo 'nota'); 30 en "publicado"; 9 en "publicado_oculto"
-#   (incluye creatina-para-que-sirve-beneficios-como-tomarla, corregido en esta actualizacion
-#   -- ver su campo 'nota' para el detalle de por que estaba mal marcado como "idea").
-#   0 en "qa_fallido" y 0 en "canibalizacion_detectada" en este momento.
+#   Ademas: 30 en "publicado"; 10 en "publicado_oculto" (incluye
+#   creatina-para-que-sirve-beneficios-como-tomarla y resveratrol-vs-otros-antioxidantes-
+#   comparativa, ambos corregidos el 2026-09-24 -- ver su campo 'nota' en cada uno para el
+#   detalle de por que su 'estado' no reflejaba la realidad de Shopify). 0 en
+#   "qa_aprobado_pendiente_publicacion", 0 en "qa_fallido" y 0 en "canibalizacion_detectada"
+#   en este momento.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -648,7 +648,7 @@ articulos:
 - titulo: 'Resveratrol vs. Otros Antioxidantes: Comparativa'
   cluster: resveratrol
   rol: cluster
-  estado: qa_aprobado_pendiente_publicacion
+  estado: publicado_oculto
   palabra_clave: resveratrol vs antioxidantes
   keywords_secundarias:
   - mejores antioxidantes naturales
@@ -659,7 +659,7 @@ articulos:
   handle_propuesto: resveratrol-vs-otros-antioxidantes-comparativa
   handle_final: resveratrol-vs-otros-antioxidantes-comparativa
   article_gid: gid://shopify/Article/614707888444
-  fecha_publicacion_oculta: null
+  fecha_publicacion_oculta: '2026-09-06'
   faq_jsonld_pendiente_de_pegar: drafts/resveratrol-vs-otros-antioxidantes-comparativa.faq.jsonld.html
   nota: >-
     Reescrito por completo el 2026-09-01 siguiendo el skill redactor-blog vigente
@@ -670,13 +670,16 @@ articulos:
     los otros 4 articulos del cluster resveratrol, que ya usaban ese formato; el
     primer borrador uso H3 planos, valido segun la letra de A2.2 pero inconsistente
     con sus hermanos, corregido tras revision del usuario). QA de 20 puntos
-    completo, pasa todos. NO se publico (isPublished
-    sigue false) porque el limite de 1 articulo/dia ya se habia alcanzado hoy
-    (6 articulos con publishedAt entre 2026-08-31T17:05 y 2026-08-31T20:44,
-    dentro de las ultimas 24h desde 2026-09-01T14:48). Queda listo para
-    publicarse (isPublished:true) el proximo dia disponible sin ningun trabajo
-    adicional -- solo falta correr articleUpdate con isPublished:true cuando
-    corresponda y actualizar este estado a publicado_oculto.
+    completo, paso todos. CORRECCION 2026-09-24: este registro seguia marcado
+    "qa_aprobado_pendiente_publicacion" con isPublished:false, pero al consultar
+    Shopify directamente (misma clase de desfase que se encontro el mismo dia en
+    la entrada de creatina-para-que-sirve) el articulo ya estaba isPublished:true
+    desde 2026-09-06T15:06:31Z -- se publico en una corrida anterior sin llegar a
+    correr el Paso 7 (actualizar el calendario). Se corrige aqui el estado y se
+    completa fecha_publicacion_oculta con la fecha real de publicacion. El
+    faqJsonLd sigue pendiente de confirmar si se pego en el tema de Shopify (ver
+    drafts/resveratrol-vs-otros-antioxidantes-comparativa.faq.jsonld.html);
+    no se pudo verificar por API.
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
