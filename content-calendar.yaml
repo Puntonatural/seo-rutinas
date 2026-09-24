@@ -5,11 +5,24 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
-#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
-#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#   Ultima actualizacion: 2026-09-24 (script python+yaml, conteo real sobre 103
+#   articulos totales) -- 63 en "idea":
+#     clorofila (8), proteina-vegana (5), vinagre-manzana (5), creatina (4), maquila-b2b (4),
+#     acido-hialuronico-oral (1), ashwagandha (1), batido-junior-kds (1), berberina (1),
+#     bienestar-hormonal-femenino (1), biotina (1), calcio (1), coenzima-q10 (1), coffee-
+#     colageno (1), colageno-50-50-marino-bovino (1), colla-fem (1), colla-men (1), combos-mujer
+#     (1), curcuma-golden-mix (1), distribuidor-mayorista (1), electrolitos-pre-entreno (1),
+#     flor-de-jamaica-wanda (1), funcionales-quinoa-avena (1), gaba-l-teanina (1), glutamina-l-
+#     carnitina (1), kombucha (1), lactosa-cero (1), leches-vegetales (1), maca (1), melatonina
+#     (1), moringa (1), niacina (1), nmn-antienvejecimiento (1), omega-3-marino (1), potasio
+#     (1), probioticos (1), propoleo-jalea-real (1), spirulina (1), te-frio-sin-azucar (1),
+#     vitaliah-smooth (1), vitamina-c-natural (1), zinc-inmunidad (1)
+#   Ademas: 1 en "qa_aprobado_pendiente_publicacion" (resveratrol-vs-otros-antioxidantes-
+#   comparativa -- QA de 20 puntos completo y aprobado, no publicado por limite diario ya
+#   alcanzado ese dia, ver su campo 'nota'); 30 en "publicado"; 9 en "publicado_oculto"
+#   (incluye creatina-para-que-sirve-beneficios-como-tomarla, corregido en esta actualizacion
+#   -- ver su campo 'nota' para el detalle de por que estaba mal marcado como "idea").
+#   0 en "qa_fallido" y 0 en "canibalizacion_detectada" en este momento.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -667,7 +680,7 @@ articulos:
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -676,8 +689,34 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  nota: >-
+    Corrida del 2026-09-24 (agente redactor, chequeo de canibalizacion Paso 2):
+    al buscar en Shopify se encontro que este articulo YA estaba publicado
+    (isPublished:true, publishedAt 2026-09-04T11:15:52Z) con titulo, handle,
+    autor y los 3 enlaces internos obligatorios exactos de esta entrada -- no
+    un articulo distinto que se solape (canibalizacion), sino la ejecucion ya
+    completada de esta misma entrada, cuyo estado nunca se sincronizo de
+    'idea' a 'publicado_oculto' en una corrida anterior (falta de Paso 7). Se
+    verifico manualmente el articulo real contra el checklist de 20 puntos en
+    vez de redactar un duplicado: 2572 palabras (>=2300 pilar), 11 H2 de
+    contenido + Fuentes (>=8), 0 H1, titulo 51 car., meta description 154
+    car. con keyword, indice con anclas completo, tabla comparativa + guia
+    rapida + infografia (los 3 elementos de A2.3), FAQ en acordeon
+    <details>/<summary> (5 preguntas), 2 imagenes de contexto (ilustracion +
+    fotorrealista, filenames descriptivos) + 2 imagenes de producto en
+    tarjeta A2.4 con enlace a /products/batido-crea10-creatina-x400g, campo
+    image (featured) seteado y no nulo, seccion Fuentes con 5 citas reales
+    fuera del cuerpo, disclaimer INVIMA textual al final, autor exacto
+    {"name": "Julian E. Zamora"}, ~10% de palabras con tilde/enie (sin
+    problema ortografico). Unico punto no verificable via API: el faqJsonLd
+    (si se genero) no quedo registrado en ningun campo consultable del
+    articulo ni en este calendario -- si Julian lo necesita para el
+    FAQPage schema del tema, probablemente haya que regenerarlo o revisar
+    el reporte de la corrida original del 2026-09-04. Se corrige aqui el
+    campo 'estado' para que refleje la realidad y no se vuelva a intentar
+    publicar un duplicado.
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
