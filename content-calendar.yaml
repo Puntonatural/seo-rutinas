@@ -667,7 +667,7 @@ articulos:
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -676,8 +676,20 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  fecha_publicacion_oculta: '2026-09-04'
+  nota: >-
+    Backfill 2026-09-25: el articulo ya estaba publicado en vivo en Shopify
+    (isPublished:true, publishedAt 2026-09-04T11:15:52Z, autor Julian E.
+    Zamora) pero el calendario seguia en estado "idea" -- el Paso 7 de esa
+    corrida no se completo. Verificado contra el articulo real antes de
+    marcarlo: image.url no nulo, indice con anclas, FAQ en acordeon
+    <details>/<summary>, seccion Fuentes (5 citas), disclaimer INVIMA,
+    tarjeta de producto A2.4. No se publico nada nuevo hoy, solo se
+    sincronizo el calendario con el estado real de Shopify a pedido de
+    Julian. Mismo problema detectado en el resto del cluster creatina y en
+    vinagre-manzana -- pendiente de backfill.
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
