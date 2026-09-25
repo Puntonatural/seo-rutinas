@@ -805,7 +805,7 @@ articulos:
 - titulo: Cuanta Proteina Vegana Necesitas al Dia
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: cuanta proteina vegana al dia
   keywords_secundarias:
   - requerimiento diario de proteina vegana
@@ -814,8 +814,22 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: cuanta-proteina-vegana-necesitas-al-dia
-  handle_final: null
-  article_gid: null
+  handle_final: cuanta-proteina-vegana-necesitas-al-dia
+  article_gid: gid://shopify/Article/614737150268
+  fecha_publicacion_oculta: '2026-09-25'
+  nota: >-
+    2026-09-25: el articulo ya estaba redactado y completo en Shopify
+    (isPublished:false, borrador full-QA -- autor Julian E. Zamora, indice,
+    tabla comparativa, guia rapida, tarjeta de producto A2.4 x2, FAQ en
+    acordeon, seccion Fuentes con 6 citas, disclaimer INVIMA) pero nunca se
+    habia marcado isPublished:true ni actualizado el calendario. A pedido
+    explicito de Julian se publico hoy (articleUpdate isPublished:true,
+    publishedAt 2026-09-25T12:47:50Z) y se verifico el resultado real
+    (image.url, author.name, tags) antes de este commit. Nota sobre el
+    limite diario: ya habia 1 articulo con publishedAt dentro de las ultimas
+    24h (monk-fruit-vs-stevia-diferencias, 2026-09-24T13:10:22Z) -- se
+    publico este igual por autorizacion explicita de Julian para este caso
+    puntual, segun permite la regla de cadencia de CLAUDE.md.
 - titulo: 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo'
   cluster: vinagre-manzana
   rol: pilar
