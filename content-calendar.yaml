@@ -667,7 +667,7 @@ articulos:
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -676,12 +676,25 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  fecha_publicacion_oculta: '2026-09-04'
+  nota: >-
+    RECONCILIACION 2026-09-26: este articulo (y los otros 4 del cluster
+    creatina, abajo) ya estaban publicados en Shopify (isPublished:true,
+    author Julian E. Zamora, acordeon FAQ, seccion Fuentes, disclaimer
+    INVIMA, sin H1, todos por encima del minimo de palabras) pero el YAML
+    seguia marcandolos "idea" con handle_final/article_gid en null -- no
+    hay ningun commit en este repo que los registre, asi que se publicaron
+    por fuera de este flujo de Git en algun momento entre 2026-09-04 y
+    2026-09-13. Se corrige el estado para reflejar la realidad verificada
+    en Shopify. No se puede recuperar si quedo un faqJsonld pendiente de
+    pegar en el tema -- desconocido, revisar manualmente si el rich
+    snippet de FAQ no aparece en Google.
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina para mujeres
   keywords_secundarias:
   - creatina engorda mujeres
@@ -690,12 +703,14 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-para-mujeres-mitos-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-mujeres-mitos-evidencia
+  article_gid: gid://shopify/Article/614730498364
+  fecha_publicacion_oculta: '2026-09-05'
+  nota: 'RECONCILIACION 2026-09-26: ver nota completa en el pilar de este cluster.'
 - titulo: 'Creatina Monohidratada: Dosis, Horarios y Carga'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: como tomar creatina
   keywords_secundarias:
   - dosis de creatina monohidratada
@@ -704,12 +719,14 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-monohidratada-dosis-horarios-carga
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-monohidratada-dosis-horarios-carga
+  article_gid: gid://shopify/Article/614736920892
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: 'RECONCILIACION 2026-09-26: ver nota completa en el pilar de este cluster.'
 - titulo: 'Creatina y Rendimiento Fisico: Que Dice la Evidencia'
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: creatina rendimiento fisico
   keywords_secundarias:
   - creatina fuerza muscular
@@ -718,12 +735,14 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: creatina-rendimiento-fisico-evidencia
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-rendimiento-fisico-evidencia
+  article_gid: gid://shopify/Article/614737117500
+  fecha_publicacion_oculta: '2026-09-11'
+  nota: 'RECONCILIACION 2026-09-26: ver nota completa en el pilar de este cluster.'
 - titulo: Mitos sobre la Creatina Desmentidos con Evidencia
   cluster: creatina
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: mitos de la creatina
   keywords_secundarias:
   - creatina es mala para los rinones
@@ -732,8 +751,10 @@ articulos:
   - Batido Crea 10 (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: mitos-sobre-la-creatina-desmentidos
-  handle_final: null
-  article_gid: null
+  handle_final: mitos-sobre-la-creatina-desmentidos
+  article_gid: gid://shopify/Article/614737707324
+  fecha_publicacion_oculta: '2026-09-13'
+  nota: 'RECONCILIACION 2026-09-26: ver nota completa en el pilar de este cluster.'
 - titulo: 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia'
   cluster: proteina-vegana
   rol: pilar
