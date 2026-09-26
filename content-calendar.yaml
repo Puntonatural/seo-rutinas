@@ -5,11 +5,40 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
-#     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
-#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
-#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#   Ultima actualizacion: 2026-09-26 (barrido de reconciliacion completo, ver RECONCILIACION
+#   2026-09-26 abajo) -- 52 en "idea" (de 59 antes del barrido):
+#     clorofila (8, de los cuales 7 con nota ALERTA por colision total o parcial de handle
+#       con contenido legacy ya publicado -- ver su pilar), vinagre-manzana (3, los 3 con
+#       nota ALERTA: existen en Shopify con handle identico y contenido completo pero
+#       isPublished:false), maquila-b2b (4, con nota ALERTA de posible canibalizacion con
+#       contenido legacy de handle parecido), y 37 clusters nuevos de un solo articulo
+#       (agregados 2026-09-06, sin novedad en este barrido).
+#   creatina (5) y proteina-vegana (5) YA NO estan en "idea": se reconciliaron a
+#   publicado_oculto (creatina el 2026-09-26 antes de este barrido; proteina-vegana en este
+#   mismo barrido). vinagre-manzana paso de 5 a 3 en "idea": su pilar y
+#   "...y-digestion-beneficios" tambien se reconciliaron a publicado_oculto en este barrido.
+#   Ademas 1 en "qa_aprobado_pendiente_publicacion": resveratrol-vs-otros-antioxidantes-comparativa
+#   (nota interna del campo dice "qa_fallido" en este comentario legado -- desactualizado,
+#   el campo 'estado' real del articulo es qa_aprobado_pendiente_publicacion; no se toco en
+#   este barrido por estar fuera de alcance, revisar).
+#
+# RECONCILIACION 2026-09-26 (barrido completo tras el hallazgo de desincronizacion en el
+# cluster creatina): se detecto que TODOS los articulos de proteina-vegana (5) y parte de
+# vinagre-manzana (2 de 5: el pilar y "...y-digestion-beneficios") ya estaban publicados en
+# Shopify (isPublished:true, autor Julian E. Zamora, contenido completo) con handle
+# IDENTICO al handle_propuesto, sin ningun commit de git que los registre. Se corrigio su
+# estado a publicado_oculto (7 clusters/articulos en total). Los otros 3 de vinagre-manzana
+# tienen handle identico y contenido completo pero isPublished:false -- se dejaron en
+# "idea" con nota de alerta en vez de publicado_oculto (instruccion explicita: no marcar
+# publicado_oculto si isPublished es false). Ademas se detecto que el cluster clorofila (7
+# de sus 8 handles) y 4 entradas nuevas de maquila-b2b coinciden en tema (handle identico en
+# 2 casos de clorofila, parecido en el resto) con contenido YA PUBLICADO en Shopify pero de
+# autor "Asesor Punto Natural" (no "Julian E. Zamora", no es output de este pipeline) --
+# probablemente contenido legacy previo a este sistema. No se reconciliaron (no son output
+# de este pipeline verificable) pero se dejo nota de alerta detallada para evitar
+# canibalizacion si el agente redactor los toma de la cola. Ningun otro cluster/entrada
+# "idea" del resto del YAML (~37 clusters nuevos de 2026-09-06) tuvo coincidencia de handle
+# con Shopify -- genuinamente no existen todavia.
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
@@ -758,7 +787,7 @@ articulos:
 - titulo: 'Proteina Vegana: Guia Completa para Elegir la Mejor en Colombia'
   cluster: proteina-vegana
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: proteina vegana Colombia
   keywords_secundarias:
   - mejor proteina vegana
@@ -767,12 +796,24 @@ articulos:
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: proteina-vegana-guia-completa-colombia
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-guia-completa-colombia
+  article_gid: gid://shopify/Article/614736888124
+  fecha_publicacion_oculta: '2026-09-15'
+  nota: >-
+    RECONCILIACION 2026-09-26: este articulo (y los otros 4 del cluster
+    proteina-vegana, abajo) ya estaban publicados en Shopify (isPublished:true,
+    author Julian E. Zamora, imagen de contexto presente, todos por encima del
+    minimo de palabras) pero el YAML seguia marcandolos "idea" con
+    handle_final/article_gid en null -- no hay ningun commit en este repo que
+    los registre, asi que se publicaron por fuera de este flujo de Git en
+    algun momento entre 2026-09-15 y 2026-09-25. Se corrige el estado para
+    reflejar la realidad verificada en Shopify. No se puede recuperar si
+    quedo un faqJsonld pendiente de pegar en el tema -- desconocido, revisar
+    manualmente si el rich snippet de FAQ no aparece en Google.
 - titulo: 'Proteina Vegana vs. Whey: Diferencias y Cual Conviene'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: proteina vegana vs whey
   keywords_secundarias:
   - diferencia proteina vegana whey
@@ -781,12 +822,14 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: proteina-vegana-vs-whey-diferencias
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-vs-whey-diferencias
+  article_gid: gid://shopify/Article/614737051964
+  fecha_publicacion_oculta: '2026-09-19'
+  nota: 'RECONCILIACION 2026-09-26: ver nota completa en el pilar de este cluster.'
 - titulo: 'Proteina Vegana Aislada vs. Artesanal: Cual Elegir'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: proteina vegana aislada vs artesanal
   keywords_secundarias:
   - tipos de proteina vegana
@@ -795,12 +838,14 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   handle_propuesto: proteina-vegana-aislada-vs-artesanal
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-aislada-vs-artesanal
+  article_gid: gid://shopify/Article/614737019196
+  fecha_publicacion_oculta: '2026-09-23'
+  nota: 'RECONCILIACION 2026-09-26: ver nota completa en el pilar de este cluster.'
 - titulo: 'Proteina Vegana para Ganar Musculo: Es Suficiente?'
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: proteina vegana para ganar musculo
   keywords_secundarias:
   - proteina vegana hipertrofia
@@ -809,12 +854,14 @@ articulos:
   - Vitaliah Pro Proteina Vegana Artesanal (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: proteina-vegana-para-ganar-musculo
-  handle_final: null
-  article_gid: null
+  handle_final: proteina-vegana-para-ganar-musculo
+  article_gid: gid://shopify/Article/614736953660
+  fecha_publicacion_oculta: '2026-09-22'
+  nota: 'RECONCILIACION 2026-09-26: ver nota completa en el pilar de este cluster.'
 - titulo: Cuanta Proteina Vegana Necesitas al Dia
   cluster: proteina-vegana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: cuanta proteina vegana al dia
   keywords_secundarias:
   - requerimiento diario de proteina vegana
@@ -823,12 +870,14 @@ articulos:
   - Vitaliah Pro Proteina Vegana Aislada (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: cuanta-proteina-vegana-necesitas-al-dia
-  handle_final: null
-  article_gid: null
+  handle_final: cuanta-proteina-vegana-necesitas-al-dia
+  article_gid: gid://shopify/Article/614737150268
+  fecha_publicacion_oculta: '2026-09-25'
+  nota: 'RECONCILIACION 2026-09-26: ver nota completa en el pilar de este cluster.'
 - titulo: 'Vinagre de Manzana: Beneficios, Evidencia y Como Tomarlo'
   cluster: vinagre-manzana
   rol: pilar
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: vinagre de manzana beneficios
   keywords_secundarias:
   - para que sirve el vinagre de manzana
@@ -837,8 +886,28 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Linaza y Salud Digestiva (articulo hermano tematico, este calendario)
   handle_propuesto: vinagre-de-manzana-beneficios-evidencia-como-tomarlo
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-beneficios-evidencia-como-tomarlo
+  article_gid: gid://shopify/Article/614737314108
+  fecha_publicacion_oculta: '2026-09-18'
+  nota: >-
+    RECONCILIACION 2026-09-26: este articulo y "Vinagre de Manzana y
+    Digestion: Beneficios Reales" (abajo, este mismo cluster) ya estaban
+    publicados en Shopify (isPublished:true, author Julian E. Zamora, imagen
+    de contexto presente, por encima del minimo de palabras) pero el YAML
+    seguia marcandolos "idea" con handle_final/article_gid en null -- no hay
+    ningun commit en este repo que los registre, asi que se publicaron por
+    fuera de este flujo de Git en algun momento entre 2026-09-18 y
+    2026-09-20. Se corrige el estado para reflejar la realidad verificada en
+    Shopify. No se puede recuperar si quedo un faqJsonld pendiente de pegar
+    en el tema -- desconocido, revisar manualmente si el rich snippet de FAQ
+    no aparece en Google.
+    Los otros 3 articulos de este cluster (vinagre-de-manzana-para-adelgazar-
+    evidencia, masticables-vinagre-de-manzana-vs-liquido,
+    vinagre-de-manzana-contraindicaciones-precauciones) tambien existen ya en
+    Shopify con handle identico al handle_propuesto, mismo autor y contenido
+    completo, pero su isPublished sigue en false (a diferencia de estos 2) --
+    por instruccion explicita no se marcan publicado_oculto; quedan en idea
+    con nota de alerta propia. Ver su nota individual.
 - titulo: 'Vinagre de Manzana para Adelgazar: Que Dice la Ciencia'
   cluster: vinagre-manzana
   rol: cluster
@@ -853,6 +922,22 @@ articulos:
   handle_propuesto: vinagre-de-manzana-para-adelgazar-evidencia
   handle_final: null
   article_gid: null
+  nota: >-
+    ALERTA 2026-09-26 (reconciliacion de estado: idea): ya existe en Shopify
+    un articulo con handle IDENTICO a handle_propuesto
+    (vinagre-de-manzana-para-adelgazar-evidencia, gid
+    gid://shopify/Article/614737248572), author Julian E. Zamora, imagen de
+    contexto presente, ~2025 palabras de cuerpo -- es decir, el contenido
+    parece genuinamente completo y escrito por este mismo pipeline. Sin
+    embargo su isPublished es actualmente false (no accesible por URL
+    directa), a diferencia de los otros 2 articulos de este cluster que si
+    quedaron isPublished:true. Por instruccion explicita de Julian, NO se
+    marca "publicado_oculto" cuando isPublished es false: se deja "idea" con
+    esta nota de alerta para que el humano decida (publicar con
+    articleUpdate isPublished:true y pasar a publicado_oculto, o investigar
+    por que quedo oculto) en vez de que el agente redactor lo vuelva a
+    redactar desde cero y probablemente choque con el handle ya existente.
+    No se puede saber si le falta pegar un faqJsonld.
 - titulo: 'Masticables de Vinagre de Manzana vs. Liquido: Ventajas'
   cluster: vinagre-manzana
   rol: cluster
@@ -867,10 +952,19 @@ articulos:
   handle_propuesto: masticables-vinagre-de-manzana-vs-liquido
   handle_final: null
   article_gid: null
+  nota: >-
+    ALERTA 2026-09-26 (reconciliacion de estado: idea): ver nota completa en
+    "Vinagre de Manzana para Adelgazar: Que Dice la Ciencia" (mismo cluster,
+    arriba) -- mismo caso: ya existe en Shopify un articulo con handle
+    IDENTICO a handle_propuesto (masticables-vinagre-de-manzana-vs-liquido,
+    gid gid://shopify/Article/614737215804), author Julian E. Zamora, imagen
+    de contexto presente, ~2071 palabras, pero isPublished es false. No se
+    marca publicado_oculto por instruccion explicita; queda "idea" con esta
+    alerta para decision humana.
 - titulo: 'Vinagre de Manzana y Digestion: Beneficios Reales'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: vinagre de manzana digestion
   keywords_secundarias:
   - vinagre de manzana para la acidez
@@ -879,8 +973,10 @@ articulos:
   - Masticables MintsVing (producto)
   - Linaza y Salud Digestiva (articulo hermano tematico, este calendario)
   handle_propuesto: vinagre-de-manzana-y-digestion-beneficios
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-y-digestion-beneficios
+  article_gid: gid://shopify/Article/614737183036
+  fecha_publicacion_oculta: '2026-09-20'
+  nota: 'RECONCILIACION 2026-09-26: ver nota completa en el pilar de este cluster.'
 - titulo: 'Vinagre de Manzana: Contraindicaciones y Precauciones'
   cluster: vinagre-manzana
   rol: cluster
@@ -895,6 +991,15 @@ articulos:
   handle_propuesto: vinagre-de-manzana-contraindicaciones-precauciones
   handle_final: null
   article_gid: null
+  nota: >-
+    ALERTA 2026-09-26 (reconciliacion de estado: idea): ver nota completa en
+    "Vinagre de Manzana para Adelgazar: Que Dice la Ciencia" (mismo cluster,
+    arriba) -- mismo caso: ya existe en Shopify un articulo con handle
+    IDENTICO a handle_propuesto (vinagre-de-manzana-contraindicaciones-
+    precauciones, gid gid://shopify/Article/614737084732), author Julian E.
+    Zamora, imagen de contexto presente, ~2213 palabras, pero isPublished es
+    false. No se marca publicado_oculto por instruccion explicita; queda
+    "idea" con esta alerta para decision humana.
 - titulo: 'Registro INVIMA para Productos Saludables: Que Revisar Antes de Lanzar'
   cluster: maquila-b2b
   rol: cluster
@@ -915,6 +1020,14 @@ articulos:
     Suplementos en Colombia" (ya publicado): este se enfoca en el tramite de
     registro en si, no en los requisitos generales de maquila. Revisar
     canibalizacion con cuidado en el Paso 2 antes de redactar.
+
+    ALERTA RECONCILIACION 2026-09-26: no hay handle EXACTO igual en Shopify
+    (no califica como "drifted"), pero existe un articulo de tema muy
+    cercano ya publicado bajo handle distinto:
+    registro-invima-productos-saludables-colombia (isPublished:false,
+    author "Asesor Punto Natural", no de este pipeline, gid
+    gid://shopify/Article/614698910012). Revisar antes de redactar para no
+    duplicar contenido.
 - titulo: Como Elegir una Empresa de Maquila de Productos Naturales en Colombia
   cluster: maquila-b2b
   rol: cluster
@@ -936,6 +1049,14 @@ articulos:
     Naturales en Colombia Confiables" (ya publicado) -- revisar
     canibalizacion con cuidado en el Paso 2; puede que convenga ampliar uno
     de esos articulos existentes en vez de crear uno nuevo.
+
+    ALERTA RECONCILIACION 2026-09-26: no hay handle EXACTO igual en Shopify
+    (no califica como "drifted"), pero existe un articulo de tema muy
+    cercano ya publicado bajo handle distinto:
+    empresa-maquila-productos-naturales-colombia (isPublished:true, author
+    "Asesor Punto Natural", no de este pipeline, gid
+    gid://shopify/Article/614698942780). Riesgo de canibalizacion real y
+    alto -- revisar antes de redactar.
 - titulo: Cuanto Cuesta Crear una Marca Propia de Suplementos o Alimentos Saludables
   cluster: maquila-b2b
   rol: cluster
@@ -957,6 +1078,14 @@ articulos:
     este cubre el costo total de crear la marca (branding, empaque, etc.),
     no solo la maquila -- revisar solapamiento en el Paso 2 antes de
     redactar.
+
+    ALERTA RECONCILIACION 2026-09-26: no hay handle EXACTO igual en Shopify
+    (no califica como "drifted"), pero existe un articulo de tema muy
+    cercano ya publicado bajo handle distinto:
+    cuanto-cuesta-marca-propia-suplementos-colombia (isPublished:true,
+    author "Asesor Punto Natural", no de este pipeline, gid
+    gid://shopify/Article/614698975548). Riesgo de canibalizacion real y
+    alto -- revisar antes de redactar.
 - titulo: Errores al Lanzar una Marca de Productos Saludables y Como Evitarlos
   cluster: maquila-b2b
   rol: cluster
@@ -971,7 +1100,15 @@ articulos:
   handle_propuesto: errores-al-lanzar-marca-productos-saludables
   handle_final: null
   article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 043", estado "Pendiente").
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 043", estado
+    "Pendiente"). ALERTA RECONCILIACION 2026-09-26: no hay handle EXACTO
+    igual en Shopify (no califica como "drifted"), pero existe un articulo
+    de tema muy cercano ya publicado bajo handle distinto:
+    errores-lanzar-marca-productos-saludables-colombia (isPublished:true,
+    author "Asesor Punto Natural", no de este pipeline, gid
+    gid://shopify/Article/614699073852). Riesgo de canibalizacion real y
+    alto -- revisar antes de redactar.
 - titulo: 'Para Que Sirve la Clorofila en el Cuerpo Humano: Beneficios y Evidencia'
   cluster: clorofila
   rol: pilar
@@ -992,6 +1129,48 @@ articulos:
     previamente en este calendario ni en el blog publicado. Producto real
     verificado en Shopify: VITALIAH CLOROFILA MENTA 240 ML (handle
     vitaliah-clorofila-menta-240-ml).
+
+    ALERTA RECONCILIACION 2026-09-26 (barrido completo del YAML tras el
+    hallazgo de creatina/proteina-vegana): a diferencia de esos dos
+    clusters, el cluster clorofila NO se reconcilio a publicado_oculto.
+    Se verificaron 7 articulos ya publicados en Shopify sobre clorofila
+    (blog_title:noticias, publishedAt entre 2026-09-01T21:11 y
+    2026-09-01T21:32) que cubren los MISMOS temas que 6 de los 7 articulos
+    "idea" restantes de este cluster, pero TODOS con
+    author "Asesor Punto Natural" (no "Julian E. Zamora") y sin tags -- es
+    decir, NO son output de este pipeline / skill redactor-blog, sino
+    contenido de otro origen (probablemente pre-existente o de otro
+    proceso) que coincide en tema y, en 2 casos, en handle EXACTO:
+      - clorofila-liquida-para-que-sirve: handle EXACTO igual al
+        handle_propuesto de "Clorofila Liquida: Para Que Sirve y Que
+        Esperar Realmente" (este cluster). isPublished:false. gid
+        gid://shopify/Article/614699172156.
+      - clorofila-para-la-mujer: handle EXACTO igual al handle_propuesto de
+        "Clorofila para la Mujer" (este cluster). isPublished:true. gid
+        gid://shopify/Article/614709756220.
+      - Ademas, 4 articulos "idea" de este cluster tienen handle_propuesto
+        MUY similar (no identico) a un articulo ya publicado por "Asesor
+        Punto Natural": clorofila-liquida-o-capsulas-cual-conviene (existe
+        clorofila-liquida-o-capsulas), contraindicaciones-de-la-clorofila
+        (existe contraindicaciones-clorofila),
+        clorofila-para-bajar-de-peso-evidencia (existe
+        clorofila-sirve-para-bajar-de-peso), y
+        mejor-clorofila-liquida-en-colombia-precio (existe
+        mejor-clorofila-liquida-colombia). Y este mismo pilar tiene un
+        articulo de tema identico pero handle distinto:
+        para-que-sirve-la-clorofila-cuerpo-humano (isPublished:false).
+    Como el handle exacto NO coincide en estos 4 + el pilar, no califican
+    como "drifted" segun el criterio estricto de esta reconciliacion
+    (coincidencia EXACTA de handle) y se dejan intactos en "idea". Para los
+    2 que si coinciden en handle exacto, tampoco se marcan publicado_oculto
+    porque el autor no es Julian E. Zamora (no se puede confirmar que sean
+    el articulo de este pipeline) y en un caso isPublished es ademas false.
+    RIESGO A REVISAR: si el agente redactor-blog toma alguno de estos 7
+    "idea" de clorofila, el handle que Shopify genere para el nuevo
+    articulo puede chocar con el ya existente (Shopify le anexara un
+    sufijo, ej. "-1") y el contenido resultante puede solaparse/canibalizar
+    con el articulo de "Asesor Punto Natural" ya publicado y visible. Revisar
+    manualmente antes de redactar clorofila de nuevo.
 - titulo: 'Clorofila Liquida: Para Que Sirve y Que Esperar Realmente'
   cluster: clorofila
   rol: cluster
@@ -1005,7 +1184,12 @@ articulos:
   handle_propuesto: clorofila-liquida-para-que-sirve
   handle_final: null
   article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 045", estado "Pendiente").
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 045", estado
+    "Pendiente"). ALERTA RECONCILIACION 2026-09-26: ver nota completa en el
+    pilar de este cluster -- ya existe en Shopify un articulo con este
+    mismo handle EXACTO (isPublished:false, author "Asesor Punto Natural",
+    no de este pipeline).
 - titulo: 'Como Tomar Clorofila Liquida: Dosis, en Ayunas y Por Cuanto Tiempo'
   cluster: clorofila
   rol: cluster
@@ -1033,7 +1217,12 @@ articulos:
   handle_propuesto: clorofila-para-la-mujer
   handle_final: null
   article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 047", estado "Pendiente").
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 047", estado
+    "Pendiente"). ALERTA RECONCILIACION 2026-09-26: ver nota completa en el
+    pilar de este cluster -- ya existe en Shopify un articulo con este
+    mismo handle EXACTO (isPublished:true, author "Asesor Punto Natural",
+    no de este pipeline, visible en la tienda ahora mismo bajo ese handle).
 - titulo: 'Clorofila Liquida o en Capsulas: Cual Conviene Segun tu Caso'
   cluster: clorofila
   rol: cluster
@@ -1047,7 +1236,13 @@ articulos:
   handle_propuesto: clorofila-liquida-o-capsulas-cual-conviene
   handle_final: null
   article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 048", estado "Pendiente").
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 048", estado
+    "Pendiente"). ALERTA RECONCILIACION 2026-09-26: ver nota completa en el
+    pilar de este cluster -- ya existe en Shopify un articulo de tema
+    identico bajo handle similar pero no identico (clorofila-liquida-o-
+    capsulas, isPublished:true, author "Asesor Punto Natural", no de este
+    pipeline).
 - titulo: 'Contraindicaciones de la Clorofila: Quien No Deberia Tomarla'
   cluster: clorofila
   rol: cluster
@@ -1061,7 +1256,13 @@ articulos:
   handle_propuesto: contraindicaciones-de-la-clorofila
   handle_final: null
   article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 049", estado "Pendiente").
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 049", estado
+    "Pendiente"). ALERTA RECONCILIACION 2026-09-26: ver nota completa en el
+    pilar de este cluster -- ya existe en Shopify un articulo de tema
+    identico bajo handle similar pero no identico
+    (contraindicaciones-clorofila, isPublished:true, author "Asesor Punto
+    Natural", no de este pipeline).
 - titulo: 'Clorofila y Perdida de Peso: Que Dice la Evidencia'
   cluster: clorofila
   rol: cluster
@@ -1075,7 +1276,13 @@ articulos:
   handle_propuesto: clorofila-para-bajar-de-peso-evidencia
   handle_final: null
   article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 050", estado "Pendiente").
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 050", estado
+    "Pendiente"). ALERTA RECONCILIACION 2026-09-26: ver nota completa en el
+    pilar de este cluster -- ya existe en Shopify un articulo de tema
+    identico bajo handle similar pero no identico
+    (clorofila-sirve-para-bajar-de-peso, isPublished:true, author "Asesor
+    Punto Natural", no de este pipeline).
 - titulo: 'Cual es la Mejor Clorofila Liquida en Colombia: Precio y Como Elegir'
   cluster: clorofila
   rol: cluster
@@ -1090,7 +1297,13 @@ articulos:
   handle_propuesto: mejor-clorofila-liquida-en-colombia-precio
   handle_final: null
   article_gid: null
-  nota: Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 051", estado "Pendiente").
+  nota: >-
+    Tomado de VTA_Matriz_de_contenidos_SEO.xlsx (fila "Blog 051", estado
+    "Pendiente"). ALERTA RECONCILIACION 2026-09-26: ver nota completa en el
+    pilar de este cluster -- ya existe en Shopify un articulo de tema
+    identico bajo handle similar pero no identico
+    (mejor-clorofila-liquida-colombia, isPublished:true, author "Asesor
+    Punto Natural", no de este pipeline).
 - titulo: 'Maca Peruana: Beneficios, Para Que Sirve y Como Tomarla'
   cluster: maca
   rol: pilar
