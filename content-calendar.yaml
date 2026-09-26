@@ -666,7 +666,7 @@ articulos:
 - titulo: 'Resveratrol vs. Otros Antioxidantes: Comparativa'
   cluster: resveratrol
   rol: cluster
-  estado: qa_aprobado_pendiente_publicacion
+  estado: publicado_oculto
   palabra_clave: resveratrol vs antioxidantes
   keywords_secundarias:
   - mejores antioxidantes naturales
@@ -677,7 +677,7 @@ articulos:
   handle_propuesto: resveratrol-vs-otros-antioxidantes-comparativa
   handle_final: resveratrol-vs-otros-antioxidantes-comparativa
   article_gid: gid://shopify/Article/614707888444
-  fecha_publicacion_oculta: null
+  fecha_publicacion_oculta: '2026-09-06'
   faq_jsonld_pendiente_de_pegar: drafts/resveratrol-vs-otros-antioxidantes-comparativa.faq.jsonld.html
   nota: >-
     Reescrito por completo el 2026-09-01 siguiendo el skill redactor-blog vigente
@@ -688,13 +688,17 @@ articulos:
     los otros 4 articulos del cluster resveratrol, que ya usaban ese formato; el
     primer borrador uso H3 planos, valido segun la letra de A2.2 pero inconsistente
     con sus hermanos, corregido tras revision del usuario). QA de 20 puntos
-    completo, pasa todos. NO se publico (isPublished
-    sigue false) porque el limite de 1 articulo/dia ya se habia alcanzado hoy
-    (6 articulos con publishedAt entre 2026-08-31T17:05 y 2026-08-31T20:44,
-    dentro de las ultimas 24h desde 2026-09-01T14:48). Queda listo para
-    publicarse (isPublished:true) el proximo dia disponible sin ningun trabajo
-    adicional -- solo falta correr articleUpdate con isPublished:true cuando
-    corresponda y actualizar este estado a publicado_oculto.
+    completo, pasa todos.
+
+    RECONCILIACION 2026-09-26: este YAML seguia diciendo "NO se publico,
+    isPublished sigue false" y estado qa_aprobado_pendiente_publicacion, pero
+    al verificar contra Shopify (a raiz de que Julian pidio publicar uno de
+    los articulos ya listos) resulto que el articulo YA tenia
+    isPublished:true desde 2026-09-06T15:06:31Z -- se publico en algun momento
+    por fuera de este flujo de Git, sin que nadie actualizara el campo
+    'estado' ni hiciera commit. Mismo patron de desincronizacion que el
+    barrido de creatina/proteina-vegana de este mismo dia. Se corrige el
+    estado para reflejar la realidad verificada.
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
@@ -1309,7 +1313,7 @@ articulos:
 - titulo: 'Maca Peruana: Beneficios, Para Que Sirve y Como Tomarla'
   cluster: maca
   rol: pilar
-  estado: qa_aprobado_pendiente_publicacion
+  estado: publicado_oculto
   palabra_clave: maca peruana beneficios
   keywords_secundarias:
   - maca plus para que sirve
@@ -1321,7 +1325,7 @@ articulos:
   handle_propuesto: maca-peruana-beneficios-para-que-sirve
   handle_final: maca-peruana-beneficios-para-que-sirve
   article_gid: gid://shopify/Article/634822983996
-  fecha_publicacion_oculta: null
+  fecha_publicacion_oculta: '2026-09-26'
   faq_jsonld_pendiente_de_pegar: drafts/maca-peruana-beneficios-para-que-sirve.faq.jsonld.html
   nota: >-
     Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#1).
@@ -1351,15 +1355,23 @@ articulos:
     arriesgar un dato mal puesto en una pieza dificil de verificar visualmente.
     Tabla comparativa + guia rapida si se incluyeron (2 de 3 elementos de A2.3).
 
-    Articulo CREADO en Shopify (isPublished:false) pero NO PUBLICADO: al
-    momento de redactar ya habia 1 articulo con publishedAt dentro de las
-    ultimas 24 horas (cuanta-proteina-vegana-necesitas-al-dia, publicado
-    2026-09-25T12:47:50Z), asi que se alcanzo el limite duro de 1/dia. Queda
-    listo para publicarse (isPublished:true via articleUpdate, sin ningun
-    trabajo adicional) el proximo dia disponible -- sugerido 2026-09-27 a las
-    7:00 a.m. Colombia (o desde 2026-09-26 despues de las 07:47 a.m. Colombia,
-    24h exactas desde el ultimo publicado, si Julian prefiere no esperar al
-    dia siguiente).
+    Articulo creado en Shopify (isPublished:false) al momento de redactar
+    porque ya habia 1 articulo con publishedAt dentro de las ultimas 24 horas
+    (cuanta-proteina-vegana-necesitas-al-dia, publicado 2026-09-25T12:47:50Z).
+
+    2026-09-26T16:28:19Z: Julian pidio explicitamente publicar uno de los
+    articulos ya listos ("escoge un blog de los que ya estaban listos y
+    publicalo"). Se reviso el limite de 1/dia de nuevo (ventana movil de 24h
+    desde ahora: sin ningun articulo publicado, el ultimo -cuanta-proteina-
+    vegana- ya habia salido de esa ventana) y se confirmo despejado. Se
+    considero tambien "Resveratrol vs. Otros Antioxidantes: Comparativa"
+    (el otro qa_aprobado_pendiente_publicacion), pero al verificar su estado
+    real en Shopify resulto que YA estaba isPublished:true desde 2026-09-06
+    -otro caso de desincronizacion calendario/Shopify, ver su nota-, asi que
+    se publico este (maca) en su lugar por ser el genuinamente pendiente.
+    articleUpdate con isPublished:true, verificado con query post-publicacion
+    (Paso 6.5): image.url, author.name, body completo (indice, acordeon FAQ,
+    Fuentes, disclaimer, tarjetas de producto) intactos tras la publicacion.
 - titulo: 'Calcio: Para Que Sirve y Como Elegir un Buen Suplemento'
   cluster: calcio
   rol: pilar
