@@ -5,22 +5,24 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-26 (barrido de reconciliacion completo, ver RECONCILIACION
-#   2026-09-26 abajo) -- 52 en "idea" (de 59 antes del barrido):
+#   Ultima actualizacion: 2026-09-26 (corrida del agente redactor tras el barrido de
+#   reconciliacion, ver RECONCILIACION 2026-09-26 abajo) -- 51 en "idea" (de 59 antes del
+#   barrido, 52 justo despues del barrido, -1 por el articulo de maca redactado hoy):
 #     clorofila (8, de los cuales 7 con nota ALERTA por colision total o parcial de handle
 #       con contenido legacy ya publicado -- ver su pilar), vinagre-manzana (3, los 3 con
 #       nota ALERTA: existen en Shopify con handle identico y contenido completo pero
 #       isPublished:false), maquila-b2b (4, con nota ALERTA de posible canibalizacion con
-#       contenido legacy de handle parecido), y 37 clusters nuevos de un solo articulo
-#       (agregados 2026-09-06, sin novedad en este barrido).
+#       contenido legacy de handle parecido), y 36 clusters nuevos de un solo articulo
+#       (agregados 2026-09-06, sin novedad en este barrido; el cluster maca -el primero de
+#       los 37- ya se redacto hoy y salio de "idea").
 #   creatina (5) y proteina-vegana (5) YA NO estan en "idea": se reconciliaron a
 #   publicado_oculto (creatina el 2026-09-26 antes de este barrido; proteina-vegana en este
 #   mismo barrido). vinagre-manzana paso de 5 a 3 en "idea": su pilar y
 #   "...y-digestion-beneficios" tambien se reconciliaron a publicado_oculto en este barrido.
-#   Ademas 1 en "qa_aprobado_pendiente_publicacion": resveratrol-vs-otros-antioxidantes-comparativa
-#   (nota interna del campo dice "qa_fallido" en este comentario legado -- desactualizado,
-#   el campo 'estado' real del articulo es qa_aprobado_pendiente_publicacion; no se toco en
-#   este barrido por estar fuera de alcance, revisar).
+#   Ademas 2 en "qa_aprobado_pendiente_publicacion": resveratrol-vs-otros-antioxidantes-
+#   comparativa (bloqueado por el limite de 1/dia desde 2026-09-01, ver su nota) y
+#   maca-peruana-beneficios-para-que-sirve (redactado y QA aprobado hoy 2026-09-26, tambien
+#   bloqueado por el limite de 1/dia -- ver su nota para la fecha sugerida de publicacion).
 #
 # RECONCILIACION 2026-09-26 (barrido completo tras el hallazgo de desincronizacion en el
 # cluster creatina): se detecto que TODOS los articulos de proteina-vegana (5) y parte de
@@ -1307,7 +1309,7 @@ articulos:
 - titulo: 'Maca Peruana: Beneficios, Para Que Sirve y Como Tomarla'
   cluster: maca
   rol: pilar
-  estado: idea
+  estado: qa_aprobado_pendiente_publicacion
   palabra_clave: maca peruana beneficios
   keywords_secundarias:
   - maca plus para que sirve
@@ -1317,11 +1319,47 @@ articulos:
   - Maka Plus 700 g - Nutrition Factory (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: maca-peruana-beneficios-para-que-sirve
-  handle_final: null
-  article_gid: null
+  handle_final: maca-peruana-beneficios-para-que-sirve
+  article_gid: gid://shopify/Article/634822983996
+  fecha_publicacion_oculta: null
+  faq_jsonld_pendiente_de_pegar: drafts/maca-peruana-beneficios-para-que-sirve.faq.jsonld.html
   nota: >-
     Cluster nuevo, tomado de oportunidades-20-clusters-2026-09-06.md (#1).
     Producto real verificado en Shopify (Nutrition Factory, dos presentaciones).
+
+    2026-09-26: redactado siguiendo el skill vigente (autor Julian E. Zamora,
+    2386 palabras, 10 H2, indice con anclas, tabla comparativa de variedades
+    amarilla/roja/negra + guia rapida de dosis, FAQ en acordeon <details>/
+    <summary> con faqJsonLd guardado aparte, seccion Fuentes con 6 citas reales
+    (Gonzales 2002, Shin 2010, Brooks 2008, Stone 2009, Gonzales 2012,
+    Melnikovova 2021) fuera del cuerpo, disclaimer INVIMA textual, 2 imagenes
+    de contexto generadas en Canva (alternando ilustracion watercolor y
+    fotografia realista, sin texto/cifras/producto/rostro) + 2 imagenes de
+    producto reales en tarjeta A2.4). QA de 20 puntos completo, pasa todos.
+    "Maka Plus 700 g - Nutrition Factory" esta en Shopify pero en estado DRAFT
+    (no tiene pagina publica) -- se enlazo en su lugar "Batido Maka+Plus con
+    Maca + Chontaduro + Borojo - 700 g" (misma linea, real, activo) para
+    cumplir el enlace obligatorio sin inventar una URL.
+
+    Elemento de A2.3 omitido conscientemente: la infografia de Canva. Se
+    intento generar via create-design (generate-design quedo bloqueado por ser
+    legacy con create-design disponible) insertando solo una imagen de
+    referencia con un brief minimo, y fallo dos veces con "internal_error" antes
+    de lograrse con un lienzo en blanco + insert_fill -- ese mismo flujo no es
+    fiable para el contenido de texto verificado celda por celda que exige una
+    infografia real (seccion 6 de imagenes-canva.md), asi que se prefirio no
+    arriesgar un dato mal puesto en una pieza dificil de verificar visualmente.
+    Tabla comparativa + guia rapida si se incluyeron (2 de 3 elementos de A2.3).
+
+    Articulo CREADO en Shopify (isPublished:false) pero NO PUBLICADO: al
+    momento de redactar ya habia 1 articulo con publishedAt dentro de las
+    ultimas 24 horas (cuanta-proteina-vegana-necesitas-al-dia, publicado
+    2026-09-25T12:47:50Z), asi que se alcanzo el limite duro de 1/dia. Queda
+    listo para publicarse (isPublished:true via articleUpdate, sin ningun
+    trabajo adicional) el proximo dia disponible -- sugerido 2026-09-27 a las
+    7:00 a.m. Colombia (o desde 2026-09-26 despues de las 07:47 a.m. Colombia,
+    24h exactas desde el ultimo publicado, si Julian prefiere no esperar al
+    dia siguiente).
 - titulo: 'Calcio: Para Que Sirve y Como Elegir un Buen Suplemento'
   cluster: calcio
   rol: pilar
