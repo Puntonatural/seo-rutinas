@@ -5,12 +5,13 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-28 -- 49 en "idea":
-#     clorofila (7), maquila-b2b (4), vinagre-manzana (2, ver nota de
-#     reconciliacion abajo -- ambas ya tienen contenido redactado en Shopify
-#     sin publicar, revisar antes de redactar de nuevo), y 36 clusters nuevos
-#     de oportunidades-20-clusters-2026-09-06.md / parte-2 (1 cada uno:
-#     maca ya no cuenta aqui -- ver reconciliacion).
+#   Ultima actualizacion: 2026-09-28 (2da corrida del dia) -- 48 en "idea":
+#     clorofila (7), maquila-b2b (4), vinagre-manzana (1, ver nota de
+#     reconciliacion abajo -- vinagre-de-manzana-contraindicaciones-
+#     precauciones ya tiene contenido redactado en Shopify sin publicar,
+#     revisar antes de redactar de nuevo), y 36 clusters nuevos de
+#     oportunidades-20-clusters-2026-09-06.md / parte-2 (1 cada uno: maca ya
+#     no cuenta aqui -- ver reconciliacion).
 #   Ademas 1 en "qa_aprobado_pendiente_publicacion": resveratrol-vs-otros-
 #   antioxidantes-comparativa (QA completo, listo para publicar el proximo
 #   dia disponible -- ver su campo 'nota'; el header decia "qa_fallido"
@@ -32,9 +33,17 @@
 # contraindicaciones-precauciones, cluster vinagre-manzana) y una tercera (clorofila-liquida-
 # para-que-sirve) igual -- las tres tienen su article_gid ya anotado en su entrada y una nota
 # pidiendo verificar el QA de 20 puntos contra el contenido real antes de redactar de nuevo o
-# publicar. El unico articulo nuevo publicado por esta corrida fue vinagre-de-manzana-para-
+# publicar. El primer articulo publicado por esta corrida fue vinagre-de-manzana-para-
 # adelgazar-evidencia (ya existia en Shopify sin publicar con un defecto de QA -- le faltaba
 # la segunda imagen de producto de A6/A2.4 -- se corrigio y se publico el 2026-09-28).
+#
+# SEGUNDA PUBLICACION DEL 2026-09-28 (a pedido explicito de Julian en vivo, "escoge uno de los
+# blogs que ya estan listos y publica"): se publico ademas masticables-vinagre-de-manzana-vs-
+# liquido -- ya existia redactado en Shopify (isPublished:false), paso el checklist de 20 puntos
+# completo sin ninguna correccion, y se publico via articleUpdate. Esto es una EXCEPCION PUNTUAL
+# autorizada al limite de 1 publicacion/dia de la seccion "Cadencia de publicacion" de CLAUDE.md
+# -- no establece un nuevo default, la regla de 1/dia sigue vigente para corridas futuras salvo
+# que Julian vuelva a autorizarlo explicitamente.
 # ACCION FUTURA: si se confirma que otra sesion/automatizacion esta publicando directo contra
 # Shopify, hay que decidir si va a seguir corriendo asi (y en ese caso, sumarle el Paso 7 para
 # que mantenga este YAML sincronizado) o si se debe centralizar todo en esta skill/repo.
@@ -914,7 +923,7 @@ articulos:
 - titulo: 'Masticables de Vinagre de Manzana vs. Liquido: Ventajas'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: vinagre de manzana masticables
   keywords_secundarias:
   - vinagre de manzana en pastillas
@@ -923,19 +932,27 @@ articulos:
   - Masticables MintsVing (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: masticables-vinagre-de-manzana-vs-liquido
-  handle_final: null
+  handle_final: masticables-vinagre-de-manzana-vs-liquido
   article_gid: gid://shopify/Article/614737215804
+  fecha_publicacion_oculta: '2026-09-28'
+  faq_jsonld_pendiente_de_pegar: drafts/masticables-vinagre-de-manzana-vs-liquido.faq.jsonld.html
   nota: >-
-    OJO antes de redactar: ya existe un articulo con este handle en Shopify
-    (isPublished:false, creado por una corrida anterior que nunca completo
-    el Paso 7 -- descubierto en la reconciliacion del 2026-09-28). NO
-    redactar desde cero -- primero traer el body real con este article_gid
-    y correr el checklist de 20 puntos del Paso 5 contra ese contenido
-    existente (igual que se hizo con vinagre-de-manzana-para-adelgazar-
-    evidencia, que solo necesito 1 correccion). Si pasa QA, solo falta
-    articleUpdate con isPublished:true (respetando el limite de 1/dia) y
-    completar este Paso 7. Ver nota general de reconciliacion en el
-    encabezado del archivo.
+    Ya existia redactado en Shopify (isPublished:false, mismo origen de la
+    reconciliacion del 2026-09-28 -- ver nota general en el encabezado del
+    archivo). Verificado contra el checklist de 20 puntos: pasa completo sin
+    correcciones (2071 palabras, 9 H2, 4 imagenes con alt en 2 tarjetas de
+    producto A2.4, 3 enlaces internos obligatorios ya resueltos incluido el
+    pilar, meta 55/149 caracteres, tags con "colombia", FAQ acordeon, 3
+    fuentes, disclaimer INVIMA presente). Incluye tabla comparativa y guia
+    rapida (A2.3); no incluye infografia Canva. Publicado
+    (isPublished:true) el 2026-09-28 a pedido explicito de Julian en vivo,
+    como SEGUNDA publicacion del dia -- excepcion puntual autorizada al
+    limite de 1/dia de la seccion "Cadencia de publicacion" de CLAUDE.md
+    (la primera del dia fue vinagre-de-manzana-para-adelgazar-evidencia).
+    FAQ JSON-LD generado y guardado en drafts/ (no existia) -- pendiente de
+    pegar manualmente en el tema de Shopify. Verificacion post-publicacion
+    (Paso 6.5) confirmada: image.url no nulo, autor correcto, tags
+    correctos.
 - titulo: 'Vinagre de Manzana y Digestion: Beneficios Reales'
   cluster: vinagre-manzana
   rol: cluster
