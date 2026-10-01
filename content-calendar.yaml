@@ -5,11 +5,14 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
-#   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
+#   Ultima actualizacion: 2026-10-01 -- 64 en "idea":
 #     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
-#     maquila-b2b (4)
-#   Ademas 1 en "qa_fallido": resveratrol-vs-otros-antioxidantes-comparativa
-#   (creado en Shopify pero no cumple el estandar vigente -- ver su campo 'nota').
+#     maquila-b2b (4), y 37 clusters nuevos con 1 articulo pilar cada uno (ver
+#     "37 CLUSTERS NUEVOS" abajo; 16 con nota "PRODUCTO NO EXISTE EN CATALOGO").
+#   Estados: 64 idea, 30 publicado, 9 publicado_oculto, 0 qa_fallido.
+#   2026-10-01: publicado (isPublished:true) resveratrol-batido-o-masticables-cual-elegir por
+#   autorizacion explicita de Julian (excepcion al limite de 1/dia); y corregido el estado de
+#   resveratrol-vs-otros-antioxidantes-comparativa (ya publicado desde 2026-09-06).
 #
 # PAUSA DE VISIBILIDAD 2026-08-31 (IMPORTANTE -- lee esto antes de asumir que 'estado' refleja
 # lo que esta visible en Shopify): se detecto que 41 articulos habian quedado con isPublished:true
