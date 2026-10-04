@@ -667,7 +667,8 @@ articulos:
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: canibalizacion_detectada
+  nota: 'Detectado 2026-10-04: ya existe en Shopify (gid 614712279356, publicado 2026-09-04) con este mismo handle. El calendario quedo desactualizado -- los otros 4 articulos del cluster creatina tambien existen publicados. Falta sincronizar estado/handle_final/article_gid.'
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
