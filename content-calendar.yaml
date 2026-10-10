@@ -667,7 +667,7 @@ articulos:
 - titulo: 'Creatina: Para Que Sirve, Beneficios y Como Tomarla'
   cluster: creatina
   rol: pilar
-  estado: idea
+  estado: canibalizacion_detectada
   palabra_clave: creatina para que sirve
   keywords_secundarias:
   - beneficios de la creatina
@@ -676,8 +676,9 @@ articulos:
   - Productos naturales en Colombia (articulo hub, este calendario)
   - Batidos de proteina vs. batidos de frutas (articulo existente)
   handle_propuesto: creatina-para-que-sirve-beneficios-como-tomarla
-  handle_final: null
-  article_gid: null
+  handle_final: creatina-para-que-sirve-beneficios-como-tomarla
+  article_gid: gid://shopify/Article/614712279356
+  nota: 'Detectado 2026-10-10: el articulo YA existe publicado en Shopify con este mismo handle; el calendario estaba desincronizado. Revisar si las demas entradas creatina en idea (mujeres, dosis, rendimiento, mitos) tambien existen ya.'
 - titulo: 'Creatina para Mujeres: Mitos y Evidencia Real'
   cluster: creatina
   rol: cluster
