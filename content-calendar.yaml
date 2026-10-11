@@ -863,7 +863,7 @@ articulos:
 - titulo: 'Vinagre de Manzana: Contraindicaciones y Precauciones'
   cluster: vinagre-manzana
   rol: cluster
-  estado: idea
+  estado: publicado_oculto
   palabra_clave: vinagre de manzana contraindicaciones
   keywords_secundarias:
   - efectos secundarios del vinagre de manzana
@@ -872,8 +872,9 @@ articulos:
   - Masticables MintsVing (producto)
   - Productos naturales en Colombia (articulo hub, este calendario)
   handle_propuesto: vinagre-de-manzana-contraindicaciones-precauciones
-  handle_final: null
-  article_gid: null
+  handle_final: vinagre-de-manzana-contraindicaciones-precauciones
+  article_gid: gid://shopify/Article/614737084732
+  fecha_publicacion_oculta: '2026-10-11'
 - titulo: 'Registro INVIMA para Productos Saludables: Que Revisar Antes de Lanzar'
   cluster: maquila-b2b
   rol: cluster
