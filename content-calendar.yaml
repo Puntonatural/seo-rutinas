@@ -5,6 +5,7 @@
 # INVENTARIO (saldo de articulos en estado "idea", actualizado en cada corrida del agente
 # redactor -- ver .claude/skills/redactor-blog/SKILL.md Paso 8. No es la fuente de verdad, solo un snapshot legible
 # sin tener que contar el YAML a mano; la fuente de verdad siempre es el conteo real de 'articulos').
+#   2026-10-24: yogurt-griego-en-polvo-beneficios-guia republicado (isPublished:true) por autorizacion explicita de Julian (excepcion al limite 1/dia; ya habia 1 publicado ese dia).
 #   Ultima actualizacion: 2026-09-01 -- 27 en "idea":
 #     clorofila (8), creatina (5), proteina-vegana (5), vinagre-manzana (5),
 #     maquila-b2b (4)
@@ -635,7 +636,7 @@ articulos:
 - titulo: 'Resveratrol vs. Otros Antioxidantes: Comparativa'
   cluster: resveratrol
   rol: cluster
-  estado: qa_aprobado_pendiente_publicacion
+  estado: publicado
   palabra_clave: resveratrol vs antioxidantes
   keywords_secundarias:
   - mejores antioxidantes naturales
