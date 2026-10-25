@@ -116,6 +116,8 @@ articulos:
   handle_propuesto: melena-de-leon-capsulas-polvo-masticables
   handle_final: melena-de-leon-capsulas-polvo-masticables
   article_gid: gid://shopify/Article/614688489788
+  fecha_republicacion: '2026-10-25'
+  nota: Republicado (isPublished:true) el 2026-10-25 por instruccion explicita de Julian, saliendose del limite de 1/dia (ya habia 2 publicados el 2026-10-24).
 - titulo: 'Betaglucanos: Que Son y Por Que Importan en un Suplemento'
   cluster: hongos-adaptogenos
   rol: cluster
